@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Room 1: The School Office — Locked In — ScreenPath</title>
+  <style>
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root {
+      --bg:#0a0a0a; --surface:#111111; --surface-2:#1a1a1a; --border:#2a2a2a;
+      --text:#f0f0f0; --text-muted:#8a8a8a;
+      --green:#39d98a; --green-dim:#0d2e1c;
+      --red:#ff4d4d; --red-dim:#2e0d0d;
+      --amber:#f5a623; --amber-dim:#2e1f00;
+      --radius:12px;
+      --font:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      --mono:'SF Mono','Fira Code','Consolas',monospace;
+    }
+    html { scroll-behavior:smooth; }
+    body { background:var(--bg); color:var(--text); font-family:var(--font); font-size:18px; line-height:1.7; min-height:100vh; }
+    .visually-hidden { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+
+    /* Skip link */
+    .skip-link { position:absolute; top:-100px; left:1rem; background:var(--green); color:#000; padding:.75rem 1.5rem; border-radius:var(--radius); font-weight:600; font-size:1rem; text-decoration:none; z-index:9999; transition:top .2s; }
+    .skip-link:focus { top:1rem; }
+
+    /* Header */
+    header[role="banner"] { border-bottom:1px solid var(--border); padding:1.25rem 2rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; position:sticky; top:0; background:rgba(10,10,10,.95); backdrop-filter:blur(12px); z-index:100; }
+    .site-name { font-size:1.1rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--green); text-decoration:none; }
+    .site-series { font-size:.78rem; color:var(--text-muted); letter-spacing:.05em; text-transform:uppercase; }
+    nav[aria-label="Main navigation"] ul { list-style:none; display:flex; gap:2rem; flex-wrap:wrap; }
+    nav[aria-label="Main navigation"] a { color:var(--text-muted); text-decoration:none; font-size:.9rem; letter-spacing:.04em; text-transform:uppercase; transition:color .2s; padding:.25rem 0; border-bottom:2px solid transparent; }
+    nav[aria-label="Main navigation"] a:hover, nav[aria-label="Main navigation"] a:focus { color:var(--green); border-bottom-color:var(--green); outline:none; }
+    nav[aria-label="Main navigation"] a:focus-visible { outline:2px solid var(--green); outline-offset:4px; border-radius:2px; }
+
+    /* Main */
+    main { max-width:860px; margin:0 auto; padding:3rem 2rem 6rem; }
+    .back-link { display:inline-flex; align-items:center; gap:.5rem; color:var(--text-muted); text-decoration:none; font-size:.9rem; letter-spacing:.04em; text-transform:uppercase; margin-bottom:2.5rem; transition:color .2s; }
+    .back-link:hover, .back-link:focus { color:var(--green); }
+    .back-link:focus-visible { outline:2px solid var(--green); outline-offset:4px; border-radius:3px; }
+
+    /* Room header */
+    .room-header { margin-bottom:3rem; padding-bottom:2rem; border-bottom:1px solid var(--border); }
+    .room-meta { display:flex; align-items:center; gap:.75rem; flex-wrap:wrap; margin-bottom:1rem; }
+    .room-badge { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); background:var(--green-dim); border:1px solid rgba(57,217,138,.25); padding:.3rem .85rem; border-radius:100px; }
+    .room-level { font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--text-muted); border:1px solid var(--border); padding:.3rem .85rem; border-radius:100px; }
+    .room-skill-badge { font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--amber); border:1px solid rgba(245,166,35,.3); padding:.3rem .85rem; border-radius:100px; background:var(--amber-dim); }
+    h1 { font-size:clamp(1.8rem,4vw,2.8rem); font-weight:700; letter-spacing:-.02em; line-height:1.15; color:var(--text); }
+
+    /* Sections */
+    .section-eyebrow { font-family:var(--mono); font-size:.72rem; letter-spacing:.15em; text-transform:uppercase; color:var(--green); margin-bottom:.6rem; display:block; }
+    h2 { font-size:1.4rem; font-weight:600; letter-spacing:-.01em; margin-bottom:1.25rem; color:var(--text); }
+    h3 { font-size:1.05rem; font-weight:600; color:var(--text); margin-bottom:.6rem; }
+    .room-section { margin-bottom:3.5rem; padding-bottom:3rem; border-bottom:1px solid var(--border); }
+    .room-section:last-of-type { border-bottom:none; }
+    p { margin-bottom:1rem; }
+    p:last-child { margin-bottom:0; }
+
+    /* Orientation overlay */
+    #orientation-overlay { position:fixed; inset:0; background:rgba(0,0,0,.92); z-index:2000; display:flex; align-items:center; justify-content:center; padding:2rem; }
+    .orientation-box { background:var(--surface); border:1px solid var(--green); border-radius:var(--radius); padding:2.5rem; max-width:560px; width:100%; }
+    .orientation-eyebrow { font-family:var(--mono); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.75rem; }
+    .orientation-box h2 { font-size:1.4rem; margin-bottom:1.25rem; color:var(--green); }
+    .orientation-box p { font-size:.98rem; color:var(--text-muted); margin-bottom:1rem; line-height:1.75; }
+    .orientation-box p:last-of-type { margin-bottom:1.75rem; }
+    .orientation-box strong { color:var(--text); }
+
+    /* Skill focus */
+    .skill-focus { background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--green); border-radius:var(--radius); padding:1.5rem; margin:1.5rem 0; }
+    .skill-focus-label { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.6rem; }
+    .skill-focus p { font-size:.95rem; color:var(--text-muted); margin-bottom:0; line-height:1.75; }
+    .skill-focus strong { color:var(--text); }
+
+    /* Narration */
+    .narration-row { display:flex; align-items:center; gap:1rem; margin:1.5rem 0; flex-wrap:wrap; }
+    .narrate-btn { display:inline-flex; align-items:center; gap:.6rem; background:var(--surface); border:1px solid var(--green); color:var(--green); font-family:var(--font); font-size:.88rem; font-weight:600; padding:.6rem 1.4rem; border-radius:100px; cursor:pointer; transition:background .2s,transform .15s; }
+    .narrate-btn:hover { background:var(--green-dim); transform:translateY(-1px); }
+    .narrate-btn:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:100px; }
+    .narrate-btn.playing { background:var(--green-dim); }
+    .narrate-status { font-family:var(--mono); font-size:.78rem; color:var(--text-muted); }
+
+    /* Target box */
+    .target-box { background:var(--green-dim); border:1px solid rgba(57,217,138,.3); border-radius:var(--radius); padding:1.75rem; margin:1.75rem 0; }
+    .target-box-label { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.9rem; }
+    .target-line { display:flex; align-items:baseline; gap:.75rem; padding:.5rem 0; border-bottom:1px solid rgba(57,217,138,.12); flex-wrap:wrap; }
+    .target-line:last-child { border-bottom:none; padding-bottom:0; }
+    .target-key { color:var(--green); font-family:var(--mono); font-size:.85rem; min-width:140px; flex-shrink:0; }
+    .target-val { color:var(--text); font-weight:600; font-size:.98rem; }
+
+    /* Timer */
+    .timer-area { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin:2rem 0; text-align:center; }
+    .sound-row { display:flex; align-items:center; justify-content:center; gap:.75rem; margin-bottom:.75rem; flex-wrap:wrap; }
+    .sound-note { font-size:.82rem; color:var(--text-muted); font-style:italic; margin-bottom:1.25rem; line-height:1.5; }
+    .sound-label { font-size:.88rem; color:var(--text-muted); font-family:var(--mono); letter-spacing:.04em; }
+    .toggle-btn { display:inline-flex; align-items:center; gap:.5rem; background:var(--surface-2); border:1px solid var(--border); border-radius:100px; color:var(--text-muted); font-family:var(--mono); font-size:.78rem; letter-spacing:.06em; text-transform:uppercase; padding:.45rem 1.1rem; cursor:pointer; transition:border-color .2s,color .2s,background .2s; }
+    .toggle-btn[aria-checked="true"] { border-color:var(--green); color:var(--green); background:var(--green-dim); }
+    .toggle-btn:focus-visible { outline:2px solid var(--green); outline-offset:3px; }
+    .toggle-dot { width:7px; height:7px; border-radius:50%; background:var(--text-muted); transition:background .2s; flex-shrink:0; }
+    .toggle-btn[aria-checked="true"] .toggle-dot { background:var(--green); }
+    .timer-instructions { font-size:.95rem; color:var(--text-muted); margin-bottom:1.5rem; line-height:1.7; }
+    #timer-display { font-family:var(--mono); font-size:3.5rem; font-weight:700; color:var(--green); letter-spacing:.05em; display:block; margin-bottom:1.5rem; line-height:1; transition:color .3s; }
+    #timer-display.warning { color:var(--amber); }
+    #timer-display.critical { color:var(--red); animation:pulse .8s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+
+    /* Buttons */
+    .btn { display:inline-block; font-family:var(--font); font-size:1rem; font-weight:600; padding:.9rem 2.5rem; border-radius:100px; border:none; cursor:pointer; letter-spacing:.02em; transition:transform .15s,box-shadow .15s,background .2s; text-decoration:none; text-align:center; }
+    .btn:focus-visible { outline:3px solid var(--green); outline-offset:4px; }
+    .btn-primary { background:var(--green); color:#000; }
+    .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(57,217,138,.3); }
+    .btn-secondary { background:var(--surface-2); color:var(--text); border:1px solid var(--border); }
+    .btn-secondary:hover { background:var(--surface); transform:translateY(-1px); }
+    .btn-danger { background:var(--red); color:#fff; }
+    .btn-danger:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(255,77,77,.3); }
+    .btn-locked { background:var(--surface-2); color:var(--text-muted); border:1px solid var(--border); cursor:not-allowed; opacity:.5; }
+
+    /* Directory */
+    .directory { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:2.5rem; margin-top:1.5rem; }
+    .directory-locked { filter:blur(5px); pointer-events:none; user-select:none; opacity:.35; transition:filter .5s,opacity .5s; }
+    .directory-header-bar { background:var(--surface-2); border:1px solid var(--border); border-radius:8px; padding:.9rem 1.25rem; margin-bottom:2rem; font-family:var(--mono); font-size:.82rem; color:var(--text-muted); letter-spacing:.03em; }
+    .directory-intro { font-size:.95rem; color:var(--text); line-height:1.8; margin-bottom:2rem; padding:1.25rem; background:var(--surface-2); border:1px solid var(--border); border-left:3px solid var(--green); border-radius:8px; font-style:italic; }
+
+    /* Department blocks */
+    .dept { margin-bottom:2.5rem; padding-bottom:2rem; border-bottom:1px solid var(--border); }
+    .dept:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+    .dept h3 { font-family:var(--mono); font-size:.82rem; letter-spacing:.08em; text-transform:uppercase; color:var(--green); margin-bottom:.35rem; font-weight:600; }
+    .dept-desc { font-size:.85rem; color:var(--text-muted); margin-bottom:1.1rem; font-style:italic; }
+
+    /* Staff table */
+    .staff-table { width:100%; border-collapse:collapse; font-size:.95rem; }
+    .staff-table caption { font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--text-muted); text-align:left; padding-bottom:.75rem; caption-side:top; }
+    .staff-table th { text-align:left; padding:.6rem .75rem; font-size:.8rem; font-weight:600; color:var(--text-muted); font-family:var(--mono); letter-spacing:.06em; text-transform:uppercase; border-bottom:2px solid var(--border); background:var(--surface-2); }
+    .staff-table td { padding:.7rem .75rem; border-bottom:1px solid var(--border); vertical-align:top; }
+    .staff-table tr:last-child td { border-bottom:none; }
+    .staff-table tr:hover td { background:rgba(57,217,138,.04); }
+    .staff-name { font-weight:600; color:var(--text); }
+    .staff-title { color:var(--text-muted); font-size:.9rem; }
+    .staff-code { font-family:var(--mono); font-size:.88rem; color:var(--amber); font-weight:600; letter-spacing:.04em; }
+
+    /* Bridge message */
+    .bridge-msg { background:var(--green-dim); border:1px solid rgba(57,217,138,.3); border-radius:var(--radius); padding:1.5rem; margin-top:1.5rem; display:none; }
+    .bridge-msg.visible { display:block; }
+    .bridge-msg-label { font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.5rem; }
+    .bridge-msg p { font-size:.95rem; color:var(--text); line-height:1.7; margin-bottom:0; font-style:italic; }
+
+    /* Answer sections */
+    .answer-section { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-top:1.5rem; display:none; }
+    .answer-section.visible { display:block; animation:fadeUp .3s ease; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+    .answer-label { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.5rem; }
+    .answer-intro { font-size:.92rem; color:var(--text-muted); margin-bottom:1.5rem; line-height:1.6; }
+    .form-group { margin-bottom:1.5rem; }
+    .form-group:last-child { margin-bottom:0; }
+    label { display:block; font-size:.92rem; font-weight:600; color:var(--text); margin-bottom:.5rem; }
+    .field-hint { display:block; font-size:.82rem; color:var(--text-muted); margin-bottom:.65rem; line-height:1.5; }
+    input[type="text"] { width:100%; background:var(--surface-2); border:1px solid var(--border); border-radius:8px; color:var(--text); font-family:var(--font); font-size:1rem; padding:.85rem 1rem; transition:border-color .2s,box-shadow .2s; }
+    input[type="text"]:focus { outline:none; border-color:var(--green); box-shadow:0 0 0 3px rgba(57,217,138,.15); }
+    input[type="text"].error { border-color:var(--red); }
+    .radio-group { display:flex; flex-direction:column; gap:.6rem; margin-top:.25rem; }
+    .radio-option { display:flex; align-items:center; gap:.75rem; cursor:pointer; font-size:.95rem; color:var(--text-muted); padding:.65rem 1rem; border:1px solid var(--border); border-radius:8px; transition:border-color .2s,color .2s; }
+    .radio-option:hover { border-color:var(--green); color:var(--text); }
+    .radio-option input[type="radio"] { width:18px; height:18px; accent-color:var(--green); flex-shrink:0; }
+    .radio-option input[type="radio"]:focus-visible { outline:2px solid var(--green); outline-offset:2px; }
+    textarea { width:100%; background:var(--surface-2); border:1px solid var(--border); border-radius:8px; color:var(--text); font-family:var(--font); font-size:1rem; padding:.85rem 1rem; resize:vertical; min-height:90px; line-height:1.6; transition:border-color .2s,box-shadow .2s; }
+    textarea:focus { outline:none; border-color:var(--green); box-shadow:0 0 0 3px rgba(57,217,138,.15); }
+    .form-status { display:none; padding:1rem 1.25rem; border-radius:8px; font-size:.95rem; margin-top:1rem; line-height:1.6; }
+    .form-status.error { background:var(--red-dim); border:1px solid rgba(255,77,77,.3); color:var(--red); display:block; }
+    .form-status.success { background:var(--green-dim); border:1px solid rgba(57,217,138,.3); color:var(--green); display:block; }
+    .section-divider { border:none; border-top:1px solid var(--border); margin:1.5rem 0; }
+
+    /* Next room box */
+    .next-room-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-top:1.5rem; display:none; text-align:center; }
+    .next-room-box.visible { display:block; animation:fadeUp .4s ease; }
+    .next-room-label { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.5rem; }
+    .next-room-box h3 { color:var(--green); margin-bottom:.5rem; font-size:1.1rem; }
+    .next-room-box p { font-size:.9rem; color:var(--text-muted); margin-bottom:1.5rem; }
+
+    /* Debrief */
+    .debrief-note { background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--green); border-radius:var(--radius); padding:1.5rem; margin-bottom:2rem; font-size:.95rem; color:var(--text-muted); line-height:1.7; }
+    .debrief-note strong { color:var(--text); }
+    .strategy-tip { background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius); padding:1.5rem; margin-bottom:2rem; }
+    .strategy-tip-label { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--amber); display:block; margin-bottom:.5rem; }
+    .strategy-tip p { font-size:.95rem; color:var(--text-muted); margin-bottom:0; line-height:1.7; }
+    .debrief-locked-notice { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:1.5rem; color:var(--text-muted); font-size:.9rem; text-align:center; font-family:var(--mono); letter-spacing:.04em; margin-bottom:1.5rem; }
+    .debrief-content-locked { opacity:.35; pointer-events:none; filter:blur(3px); transition:opacity .5s,filter .5s; }
+
+    /* Overlays */
+    .overlay { display:none; position:fixed; inset:0; z-index:1000; align-items:center; justify-content:center; flex-direction:column; text-align:center; padding:2rem; }
+    .overlay.active { display:flex; }
+    #fail-overlay { background:rgba(8,0,0,.97); animation:failIn .35s ease-out; }
+    @keyframes failIn { from{opacity:0;transform:scale(1.04)} to{opacity:1;transform:scale(1)} }
+    .fail-scanlines { position:absolute; inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,0,0,.04) 2px,rgba(255,0,0,.04) 4px); pointer-events:none; }
+    .fail-sparks { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+    .spark { position:absolute; width:3px; height:3px; border-radius:50%; animation:sparkFly 1s ease-out forwards; }
+    @keyframes sparkFly { 0%{transform:translate(0,0) scale(1);opacity:1} 100%{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0} }
+    .fail-glitch { font-family:var(--mono); font-size:clamp(2rem,8vw,4rem); font-weight:900; color:var(--red); letter-spacing:.05em; text-transform:uppercase; animation:glitch .25s infinite; margin-bottom:1rem; }
+    @keyframes glitch {
+      0%  {text-shadow:2px 0 #ff0000,-2px 0 #00ffff;transform:translate(0,0);}
+      25% {text-shadow:-2px 0 #ff0000,2px 0 #ff00ff;transform:translate(-2px,1px);}
+      50% {text-shadow:2px 0 #ff00ff,-2px 0 #ff0000;transform:translate(2px,-1px);}
+      75% {text-shadow:-2px 0 #00ffff,2px 0 #ff0000;transform:translate(0,0);}
+      100%{text-shadow:2px 0 #ff0000,-2px 0 #ff00ff;transform:translate(1px,1px);}
+    }
+    .fail-title { font-size:1.3rem; font-weight:700; color:var(--text); margin-bottom:.75rem; }
+    .fail-message { font-size:1rem; color:var(--text-muted); margin-bottom:.5rem; max-width:480px; line-height:1.7; }
+    .fail-sub { font-family:var(--mono); font-size:.8rem; color:var(--red); margin-bottom:2rem; letter-spacing:.06em; }
+    .fail-buttons { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
+    #success-overlay { background:rgba(0,8,4,.97); animation:successIn .45s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes successIn { from{opacity:0;transform:scale(.92)} to{opacity:1;transform:scale(1)} }
+    .success-particles { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+    .particle { position:absolute; width:6px; height:6px; border-radius:50%; animation:particleFly 1.3s ease-out forwards; }
+    @keyframes particleFly { 0%{transform:translate(0,0) scale(1);opacity:1} 100%{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0} }
+    .success-icon { font-size:3.5rem; margin-bottom:.75rem; animation:successPop .5s cubic-bezier(.34,1.56,.64,1) .15s both; }
+    @keyframes successPop { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
+    .success-title { font-size:clamp(1.8rem,5vw,3rem); font-weight:700; color:var(--green); letter-spacing:-.02em; margin-bottom:.5rem; animation:fadeUp .4s ease .25s both; }
+    .success-sub { font-family:var(--mono); font-size:.8rem; color:var(--green); letter-spacing:.1em; text-transform:uppercase; margin-bottom:.75rem; animation:fadeUp .4s ease .35s both; }
+    .success-time { font-family:var(--mono); font-size:1.05rem; color:var(--text); background:var(--green-dim); border:1px solid rgba(57,217,138,.3); border-radius:100px; padding:.5rem 1.5rem; margin-bottom:1.25rem; animation:fadeUp .4s ease .4s both; display:inline-block; }
+    .success-message { font-size:.95rem; color:var(--text-muted); max-width:420px; margin-bottom:2rem; animation:fadeUp .4s ease .45s both; line-height:1.7; }
+
+    /* Footer */
+    footer[role="contentinfo"] { border-top:1px solid var(--border); padding:2.5rem 2rem; color:var(--text-muted); font-size:.85rem; }
+    .footer-inner { max-width:860px; margin:0 auto; display:flex; flex-direction:column; gap:.5rem; }
+    .footer-platform { font-weight:600; color:var(--text-muted); }
+    .footer-a11y { font-size:.8rem; color:var(--text-muted); line-height:1.6; }
+
+    @media (max-width:768px) {
+      header[role="banner"] { padding:1rem 1.25rem; flex-direction:column; align-items:flex-start; }
+      main { padding:2rem 1.25rem 4rem; }
+      .directory { padding:1.5rem; }
+      #timer-display { font-size:2.5rem; }
+      .staff-table th, .staff-table td { padding:.5rem; font-size:.85rem; }
+    }
+    a:focus-visible, button:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:3px; }
+    /* ── Results overlay ── */
+    #results-overlay { display:none; position:fixed; inset:0; z-index:2000; background:rgba(0,8,4,.97); align-items:center; justify-content:center; flex-direction:column; padding:2rem; }
+    #results-overlay.active { display:flex; animation:resIn .45s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes resIn { from{opacity:0;transform:scale(.93)} to{opacity:1;transform:scale(1)} }
+    .res-particles { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+    .res-particle { position:absolute; width:6px; height:6px; border-radius:50%; animation:resPFly 1.3s ease-out forwards; }
+    @keyframes resPFly { 0%{transform:translate(0,0) scale(1);opacity:1} 100%{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0} }
+    .res-inner { position:relative; z-index:1; max-width:480px; width:100%; display:flex; flex-direction:column; align-items:center; text-align:center; }
+    .res-label { font-family:var(--mono); font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; color:var(--green); margin-bottom:1.25rem; animation:fadeUp .4s ease .1s both; }
+    .res-room-name { font-size:clamp(1.8rem,5vw,2.8rem); font-weight:800; color:#fff; letter-spacing:-.03em; line-height:1.05; margin-bottom:.35rem; animation:fadeUp .4s ease .2s both; }
+    .res-room-sub { font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.35); margin-bottom:2.5rem; animation:fadeUp .4s ease .25s both; }
+    .res-stats { width:100%; display:flex; flex-direction:column; gap:0; margin-bottom:1.5rem; animation:fadeUp .4s ease .3s both; }
+    .res-row { display:flex; align-items:baseline; justify-content:space-between; padding:.85rem 0; border-bottom:1px solid rgba(255,255,255,.08); }
+    .res-row:last-child { border-bottom:none; }
+    .res-key { font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.4); }
+    .res-val { font-family:var(--mono); font-size:.98rem; font-weight:700; color:#fff; }
+    .res-val.green { color:var(--green); }
+    .res-pct-line { font-family:var(--mono); font-size:.7rem; color:rgba(255,255,255,.28); margin-bottom:1.75rem; animation:fadeUp .4s ease .38s both; }
+    .res-divider { width:100%; border:none; border-top:1px solid rgba(255,255,255,.08); margin-bottom:1.75rem; animation:fadeUp .4s ease .4s both; }
+    .res-btns { display:flex; gap:.75rem; flex-wrap:wrap; justify-content:center; width:100%; animation:fadeUp .4s ease .45s both; }
+    .res-btn { font-family:var(--font); font-size:.88rem; font-weight:600; padding:.75rem 1.5rem; border-radius:100px; border:none; cursor:pointer; letter-spacing:.01em; transition:transform .2s,box-shadow .2s; }
+    .res-btn:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:100px; }
+    .res-btn-email { background:var(--green); color:#000; }
+    .res-btn-email:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(57,217,138,.4); }
+    .res-btn-copy { background:rgba(255,255,255,.1); color:#fff; border:1px solid rgba(255,255,255,.2); }
+    .res-btn-copy:hover { background:rgba(255,255,255,.18); }
+    .res-btn-skip { background:none; color:rgba(255,255,255,.35); border:1px solid rgba(255,255,255,.1); }
+    .res-btn-skip:hover { color:rgba(255,255,255,.6); }
+    @media (max-width:480px) { .res-btns { flex-direction:column; } .res-btn { width:100%; text-align:center; } }
+
+  </style>
+<link rel="stylesheet" href="screenpath.css"></head>
+<body data-room="1">
+  <!-- Screen reader question overlay — appears once on first load -->
+  
+
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- Orientation overlay — Room 1 only, first visit only -->
+  
+
+  <!-- Fail Overlay -->
+  <dialog id="fail-overlay" class="sp-dialog" aria-labelledby="fail-heading" aria-describedby="fail-desc">
+    
+    
+    
+    <h2 id="fail-heading" class="fail-title" tabindex="-1">Time is up — keep practicing</h2>
+    <p id="fail-desc" class="fail-message">You can keep your work and continue without a deadline, or restart this room for another challenge.</p>
+    
+    <div class="fail-buttons"><button type="button" class="sp-button primary" id="continue-practice">Keep my work — continue in practice</button><button type="button" class="sp-button" id="retry-btn" onclick="retryRoom(false)">Restart — same task</button><button type="button" class="sp-button" onclick="retryRoom(true)">Restart — new task</button><a class="sp-button" href="index.html">Return to activities</a></div>
+  </dialog>
+
+
+  <!-- Results overlay -->
+  <dialog id="results-overlay" class="sp-dialog" aria-labelledby="res-heading">
+    
+    <div class="res-inner">
+      <p class="res-label" aria-hidden="true">Room Complete</p>
+      <h2 class="res-room-name" id="res-heading" tabindex="-1"></h2>
+      <p class="res-room-sub" id="res-room-sub"></p>
+      <div class="res-stats" role="list" aria-label="Your results">
+        <div class="res-row" role="listitem"><span class="res-key">Time Used</span><span class="res-val green" id="res-time-used"></span></div>
+        <div class="res-row" role="listitem"><span class="res-key">Time Remaining</span><span class="res-val" id="res-time-left"></span></div>
+        <div class="res-row" role="listitem"><span class="res-key">Attempts</span><span class="res-val" id="res-attempts"></span></div>
+        <div class="res-row" role="listitem"><span class="res-key">Skill</span><span class="res-val" id="res-skill"></span></div>
+        <div class="res-row" role="listitem"><span class="res-key" id="res-skill-label"></span><span class="res-val" id="res-skill-value"></span></div>
+      </div>
+      <p class="res-pct-line" id="res-pct"></p>
+      <hr class="res-divider" aria-hidden="true">
+      <div class="res-btns">
+        <button type="button" class="res-btn res-btn-email" id="res-email-btn" aria-label="Email results to your teacher" data-email-results="">Email Results</button>
+        <button type="button" class="res-btn res-btn-copy" id="res-copy-btn" aria-label="Copy results to clipboard" data-copy-results="">Copy Results</button>
+        <button type="button" class="res-btn res-btn-skip" id="res-skip-btn" aria-label="Continue to room completion and optional reflection">Continue</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Header -->
+  <nav role="navigation" aria-label="Main navigation"><div class="nav-inner"><a class="sp-wordmark" href="index.html" aria-label="ScreenPath home">Screen<span>Path</span></a><ul class="nav-links"><li><a href="index.html">Activities</a></li><li><a href="progress.html">My Progress</a></li><li><a href="teachers.html">For Teachers</a></li><li><a href="about.html">About</a></li><li><a href="feedback.html">Feedback</a></li></ul><button id="menu-btn" class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu" onclick="toggleMenu()">☰</button></div><div class="nav-drawer" id="nav-drawer" hidden=""><a href="index.html">Activities</a><a href="progress.html">My Progress</a><a href="teachers.html">For Teachers</a><a href="about.html">About</a><a href="feedback.html">Feedback</a></div></nav>
+
+  <main id="main-content" tabindex="-1"><noscript>&lt;p class="sp-note"&gt;JavaScript is needed for the activities and saved progress. Please enable it, or contact screenpathedu@gmail.com for help.&lt;/p&gt;</noscript><details class="sp-help"><summary>Before you begin</summary><p>Use your screen reader to find the information in each room, then submit your answer. You should already know basic heading, link, table and form navigation. Practice has no deadline; Challenge lets you choose a time allowance.</p><p>The task becomes available when you select Start. Completing it saves your result and unlocks the next step. An unfinished task starts over if you leave or reload the page.</p><p><a href="teachers.html">Read the teacher guide and screen-reader testing notes</a></p></details>
+
+    <a href="index.html" class="back-link" aria-label="Back to all rooms">← All Rooms</a>
+
+    <div class="room-header">
+      <div class="room-meta">
+        <span class="room-badge">Room 1 of 3 — Locked In</span>
+      </div>
+      <h1 tabindex="-1">The School Office</h1>
+    </div>
+
+
+    <!-- Classroom image — accessible with descriptive alt text -->
+    <figure aria-label="Classroom image" style="margin-bottom:2.5rem;">
+      <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=860&amp;q=80" alt="An empty middle school classroom photographed at dusk. Rows of student desks sit in dim light. A whiteboard at the front still has equations written on it from the last class of the day. The hallway visible through the door window is completely dark." style="width:100%;border-radius:12px;display:block;max-height:420px;object-fit:cover;" loading="lazy">
+      <figcaption style="font-size:.82rem;color:var(--text-muted);margin-top:.6rem;font-family:var(--mono);letter-spacing:.03em;">
+        Westlake Middle School — Room 14 — 4:47 PM
+      </figcaption>
+    </figure>
+
+    <!-- Section 1: Situation -->
+    <section class="room-section">
+      <h2 id="situation-heading" tabindex="-1">Where You Are</h2>
+
+      <p class="sp-note">This is a fictional practice activity. No real emergency message is sent.</p><p id="scene-p1">You stayed after school to study for tomorrow's math exam in Mr. Okafor's classroom. He unlocked it for you before he left and told you to be out by four thirty.</p>
+      <p id="scene-p2">You got absorbed in your notes and lost track of time. When you finally looked up the hallway was dark and silent. You packed your bag and walked to the front door. Locked. You tried the side exit. Also locked. You reached for your phone. Dead.</p>
+      <p id="scene-p3">The automatic locks engaged while you were still inside and nobody knows you are here. You are standing in the empty hallway of Westlake Middle School at 4:47 in the afternoon and you need to find a way out.</p>
+
+      <div class="narration-row">
+        <button class="narrate-btn" id="narrate-btn" onclick="toggleNarration()" aria-pressed="false" aria-label="Play — hear the situation read aloud">
+          <span id="narrate-icon" aria-hidden="true">▶</span>
+          <span id="narrate-label">Play Scene</span>
+        </button>
+        <span class="narrate-status" id="narrate-status" role="status" aria-live="polite" aria-atomic="true"></span>
+      </div>
+    </section>
+
+    <!-- Section 2: The Directory -->
+    <section class="room-section" id="directory-section">
+      <h2 id="directory-heading" tabindex="-1">The School Office Directory</h2>
+
+      <!-- Target box -->
+      <div class="target-box" role="region" aria-labelledby="target-heading">
+        <span class="target-box-label" aria-hidden="true">// Who You Are Looking For</span>
+        <h3 id="target-heading" tabindex="-1">Your Target</h3>
+        <div class="target-line"><span class="target-key">Department —</span><span class="target-val" id="target-dept">Loading...</span></div>
+        <div class="target-line"><span class="target-key">Title —</span><span class="target-val" id="target-title">Loading...</span></div>
+        <div class="target-line"><span class="target-key">Find —</span><span class="target-val">Their full name and emergency exit access code</span></div>
+      </div>
+
+      <!-- Timer -->
+      <div class="timer-area" role="region" aria-label="Room timer and sound controls">
+        <div class="sound-row">
+          <span class="sound-label" id="sound-label">Sound effects:</span>
+          <button class="toggle-btn" id="sound-toggle" role="switch" aria-checked="true" aria-labelledby="sound-label" onclick="toggleSound()">
+            <span class="toggle-dot" aria-hidden="true"></span>
+            <span id="sound-text">On</span>
+          </button>
+        </div>
+        <p class="sound-note">Sound effects are optional. Turn them on or off at any time. Scene narration plays only when you select Play Scene.</p>
+        <div class="sp-settings" aria-labelledby="settings-heading"><h3 id="settings-heading">Choose how to practice</h3><div class="setting"><label for="practice-mode">Activity mode</label><select id="practice-mode"><option value="practice">Practice — no deadline</option><option value="challenge">Challenge — timed</option></select></div><div class="setting" id="time-setting" hidden=""><label for="time-minutes">Time allowance in minutes</label><input id="time-minutes" type="number" min="1" max="60" step="1" value="4" required="" aria-describedby="time-help"><p id="time-help">Choose 1–60 minutes before starting. Your teacher can help select an allowance.</p></div><div class="setting"><label for="screen-reader">Screen reader (optional)</label><select id="screen-reader"><option>Prefer not to say</option><option>JAWS</option><option>NVDA</option><option>VoiceOver</option><option>Narrator</option><option>ChromeVox</option><option>TalkBack</option><option>Dolphin</option></select></div><p>Settings stay in this browser. Practice still records your time and attempts, but never times out.</p></div><p class="timer-instructions" id="timer-instructions">Review your task above, choose your mode, then start when you are ready.</p><div class="sp-actions"><button type="button" id="switch-practice" class="sp-button" hidden="">Switch to practice — remove deadline</button><button type="button" id="retry-inline" class="sp-button" hidden="">Choose how to continue</button></div>
+        <span id="timer-display" aria-live="off" aria-label="Time remaining: 4 minutes 0 seconds">4:00</span>
+        <div>
+          <button class="btn btn-primary" id="start-btn" onclick="startTimer()">
+            Start — Enter the Office
+          </button>
+        </div>
+      </div>
+
+      <!-- Directory content -->
+      <div id="directory-content" class="directory directory-locked" hidden="">
+
+        <div class="directory-header-bar" aria-hidden="true">// WESTLAKE MIDDLE SCHOOL — STAFF DIRECTORY — EMERGENCY ACCESS CODES</div>
+
+        <p class="directory-intro">You are reading the official staff directory. Each department is listed under its own section heading. Navigate by heading to find the right department, then read the table to find the staff member matching your target. Their emergency exit access code is in the third column.</p>
+
+        <!-- Administration -->
+        <div class="dept">
+          <h3 tabindex="-1">Administration</h3>
+          <p class="dept-desc">Manages school-wide operations, scheduling, and emergency procedures.</p>
+          <table class="staff-table" aria-label="Administration department staff">
+            <caption>Administration Staff</caption>
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Title</th>
+                <th scope="col">Access Code</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="staff-name">Patricia Mendez</td><td class="staff-title">Principal</td><td class="staff-code">A-1147</td></tr>
+              <tr><td class="staff-name">Gerald Huang</td><td class="staff-title">Assistant Principal</td><td class="staff-code">A-2253</td></tr>
+              <tr><td class="staff-name">Vanessa Okoye</td><td class="staff-title">Office Manager</td><td class="staff-code">A-3389</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Student Services -->
+        <div class="dept">
+          <h3 tabindex="-1">Student Services</h3>
+          <p class="dept-desc">Supports student wellbeing, counseling, and academic guidance.</p>
+          <table class="staff-table" aria-label="Student Services department staff">
+            <caption>Student Services Staff</caption>
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Title</th>
+                <th scope="col">Access Code</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="staff-name">Tomás Rivera</td><td class="staff-title">Head Counselor</td><td class="staff-code">S-4412</td></tr>
+              <tr><td class="staff-name">Amelia Thornton</td><td class="staff-title">School Psychologist</td><td class="staff-code">S-5538</td></tr>
+              <tr><td class="staff-name">Kwesi Boateng</td><td class="staff-title">Attendance Coordinator</td><td class="staff-code">S-6671</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Facilities -->
+        <div class="dept">
+          <h3 tabindex="-1">Facilities</h3>
+          <p class="dept-desc">Maintains the building, equipment, and all physical operations of the school.</p>
+          <table class="staff-table" aria-label="Facilities department staff">
+            <caption>Facilities Staff</caption>
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Title</th>
+                <th scope="col">Access Code</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="staff-name">Darnell Washington</td><td class="staff-title">Head Custodian</td><td class="staff-code">F-7724</td></tr>
+              <tr><td class="staff-name">Ingrid Carlsson</td><td class="staff-title">Maintenance Supervisor</td><td class="staff-code">F-8856</td></tr>
+              <tr><td class="staff-name">Roderick Pham</td><td class="staff-title">Grounds Coordinator</td><td class="staff-code">F-9903</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Security -->
+        <div class="dept">
+          <h3 tabindex="-1">Security</h3>
+          <p class="dept-desc">Handles building access, safety protocols, and emergency response coordination.</p>
+          <table class="staff-table" aria-label="Security department staff">
+            <caption>Security Staff</caption>
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Title</th>
+                <th scope="col">Access Code</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="staff-name">Marcus Bell</td><td class="staff-title">Security Director</td><td class="staff-code">SC-1023</td></tr>
+              <tr><td class="staff-name">Yolanda Ferreira</td><td class="staff-title">Safety Coordinator</td><td class="staff-code">SC-2149</td></tr>
+              <tr><td class="staff-name">Nathaniel Cross</td><td class="staff-title">Campus Monitor</td><td class="staff-code">SC-3267</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- Answer Section A -->
+      <div class="answer-section" id="answer-section-1" aria-labelledby="answer1-heading">
+        <span class="answer-label">Section A — Submit Your Answer</span>
+        <h3 id="answer1-heading" tabindex="-1">What Did You Find?</h3>
+        <p class="answer-intro">Found your target? Enter their name and access code below. Check your answer before submitting.</p>
+        <form id="answer-form-1" novalidate="">
+          <div class="form-group">
+            <label for="staff-name">Staff Member Name <span aria-hidden="true" style="color:var(--red)">*</span></label>
+            <span class="field-hint" id="hint-name">Enter the full name of the person who matches your target title.</span>
+            <input type="text" id="staff-name" name="staff_name" required="" aria-required="true" aria-describedby="hint-name" placeholder="First and last name" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="access-code">Emergency Exit Access Code <span aria-hidden="true" style="color:var(--red)">*</span></label>
+            <span class="field-hint" id="hint-code">Enter the access code listed next to that person's name in the directory.</span>
+            <input type="text" id="access-code" name="access_code" required="" aria-required="true" aria-describedby="hint-code" placeholder="Access code" autocomplete="off">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit Answer</button>
+          <div id="form-status-1" class="form-status" role="alert" aria-live="assertive"></div>
+        </form>
+      </div>
+
+      <!-- Bridge message -->
+      <div class="bridge-msg" id="bridge-msg" role="note" aria-live="polite">
+        <span class="bridge-msg-label">// Corridor Keypad — System Message</span>
+        <p>"Access code accepted. Corridor unlocked. The main exit also requires a terminal access code. Proceed to the library. Ms. Rivera, the school librarian, has hidden the code among her display books. Read her note on the circulation desk to begin your search."</p>
+      </div>
+
+      <!-- Answer Section B: Debrief -->
+      
+
+      <!-- Next room box — locked until debrief submitted -->
+      <div class="next-room-box" id="next-room-box" aria-labelledby="next-room-heading">
+        <span class="next-room-label">// Room 1 Complete</span>
+        <h3 id="next-room-heading" tabindex="-1">Room 2 is Now Unlocked</h3>
+        <p>You have the access code and the corridor is open. The library is your next stop. Follow Ms. Rivera's book trail to find the terminal access code.</p>
+        <a href="mission-1b.html" class="btn btn-primary" aria-label="Enter Room 2 — The Library">Enter Room 2 — The Library</a>
+      </div><section id="reflection-section" class="sp-reflection" hidden="" aria-labelledby="reflection-heading"><h2 id="reflection-heading">Optional reflection</h2><p>Your room is already complete. Add a reflection if it helps you or your teacher. Use fictional information in activities and avoid personal details in notes.</p><form id="reflection-form"><label for="reflection-strategy">What strategy helped you?</label><select id="reflection-strategy"><option value="">Choose a strategy (optional)</option><option>Jumped directly to the department heading</option><option>Moved through headings one at a time</option><option>Read from the beginning</option><option>Used screen reader search</option></select><label for="reflection-confidence">How confident do you feel?</label><select id="reflection-confidence"><option value="">Choose a rating (optional)</option><option>Not confident yet</option><option>Somewhat confident</option><option>Very confident</option></select><label for="reflection-assistance">What help did you use?</label><select id="reflection-assistance"><option value="">Choose an answer (optional)</option><option>No assistance</option><option>A reminder or hint</option><option>Help with part of the task</option><option>Guidance throughout</option></select><label for="reflection-notes">Notes (optional)</label><textarea id="reflection-notes" maxlength="2000"></textarea><div class="sp-actions"><button type="submit" class="sp-button primary">Save reflection</button></div><p id="reflection-status" role="status"></p></form><div class="sp-actions"><button type="button" class="sp-button" data-email-results="">Email Results</button><button type="button" class="sp-button" data-copy-results="">Copy Results</button></div><p>Results are only shared when you copy them or choose to send an email.</p></section>
+
+    </section>
+
+  </main>
+
+  <footer><div class="sp-footer"><p><strong>ScreenPath</strong> — Free screen-reader practice.</p><p>Built by Moises Betancourt for screen reader learners everywhere.</p><div class="sp-actions"><a href="teachers.html">Teacher guide</a><a href="feedback.html">Feedback and accessibility help</a><a href="about.html#privacy">How your results are saved</a></div></div></footer>
+
+  
+
+
+
+<script src="screenpath.js"></script><script src="school-data.js"></script><script src="school.js"></script></body></html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback — ScreenPath</title>
+  
+  <style>
+    :root {
+      --bg:#080808; --surface:#111111; --surface-2:#1c1c1c; --border:#2a2a2a;
+      --text:#f0f0f0; --text-muted:#888888; --text-dim:#444444;
+      --green:#39d98a;
+      --nav-bg:rgba(8,8,8,0.94);
+      --radius:14px;
+      --font:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      --mono:'SF Mono','Fira Code','Consolas',monospace;
+      --ease:0.24s cubic-bezier(.4,0,.2,1);
+    }
+    html.light {
+      --bg:#f5f5f7; --surface:#ffffff; --surface-2:#ebebed; --border:#d2d2d4;
+      --text:#1d1d1f; --text-muted:#6e6e73; --text-dim:#b0b0b5;
+      --nav-bg:rgba(245,245,247,0.94);
+    }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--bg); color:var(--text); font-family:var(--font); font-size:18px; line-height:1.7; min-height:100vh; transition:background var(--ease),color var(--ease); }
+
+    .skip-link { position:absolute; top:-120px; left:1rem; background:var(--green); color:#000; padding:.75rem 1.5rem; border-radius:100px; font-weight:700; font-size:.95rem; text-decoration:none; z-index:9999; transition:top .2s; }
+    .skip-link:focus { top:1rem; }
+
+    /* NAV */
+    nav[role="navigation"] { position:fixed; top:0; left:0; right:0; z-index:500; background:var(--nav-bg); backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px); border-bottom:1px solid var(--border); transition:background var(--ease),border-color var(--ease); }
+    .nav-inner { max-width:1400px; margin:0 auto; padding:0 2rem; height:64px; display:flex; align-items:center; justify-content:space-between; gap:1.5rem; }
+    .nav-logo { display:flex; align-items:center; gap:.65rem; text-decoration:none; flex-shrink:0; }
+    .nav-logo-mark { display:flex; align-items:center; flex-shrink:0; }
+    .nav-logo-text { font-size:1.05rem; font-weight:700; color:var(--text); letter-spacing:-.01em; }
+    .nav-logo-text em { font-style:normal; color:var(--green); }
+    .nav-links { display:flex; align-items:center; gap:.15rem; list-style:none; }
+    .nav-links a { color:var(--text-muted); text-decoration:none; font-size:.86rem; font-weight:500; padding:.45rem .8rem; border-radius:100px; transition:color var(--ease),background var(--ease); white-space:nowrap; }
+    .nav-links a:hover { color:var(--text); background:var(--surface-2); }
+    .nav-links a[aria-current="page"] { color:var(--green); }
+    .nav-links a:focus-visible { outline:2px solid var(--green); outline-offset:2px; border-radius:100px; }
+    .menu-btn { display:none; align-items:center; justify-content:center; background:none; border:1px solid var(--border); border-radius:8px; padding:.42rem .55rem; cursor:pointer; color:var(--text-muted); font-size:1.15rem; line-height:1; transition:border-color var(--ease),color var(--ease); }
+    .menu-btn:hover { border-color:var(--green); color:var(--text); }
+    .menu-btn:focus-visible { outline:2px solid var(--green); outline-offset:2px; border-radius:8px; }
+    .nav-drawer { display:none; flex-direction:column; background:var(--nav-bg); backdrop-filter:blur(22px); border-top:1px solid var(--border); padding:1rem 1.5rem 1.5rem; }
+    .nav-drawer.open { display:flex; }
+    .nav-drawer a { color:var(--text-muted); text-decoration:none; font-size:1rem; font-weight:500; padding:.65rem 0; border-bottom:1px solid var(--border); transition:color var(--ease); }
+    .nav-drawer a:last-child { border-bottom:none; }
+    .nav-drawer a:hover { color:var(--green); }
+
+    /* PAGE HERO */
+    .page-hero { background:#050505; padding:140px 2rem 80px; text-align:center; }
+    .page-hero-eyebrow { font-family:var(--mono); font-size:.7rem; letter-spacing:.22em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:1rem; }
+    .page-hero-title { font-size:clamp(2.2rem,6vw,4.5rem); font-weight:800; letter-spacing:-.04em; line-height:1.05; color:#fff; margin-bottom:1rem; }
+    .page-hero-sub { font-size:clamp(.9rem,2vw,1.1rem); color:rgba(255,255,255,.45); max-width:480px; margin:0 auto; line-height:1.65; }
+
+    /* MAIN CONTENT */
+    .feedback-wrap { max-width:600px; margin:0 auto; padding:5rem 2rem 6rem; }
+    .feedback-p { font-size:1rem; color:var(--text-muted); line-height:1.85; margin-bottom:1.25rem; }
+    .feedback-p strong { color:var(--text); font-weight:600; }
+
+    /* Template preview */
+    .template-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:1.75rem; margin:2rem 0; transition:background var(--ease),border-color var(--ease); }
+    .template-box-label { font-family:var(--mono); font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:1rem; }
+    .template-text { font-size:.88rem; color:var(--text-muted); line-height:2; white-space:pre-wrap; font-family:var(--font); }
+    .template-text .ex { color:var(--green); font-style:italic; }
+
+    .feedback-divider { border:none; border-top:1px solid var(--border); margin:2.5rem 0; }
+
+    /* Send button */
+    .send-btn { display:inline-flex; align-items:center; gap:.65rem; background:var(--green); color:#000; font-family:var(--font); font-size:1rem; font-weight:700; padding:1rem 2rem; border-radius:100px; text-decoration:none; letter-spacing:.01em; transition:transform var(--ease),box-shadow var(--ease); }
+    .send-btn:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(57,217,138,.35); }
+    .send-btn:focus-visible { outline:3px solid var(--green); outline-offset:4px; border-radius:100px; }
+
+    /* FOOTER — minimal, feedback-page specific */
+    footer { background:var(--surface); border-top:1px solid var(--border); padding:2.5rem 2rem; transition:background var(--ease),border-color var(--ease); }
+    .footer-minimal { max-width:1400px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1.5rem; }
+    .f-logo { display:flex; align-items:center; gap:.55rem; text-decoration:none; }
+    .f-logo-mark { width:26px; height:26px; background:var(--green); border-radius:6px; display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:.62rem; font-weight:800; color:#000; }
+    .f-logo-name { font-size:.9rem; font-weight:700; color:var(--text); }
+    .f-nav { display:flex; gap:1.5rem; list-style:none; }
+    .f-nav a { font-size:.84rem; color:var(--text-muted); text-decoration:none; transition:color var(--ease); }
+    .f-nav a:hover { color:var(--green); }
+    .f-nav a:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:2px; }
+    .f-copy { font-size:.76rem; color:var(--text-dim); width:100%; }
+    .f-copy strong { color:var(--green); font-weight:600; }
+
+    @media (max-width:1024px) { .nav-links { display:none; } .menu-btn { display:flex; } }
+    @media (max-width:768px) {
+      .nav-inner { padding:0 1.25rem; }
+      .page-hero { padding:120px 1.25rem 60px; }
+      .feedback-wrap { padding:3rem 1.25rem 4rem; }
+      .footer-minimal { flex-direction:column; align-items:flex-start; gap:1rem; }
+    }
+    a:focus-visible, button:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:3px; }
+  </style>
+<link rel="stylesheet" href="screenpath.css"></head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <nav role="navigation" aria-label="Main navigation"><div class="nav-inner"><a class="sp-wordmark" href="index.html" aria-label="ScreenPath home">Screen<span>Path</span></a><ul class="nav-links"><li><a href="index.html">Activities</a></li><li><a href="progress.html">My Progress</a></li><li><a href="teachers.html">For Teachers</a></li><li><a href="about.html">About</a></li><li><a href="feedback.html" aria-current="page">Feedback</a></li></ul><button id="menu-btn" class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu" onclick="toggleMenu()">☰</button></div><div class="nav-drawer" id="nav-drawer" hidden=""><a href="index.html">Activities</a><a href="progress.html">My Progress</a><a href="teachers.html">For Teachers</a><a href="about.html">About</a><a href="feedback.html" aria-current="page">Feedback</a></div></nav>
+
+  
+
+  <main id="main" tabindex="-1"><noscript>&lt;p class="sp-note"&gt;JavaScript is needed for the activities and saved progress. Please enable it, or contact screenpathedu@gmail.com for help.&lt;/p&gt;</noscript><div class="page-hero">
+    <span class="page-hero-eyebrow" aria-hidden="true">Feedback</span>
+    <h1 class="page-hero-title" tabindex="-1">I want to hear from you.</h1>
+    <p class="page-hero-sub">Your experience helps me make ScreenPath better.</p>
+  </div>
+    <div class="feedback-wrap"><p>Found a problem or have an idea? Tell me what happened and what you hoped to do. A short message is enough.</p><p>Email <a href="mailto:screenpathedu@gmail.com">screenpathedu@gmail.com</a>. You can open a draft below or copy the template into your preferred email service.</p><label for="feedback-template"><strong>Feedback template — edit any part</strong></label><textarea id="feedback-template" rows="10">Hi Moises,
+
+Page or room:
+What I tried:
+What happened or what I suggest:
+Screen reader, browser, and device (if relevant):
+</textarea><p>Please leave out passwords and sensitive personal information.</p><div class="sp-actions"><button type="button" class="sp-button primary" id="send-btn">Open email draft</button><button type="button" class="sp-button" id="copy-feedback">Copy feedback template</button></div><p id="feedback-status" role="status"></p><p>Opening a draft does not send it. Review the message and select Send in your email app.</p></div>
+  </main>
+
+  <!-- Footer — minimal on this page, no escape room links -->
+  <footer><div class="sp-footer"><p><strong>ScreenPath</strong> — Free screen-reader practice.</p><p>Built by Moises Betancourt for screen reader learners everywhere.</p><div class="sp-actions"><a href="teachers.html">Teacher guide</a><a href="feedback.html">Feedback and accessibility help</a><a href="about.html#privacy">How your results are saved</a></div></div></footer>
+
+  
+
+
+
+<script src="screenpath.js"></script><script src="feedback.js"></script></body></html>

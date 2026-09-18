@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Teachers — ScreenPath</title>
+  
+  <style>
+    :root {
+      --bg:#080808; --surface:#111111; --surface-2:#1c1c1c; --border:#2a2a2a;
+      --text:#f0f0f0; --text-muted:#888888; --text-dim:#444444;
+      --green:#39d98a; --green-dim:#0d2e1c;
+      --nav-bg:rgba(8,8,8,0.94);
+      --radius:14px;
+      --font:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      --mono:'SF Mono','Fira Code','Consolas',monospace;
+      --ease:0.24s cubic-bezier(.4,0,.2,1);
+    }
+    html.light {
+      --bg:#f5f5f7; --surface:#ffffff; --surface-2:#ebebed; --border:#d2d2d4;
+      --text:#1d1d1f; --text-muted:#6e6e73; --text-dim:#b0b0b5;
+      --nav-bg:rgba(245,245,247,0.94);
+    }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--bg); color:var(--text); font-family:var(--font); font-size:18px; line-height:1.7; min-height:100vh; transition:background var(--ease),color var(--ease); }
+
+    .skip-link { position:absolute; top:-120px; left:1rem; background:var(--green); color:#000; padding:.75rem 1.5rem; border-radius:100px; font-weight:700; font-size:.95rem; text-decoration:none; z-index:9999; transition:top .2s; }
+    .skip-link:focus { top:1rem; }
+
+    /* NAV */
+    nav[role="navigation"] { position:fixed; top:0; left:0; right:0; z-index:500; background:var(--nav-bg); backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px); border-bottom:1px solid var(--border); transition:background var(--ease),border-color var(--ease); }
+    .nav-inner { max-width:1400px; margin:0 auto; padding:0 2rem; height:64px; display:flex; align-items:center; justify-content:space-between; gap:1.5rem; }
+    .nav-logo { display:flex; align-items:center; gap:.65rem; text-decoration:none; flex-shrink:0; }
+    .nav-logo-mark { display:flex; align-items:center; flex-shrink:0; }
+    .nav-logo-text { font-size:1.05rem; font-weight:700; color:var(--text); letter-spacing:-.01em; }
+    .nav-logo-text em { font-style:normal; color:var(--green); }
+    .nav-links { display:flex; align-items:center; gap:.15rem; list-style:none; }
+    .nav-links a { color:var(--text-muted); text-decoration:none; font-size:.86rem; font-weight:500; padding:.45rem .8rem; border-radius:100px; transition:color var(--ease),background var(--ease); white-space:nowrap; }
+    .nav-links a:hover { color:var(--text); background:var(--surface-2); }
+    .nav-links a[aria-current="page"] { color:var(--green); }
+    .nav-links a:focus-visible { outline:2px solid var(--green); outline-offset:2px; border-radius:100px; }
+    .menu-btn { display:none; align-items:center; justify-content:center; background:none; border:1px solid var(--border); border-radius:8px; padding:.42rem .55rem; cursor:pointer; color:var(--text-muted); font-size:1.15rem; line-height:1; transition:border-color var(--ease),color var(--ease); }
+    .menu-btn:hover { border-color:var(--green); color:var(--text); }
+    .menu-btn:focus-visible { outline:2px solid var(--green); outline-offset:2px; border-radius:8px; }
+    .nav-drawer { display:none; flex-direction:column; background:var(--nav-bg); backdrop-filter:blur(22px); border-top:1px solid var(--border); padding:1rem 1.5rem 1.5rem; }
+    .nav-drawer.open { display:flex; }
+    .nav-drawer a { color:var(--text-muted); text-decoration:none; font-size:1rem; font-weight:500; padding:.65rem 0; border-bottom:1px solid var(--border); transition:color var(--ease); }
+    .nav-drawer a:last-child { border-bottom:none; }
+    .nav-drawer a:hover { color:var(--green); }
+
+    /* PAGE HERO */
+    .page-hero { background:#050505; padding:140px 2rem 80px; text-align:center; }
+    .page-hero-eyebrow { font-family:var(--mono); font-size:.7rem; letter-spacing:.22em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:1rem; }
+    .page-hero-title { font-size:clamp(2.2rem,6vw,4.5rem); font-weight:800; letter-spacing:-.04em; line-height:1.05; color:#fff; margin-bottom:1rem; }
+    .page-hero-sub { font-size:clamp(.9rem,2vw,1.1rem); color:rgba(255,255,255,.45); max-width:500px; margin:0 auto; line-height:1.65; }
+
+    /* CONTENT */
+    .about-wrap { max-width:680px; margin:0 auto; padding:5rem 2rem 6rem; }
+
+    /* Opening statement — large display, not a heading */
+    .about-opening-statement { font-size:clamp(1.5rem,3.5vw,2.2rem); font-weight:800; letter-spacing:-.03em; line-height:1.15; color:var(--text); margin-bottom:2rem; }
+
+    /* Body text */
+    .about-p { font-size:1rem; color:var(--text-muted); line-height:1.85; margin-bottom:1.25rem; }
+    .about-p:last-of-type { margin-bottom:0; }
+    .about-p strong { color:var(--text); font-weight:600; }
+    .about-p a { color:var(--green); text-decoration:none; }
+    .about-p a:hover { text-decoration:underline; }
+    .about-p a:focus-visible { outline:2px solid var(--green); outline-offset:2px; border-radius:2px; }
+
+    /* Section headings — H2 only, stand alone */
+    .about-h2 { font-size:clamp(1.4rem,3vw,2rem); font-weight:800; letter-spacing:-.03em; line-height:1.15; color:var(--text); margin-bottom:1.5rem; }
+
+    /* Divider */
+    .about-divider { border:none; border-top:1px solid var(--border); margin:4rem 0; }
+
+    /* Options grid */
+    .options-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin:1.75rem 0; }
+    .option-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:1.25rem; display:flex; flex-direction:column; gap:.6rem; transition:border-color var(--ease); }
+    .option-icon { font-size:1.5rem; }
+    .option-title { font-size:.9rem; font-weight:700; color:var(--text); }
+    .option-desc { font-size:.78rem; color:var(--text-muted); line-height:1.6; }
+    /* FOOTER — minimal */
+    footer { background:var(--surface); border-top:1px solid var(--border); padding:2.5rem 2rem; transition:background var(--ease),border-color var(--ease); }
+    .footer-minimal { max-width:1400px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1.5rem; }
+    .f-logo { display:flex; align-items:center; gap:.55rem; text-decoration:none; }
+    .f-logo-mark { width:26px; height:26px; background:var(--green); border-radius:6px; display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:.62rem; font-weight:800; color:#000; }
+    .f-logo-name { font-size:.9rem; font-weight:700; color:var(--text); }
+    .f-nav { display:flex; gap:1.5rem; list-style:none; }
+    .f-nav a { font-size:.84rem; color:var(--text-muted); text-decoration:none; transition:color var(--ease); }
+    .f-nav a:hover { color:var(--green); }
+    .f-nav a:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:2px; }
+    .f-copy { font-size:.76rem; color:var(--text-dim); width:100%; }
+    .f-copy strong { color:var(--green); font-weight:600; }
+
+    @media (max-width:1024px) { .nav-links { display:none; } .menu-btn { display:flex; } }
+    @media (max-width:768px) {
+      .nav-inner { padding:0 1.25rem; }
+      .page-hero { padding:120px 1.25rem 60px; }
+      .about-wrap { padding:3rem 1.25rem 4rem; }
+      .options-grid { grid-template-columns:1fr; }
+      .footer-minimal { flex-direction:column; align-items:flex-start; gap:1rem; }
+    }
+    a:focus-visible,button:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:3px; }
+  </style>
+<link rel="stylesheet" href="screenpath.css"></head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <nav role="navigation" aria-label="Main navigation"><div class="nav-inner"><a class="sp-wordmark" href="index.html" aria-label="ScreenPath home">Screen<span>Path</span></a><ul class="nav-links"><li><a href="index.html">Activities</a></li><li><a href="progress.html">My Progress</a></li><li><a href="teachers.html" aria-current="page">For Teachers</a></li><li><a href="about.html">About</a></li><li><a href="feedback.html">Feedback</a></li></ul><button id="menu-btn" class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu" onclick="toggleMenu()">☰</button></div><div class="nav-drawer" id="nav-drawer" hidden=""><a href="index.html">Activities</a><a href="progress.html">My Progress</a><a href="teachers.html" aria-current="page">For Teachers</a><a href="about.html">About</a><a href="feedback.html">Feedback</a></div></nav>
+
+  <!-- Page hero — always dark -->
+  
+
+  <main id="main" tabindex="-1"><noscript>&lt;p class="sp-note"&gt;JavaScript is needed for the activities and saved progress. Please enable it, or contact screenpathedu@gmail.com for help.&lt;/p&gt;</noscript><div class="page-hero"><span class="page-hero-eyebrow">For teachers and AT specialists</span><h1 class="page-hero-title">Practice with a purpose.</h1><p class="page-hero-sub">A short guide to using The School with screen reader learners.</p></div><div class="sp-guide"><h2>Who this is for</h2><p>ScreenPath is a fluency practice tool. Learners should already know basic screen-reader navigation: moving by heading, following links, reading tables, and entering text. Teach or review an unfamiliar skill before using its room.</p><h2>A suggested session</h2><ol><li>Choose one skill to practice. Preview the scenario together.</li><li>Begin in Practice mode with no deadline. Let the learner choose whether to use sound or scene narration.</li><li>Review the completed-room result and optional reflection. Discuss the strategy used and the help needed.</li><li>When appropriate, repeat in Challenge mode. Choose the allowance together; compare results only when the task and timing conditions are similar.</li></ol><h2>The three rooms</h2><ul><li><strong>The School Office:</strong> headings and finding a staff record in a table. Default challenge allowance: 4 minutes.</li><li><strong>The Library:</strong> table navigation and choosing meaningful links. Default challenge allowance: 5 minutes.</li><li><strong>The Computer Lab:</strong> moving through edit fields and entering a fictional profile. Default challenge allowance: 4 minutes.</li></ul><p>Each challenge allows 1–60 minutes. Learners can switch to Practice during the task or after time expires without losing their current work.</p><h2>Interpreting results</h2><p>Time is one measure of fluency, not a grade. Look at successful completion, answer submissions, the learner’s strategy, confidence, and assistance. In the Library, “other books opened” records selections that were not part of the target trail. Randomized tasks may differ between attempts.</p><p>Unfinished rooms are not saved midway. Completed rooms are saved immediately. Replaying a completed room can begin a new attempt; older completed sessions remain in My Progress.</p><h2>Sharing and privacy</h2><p>No student account or name is needed. Results and optional reflections remain in this browser on this device. On shared computers, copy results you need and use Reset Progress between learners. Clearing browser data removes local progress. Nothing is sent to a teacher automatically: Email Results opens a draft, and Copy Results puts text on the clipboard.</p><h2>Screen-reader check before a lesson</h2><p>The latest changes have automated logic checks but still require hands-on verification with your student’s screen reader and browser.</p><ul><li>Use Tab and Shift+Tab to reach controls; confirm that labels and focus are clear.</li><li>Use heading and landmark navigation to find the scene, settings, task, and results.</li><li>In the Library, read table headers and follow a book link. Confirm the note is reachable and that Continue opens the next shelf.</li><li>Check that dialogs announce their titles, contain keyboard focus, and return focus to a useful place when closed.</li><li>Try an incorrect answer, a correct answer, a timeout, and untimed practice.</li><li>Check results, optional reflections, and Copy Results before relying on them in class.</li></ul><h2>What is currently available</h2><p>The School is the featured three-room activity. Other scenario and game files in the project remain development drafts and are not listed as ready activities.</p><div class="sp-actions"><a class="sp-button primary" href="mission-1a.html">Start The School</a><a class="sp-button" href="feedback.html">Report an accessibility issue</a></div></div></main>
+
+  <footer><div class="sp-footer"><p><strong>ScreenPath</strong> — Free screen-reader practice.</p><p>Built by Moises Betancourt for screen reader learners everywhere.</p><div class="sp-actions"><a href="teachers.html">Teacher guide</a><a href="feedback.html">Feedback and accessibility help</a><a href="about.html#privacy">How your results are saved</a></div></div></footer>
+
+  
+
+
+
+<script src="screenpath.js"></script></body></html>

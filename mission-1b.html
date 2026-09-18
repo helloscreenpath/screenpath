@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Room 2: The Library — Locked In — ScreenPath</title>
+  <style>
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root {
+      --bg:#0a0a0a; --surface:#111111; --surface-2:#1a1a1a; --border:#2a2a2a;
+      --text:#f0f0f0; --text-muted:#8a8a8a;
+      --green:#39d98a; --green-dim:#0d2e1c;
+      --red:#ff4d4d; --red-dim:#2e0d0d;
+      --amber:#f5a623; --amber-dim:#2e1f00;
+      --radius:12px;
+      --font:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      --mono:'SF Mono','Fira Code','Consolas',monospace;
+    }
+    html { scroll-behavior:smooth; }
+    body { background:var(--bg); color:var(--text); font-family:var(--font); font-size:18px; line-height:1.7; min-height:100vh; }
+    .visually-hidden { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+    .skip-link { position:absolute; top:-100px; left:1rem; background:var(--green); color:#000; padding:.75rem 1.5rem; border-radius:var(--radius); font-weight:600; font-size:1rem; text-decoration:none; z-index:9999; transition:top .2s; }
+    .skip-link:focus { top:1rem; }
+    header[role="banner"] { border-bottom:1px solid var(--border); padding:1.25rem 2rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; position:sticky; top:0; background:rgba(10,10,10,.95); backdrop-filter:blur(12px); z-index:100; }
+    .site-name { font-size:1.1rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--green); text-decoration:none; }
+    .site-series { font-size:.78rem; color:var(--text-muted); letter-spacing:.05em; text-transform:uppercase; }
+    nav[aria-label="Main navigation"] ul { list-style:none; display:flex; gap:2rem; flex-wrap:wrap; }
+    nav[aria-label="Main navigation"] a { color:var(--text-muted); text-decoration:none; font-size:.9rem; letter-spacing:.04em; text-transform:uppercase; transition:color .2s; padding:.25rem 0; border-bottom:2px solid transparent; }
+    nav[aria-label="Main navigation"] a:hover, nav[aria-label="Main navigation"] a:focus { color:var(--green); border-bottom-color:var(--green); outline:none; }
+    nav[aria-label="Main navigation"] a:focus-visible { outline:2px solid var(--green); outline-offset:4px; border-radius:2px; }
+    main { max-width:860px; margin:0 auto; padding:3rem 2rem 6rem; }
+    .back-link { display:inline-flex; align-items:center; gap:.5rem; color:var(--text-muted); text-decoration:none; font-size:.9rem; letter-spacing:.04em; text-transform:uppercase; margin-bottom:2.5rem; transition:color .2s; }
+    .back-link:hover, .back-link:focus { color:var(--green); }
+    .back-link:focus-visible { outline:2px solid var(--green); outline-offset:4px; border-radius:3px; }
+    .room-header { margin-bottom:2.5rem; padding-bottom:2rem; border-bottom:1px solid var(--border); }
+    .room-meta { display:flex; align-items:center; gap:.75rem; flex-wrap:wrap; margin-bottom:1rem; }
+    .room-badge { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); background:var(--green-dim); border:1px solid rgba(57,217,138,.25); padding:.3rem .85rem; border-radius:100px; }
+    .room-level { font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--text-muted); border:1px solid var(--border); padding:.3rem .85rem; border-radius:100px; }
+    .room-skill-badge { font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--amber); border:1px solid rgba(245,166,35,.3); padding:.3rem .85rem; border-radius:100px; background:var(--amber-dim); }
+    h1 { font-size:clamp(1.8rem,4vw,2.8rem); font-weight:700; letter-spacing:-.02em; line-height:1.15; color:var(--text); }
+    .section-eyebrow { font-family:var(--mono); font-size:.72rem; letter-spacing:.15em; text-transform:uppercase; color:var(--green); margin-bottom:.6rem; display:block; }
+    h2 { font-size:1.4rem; font-weight:600; letter-spacing:-.01em; margin-bottom:1.25rem; color:var(--text); }
+    h3 { font-size:1.05rem; font-weight:600; color:var(--text); margin-bottom:.6rem; }
+    .room-section { margin-bottom:3.5rem; padding-bottom:3rem; border-bottom:1px solid var(--border); }
+    .room-section:last-of-type { border-bottom:none; }
+    p { margin-bottom:1rem; }
+    p:last-child { margin-bottom:0; }
+
+    /* Skill focus */
+    .skill-focus { background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--green); border-radius:var(--radius); padding:1.5rem; margin:1.5rem 0; }
+    .skill-focus-label { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.6rem; }
+    .skill-focus p { font-size:.95rem; color:var(--text-muted); margin-bottom:.75rem; line-height:1.75; }
+    .skill-focus p:last-child { margin-bottom:0; }
+    .skill-focus strong { color:var(--text); }
+
+    /* Librarian note */
+    .librarian-note { background:var(--amber-dim); border:1px solid rgba(245,166,35,.4); border-radius:var(--radius); padding:1.75rem; margin:1.75rem 0; }
+    .librarian-note-label { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--amber); display:block; margin-bottom:.75rem; }
+    .librarian-note h3 { color:var(--amber); font-size:1rem; margin-bottom:.6rem; }
+    .librarian-note p { font-size:.98rem; color:var(--text); line-height:1.75; margin-bottom:.5rem; }
+    .librarian-note p:last-child { margin-bottom:0; }
+    .series-highlight { display:inline-block; background:rgba(245,166,35,.2); border:1px solid rgba(245,166,35,.4); border-radius:6px; padding:.15rem .5rem; font-weight:700; color:var(--amber); font-family:var(--mono); font-size:.92rem; }
+
+    /* Narration */
+    .narration-row { display:flex; align-items:center; gap:1rem; margin:1.5rem 0; flex-wrap:wrap; }
+    .narrate-btn { display:inline-flex; align-items:center; gap:.6rem; background:var(--surface); border:1px solid var(--green); color:var(--green); font-family:var(--font); font-size:.88rem; font-weight:600; padding:.6rem 1.4rem; border-radius:100px; cursor:pointer; transition:background .2s,transform .15s; }
+    .narrate-btn:hover { background:var(--green-dim); transform:translateY(-1px); }
+    .narrate-btn:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:100px; }
+    .narrate-btn.playing { background:var(--green-dim); }
+    .narrate-status { font-family:var(--mono); font-size:.78rem; color:var(--text-muted); }
+
+    /* Timer */
+    .timer-area { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin:2rem 0; text-align:center; }
+    .sound-row { display:flex; align-items:center; justify-content:center; gap:.75rem; margin-bottom:.75rem; flex-wrap:wrap; }
+    .sound-note { font-size:.82rem; color:var(--text-muted); font-style:italic; margin-bottom:1.25rem; line-height:1.5; }
+    .sound-label { font-size:.88rem; color:var(--text-muted); font-family:var(--mono); letter-spacing:.04em; }
+    .toggle-btn { display:inline-flex; align-items:center; gap:.5rem; background:var(--surface-2); border:1px solid var(--border); border-radius:100px; color:var(--text-muted); font-family:var(--mono); font-size:.78rem; letter-spacing:.06em; text-transform:uppercase; padding:.45rem 1.1rem; cursor:pointer; transition:border-color .2s,color .2s,background .2s; }
+    .toggle-btn[aria-checked="true"] { border-color:var(--green); color:var(--green); background:var(--green-dim); }
+    .toggle-btn:focus-visible { outline:2px solid var(--green); outline-offset:3px; }
+    .toggle-dot { width:7px; height:7px; border-radius:50%; background:var(--text-muted); transition:background .2s; flex-shrink:0; }
+    .toggle-btn[aria-checked="true"] .toggle-dot { background:var(--green); }
+    .timer-instructions { font-size:.95rem; color:var(--text-muted); margin-bottom:1.5rem; line-height:1.7; }
+    #timer-display { font-family:var(--mono); font-size:3.5rem; font-weight:700; color:var(--green); letter-spacing:.05em; display:block; margin-bottom:1.5rem; line-height:1; transition:color .3s; }
+    #timer-display.warning { color:var(--amber); }
+    #timer-display.critical { color:var(--red); animation:pulse .8s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+
+    /* Buttons */
+    .btn { display:inline-block; font-family:var(--font); font-size:1rem; font-weight:600; padding:.9rem 2.5rem; border-radius:100px; border:none; cursor:pointer; letter-spacing:.02em; transition:transform .15s,box-shadow .15s,background .2s; text-decoration:none; text-align:center; }
+    .btn:focus-visible { outline:3px solid var(--green); outline-offset:4px; }
+    .btn-primary { background:var(--green); color:#000; }
+    .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(57,217,138,.3); }
+    .btn-secondary { background:var(--surface-2); color:var(--text); border:1px solid var(--border); }
+    .btn-secondary:hover { background:var(--surface); transform:translateY(-1px); }
+    .btn-danger { background:var(--red); color:#fff; }
+    .btn-danger:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(255,77,77,.3); }
+
+    /* Step tracker */
+    .step-tracker { display:flex; align-items:center; gap:.75rem; margin-bottom:1.5rem; flex-wrap:wrap; }
+    .step-pip { width:32px; height:32px; border-radius:50%; border:2px solid var(--border); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:.75rem; font-weight:700; color:var(--text-muted); transition:all .3s; flex-shrink:0; }
+    .step-pip.active { border-color:var(--amber); color:var(--amber); background:var(--amber-dim); }
+    .step-pip.complete { border-color:var(--green); color:var(--green); background:var(--green-dim); }
+    .step-connector { flex:1; height:2px; background:var(--border); min-width:20px; transition:background .3s; }
+    .step-connector.complete { background:var(--green); }
+    .step-label { font-family:var(--mono); font-size:.78rem; color:var(--text-muted); letter-spacing:.04em; }
+
+    /* Series reminder */
+    .series-reminder { background:var(--amber-dim); border:1px solid rgba(245,166,35,.35); border-radius:8px; padding:1rem 1.25rem; margin-bottom:1.5rem; display:flex; align-items:center; gap:.75rem; flex-wrap:wrap; }
+    .series-reminder-label { font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--amber); flex-shrink:0; }
+    .series-reminder-value { color:var(--text); font-weight:700; font-size:.95rem; }
+
+    /* Library zone */
+    .library-zone { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:2.5rem; margin-top:1.5rem; }
+    .library-locked { filter:blur(5px); pointer-events:none; user-select:none; opacity:.35; transition:filter .5s,opacity .5s; }
+    .zone-header-bar { background:var(--surface-2); border:1px solid var(--border); border-radius:8px; padding:.9rem 1.25rem; margin-bottom:1.5rem; font-family:var(--mono); font-size:.82rem; color:var(--text-muted); letter-spacing:.03em; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.5rem; }
+    .page-indicator { font-family:var(--mono); font-size:.78rem; color:var(--green); letter-spacing:.06em; text-transform:uppercase; }
+    .zone-intro { font-size:.95rem; color:var(--text); line-height:1.8; margin-bottom:1.5rem; padding:1.25rem; background:var(--surface-2); border:1px solid var(--border); border-left:3px solid var(--green); border-radius:8px; font-style:italic; }
+
+    /* Library pages */
+    .library-page { display:none; animation:pageIn .3s ease; }
+    .library-page.active { display:block; }
+    @keyframes pageIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+    .shelf-heading { font-family:var(--mono); font-size:.82rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--text); margin-bottom:.3rem; }
+    .shelf-desc { font-size:.88rem; color:var(--text-muted); margin-bottom:1.25rem; font-style:italic; }
+
+    /* Book table */
+    .book-table { width:100%; border-collapse:collapse; font-size:.92rem; margin-bottom:1rem; }
+    .book-table caption { font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--text-muted); text-align:left; padding-bottom:.75rem; caption-side:top; }
+    .book-table th { text-align:left; padding:.6rem .75rem; font-size:.8rem; font-weight:600; color:var(--text-muted); font-family:var(--mono); letter-spacing:.06em; text-transform:uppercase; border-bottom:2px solid var(--border); background:var(--surface-2); }
+    .book-table td { padding:.7rem .75rem; border-bottom:1px solid var(--border); vertical-align:top; line-height:1.5; }
+    .book-table tr:last-child td { border-bottom:none; }
+    .book-table tr:hover td { background:rgba(57,217,138,.03); }
+    .book-title { font-weight:600; color:var(--text); }
+    .book-author { color:var(--text-muted); font-size:.88rem; }
+    .book-genre { color:var(--text-muted); font-size:.85rem; font-family:var(--mono); }
+    .book-status-plain { color:var(--text-muted); font-size:.88rem; }
+    .book-link { color:var(--green); text-decoration:underline; font-size:.88rem; font-weight:600; cursor:pointer; background:none; border:none; padding:0; font-family:var(--font); transition:color .2s; }
+    .book-link:hover, .book-link:focus { color:#fff; outline:none; }
+    .book-link:focus-visible { outline:2px solid var(--green); outline-offset:2px; border-radius:2px; }
+    .book-link.wrong-link { color:var(--red); text-decoration:none; cursor:default; pointer-events:none; font-size:.82rem; }
+    .book-link.correct-link { color:var(--green); text-decoration:none; cursor:default; pointer-events:none; font-size:.82rem; }
+    .book-feedback { display:none; font-size:.82rem; padding:.5rem .75rem; border-radius:6px; margin-top:.4rem; line-height:1.5; }
+    .book-feedback.wrong { background:var(--red-dim); border:1px solid rgba(255,77,77,.25); color:var(--red); display:block; }
+    .book-feedback.correct-fb { background:var(--green-dim); border:1px solid rgba(57,217,138,.25); color:var(--green); display:block; }
+
+    /* Note reveal */
+    .note-reveal { background:var(--green-dim); border:1px solid rgba(57,217,138,.35); border-radius:var(--radius); padding:1.5rem; margin-top:1.25rem; display:none; animation:noteIn .35s cubic-bezier(.34,1.56,.64,1); }
+    .note-reveal.visible { display:block; }
+    @keyframes noteIn { from{opacity:0;transform:scale(.96)} to{opacity:1;transform:scale(1)} }
+    .note-reveal-label { font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.5rem; }
+    .note-reveal-text { font-size:.98rem; color:var(--text); line-height:1.7; margin-bottom:0; }
+
+    /* Code reveal */
+    .code-reveal { background:var(--green-dim); border:2px solid rgba(57,217,138,.5); border-radius:var(--radius); padding:2rem; text-align:center; margin-top:1.5rem; display:none; animation:noteIn .4s cubic-bezier(.34,1.56,.64,1); }
+    .code-reveal.visible { display:block; }
+    .code-reveal-label { font-family:var(--mono); font-size:.7rem; letter-spacing:.15em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.75rem; }
+    .code-value { font-family:var(--mono); font-size:2.5rem; font-weight:700; color:var(--text); letter-spacing:.15em; display:block; margin-bottom:.5rem; }
+    .code-note { font-size:.88rem; color:var(--text-muted); }
+
+    /* Back button inside zone */
+    .zone-back { display:inline-flex; align-items:center; gap:.5rem; color:var(--text-muted); font-family:var(--mono); font-size:.78rem; letter-spacing:.06em; text-transform:uppercase; cursor:pointer; background:none; border:1px solid var(--border); padding:.4rem 1rem; border-radius:100px; margin-top:1.25rem; transition:color .2s,border-color .2s; }
+    .zone-back:hover, .zone-back:focus { color:var(--green); border-color:var(--green); outline:none; }
+    .zone-back:focus-visible { outline:2px solid var(--green); outline-offset:3px; }
+
+    /* Answer sections */
+    .answer-section { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-top:1.5rem; display:none; }
+    .answer-section.visible { display:block; animation:fadeUp .3s ease; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+    .answer-label { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.5rem; }
+    .answer-intro { font-size:.92rem; color:var(--text-muted); margin-bottom:1.5rem; line-height:1.6; }
+    .form-group { margin-bottom:1.5rem; }
+    .form-group:last-child { margin-bottom:0; }
+    label { display:block; font-size:.92rem; font-weight:600; color:var(--text); margin-bottom:.5rem; }
+    .field-hint { display:block; font-size:.82rem; color:var(--text-muted); margin-bottom:.65rem; line-height:1.5; }
+    input[type="text"] { width:100%; background:var(--surface-2); border:1px solid var(--border); border-radius:8px; color:var(--text); font-family:var(--font); font-size:1rem; padding:.85rem 1rem; transition:border-color .2s,box-shadow .2s; }
+    input[type="text"]:focus { outline:none; border-color:var(--green); box-shadow:0 0 0 3px rgba(57,217,138,.15); }
+    textarea { width:100%; background:var(--surface-2); border:1px solid var(--border); border-radius:8px; color:var(--text); font-family:var(--font); font-size:1rem; padding:.85rem 1rem; resize:vertical; min-height:90px; line-height:1.6; transition:border-color .2s,box-shadow .2s; }
+    textarea:focus { outline:none; border-color:var(--green); box-shadow:0 0 0 3px rgba(57,217,138,.15); }
+    .radio-group { display:flex; flex-direction:column; gap:.6rem; margin-top:.25rem; }
+    .radio-option { display:flex; align-items:center; gap:.75rem; cursor:pointer; font-size:.95rem; color:var(--text-muted); padding:.65rem 1rem; border:1px solid var(--border); border-radius:8px; transition:border-color .2s,color .2s; }
+    .radio-option:hover { border-color:var(--green); color:var(--text); }
+    .radio-option input[type="radio"] { width:18px; height:18px; accent-color:var(--green); flex-shrink:0; }
+    .radio-option input[type="radio"]:focus-visible { outline:2px solid var(--green); outline-offset:2px; }
+    .form-status { display:none; padding:1rem 1.25rem; border-radius:8px; font-size:.95rem; margin-top:1rem; line-height:1.6; }
+    .form-status.error { background:var(--red-dim); border:1px solid rgba(255,77,77,.3); color:var(--red); display:block; }
+    .form-status.success { background:var(--green-dim); border:1px solid rgba(57,217,138,.3); color:var(--green); display:block; }
+    .section-divider { border:none; border-top:1px solid var(--border); margin:1.5rem 0; }
+
+    /* Bridge message */
+    .bridge-msg { background:var(--green-dim); border:1px solid rgba(57,217,138,.3); border-radius:var(--radius); padding:1.5rem; margin-top:1.5rem; display:none; }
+    .bridge-msg.visible { display:block; }
+    .bridge-msg-label { font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.5rem; }
+    .bridge-msg p { font-size:.95rem; color:var(--text); line-height:1.7; margin-bottom:0; font-style:italic; }
+
+    /* Next room box */
+    .next-room-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-top:1.5rem; display:none; text-align:center; }
+    .next-room-box.visible { display:block; animation:fadeUp .4s ease; }
+    .next-room-label { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.5rem; }
+    .next-room-box h3 { color:var(--green); margin-bottom:.5rem; font-size:1.1rem; }
+    .next-room-box p { font-size:.9rem; color:var(--text-muted); margin-bottom:1.5rem; }
+
+    /* Debrief */
+    .debrief-note { background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--green); border-radius:var(--radius); padding:1.5rem; margin-bottom:2rem; font-size:.95rem; color:var(--text-muted); line-height:1.7; }
+    .debrief-note strong { color:var(--text); }
+    .strategy-tip { background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius); padding:1.5rem; margin-bottom:2rem; }
+    .strategy-tip-label { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--amber); display:block; margin-bottom:.5rem; }
+    .strategy-tip p { font-size:.95rem; color:var(--text-muted); margin-bottom:0; line-height:1.7; }
+    .debrief-locked-notice { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:1.5rem; color:var(--text-muted); font-size:.9rem; text-align:center; font-family:var(--mono); letter-spacing:.04em; margin-bottom:1.5rem; }
+    .debrief-content-locked { opacity:.35; pointer-events:none; filter:blur(3px); transition:opacity .5s,filter .5s; }
+
+    /* Overlays */
+    .overlay { display:none; position:fixed; inset:0; z-index:1000; align-items:center; justify-content:center; flex-direction:column; text-align:center; padding:2rem; }
+    .overlay.active { display:flex; }
+    #fail-overlay { background:rgba(8,0,0,.97); animation:failIn .35s ease-out; }
+    @keyframes failIn { from{opacity:0;transform:scale(1.04)} to{opacity:1;transform:scale(1)} }
+    .fail-scanlines { position:absolute; inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,0,0,.04) 2px,rgba(255,0,0,.04) 4px); pointer-events:none; }
+    .fail-sparks { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+    .spark { position:absolute; width:3px; height:3px; border-radius:50%; animation:sparkFly 1s ease-out forwards; }
+    @keyframes sparkFly { 0%{transform:translate(0,0) scale(1);opacity:1} 100%{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0} }
+    .fail-glitch { font-family:var(--mono); font-size:clamp(2rem,8vw,4rem); font-weight:900; color:var(--red); letter-spacing:.05em; text-transform:uppercase; animation:glitch .25s infinite; margin-bottom:1rem; }
+    @keyframes glitch { 0%{text-shadow:2px 0 #ff0000,-2px 0 #00ffff;transform:translate(0,0);} 25%{text-shadow:-2px 0 #ff0000,2px 0 #ff00ff;transform:translate(-2px,1px);} 50%{text-shadow:2px 0 #ff00ff,-2px 0 #ff0000;transform:translate(2px,-1px);} 75%{text-shadow:-2px 0 #00ffff,2px 0 #ff0000;transform:translate(0,0);} 100%{text-shadow:2px 0 #ff0000,-2px 0 #ff00ff;transform:translate(1px,1px);} }
+    .fail-title { font-size:1.3rem; font-weight:700; color:var(--text); margin-bottom:.75rem; }
+    .fail-message { font-size:1rem; color:var(--text-muted); margin-bottom:.5rem; max-width:480px; line-height:1.7; }
+    .fail-sub { font-family:var(--mono); font-size:.8rem; color:var(--red); margin-bottom:2rem; letter-spacing:.06em; }
+    .fail-buttons { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
+    #success-overlay { background:rgba(0,8,4,.97); animation:successIn .45s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes successIn { from{opacity:0;transform:scale(.92)} to{opacity:1;transform:scale(1)} }
+    .success-particles { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+    .particle { position:absolute; width:6px; height:6px; border-radius:50%; animation:particleFly 1.3s ease-out forwards; }
+    @keyframes particleFly { 0%{transform:translate(0,0) scale(1);opacity:1} 100%{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0} }
+    .success-icon { font-size:3.5rem; margin-bottom:.75rem; animation:successPop .5s cubic-bezier(.34,1.56,.64,1) .15s both; }
+    @keyframes successPop { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
+    .success-title { font-size:clamp(1.8rem,5vw,3rem); font-weight:700; color:var(--green); letter-spacing:-.02em; margin-bottom:.5rem; animation:fadeUp .4s ease .25s both; }
+    .success-sub { font-family:var(--mono); font-size:.8rem; color:var(--green); letter-spacing:.1em; text-transform:uppercase; margin-bottom:.75rem; animation:fadeUp .4s ease .35s both; }
+    .success-time { font-family:var(--mono); font-size:1.05rem; color:var(--text); background:var(--green-dim); border:1px solid rgba(57,217,138,.3); border-radius:100px; padding:.5rem 1.5rem; margin-bottom:1.25rem; animation:fadeUp .4s ease .4s both; display:inline-block; }
+    .success-message { font-size:.95rem; color:var(--text-muted); max-width:420px; margin-bottom:2rem; animation:fadeUp .4s ease .45s both; line-height:1.7; }
+
+    footer[role="contentinfo"] { border-top:1px solid var(--border); padding:2.5rem 2rem; color:var(--text-muted); font-size:.85rem; }
+    .footer-inner { max-width:860px; margin:0 auto; display:flex; flex-direction:column; gap:.5rem; }
+    .footer-platform { font-weight:600; color:var(--text-muted); }
+    .footer-a11y { font-size:.8rem; color:var(--text-muted); line-height:1.6; }
+
+    @media (max-width:768px) {
+      header[role="banner"] { padding:1rem 1.25rem; flex-direction:column; align-items:flex-start; }
+      main { padding:2rem 1.25rem 4rem; }
+      .library-zone { padding:1.5rem; }
+      #timer-display { font-size:2.5rem; }
+      .book-table th, .book-table td { padding:.5rem .4rem; font-size:.82rem; }
+    }
+    a:focus-visible, button:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:3px; }
+    /* ── Results overlay ── */
+    #results-overlay { display:none; position:fixed; inset:0; z-index:2000; background:rgba(0,8,4,.97); align-items:center; justify-content:center; flex-direction:column; padding:2rem; }
+    #results-overlay.active { display:flex; animation:resIn .45s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes resIn { from{opacity:0;transform:scale(.93)} to{opacity:1;transform:scale(1)} }
+    .res-particles { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+    .res-particle { position:absolute; width:6px; height:6px; border-radius:50%; animation:resPFly 1.3s ease-out forwards; }
+    @keyframes resPFly { 0%{transform:translate(0,0) scale(1);opacity:1} 100%{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0} }
+    .res-inner { position:relative; z-index:1; max-width:480px; width:100%; display:flex; flex-direction:column; align-items:center; text-align:center; }
+    .res-label { font-family:var(--mono); font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; color:var(--green); margin-bottom:1.25rem; animation:fadeUp .4s ease .1s both; }
+    .res-room-name { font-size:clamp(1.8rem,5vw,2.8rem); font-weight:800; color:#fff; letter-spacing:-.03em; line-height:1.05; margin-bottom:.35rem; animation:fadeUp .4s ease .2s both; }
+    .res-room-sub { font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.35); margin-bottom:2.5rem; animation:fadeUp .4s ease .25s both; }
+    .res-stats { width:100%; display:flex; flex-direction:column; gap:0; margin-bottom:1.5rem; animation:fadeUp .4s ease .3s both; }
+    .res-row { display:flex; align-items:baseline; justify-content:space-between; padding:.85rem 0; border-bottom:1px solid rgba(255,255,255,.08); }
+    .res-row:last-child { border-bottom:none; }
+    .res-key { font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.4); }
+    .res-val { font-family:var(--mono); font-size:.98rem; font-weight:700; color:#fff; }
+    .res-val.green { color:var(--green); }
+    .res-pct-line { font-family:var(--mono); font-size:.7rem; color:rgba(255,255,255,.28); margin-bottom:1.75rem; animation:fadeUp .4s ease .38s both; }
+    .res-divider { width:100%; border:none; border-top:1px solid rgba(255,255,255,.08); margin-bottom:1.75rem; animation:fadeUp .4s ease .4s both; }
+    .res-btns { display:flex; gap:.75rem; flex-wrap:wrap; justify-content:center; width:100%; animation:fadeUp .4s ease .45s both; }
+    .res-btn { font-family:var(--font); font-size:.88rem; font-weight:600; padding:.75rem 1.5rem; border-radius:100px; border:none; cursor:pointer; letter-spacing:.01em; transition:transform .2s,box-shadow .2s; }
+    .res-btn:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:100px; }
+    .res-btn-email { background:var(--green); color:#000; }
+    .res-btn-email:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(57,217,138,.4); }
+    .res-btn-copy { background:rgba(255,255,255,.1); color:#fff; border:1px solid rgba(255,255,255,.2); }
+    .res-btn-copy:hover { background:rgba(255,255,255,.18); }
+    .res-btn-skip { background:none; color:rgba(255,255,255,.35); border:1px solid rgba(255,255,255,.1); }
+    .res-btn-skip:hover { color:rgba(255,255,255,.6); }
+    @media (max-width:480px) { .res-btns { flex-direction:column; } .res-btn { width:100%; text-align:center; } }
+
+  </style>
+<link rel="stylesheet" href="screenpath.css"></head>
+<body data-room="2">
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- Fail Overlay -->
+  <dialog id="fail-overlay" class="sp-dialog" aria-labelledby="fail-heading" aria-describedby="fail-desc">
+    
+    
+    
+    <h2 id="fail-heading" class="fail-title" tabindex="-1">Time is up — keep practicing</h2>
+    <p id="fail-desc" class="fail-message">You can keep your work and continue without a deadline, or restart this room for another challenge.</p>
+    
+    <div class="fail-buttons"><button type="button" class="sp-button primary" id="continue-practice">Keep my work — continue in practice</button><button type="button" class="sp-button" id="retry-btn" onclick="retryRoom(false)">Restart — same task</button><button type="button" class="sp-button" onclick="retryRoom(true)">Restart — new task</button><a class="sp-button" href="index.html">Return to activities</a></div>
+  </dialog>
+
+
+  <!-- Results overlay -->
+  <dialog id="results-overlay" class="sp-dialog" aria-labelledby="res-heading">
+    
+    <div class="res-inner">
+      <p class="res-label" aria-hidden="true">Room Complete</p>
+      <h2 class="res-room-name" id="res-heading" tabindex="-1"></h2>
+      <p class="res-room-sub" id="res-room-sub"></p>
+      <div class="res-stats" role="list" aria-label="Your results">
+        <div class="res-row" role="listitem"><span class="res-key">Time Used</span><span class="res-val green" id="res-time-used"></span></div>
+        <div class="res-row" role="listitem"><span class="res-key">Time Remaining</span><span class="res-val" id="res-time-left"></span></div>
+        <div class="res-row" role="listitem"><span class="res-key">Attempts</span><span class="res-val" id="res-attempts"></span></div>
+        <div class="res-row" role="listitem"><span class="res-key">Skill</span><span class="res-val" id="res-skill"></span></div>
+        <div class="res-row" role="listitem"><span class="res-key" id="res-skill-label"></span><span class="res-val" id="res-skill-value"></span></div>
+      </div>
+      <p class="res-pct-line" id="res-pct"></p>
+      <hr class="res-divider" aria-hidden="true">
+      <div class="res-btns">
+        <button type="button" class="res-btn res-btn-email" id="res-email-btn" aria-label="Email results to your teacher" data-email-results="">Email Results</button>
+        <button type="button" class="res-btn res-btn-copy" id="res-copy-btn" aria-label="Copy results to clipboard" data-copy-results="">Copy Results</button>
+        <button type="button" class="res-btn res-btn-skip" id="res-skip-btn" aria-label="Continue to room completion and optional reflection">Continue</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Header -->
+  <nav role="navigation" aria-label="Main navigation"><div class="nav-inner"><a class="sp-wordmark" href="index.html" aria-label="ScreenPath home">Screen<span>Path</span></a><ul class="nav-links"><li><a href="index.html">Activities</a></li><li><a href="progress.html">My Progress</a></li><li><a href="teachers.html">For Teachers</a></li><li><a href="about.html">About</a></li><li><a href="feedback.html">Feedback</a></li></ul><button id="menu-btn" class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu" onclick="toggleMenu()">☰</button></div><div class="nav-drawer" id="nav-drawer" hidden=""><a href="index.html">Activities</a><a href="progress.html">My Progress</a><a href="teachers.html">For Teachers</a><a href="about.html">About</a><a href="feedback.html">Feedback</a></div></nav>
+
+  <main id="main-content" tabindex="-1"><noscript>&lt;p class="sp-note"&gt;JavaScript is needed for the activities and saved progress. Please enable it, or contact screenpathedu@gmail.com for help.&lt;/p&gt;</noscript><details class="sp-help"><summary>Before you begin</summary><p>Use your screen reader to find the information in each room, then submit your answer. You should already know basic heading, link, table and form navigation. Practice has no deadline; Challenge lets you choose a time allowance.</p><p>The task becomes available when you select Start. Completing it saves your result and unlocks the next step. An unfinished task starts over if you leave or reload the page.</p><p><a href="teachers.html">Read the teacher guide and screen-reader testing notes</a></p></details>
+
+    <a href="index.html" class="back-link" aria-label="Back to all rooms">← All Rooms</a>
+
+    <div class="room-header">
+      <div class="room-meta">
+        <span class="room-badge">Room 2 of 3 — Locked In</span>
+      </div>
+      <h1 tabindex="-1">The Library</h1>
+    </div>
+
+    <!-- Library image -->
+    <figure aria-label="Library image" style="margin-bottom:2.5rem;">
+      <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=860&amp;q=80" alt="A school library photographed in near darkness. Long rows of bookshelves stretch toward the back of the room. Emergency lights cast a faint green glow across the spines of hundreds of books. The checkout desk at the front is empty. Nobody is here." style="width:100%;border-radius:12px;display:block;max-height:420px;object-fit:cover;" loading="lazy">
+      <figcaption style="font-size:.82rem;color:var(--text-muted);margin-top:.6rem;font-family:var(--mono);letter-spacing:.03em;">
+        Westlake Middle School — Library — 4:53 PM
+      </figcaption>
+    </figure>
+
+    <!-- Section 1: Situation -->
+    <section class="room-section">
+      <h2 id="situation-heading" tabindex="-1">Where You Are</h2>
+
+      <p class="sp-note">This is a fictional practice activity. No real emergency message is sent.</p><p id="scene-p1">You entered the access code at the corridor keypad and the light turned green. A panel slid open revealing a laminated instruction card. It told you the main exit also requires a terminal access code, and that code is hidden somewhere inside the library by Ms. Rivera, the school librarian.</p>
+      <p id="scene-p2">You push open the library door. The room is almost completely dark. Emergency lights hum near the ceiling, casting a dim glow across the shelves. Hundreds of books stretch from floor to ceiling in every direction.</p>
+      <p id="scene-p3">Ms. Rivera left a note on the circulation desk. She is famously obsessed with one particular book series and keeps personal display copies of it on shelves throughout the library. She hid a note inside each one. The notes lead to each other and the final book has the terminal access code written inside the back cover. The note tells you which series to look for.</p>
+
+      <div class="narration-row">
+        <button class="narrate-btn" id="narrate-btn" onclick="toggleNarration()" aria-pressed="false" aria-label="Play — hear the situation read aloud">
+          <span id="narrate-icon" aria-hidden="true">▶</span>
+          <span id="narrate-label">Play Scene</span>
+        </button>
+        <span class="narrate-status" id="narrate-status" role="status" aria-live="polite" aria-atomic="true"></span>
+      </div>
+
+      <!-- Librarian note — revealed when timer starts -->
+      <div class="librarian-note" role="region" aria-labelledby="lib-note-heading" id="librarian-note-box">
+        <span class="librarian-note-label" aria-hidden="true">// Note on the Circulation Desk</span>
+        <h3 id="lib-note-heading" tabindex="-1">Ms. Rivera's Note</h3>
+        <p id="lib-note-text">Press the start button below to reveal Ms. Rivera's note and unlock the library shelves.</p>
+      </div>
+    </section>
+
+    <!-- Section 2: Library -->
+    <section class="room-section" id="library-section">
+      <h2 id="library-heading" tabindex="-1">The Library Shelves</h2>
+
+      <!-- Timer -->
+      <div class="timer-area" role="region" aria-label="Room timer and sound controls">
+        <div class="sound-row">
+          <span class="sound-label" id="sound-label">Sound effects:</span>
+          <button class="toggle-btn" id="sound-toggle" role="switch" aria-checked="true" aria-labelledby="sound-label" onclick="toggleSound()">
+            <span class="toggle-dot" aria-hidden="true"></span>
+            <span id="sound-text">On</span>
+          </button>
+        </div>
+        <p class="sound-note">Sound effects are optional. Turn them on or off at any time. Scene narration plays only when you select Play Scene.</p>
+        <div class="sp-settings" aria-labelledby="settings-heading"><h3 id="settings-heading">Choose how to practice</h3><div class="setting"><label for="practice-mode">Activity mode</label><select id="practice-mode"><option value="practice">Practice — no deadline</option><option value="challenge">Challenge — timed</option></select></div><div class="setting" id="time-setting" hidden=""><label for="time-minutes">Time allowance in minutes</label><input id="time-minutes" type="number" min="1" max="60" step="1" value="5" required="" aria-describedby="time-help"><p id="time-help">Choose 1–60 minutes before starting. Your teacher can help select an allowance.</p></div><div class="setting"><label for="screen-reader">Screen reader (optional)</label><select id="screen-reader"><option>Prefer not to say</option><option>JAWS</option><option>NVDA</option><option>VoiceOver</option><option>Narrator</option><option>ChromeVox</option><option>TalkBack</option><option>Dolphin</option></select></div><p>Settings stay in this browser. Practice still records your time and attempts, but never times out.</p></div><p class="timer-instructions" id="timer-instructions">Review your task above, choose your mode, then start when you are ready.</p><div class="sp-actions"><button type="button" id="switch-practice" class="sp-button" hidden="">Switch to practice — remove deadline</button><button type="button" id="retry-inline" class="sp-button" hidden="">Choose how to continue</button></div>
+        <span id="timer-display" aria-live="off" aria-label="Time remaining: 5 minutes 0 seconds">5:00</span>
+        <div>
+          <button class="btn btn-primary" id="start-btn" onclick="startTimer()">
+            Start — Enter the Library
+          </button>
+        </div>
+      </div>
+
+      <!-- Library zone -->
+      <div id="library-zone" class="library-zone library-locked" hidden="">
+
+        <!-- Step tracker -->
+        <div class="step-tracker" role="status" aria-live="polite" aria-label="Trail progress" id="step-tracker">
+          <div class="step-pip active" id="pip-1" aria-hidden="true">1</div>
+          <div class="step-connector" id="conn-1" aria-hidden="true"></div>
+          <div class="step-pip" id="pip-2" aria-hidden="true">2</div>
+          <div class="step-connector" id="conn-2" aria-hidden="true"></div>
+          <div class="step-pip" id="pip-3" aria-hidden="true">3</div>
+          <span class="step-label" id="step-label">Step 1 of 3 — Fiction Shelf</span>
+        </div>
+
+        <!-- Page 1: Fiction Shelf -->
+        <div id="library-page-1" class="library-page active" aria-label="Fiction shelf, page 1 of 3">
+          <div class="zone-header-bar">
+            <span aria-hidden="true">// WESTLAKE MIDDLE SCHOOL LIBRARY — FICTION SHELF</span>
+            <span class="page-indicator" aria-live="polite">Page 1 of 3</span>
+          </div>
+          <div class="series-reminder" role="note" aria-label="Series reminder">
+            <span class="series-reminder-label">Look for —</span>
+            <span class="series-reminder-value" id="reminder-1"></span>
+          </div>
+          <p class="zone-intro">You are at the Fiction shelf. The table below lists the books on this shelf. Navigate the table and find the book that belongs to Ms. Rivera's series. When you find it activate the link in its Status column to open it.</p>
+          <h3 class="shelf-heading" tabindex="-1">Fiction Shelf — Current Books</h3>
+          <p class="shelf-desc">Eight books listed. Read across each row carefully before activating any link.</p>
+          <table class="book-table" aria-label="Fiction shelf books">
+            <caption>Fiction Shelf — 8 books</caption>
+            <thead><tr><th scope="col">Title</th><th scope="col">Author</th><th scope="col">Genre</th><th scope="col">Status</th></tr></thead>
+            <tbody id="page1-tbody"></tbody>
+          </table>
+          
+        <p id="library-feedback-1" role="status"></p><section id="library-note-1" class="sp-note" hidden=""><h3 tabindex="-1">A note inside the book</h3><p></p><button type="button" class="sp-button primary" id="library-next-1">Continue to the Reference section</button></section></div>
+
+        <!-- Page 2: Reference Section -->
+        <div id="library-page-2" class="library-page" aria-label="Reference section, page 2 of 3" hidden="">
+          <div class="zone-header-bar">
+            <span aria-hidden="true">// WESTLAKE MIDDLE SCHOOL LIBRARY — REFERENCE SECTION</span>
+            <span class="page-indicator" aria-live="polite">Page 2 of 3</span>
+          </div>
+          <div class="series-reminder" role="note" aria-label="Series reminder">
+            <span class="series-reminder-label">Look for —</span>
+            <span class="series-reminder-value" id="reminder-2"></span>
+          </div>
+          <p class="zone-intro">You moved to the Reference section. Find Ms. Rivera's series among the books on this shelf. The second note is inside her display copy here.</p>
+          <h3 class="shelf-heading" tabindex="-1">Reference Section — Current Books</h3>
+          <p class="shelf-desc">Eight books listed. Read across each row carefully before activating any link.</p>
+          <table class="book-table" aria-label="Reference section books">
+            <caption>Reference Section — 8 books</caption>
+            <thead><tr><th scope="col">Title</th><th scope="col">Author</th><th scope="col">Genre</th><th scope="col">Status</th></tr></thead>
+            <tbody id="page2-tbody"></tbody>
+          </table>
+          
+          <button class="zone-back" onclick="goBack(1)" aria-label="Return to Fiction shelf">← Back to Fiction Shelf</button>
+        <p id="library-feedback-2" role="status"></p><section id="library-note-2" class="sp-note" hidden=""><h3 tabindex="-1">A note inside the book</h3><p></p><button type="button" class="sp-button primary" id="library-next-2">Continue to the Checkout Desk</button></section></div>
+
+        <!-- Page 3: Checkout Desk -->
+        <div id="library-page-3" class="library-page" aria-label="Checkout desk returns cart, page 3 of 3" hidden="">
+          <div class="zone-header-bar">
+            <span aria-hidden="true">// WESTLAKE MIDDLE SCHOOL LIBRARY — CHECKOUT DESK RETURNS</span>
+            <span class="page-indicator" aria-live="polite">Page 3 of 3</span>
+          </div>
+          <div class="series-reminder" role="note" aria-label="Series reminder">
+            <span class="series-reminder-label">Look for —</span>
+            <span class="series-reminder-value" id="reminder-3"></span>
+          </div>
+          <p class="zone-intro">You made it to the checkout desk. The returns cart has books waiting to be re-shelved. Ms. Rivera's third display copy is on this cart. The terminal access code is written inside the back cover.</p>
+          <h3 class="shelf-heading" tabindex="-1">Checkout Desk — Returns Cart</h3>
+          <p class="shelf-desc">Eight books listed. The terminal access code is inside the right book.</p>
+          <table class="book-table" aria-label="Returns cart books">
+            <caption>Returns Cart — 8 books</caption>
+            <thead><tr><th scope="col">Title</th><th scope="col">Author</th><th scope="col">Genre</th><th scope="col">Status</th></tr></thead>
+            <tbody id="page3-tbody"></tbody>
+          </table>
+          
+          <button class="zone-back" onclick="goBack(2)" aria-label="Return to Reference section">← Back to Reference Section</button>
+        <p id="library-feedback-3" role="status"></p><section id="library-note-3" class="sp-note" hidden=""><h3 tabindex="-1">The terminal access code</h3><p></p><a class="sp-button primary" href="#answer1-heading">Go to the answer form</a></section></div>
+
+      </div>
+
+      <!-- Answer Section A -->
+      <div class="answer-section" id="answer-section-1" aria-labelledby="answer1-heading">
+        <span class="answer-label">Section A — Submit the Code</span>
+        <h3 id="answer1-heading" tabindex="-1">What Is the Terminal Access Code?</h3>
+        <p class="answer-intro">Found the code in the final book? Enter it below. Check your answer before submitting.</p>
+        <form id="answer-form-1" novalidate="">
+          <div class="form-group">
+            <label for="door-code">Terminal Access Code <span aria-hidden="true" style="color:var(--red)">*</span></label>
+            <span class="field-hint" id="hint-code">Enter the four digit code written inside the back cover of the third book.</span>
+            <input type="text" id="door-code" name="door_code" required="" aria-required="true" aria-describedby="hint-code" placeholder="Four digit code" maxlength="6" autocomplete="off">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit Code</button>
+          <div id="form-status-1" class="form-status" role="alert" aria-live="assertive"></div>
+        </form>
+      </div>
+
+      <!-- Bridge message -->
+      <div class="bridge-msg" id="bridge-msg" role="note" aria-live="polite">
+        <span class="bridge-msg-label">// After-Hours Check-In Terminal — System Message</span>
+        <p>"Both codes accepted. Student verification in progress. To complete identity confirmation proceed to the computer lab at the end of the main corridor. The after-hours emergency alert system terminal is active. Submit the student identity form to authorize the exit sequence."</p>
+      </div>
+
+      <!-- Answer Section B: Debrief -->
+      
+
+      <!-- Next room box -->
+      <div class="next-room-box" id="next-room-box" aria-labelledby="next-room-heading">
+        <span class="next-room-label">// Room 2 Complete</span>
+        <h3 id="next-room-heading" tabindex="-1">Room 3 is Now Unlocked</h3>
+        <p>You have the terminal access code. The computer lab is at the end of the main corridor. Head there to complete the student identity form and trigger the emergency alert.</p>
+        <a href="mission-1c.html" class="btn btn-primary" aria-label="Enter Room 3 — The Computer Lab">Enter Room 3 — The Computer Lab</a>
+      </div><section id="reflection-section" class="sp-reflection" hidden="" aria-labelledby="reflection-heading"><h2 id="reflection-heading">Optional reflection</h2><p>Your room is already complete. Add a reflection if it helps you or your teacher. Use fictional information in activities and avoid personal details in notes.</p><form id="reflection-form"><label for="reflection-strategy">What strategy helped you?</label><select id="reflection-strategy"><option value="">Choose a strategy (optional)</option><option>Read the title and author columns</option><option>Read every column in each row</option><option>Used the links list</option><option>Used screen reader search</option></select><label for="reflection-confidence">How confident do you feel?</label><select id="reflection-confidence"><option value="">Choose a rating (optional)</option><option>Not confident yet</option><option>Somewhat confident</option><option>Very confident</option></select><label for="reflection-assistance">What help did you use?</label><select id="reflection-assistance"><option value="">Choose an answer (optional)</option><option>No assistance</option><option>A reminder or hint</option><option>Help with part of the task</option><option>Guidance throughout</option></select><label for="reflection-notes">Notes (optional)</label><textarea id="reflection-notes" maxlength="2000"></textarea><div class="sp-actions"><button type="submit" class="sp-button primary">Save reflection</button></div><p id="reflection-status" role="status"></p></form><div class="sp-actions"><button type="button" class="sp-button" data-email-results="">Email Results</button><button type="button" class="sp-button" data-copy-results="">Copy Results</button></div><p>Results are only shared when you copy them or choose to send an email.</p></section>
+
+    </section>
+
+  </main>
+
+  <footer><div class="sp-footer"><p><strong>ScreenPath</strong> — Free screen-reader practice.</p><p>Built by Moises Betancourt for screen reader learners everywhere.</p><div class="sp-actions"><a href="teachers.html">Teacher guide</a><a href="feedback.html">Feedback and accessibility help</a><a href="about.html#privacy">How your results are saved</a></div></div></footer>
+
+  
+
+
+
+<script src="screenpath.js"></script><script src="school-data.js"></script><script src="school.js"></script></body></html>

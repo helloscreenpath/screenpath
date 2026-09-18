@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Room 3: The Computer Lab — Locked In — ScreenPath</title>
+  <style>
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root {
+      --bg:#0a0a0a; --surface:#111111; --surface-2:#1a1a1a; --border:#2a2a2a;
+      --text:#f0f0f0; --text-muted:#8a8a8a;
+      --green:#39d98a; --green-dim:#0d2e1c;
+      --red:#ff4d4d; --red-dim:#2e0d0d;
+      --amber:#f5a623; --amber-dim:#2e1f00;
+      --radius:12px;
+      --font:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      --mono:'SF Mono','Fira Code','Consolas',monospace;
+    }
+    html { scroll-behavior:smooth; }
+    body { background:var(--bg); color:var(--text); font-family:var(--font); font-size:18px; line-height:1.7; min-height:100vh; }
+    .visually-hidden { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+    .skip-link { position:absolute; top:-100px; left:1rem; background:var(--green); color:#000; padding:.75rem 1.5rem; border-radius:var(--radius); font-weight:600; font-size:1rem; text-decoration:none; z-index:9999; transition:top .2s; }
+    .skip-link:focus { top:1rem; }
+    header[role="banner"] { border-bottom:1px solid var(--border); padding:1.25rem 2rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; position:sticky; top:0; background:rgba(10,10,10,.95); backdrop-filter:blur(12px); z-index:100; }
+    .site-name { font-size:1.1rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--green); text-decoration:none; }
+    .site-series { font-size:.78rem; color:var(--text-muted); letter-spacing:.05em; text-transform:uppercase; }
+    nav[aria-label="Main navigation"] ul { list-style:none; display:flex; gap:2rem; flex-wrap:wrap; }
+    nav[aria-label="Main navigation"] a { color:var(--text-muted); text-decoration:none; font-size:.9rem; letter-spacing:.04em; text-transform:uppercase; transition:color .2s; padding:.25rem 0; border-bottom:2px solid transparent; }
+    nav[aria-label="Main navigation"] a:hover, nav[aria-label="Main navigation"] a:focus { color:var(--green); border-bottom-color:var(--green); outline:none; }
+    nav[aria-label="Main navigation"] a:focus-visible { outline:2px solid var(--green); outline-offset:4px; border-radius:2px; }
+    main { max-width:860px; margin:0 auto; padding:3rem 2rem 6rem; }
+    .back-link { display:inline-flex; align-items:center; gap:.5rem; color:var(--text-muted); text-decoration:none; font-size:.9rem; letter-spacing:.04em; text-transform:uppercase; margin-bottom:2.5rem; transition:color .2s; }
+    .back-link:hover, .back-link:focus { color:var(--green); }
+    .back-link:focus-visible { outline:2px solid var(--green); outline-offset:4px; border-radius:3px; }
+    .room-header { margin-bottom:2.5rem; padding-bottom:2rem; border-bottom:1px solid var(--border); }
+    .room-meta { display:flex; align-items:center; gap:.75rem; flex-wrap:wrap; margin-bottom:1rem; }
+    .room-badge { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); background:var(--green-dim); border:1px solid rgba(57,217,138,.25); padding:.3rem .85rem; border-radius:100px; }
+    .room-level { font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--text-muted); border:1px solid var(--border); padding:.3rem .85rem; border-radius:100px; }
+    .room-skill-badge { font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--amber); border:1px solid rgba(245,166,35,.3); padding:.3rem .85rem; border-radius:100px; background:var(--amber-dim); }
+    h1 { font-size:clamp(1.8rem,4vw,2.8rem); font-weight:700; letter-spacing:-.02em; line-height:1.15; color:var(--text); }
+    .section-eyebrow { font-family:var(--mono); font-size:.72rem; letter-spacing:.15em; text-transform:uppercase; color:var(--green); margin-bottom:.6rem; display:block; }
+    h2 { font-size:1.4rem; font-weight:600; letter-spacing:-.01em; margin-bottom:1.25rem; color:var(--text); }
+    h3 { font-size:1.05rem; font-weight:600; color:var(--text); margin-bottom:.6rem; }
+    .room-section { margin-bottom:3.5rem; padding-bottom:3rem; border-bottom:1px solid var(--border); }
+    .room-section:last-of-type { border-bottom:none; }
+    p { margin-bottom:1rem; }
+    p:last-child { margin-bottom:0; }
+
+    .skill-focus { background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--green); border-radius:var(--radius); padding:1.5rem; margin:1.5rem 0; }
+    .skill-focus-label { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.6rem; }
+    .skill-focus p { font-size:.95rem; color:var(--text-muted); margin-bottom:.75rem; line-height:1.75; }
+    .skill-focus p:last-child { margin-bottom:0; }
+    .skill-focus strong { color:var(--text); }
+
+    /* Profile box */
+    .profile-box { background:var(--green-dim); border:1px solid rgba(57,217,138,.3); border-radius:var(--radius); padding:1.75rem; margin:1.75rem 0; }
+    .profile-box-label { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.9rem; }
+    .profile-box h3 { color:var(--green); font-size:1rem; margin-bottom:.75rem; }
+    .profile-line { display:flex; align-items:baseline; gap:.75rem; padding:.5rem 0; border-bottom:1px solid rgba(57,217,138,.12); flex-wrap:wrap; }
+    .profile-line:last-child { border-bottom:none; padding-bottom:0; }
+    .profile-num { font-family:var(--mono); font-size:.72rem; color:var(--green); opacity:.6; min-width:20px; flex-shrink:0; }
+    .profile-key { color:var(--green); font-family:var(--mono); font-size:.85rem; min-width:180px; flex-shrink:0; }
+    .profile-val { color:var(--text); font-weight:600; font-size:.98rem; font-family:var(--mono); }
+
+    /* Narration */
+    .narration-row { display:flex; align-items:center; gap:1rem; margin:1.5rem 0; flex-wrap:wrap; }
+    .narrate-btn { display:inline-flex; align-items:center; gap:.6rem; background:var(--surface); border:1px solid var(--green); color:var(--green); font-family:var(--font); font-size:.88rem; font-weight:600; padding:.6rem 1.4rem; border-radius:100px; cursor:pointer; transition:background .2s,transform .15s; }
+    .narrate-btn:hover { background:var(--green-dim); transform:translateY(-1px); }
+    .narrate-btn:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:100px; }
+    .narrate-btn.playing { background:var(--green-dim); }
+    .narrate-status { font-family:var(--mono); font-size:.78rem; color:var(--text-muted); }
+
+    /* Timer */
+    .timer-area { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin:2rem 0; text-align:center; }
+    .sound-row { display:flex; align-items:center; justify-content:center; gap:.75rem; margin-bottom:.75rem; flex-wrap:wrap; }
+    .sound-note { font-size:.82rem; color:var(--text-muted); font-style:italic; margin-bottom:1.25rem; line-height:1.5; }
+    .sound-label { font-size:.88rem; color:var(--text-muted); font-family:var(--mono); letter-spacing:.04em; }
+    .toggle-btn { display:inline-flex; align-items:center; gap:.5rem; background:var(--surface-2); border:1px solid var(--border); border-radius:100px; color:var(--text-muted); font-family:var(--mono); font-size:.78rem; letter-spacing:.06em; text-transform:uppercase; padding:.45rem 1.1rem; cursor:pointer; transition:border-color .2s,color .2s,background .2s; }
+    .toggle-btn[aria-checked="true"] { border-color:var(--green); color:var(--green); background:var(--green-dim); }
+    .toggle-btn:focus-visible { outline:2px solid var(--green); outline-offset:3px; }
+    .toggle-dot { width:7px; height:7px; border-radius:50%; background:var(--text-muted); transition:background .2s; flex-shrink:0; }
+    .toggle-btn[aria-checked="true"] .toggle-dot { background:var(--green); }
+    .timer-instructions { font-size:.95rem; color:var(--text-muted); margin-bottom:1.5rem; line-height:1.7; }
+    #timer-display { font-family:var(--mono); font-size:3.5rem; font-weight:700; color:var(--green); letter-spacing:.05em; display:block; margin-bottom:1.5rem; line-height:1; transition:color .3s; }
+    #timer-display.warning { color:var(--amber); }
+    #timer-display.critical { color:var(--red); animation:pulse .8s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+
+    /* Buttons */
+    .btn { display:inline-block; font-family:var(--font); font-size:1rem; font-weight:600; padding:.9rem 2.5rem; border-radius:100px; border:none; cursor:pointer; letter-spacing:.02em; transition:transform .15s,box-shadow .15s,background .2s; text-decoration:none; text-align:center; }
+    .btn:focus-visible { outline:3px solid var(--green); outline-offset:4px; }
+    .btn-primary { background:var(--green); color:#000; }
+    .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(57,217,138,.3); }
+    .btn-secondary { background:var(--surface-2); color:var(--text); border:1px solid var(--border); }
+    .btn-danger { background:var(--red); color:#fff; }
+    .btn-danger:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(255,77,77,.3); }
+
+    /* Progress */
+    .progress-row { display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem; flex-wrap:wrap; }
+    .progress-text { font-family:var(--mono); font-size:.8rem; color:var(--text-muted); }
+    .progress-text span { color:var(--green); font-weight:600; }
+    .progress-bar-wrap { flex:1; height:5px; background:var(--border); border-radius:3px; overflow:hidden; min-width:80px; }
+    .progress-bar { height:100%; background:var(--green); border-radius:3px; transition:width .3s; width:0%; }
+
+    /* Computer terminal */
+    .computer-terminal { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:2.5rem; margin-top:1.5rem; }
+    .terminal-locked { filter:blur(5px); pointer-events:none; user-select:none; opacity:.35; transition:filter .5s,opacity .5s; }
+    .terminal-header-bar { background:var(--surface-2); border:1px solid var(--border); border-radius:8px; padding:.9rem 1.25rem; margin-bottom:1.5rem; font-family:var(--mono); font-size:.82rem; color:var(--text-muted); letter-spacing:.03em; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.5rem; }
+    .terminal-status { font-family:var(--mono); font-size:.75rem; color:var(--green); letter-spacing:.06em; text-transform:uppercase; }
+    .terminal-intro { font-size:.95rem; color:var(--text); line-height:1.8; margin-bottom:2rem; padding:1.25rem; background:var(--surface-2); border:1px solid var(--border); border-left:3px solid var(--green); border-radius:8px; font-style:italic; }
+
+    /* Form sections */
+    .form-section { margin-bottom:2.5rem; padding-bottom:2.5rem; border-bottom:1px solid var(--border); }
+    .form-section:last-of-type { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+    .form-section-heading { font-family:var(--mono); font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:1.25rem; padding-bottom:.5rem; border-bottom:1px solid var(--green-dim); }
+    .form-group { margin-bottom:1.5rem; }
+    .form-group:last-child { margin-bottom:0; }
+    label { display:block; font-size:.92rem; font-weight:600; color:var(--text); margin-bottom:.5rem; }
+    .field-hint { display:block; font-size:.82rem; color:var(--text-muted); margin-bottom:.65rem; line-height:1.5; }
+    .required-mark { color:var(--red); margin-left:.2rem; }
+    input[type="text"] { width:100%; background:var(--surface-2); border:1px solid var(--border); border-radius:8px; color:var(--text); font-family:var(--font); font-size:1rem; padding:.9rem 1rem; transition:border-color .2s,box-shadow .2s; }
+    input[type="text"]:focus { outline:none; border-color:var(--green); box-shadow:0 0 0 3px rgba(57,217,138,.15); }
+    input[type="text"].error { border-color:var(--red); }
+    .field-error { display:none; color:var(--red); font-size:.82rem; margin-top:.4rem; font-family:var(--mono); }
+    .field-error.visible { display:block; }
+    .form-submit-area { margin-top:2rem; padding-top:2rem; border-top:1px solid var(--border); }
+    .form-status { display:none; padding:1rem 1.25rem; border-radius:8px; font-size:.95rem; margin-top:1rem; line-height:1.6; }
+    .form-status.error { background:var(--red-dim); border:1px solid rgba(255,77,77,.3); color:var(--red); display:block; }
+    .form-status.success { background:var(--green-dim); border:1px solid rgba(57,217,138,.3); color:var(--green); display:block; }
+
+    /* Debrief report */
+    .debrief-report { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-top:1.5rem; display:none; }
+    .debrief-report.visible { display:block; animation:fadeUp .3s ease; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+    .debrief-report-label { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.5rem; }
+    .section-divider { border:none; border-top:1px solid var(--border); margin:1.5rem 0; }
+    textarea { width:100%; background:var(--surface-2); border:1px solid var(--border); border-radius:8px; color:var(--text); font-family:var(--font); font-size:1rem; padding:.85rem 1rem; resize:vertical; min-height:90px; line-height:1.6; transition:border-color .2s,box-shadow .2s; }
+    textarea:focus { outline:none; border-color:var(--green); box-shadow:0 0 0 3px rgba(57,217,138,.15); }
+    .radio-group { display:flex; flex-direction:column; gap:.6rem; margin-top:.25rem; }
+    .radio-option { display:flex; align-items:center; gap:.75rem; cursor:pointer; font-size:.95rem; color:var(--text-muted); padding:.65rem 1rem; border:1px solid var(--border); border-radius:8px; transition:border-color .2s,color .2s; }
+    .radio-option:hover { border-color:var(--green); color:var(--text); }
+    .radio-option input[type="radio"] { width:18px; height:18px; accent-color:var(--green); flex-shrink:0; }
+    .radio-option input[type="radio"]:focus-visible { outline:2px solid var(--green); outline-offset:2px; }
+
+    /* Bridge message */
+    .bridge-msg { background:var(--green-dim); border:1px solid rgba(57,217,138,.3); border-radius:var(--radius); padding:1.5rem; margin-top:1.5rem; display:none; }
+    .bridge-msg.visible { display:block; }
+    .bridge-msg-label { font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.5rem; }
+    .bridge-msg p { font-size:.95rem; color:var(--text); line-height:1.7; margin-bottom:0; font-style:italic; }
+
+    /* Next room box */
+    .next-room-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-top:1.5rem; display:none; text-align:center; }
+    .next-room-box.visible { display:block; animation:fadeUp .4s ease; }
+    .next-room-label { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.5rem; }
+    .next-room-box h3 { color:var(--green); margin-bottom:.5rem; font-size:1.1rem; }
+    .next-room-box p { font-size:.9rem; color:var(--text-muted); margin-bottom:1.5rem; }
+
+    /* Debrief section */
+    .debrief-note { background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--green); border-radius:var(--radius); padding:1.5rem; margin-bottom:2rem; font-size:.95rem; color:var(--text-muted); line-height:1.7; }
+    .debrief-note strong { color:var(--text); }
+    .strategy-tip { background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius); padding:1.5rem; margin-bottom:2rem; }
+    .strategy-tip-label { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--amber); display:block; margin-bottom:.5rem; }
+    .strategy-tip p { font-size:.95rem; color:var(--text-muted); margin-bottom:0; line-height:1.7; }
+    .debrief-locked-notice { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:1.5rem; color:var(--text-muted); font-size:.9rem; text-align:center; font-family:var(--mono); letter-spacing:.04em; margin-bottom:1.5rem; }
+    .debrief-content-locked { opacity:.35; pointer-events:none; filter:blur(3px); transition:opacity .5s,filter .5s; }
+
+    /* Overlays */
+    .overlay { display:none; position:fixed; inset:0; z-index:1000; align-items:center; justify-content:center; flex-direction:column; text-align:center; padding:2rem; }
+    .overlay.active { display:flex; }
+    #fail-overlay { background:rgba(8,0,0,.97); animation:failIn .35s ease-out; }
+    @keyframes failIn { from{opacity:0;transform:scale(1.04)} to{opacity:1;transform:scale(1)} }
+    .fail-scanlines { position:absolute; inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,0,0,.04) 2px,rgba(255,0,0,.04) 4px); pointer-events:none; }
+    .fail-sparks { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+    .spark { position:absolute; width:3px; height:3px; border-radius:50%; animation:sparkFly 1s ease-out forwards; }
+    @keyframes sparkFly { 0%{transform:translate(0,0) scale(1);opacity:1} 100%{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0} }
+    .fail-glitch { font-family:var(--mono); font-size:clamp(2rem,8vw,4rem); font-weight:900; color:var(--red); letter-spacing:.05em; text-transform:uppercase; animation:glitch .25s infinite; margin-bottom:1rem; }
+    @keyframes glitch { 0%{text-shadow:2px 0 #ff0000,-2px 0 #00ffff;transform:translate(0,0);} 25%{text-shadow:-2px 0 #ff0000,2px 0 #ff00ff;transform:translate(-2px,1px);} 50%{text-shadow:2px 0 #ff00ff,-2px 0 #ff0000;transform:translate(2px,-1px);} 75%{text-shadow:-2px 0 #00ffff,2px 0 #ff0000;transform:translate(0,0);} 100%{text-shadow:2px 0 #ff0000,-2px 0 #ff00ff;transform:translate(1px,1px);} }
+    .fail-title { font-size:1.3rem; font-weight:700; color:var(--text); margin-bottom:.75rem; }
+    .fail-message { font-size:1rem; color:var(--text-muted); margin-bottom:.5rem; max-width:480px; line-height:1.7; }
+    .fail-sub { font-family:var(--mono); font-size:.8rem; color:var(--red); margin-bottom:2rem; letter-spacing:.06em; }
+    #success-overlay { background:rgba(0,8,4,.97); animation:successIn .45s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes successIn { from{opacity:0;transform:scale(.92)} to{opacity:1;transform:scale(1)} }
+    .success-particles { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+    .particle { position:absolute; width:6px; height:6px; border-radius:50%; animation:particleFly 1.3s ease-out forwards; }
+    @keyframes particleFly { 0%{transform:translate(0,0) scale(1);opacity:1} 100%{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0} }
+    .success-icon { font-size:3.5rem; margin-bottom:.75rem; animation:successPop .5s cubic-bezier(.34,1.56,.64,1) .15s both; }
+    @keyframes successPop { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
+    .success-title { font-size:clamp(1.8rem,5vw,3rem); font-weight:700; color:var(--green); letter-spacing:-.02em; margin-bottom:.5rem; animation:fadeUp .4s ease .25s both; }
+    .success-sub { font-family:var(--mono); font-size:.8rem; color:var(--green); letter-spacing:.1em; text-transform:uppercase; margin-bottom:.75rem; animation:fadeUp .4s ease .35s both; }
+    .success-time { font-family:var(--mono); font-size:1.05rem; color:var(--text); background:var(--green-dim); border:1px solid rgba(57,217,138,.3); border-radius:100px; padding:.5rem 1.5rem; margin-bottom:1.25rem; animation:fadeUp .4s ease .4s both; display:inline-block; }
+    .success-message { font-size:.95rem; color:var(--text-muted); max-width:420px; margin-bottom:2rem; animation:fadeUp .4s ease .45s both; line-height:1.7; }
+
+    footer[role="contentinfo"] { border-top:1px solid var(--border); padding:2.5rem 2rem; color:var(--text-muted); font-size:.85rem; }
+    .footer-inner { max-width:860px; margin:0 auto; display:flex; flex-direction:column; gap:.5rem; }
+    .footer-platform { font-weight:600; color:var(--text-muted); }
+    .footer-a11y { font-size:.8rem; color:var(--text-muted); line-height:1.6; }
+
+    @media (max-width:768px) {
+      header[role="banner"] { padding:1rem 1.25rem; flex-direction:column; align-items:flex-start; }
+      main { padding:2rem 1.25rem 4rem; }
+      .computer-terminal { padding:1.5rem; }
+      #timer-display { font-size:2.5rem; }
+      .profile-key { min-width:130px; }
+    }
+    a:focus-visible, button:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:3px; }
+    .escape-scene p { font-size:.95rem; color:var(--text-muted); line-height:1.8; margin-bottom:.85rem; opacity:0; transform:translateY(8px); transition:opacity .6s ease, transform .6s ease; }
+    .escape-scene p.revealed { opacity:1; transform:translateY(0); }
+    .escape-scene p:last-child { color:var(--green); font-style:italic; }
+
+    /* ── Results overlay ── */
+    #results-overlay { display:none; position:fixed; inset:0; z-index:2000; background:rgba(0,8,4,.97); align-items:center; justify-content:center; flex-direction:column; padding:2rem; }
+    #results-overlay.active { display:flex; animation:resIn .45s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes resIn { from{opacity:0;transform:scale(.93)} to{opacity:1;transform:scale(1)} }
+    .res-particles { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+    .res-particle { position:absolute; width:6px; height:6px; border-radius:50%; animation:resPFly 1.3s ease-out forwards; }
+    @keyframes resPFly { 0%{transform:translate(0,0) scale(1);opacity:1} 100%{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0} }
+    .res-inner { position:relative; z-index:1; max-width:480px; width:100%; display:flex; flex-direction:column; align-items:center; text-align:center; }
+    .res-label { font-family:var(--mono); font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; color:var(--green); margin-bottom:1.25rem; animation:fadeUp .4s ease .1s both; }
+    .res-room-name { font-size:clamp(1.8rem,5vw,2.8rem); font-weight:800; color:#fff; letter-spacing:-.03em; line-height:1.05; margin-bottom:.35rem; animation:fadeUp .4s ease .2s both; }
+    .res-room-sub { font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.35); margin-bottom:2.5rem; animation:fadeUp .4s ease .25s both; }
+    .res-stats { width:100%; display:flex; flex-direction:column; gap:0; margin-bottom:1.5rem; animation:fadeUp .4s ease .3s both; }
+    .res-row { display:flex; align-items:baseline; justify-content:space-between; padding:.85rem 0; border-bottom:1px solid rgba(255,255,255,.08); }
+    .res-row:last-child { border-bottom:none; }
+    .res-key { font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.4); }
+    .res-val { font-family:var(--mono); font-size:.98rem; font-weight:700; color:#fff; }
+    .res-val.green { color:var(--green); }
+    .res-pct-line { font-family:var(--mono); font-size:.7rem; color:rgba(255,255,255,.28); margin-bottom:1.75rem; animation:fadeUp .4s ease .38s both; }
+    .res-divider { width:100%; border:none; border-top:1px solid rgba(255,255,255,.08); margin-bottom:1.75rem; animation:fadeUp .4s ease .4s both; }
+    .res-btns { display:flex; gap:.75rem; flex-wrap:wrap; justify-content:center; width:100%; animation:fadeUp .4s ease .45s both; }
+    .res-btn { font-family:var(--font); font-size:.88rem; font-weight:600; padding:.75rem 1.5rem; border-radius:100px; border:none; cursor:pointer; letter-spacing:.01em; transition:transform .2s,box-shadow .2s; }
+    .res-btn:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:100px; }
+    .res-btn-email { background:var(--green); color:#000; }
+    .res-btn-email:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(57,217,138,.4); }
+    .res-btn-copy { background:rgba(255,255,255,.1); color:#fff; border:1px solid rgba(255,255,255,.2); }
+    .res-btn-copy:hover { background:rgba(255,255,255,.18); }
+    .res-btn-skip { background:none; color:rgba(255,255,255,.35); border:1px solid rgba(255,255,255,.1); }
+    .res-btn-skip:hover { color:rgba(255,255,255,.6); }
+    @media (max-width:480px) { .res-btns { flex-direction:column; } .res-btn { width:100%; text-align:center; } }
+
+  </style>
+<link rel="stylesheet" href="screenpath.css"></head>
+<body data-room="3">
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- Fail Overlay -->
+  <dialog id="fail-overlay" class="sp-dialog" aria-labelledby="fail-heading" aria-describedby="fail-desc">
+    
+    
+    
+    <h2 id="fail-heading" class="fail-title" tabindex="-1">Time is up — keep practicing</h2>
+    <p id="fail-desc" class="fail-message">You can keep your work and continue without a deadline, or restart this room for another challenge.</p>
+    
+    
+  <div class="fail-buttons"><button type="button" class="sp-button primary" id="continue-practice">Keep my work — continue in practice</button><button type="button" class="sp-button" id="retry-btn" onclick="retryRoom(false)">Restart — same task</button><button type="button" class="sp-button" onclick="retryRoom(true)">Restart — new task</button><a class="sp-button" href="index.html">Return to activities</a></div></dialog>
+
+
+
+  
+
+  <!-- Series complete screen -->
+  
+
+  <!-- Results overlay -->
+  <dialog id="results-overlay" class="sp-dialog" aria-labelledby="res-heading">
+    
+    <div class="res-inner">
+      <p class="res-label" aria-hidden="true">Room Complete</p>
+      <h2 class="res-room-name" id="res-heading" tabindex="-1"></h2>
+      <p class="res-room-sub" id="res-room-sub"></p>
+      <div class="res-stats" role="list" aria-label="Your results">
+        <div class="res-row" role="listitem"><span class="res-key">Time Used</span><span class="res-val green" id="res-time-used"></span></div>
+        <div class="res-row" role="listitem"><span class="res-key">Time Remaining</span><span class="res-val" id="res-time-left"></span></div>
+        <div class="res-row" role="listitem"><span class="res-key">Attempts</span><span class="res-val" id="res-attempts"></span></div>
+        <div class="res-row" role="listitem"><span class="res-key">Skill</span><span class="res-val" id="res-skill"></span></div>
+        <div class="res-row" role="listitem"><span class="res-key" id="res-skill-label"></span><span class="res-val" id="res-skill-value"></span></div>
+      </div>
+      <p class="res-pct-line" id="res-pct"></p>
+      <hr class="res-divider" aria-hidden="true">
+      <div class="res-btns">
+        <button type="button" class="res-btn res-btn-email" id="res-email-btn" aria-label="Email results to your teacher" data-email-results="">Email Results</button>
+        <button type="button" class="res-btn res-btn-copy" id="res-copy-btn" aria-label="Copy results to clipboard" data-copy-results="">Copy Results</button>
+        <button type="button" class="res-btn res-btn-skip" id="res-skip-btn" aria-label="Continue to room completion and optional reflection">Continue</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Header -->
+  <nav role="navigation" aria-label="Main navigation"><div class="nav-inner"><a class="sp-wordmark" href="index.html" aria-label="ScreenPath home">Screen<span>Path</span></a><ul class="nav-links"><li><a href="index.html">Activities</a></li><li><a href="progress.html">My Progress</a></li><li><a href="teachers.html">For Teachers</a></li><li><a href="about.html">About</a></li><li><a href="feedback.html">Feedback</a></li></ul><button id="menu-btn" class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu" onclick="toggleMenu()">☰</button></div><div class="nav-drawer" id="nav-drawer" hidden=""><a href="index.html">Activities</a><a href="progress.html">My Progress</a><a href="teachers.html">For Teachers</a><a href="about.html">About</a><a href="feedback.html">Feedback</a></div></nav>
+
+  <main id="main-content" tabindex="-1"><noscript>&lt;p class="sp-note"&gt;JavaScript is needed for the activities and saved progress. Please enable it, or contact screenpathedu@gmail.com for help.&lt;/p&gt;</noscript><details class="sp-help"><summary>Before you begin</summary><p>Use your screen reader to find the information in each room, then submit your answer. You should already know basic heading, link, table and form navigation. Practice has no deadline; Challenge lets you choose a time allowance.</p><p>The task becomes available when you select Start. Completing it saves your result and unlocks the next step. An unfinished task starts over if you leave or reload the page.</p><p><a href="teachers.html">Read the teacher guide and screen-reader testing notes</a></p></details>
+
+    <a href="index.html" class="back-link" aria-label="Back to all rooms">← All Rooms</a>
+
+    <div class="room-header">
+      <div class="room-meta">
+        <span class="room-badge">Room 3 of 3 — Locked In</span>
+      </div>
+      <h1 tabindex="-1">The Computer Lab</h1>
+    </div>
+
+    <!-- Computer lab image -->
+    <figure aria-label="Computer lab image" style="margin-bottom:2.5rem;">
+      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=860&amp;q=80" alt="A school computer lab in the dark. Rows of computer monitors sit on long desks, all powered off except for one screen at the far end of the room that glows faintly in the darkness. The rest of the lab is completely empty." style="width:100%;border-radius:12px;display:block;max-height:420px;object-fit:cover;" loading="lazy">
+      <figcaption style="font-size:.82rem;color:var(--text-muted);margin-top:.6rem;font-family:var(--mono);letter-spacing:.03em;">
+        Westlake Middle School — Computer Lab — 5:01 PM
+      </figcaption>
+    </figure>
+
+    <!-- Section 1: Situation -->
+    <section class="room-section">
+      <h2 id="situation-heading" tabindex="-1">Where You Are</h2>
+
+      <p class="sp-note">This is a fictional practice activity. No real emergency message is sent.</p><p id="scene-p1">Both codes worked. The corridor keypad accepted the access code from the office and the terminal accepted the library code. A message appeared on the screen telling you one more step was needed. To complete the emergency exit authorization the after-hours alert system needs to verify your identity as a registered student.</p>
+      <p id="scene-p2">You followed the corridor to the computer lab. Every monitor in the room is dark except one at the far end. You sit down. The screen shows a form connected to the school's after-hours emergency alert system. This system was designed exactly for situations like this. When a student is accidentally locked inside after hours, submitting this form sends an automated alert directly to the principal's cell phone and district security. No one needs to be watching a screen. The system handles it automatically.</p>
+      <p id="scene-p3">Your student information is displayed below. Fill out every field in the form using those exact values and submit it when you are ready.</p>
+
+      <div class="narration-row">
+        <button class="narrate-btn" id="narrate-btn" onclick="toggleNarration()" aria-pressed="false" aria-label="Play — hear the situation read aloud">
+          <span id="narrate-icon" aria-hidden="true">▶</span>
+          <span id="narrate-label">Play Scene</span>
+        </button>
+        <span class="narrate-status" id="narrate-status" role="status" aria-live="polite" aria-atomic="true"></span>
+      </div>
+
+      <!-- Student profile box -->
+      <div class="profile-box">
+        <span class="profile-box-label" aria-hidden="true">// Your Student Information</span>
+        <h3 id="profile-heading" tabindex="-1">Enter This Information Into the Form</h3>
+        <p style="font-size:.88rem;color:var(--text-muted);margin-bottom:1.25rem;">Each numbered item below matches a field in the form. Read through all five before starting the activity.</p>
+        <div class="profile-line"><span class="profile-num">1.</span><span class="profile-key">First Name —</span><span class="profile-val" id="p-firstname"></span></div>
+        <div class="profile-line"><span class="profile-num">2.</span><span class="profile-key">Last Name —</span><span class="profile-val" id="p-lastname"></span></div>
+        <div class="profile-line"><span class="profile-num">3.</span><span class="profile-key">Student ID Number —</span><span class="profile-val" id="p-studentid"></span></div>
+        <div class="profile-line"><span class="profile-num">4.</span><span class="profile-key">Grade Level —</span><span class="profile-val" id="p-grade"></span></div>
+        <div class="profile-line"><span class="profile-num">5.</span><span class="profile-key">Homeroom Teacher —</span><span class="profile-val" id="p-teacher"></span></div>
+      </div>
+    </section>
+
+    <!-- Section 2: The Form -->
+    <section class="room-section" id="computer-section">
+      <h2 id="computer-heading" tabindex="-1">The Identity Form</h2>
+
+      <!-- Timer -->
+      <div class="timer-area" role="region" aria-label="Room timer and sound controls">
+        <div class="sound-row">
+          <span class="sound-label" id="sound-label">Sound effects:</span>
+          <button class="toggle-btn" id="sound-toggle" role="switch" aria-checked="true" aria-labelledby="sound-label" onclick="toggleSound()">
+            <span class="toggle-dot" aria-hidden="true"></span>
+            <span id="sound-text">On</span>
+          </button>
+        </div>
+        <p class="sound-note">Sound effects are optional. Turn them on or off at any time. Scene narration plays only when you select Play Scene.</p>
+        <div class="sp-settings" aria-labelledby="settings-heading"><h3 id="settings-heading">Choose how to practice</h3><div class="setting"><label for="practice-mode">Activity mode</label><select id="practice-mode"><option value="practice">Practice — no deadline</option><option value="challenge">Challenge — timed</option></select></div><div class="setting" id="time-setting" hidden=""><label for="time-minutes">Time allowance in minutes</label><input id="time-minutes" type="number" min="1" max="60" step="1" value="4" required="" aria-describedby="time-help"><p id="time-help">Choose 1–60 minutes before starting. Your teacher can help select an allowance.</p></div><div class="setting"><label for="screen-reader">Screen reader (optional)</label><select id="screen-reader"><option>Prefer not to say</option><option>JAWS</option><option>NVDA</option><option>VoiceOver</option><option>Narrator</option><option>ChromeVox</option><option>TalkBack</option><option>Dolphin</option></select></div><p>Settings stay in this browser. Practice still records your time and attempts, but never times out.</p></div><p class="timer-instructions" id="timer-instructions">Review your task above, choose your mode, then start when you are ready.</p><div class="sp-actions"><button type="button" id="switch-practice" class="sp-button" hidden="">Switch to practice — remove deadline</button><button type="button" id="retry-inline" class="sp-button" hidden="">Choose how to continue</button></div>
+        <span id="timer-display" aria-live="off" aria-label="Time remaining: 4 minutes 0 seconds">4:00</span>
+        <div>
+          <button class="btn btn-primary" id="start-btn" onclick="startTimer()">
+            Start — Sit Down at the Computer
+          </button>
+        </div>
+      </div>
+
+      <!-- Computer terminal -->
+      <div id="computer-terminal" class="computer-terminal terminal-locked" hidden="">
+        <div class="terminal-header-bar">
+          <span aria-hidden="true">// WESTLAKE MIDDLE SCHOOL — AFTER-HOURS EMERGENCY ALERT SYSTEM</span>
+          <span class="terminal-status" aria-label="Session active">● Session Active</span>
+        </div>
+        <p class="terminal-intro">You are connected to the after-hours emergency alert system. Fill out every field below using your student information. When you submit, an automated alert will go directly to the principal and district security. Navigate from field to field, enter each value carefully, and press Submit when all five fields are complete.</p>
+
+        <!-- Progress indicator -->
+        <div class="progress-row" role="status" aria-live="polite" aria-atomic="true" id="progress-indicator">
+          <span class="progress-text"><span id="progress-count">0</span> of 5 fields completed</span>
+          <div class="progress-bar-wrap" aria-hidden="true">
+            <div class="progress-bar" id="progress-bar"></div>
+          </div>
+        </div>
+
+        <form id="help-form" novalidate="" aria-label="After-hours emergency alert identity form">
+
+          <!-- Section A -->
+          <div class="form-section">
+            <span class="form-section-heading" id="sec-a-heading">Section A — Student Identity</span>
+            <div class="form-group">
+              <label for="f-firstname">1. First Name <span class="required-mark" aria-hidden="true">*</span></label>
+              <span class="field-hint" id="h-firstname">Enter your first name exactly as shown in item 1 of your student information.</span>
+              <input type="text" id="f-firstname" name="firstname" required="" aria-required="true" aria-describedby="h-firstname e-firstname" autocomplete="off" oninput="updateProgress()">
+              <span class="field-error" id="e-firstname"></span>
+            </div>
+            <div class="form-group">
+              <label for="f-lastname">2. Last Name <span class="required-mark" aria-hidden="true">*</span></label>
+              <span class="field-hint" id="h-lastname">Enter your last name exactly as shown in item 2 of your student information.</span>
+              <input type="text" id="f-lastname" name="lastname" required="" aria-required="true" aria-describedby="h-lastname e-lastname" autocomplete="off" oninput="updateProgress()">
+              <span class="field-error" id="e-lastname"></span>
+            </div>
+            <div class="form-group">
+              <label for="f-studentid">3. Student ID Number <span class="required-mark" aria-hidden="true">*</span></label>
+              <span class="field-hint" id="h-studentid">Enter your student ID number exactly as shown in item 3. Include any letters or dashes.</span>
+              <input type="text" id="f-studentid" name="studentid" required="" aria-required="true" aria-describedby="h-studentid e-studentid" autocomplete="off" oninput="updateProgress()">
+              <span class="field-error" id="e-studentid"></span>
+            </div>
+          </div>
+
+          <!-- Section B -->
+          <div class="form-section">
+            <span class="form-section-heading" id="sec-b-heading">Section B — School Information</span>
+            <div class="form-group">
+              <label for="f-grade">4. Grade Level <span class="required-mark" aria-hidden="true">*</span></label>
+              <span class="field-hint" id="h-grade">Enter your grade level exactly as shown in item 4 of your student information.</span>
+              <input type="text" id="f-grade" name="grade" required="" aria-required="true" aria-describedby="h-grade e-grade" autocomplete="off" oninput="updateProgress()">
+              <span class="field-error" id="e-grade"></span>
+            </div>
+            <div class="form-group">
+              <label for="f-teacher">5. Homeroom Teacher <span class="required-mark" aria-hidden="true">*</span></label>
+              <span class="field-hint" id="h-teacher">Enter your homeroom teacher's full name exactly as shown in item 5.</span>
+              <input type="text" id="f-teacher" name="teacher" required="" aria-required="true" aria-describedby="h-teacher e-teacher" autocomplete="off" oninput="updateProgress()">
+              <span class="field-error" id="e-teacher"></span>
+            </div>
+          </div>
+
+          <!-- Submit -->
+          <div class="form-submit-area">
+            <p style="font-size:.88rem;color:var(--text-muted);margin-bottom:1.25rem;">Make sure every field is filled in before you submit. Errors will be shown next to the field that needs correcting.</p>
+            <button type="submit" class="btn btn-primary">Submit — Send Emergency Alert</button>
+            <div id="form-status" class="form-status" role="alert" aria-live="assertive"></div>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Bridge message -->
+      <div class="bridge-msg" id="bridge-msg" role="note" aria-live="polite">
+        <span class="bridge-msg-label">// After-Hours Emergency Alert System — Confirmation</span>
+        <p>"Identity verified. Emergency alert sent to the principal and district security. Exit sequence fully authorized. The main corridor emergency exit is now unlocked. You have completed all three rooms and can leave the school."</p>
+      </div>
+
+      <!-- Debrief report -->
+      
+
+      <!-- Next room box -->
+      <div class="next-room-box" id="next-room-box" aria-labelledby="next-room-heading"><h2 id="next-room-heading" tabindex="-1">You escaped.</h2><p>The emergency alert went through and the exit is unlocked. You found the staff member, followed the library trail, and completed the identity form.</p><p>Three rooms. Real navigation skills. Keep building on what you learned.</p><div class="sp-actions"><a href="progress.html" class="sp-button primary">View My Progress</a><a href="index.html" class="sp-button">Return to activities</a></div></div><section id="reflection-section" class="sp-reflection" hidden="" aria-labelledby="reflection-heading"><h2 id="reflection-heading">Optional reflection</h2><p>Your room is already complete. Add a reflection if it helps you or your teacher. Use fictional information in activities and avoid personal details in notes.</p><form id="reflection-form"><label for="reflection-strategy">What strategy helped you?</label><select id="reflection-strategy"><option value="">Choose a strategy (optional)</option><option>Moved between fields with Tab</option><option>Used screen reader form navigation</option><option>Read the form from the beginning</option></select><label for="reflection-confidence">How confident do you feel?</label><select id="reflection-confidence"><option value="">Choose a rating (optional)</option><option>Not confident yet</option><option>Somewhat confident</option><option>Very confident</option></select><label for="reflection-assistance">What help did you use?</label><select id="reflection-assistance"><option value="">Choose an answer (optional)</option><option>No assistance</option><option>A reminder or hint</option><option>Help with part of the task</option><option>Guidance throughout</option></select><label for="reflection-notes">Notes (optional)</label><textarea id="reflection-notes" maxlength="2000"></textarea><div class="sp-actions"><button type="submit" class="sp-button primary">Save reflection</button></div><p id="reflection-status" role="status"></p></form><div class="sp-actions"><button type="button" class="sp-button" data-email-results="">Email Results</button><button type="button" class="sp-button" data-copy-results="">Copy Results</button></div><p>Results are only shared when you copy them or choose to send an email.</p></section>
+
+    </section>
+
+  </main>
+
+  <footer><div class="sp-footer"><p><strong>ScreenPath</strong> — Free screen-reader practice.</p><p>Built by Moises Betancourt for screen reader learners everywhere.</p><div class="sp-actions"><a href="teachers.html">Teacher guide</a><a href="feedback.html">Feedback and accessibility help</a><a href="about.html#privacy">How your results are saved</a></div></div></footer>
+
+  
+
+
+
+<script src="screenpath.js"></script><script src="school-data.js"></script><script src="school.js"></script></body></html>
