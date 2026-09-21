@@ -1,0 +1,2065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScreenPath — Are You Smarter Than a 5th Grader?</title>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --surface-2: #1a1a1a;
+      --border: #2a2a2a;
+      --text: #f0f0f0;
+      --text-muted: #8a8a8a;
+      --green: #39d98a;
+      --green-dim: #0d2e1c;
+      --red: #ff4d4d;
+      --red-dim: #2e0d0d;
+      --amber: #f5a623;
+      --amber-dim: #2e1f00;
+      --blue: #4da6ff;
+      --blue-dim: #0d2438;
+      --gold: #ffd700;
+      --radius: 12px;
+      --font: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.6;
+    }
+
+    .sr-only {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 10px;
+      background: var(--green);
+      color: #000;
+      padding: 8px 16px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: bold;
+      z-index: 1100;
+    }
+    .skip-link:focus { top: 10px; }
+
+    /* Header */
+    header[role="banner"] {
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      position: sticky;
+      top: 0;
+      background: rgba(10,10,10,.95);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .site-series { font-size: .78rem; color: var(--text-muted); letter-spacing: .05em; text-transform: uppercase; margin-top: .2rem; }
+    nav[aria-label="Main navigation"] ul { list-style: none; display: flex; gap: 2rem; flex-wrap: wrap; }
+    nav[aria-label="Main navigation"] a { color: var(--text-muted); text-decoration: none; font-size: .9rem; letter-spacing: .04em; text-transform: uppercase; transition: color .2s; padding: .25rem 0; border-bottom: 2px solid transparent; }
+    nav[aria-label="Main navigation"] a:hover, nav[aria-label="Main navigation"] a:focus { color: var(--amber); border-bottom-color: var(--amber); outline: none; }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; border-radius: 3px; }
+
+    main {
+      max-width: 840px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .meta-tag {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--amber);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    h1 { font-size: 2rem; margin-bottom: 16px; }
+    h2 { font-size: 1.25rem; margin-bottom: 12px; color: var(--text); }
+
+    .game-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    /* Settings */
+    .settings-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .volume-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 6px 16px 6px 18px;
+    }
+    .volume-control label { font-size: .85rem; color: var(--text-muted); white-space: nowrap; }
+    .volume-control input[type="range"] { accent-color: var(--amber); width: 120px; }
+    .toggle-btn[aria-checked="false"] { color: var(--text-muted); }
+    .toggle-btn[aria-checked="true"] { border-color: var(--amber); color: var(--amber); background: var(--amber-dim); }
+
+    /* Status Bar */
+    .status-bar {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      padding: 14px 18px;
+      border-radius: var(--radius);
+      font-family: var(--mono);
+      margin-bottom: 16px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .status-group { display: flex; gap: 16px; flex-wrap: wrap; }
+    .status-item { font-size: 0.95rem; }
+    .status-val { color: var(--amber); font-weight: 700; }
+    .classmate-val { color: var(--blue); font-weight: 700; }
+
+    .classmate-intro {
+      background: var(--blue-dim);
+      border-left: 4px solid var(--blue);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+    }
+
+    /* Lifeline Toolbar */
+    .lifeline-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    /* Buttons */
+    button, .btn {
+      font-family: var(--font);
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s ease, transform .15s ease;
+      text-decoration: none;
+    }
+    button:disabled { opacity: 0.35; cursor: not-allowed; text-decoration: line-through; }
+
+    .btn-primary { background: var(--green); color: #000; }
+    .btn-primary:hover:not(:disabled) { transform: translateY(-1px); }
+    .btn-secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover:not(:disabled) { background: var(--surface); }
+    .btn-amber { background: var(--amber); color: #000; }
+    .btn-gold { background: var(--gold); color: #000; font-weight: 700; }
+    .btn-lifeline { background: var(--blue-dim); color: var(--blue); border: 1px solid var(--blue); }
+    .btn-lifeline:hover:not(:disabled) { background: var(--blue); color: #000; }
+
+    /* Subject Grid */
+    .subject-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .subject-btn {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 16px;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+    }
+    .subject-btn:hover:not(:disabled), .subject-btn:focus:not(:disabled) {
+      border-color: var(--amber);
+      background: var(--amber-dim);
+      outline: none;
+    }
+    .subject-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      border-color: var(--border);
+      text-decoration: line-through;
+    }
+
+    /* Form Controls */
+    fieldset { border: none; margin-bottom: 20px; padding: 0; }
+
+    .radio-option {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    .radio-option:hover { border-color: var(--green); }
+    .radio-option input[type="radio"] {
+      margin-right: 14px;
+      accent-color: var(--green);
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .form-combo {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 14px 18px;
+      border-radius: var(--radius);
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+    }
+    .form-combo:focus { border-color: var(--green); outline: none; }
+
+    .form-input {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 14px 18px;
+      border-radius: var(--radius);
+      font-size: 1.1rem;
+      font-family: var(--mono);
+      margin-bottom: 20px;
+    }
+    .form-input:focus { border-color: var(--green); outline: none; }
+
+    .helper-box {
+      background: var(--surface-2);
+      border-left: 4px solid var(--blue);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      display: none;
+    }
+    .helper-box.active { display: block; }
+    .helper-box strong { color: var(--blue); }
+
+    /* Catchphrase Display */
+    .catchphrase {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin: 16px 0;
+      padding: 16px;
+      border-radius: var(--radius);
+      text-align: center;
+    }
+    .catchphrase-win { background: var(--green-dim); color: var(--green); border: 2px solid var(--green); }
+    .catchphrase-loss { background: var(--red-dim); color: var(--red); border: 2px solid var(--red); }
+
+    /* Landing gate — non-modal entry screen */
+    .eyebrow { font-family: var(--mono); font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: var(--amber); display: block; margin-bottom: .75rem; }
+    #landing-gate h1 { margin: .5rem 0 1.1rem; }
+    .synopsis { font-size: 1.05rem; color: var(--text-muted); max-width: 620px; line-height: 1.75; margin-bottom: 2rem; }
+    .gate-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .skills-summary { color: var(--text-muted); font-size: .98rem; margin-bottom: 1.25rem; }
+    .skills-tags { list-style: none; display: flex; flex-wrap: wrap; gap: .6rem; padding: 0; margin: 0; }
+    .skill-tag { font-family: var(--mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--green); background: var(--green-dim); border: 1px solid rgba(57,217,138,.3); padding: .4rem .9rem; border-radius: 100px; }
+    .gate { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem 1.75rem 2rem; }
+    .gate .field { margin-bottom: 1.5rem; }
+    .gate .field:last-of-type { margin-bottom: 0; }
+    .gate .field label { display: block; font-weight: 600; font-size: .95rem; margin-bottom: .5rem; color: var(--text); }
+    .gate .field .req { color: var(--amber); font-weight: 400; font-size: .82rem; }
+    .gate select { width: 100%; max-width: 420px; background: var(--surface-2); color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: .75rem .9rem; font-size: 1rem; font-family: var(--font); }
+    .gate select:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+    .gate-actions { margin-top: 1rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .gate-note { color: var(--text-muted); font-size: .85rem; margin-top: 1rem; }
+
+    /* Footer */
+    footer[role="contentinfo"] {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+      color: var(--text-muted);
+      font-size: .85rem;
+    }
+    .footer-inner { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: .5rem; }
+    .footer-platform { font-weight: 600; color: var(--text-muted); }
+    .footer-a11y { font-size: .8rem; color: var(--text-muted); line-height: 1.6; }
+
+    @media (max-width: 768px) {
+      header[role="banner"] { padding: 1rem 1.25rem; flex-direction: column; align-items: flex-start; }
+      main { padding: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Header -->
+  <header role="banner">
+    <div>
+      <a href="index.html" class="nav-logo" aria-label="ScreenPath, return to home"><span style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:9px;background:var(--green,#39d98a);color:#000;font-family:var(--font,inherit);font-weight:800;font-size:.82rem;letter-spacing:-.02em;flex-shrink:0;">SP</span></a>
+      <p class="site-series">Arcade</p>
+    </div>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="progress.html">Progress</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <div id="landing-gate">
+      <span class="eyebrow">Arcade — Are You Smarter Than a 5th Grader?</span>
+      <h1>Are You Smarter Than a 5th Grader?</h1>
+      <p class="synopsis">Answer grade-level questions across every subject, climbing from 1st grade all the way to 6th. Use your lifelines when you need them, each one only works a limited number of times.</p>
+
+      <section class="gate-section">
+        <h2 id="practice-heading">What you'll practice</h2>
+        <p class="skills-summary">One game, two core skills, both come up on every question.</p>
+        <ul class="skills-tags">
+          <li class="skill-tag">Dynamic Form Controls</li>
+          <li class="skill-tag">Live Regions &amp; Announcements</li>
+        </ul>
+      </section>
+
+      <section class="gate-section" style="border-bottom:none;">
+        <h2 id="gate-heading">Before you start</h2>
+        <div class="gate">
+          <div class="field">
+            <label for="gate-screen-reader">Screen reader <span class="req">(required)</span></label>
+            <select id="gate-screen-reader" required aria-required="true">
+              <option value="">Choose one&hellip;</option>
+              <option value="JAWS">JAWS</option>
+              <option value="NVDA">NVDA</option>
+              <option value="VoiceOver">VoiceOver</option>
+              <option value="Narrator">Narrator</option>
+              <option value="ChromeVox">ChromeVox</option>
+              <option value="TalkBack">TalkBack</option>
+              <option value="Prefer not to say">Prefer not to say</option>
+            </select>
+          </div>
+          <div class="gate-actions">
+            <button type="button" id="gate-continue-btn" class="btn btn-amber" disabled aria-describedby="gate-note">Continue to the Challenge</button>
+            <p class="gate-note" id="gate-note">Choose a screen reader above to continue. You will not be asked again.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div id="game-content" hidden>
+
+    <!-- Game Settings -->
+    <section aria-labelledby="settings-header" class="game-card">
+      <h2 id="settings-header">Game Settings</h2>
+      <div class="settings-row">
+        <button id="sfx-toggle" class="btn btn-secondary toggle-btn" role="switch" aria-checked="true">Sound Effects: On</button>
+        <button id="music-toggle" class="btn btn-secondary toggle-btn" role="switch" aria-checked="true">Music: On</button>
+        <div class="volume-control">
+          <label for="music-volume">Music volume</label>
+          <input type="range" id="music-volume" min="0" max="100" value="45" aria-valuetext="45 percent">
+        </div>
+        <button id="narration-toggle" class="btn btn-secondary toggle-btn" role="switch" aria-checked="true">Narration: On</button>
+        <button id="repeat-narration-btn" class="btn btn-secondary" aria-label="Repeat active question narration">Repeat Question</button>
+      </div>
+    </section>
+
+    <!-- Status Header -->
+    <section aria-labelledby="status-header">
+      <h2 id="status-header">Current Status</h2>
+      <div class="status-bar">
+        <div class="status-group">
+          <div class="status-item">Grade: <span id="stat-grade" class="status-val">1st Grade</span></div>
+          <div class="status-item">Grade Progress: <span id="stat-progress" class="status-val">0 / 2</span></div>
+          <div class="status-item">Classmate: <span id="stat-classmate" class="classmate-val">Maya</span></div>
+        </div>
+      </div>
+      <div id="classmate-intro" class="classmate-intro" role="status"></div>
+    </section>
+
+    <!-- Lifelines Toolbar -->
+    <section aria-label="Game lifelines" style="margin-bottom: 16px;">
+      <div class="lifeline-bar">
+        <button id="btn-swap" class="btn btn-lifeline" aria-label="Lifeline: Swap Question">Swap Question</button>
+        <button id="btn-copy" class="btn btn-lifeline" aria-label="Lifeline: Copy Classmate">Copy Classmate</button>
+        <button id="btn-poll" class="btn btn-lifeline" aria-label="Lifeline: Ask the Classroom">Ask Classroom</button>
+      </div>
+      <div id="lifeline-output" class="helper-box" role="region" aria-live="polite"></div>
+    </section>
+
+    <!-- Step 1: Subject Selection -->
+    <section id="subject-section" class="game-card" aria-labelledby="subject-header">
+      <h2 id="subject-header" tabindex="-1">Subject Selection</h2>
+      <p style="margin-bottom: 12px;">Choose an available subject for your next question:</p>
+      <div id="subject-grid" class="subject-grid"></div>
+    </section>
+
+    <!-- Step 2: Question & Form Area -->
+    <section id="qa-section" class="game-card" style="display: none;">
+      <h2 id="question-header">Question</h2>
+      <p id="question-text" style="font-size: 1.2rem; font-weight: 600; margin-bottom: 20px; color: var(--text);"></p>
+
+      <form id="quiz-form">
+        <h2 id="answer-header">Answer Options</h2>
+        <div id="controls-mount"></div>
+        <button type="submit" id="lock-btn" class="btn btn-primary">Lock In Final Answer</button>
+      </form>
+    </section>
+
+    <!-- Round Continuation -->
+    <section id="continuation-card" class="game-card" style="display: none;">
+      <h2 id="continue-header" tabindex="-1" style="color: var(--green);">Round Result</h2>
+      <p id="continue-text" style="margin-bottom: 16px; font-size: 1.05rem;"></p>
+      <button id="continue-btn" class="btn btn-primary">Next Question</button>
+    </section>
+
+    <!-- Game Over / Victory -->
+    <section id="end-card" class="game-card" style="display: none;">
+      <h2 id="end-header" tabindex="-1">Game Result</h2>
+      <div id="catchphrase-container"></div>
+      <p id="end-text" style="margin-bottom: 20px; font-size: 1.1rem;"></p>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <button id="restart-btn" class="btn btn-amber">Play Again</button>
+        <a href="progress.html" class="btn btn-secondary">Return to ScreenPath</a>
+      </div>
+    </section>
+
+    </div><!-- /#game-content -->
+  </main>
+
+  <footer role="contentinfo">
+    <div class="footer-inner">
+      <p class="footer-platform">ScreenPath</p>
+      <p class="footer-a11y">ScreenPath is designed for screen reader users. Every page is fully navigable by keyboard and compatible with JAWS, NVDA, and VoiceOver. If you encounter any accessibility issue please contact your instructor.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Classmate Roster & Introductions
+    const CLASSMATES = {
+      1: { name: "Maya", greeting: "Hey! I'm Maya. Phonics, early addition, and animal science are my favorite topics!" },
+      2: { name: "Leo", greeting: "Hi there! I'm Leo. I know all about insects, coin values, and map legends!" },
+      3: { name: "Elena", greeting: "Greetings! I'm Elena. Multiplication, prefixes, and reading comprehension are my strongest subjects!" },
+      4: { name: "Gavin", greeting: "Hello! I'm Gavin. Let's conquer US geography, state facts, and geometry together!" },
+      5: { name: "Chloe", greeting: "Hey! I'm Chloe. Fractions, metric conversions, and complex vocabulary words are my specialty!" },
+      6: { name: "Marcus", greeting: "I'm Marcus! You're facing the final 6th Grade challenge solo, but I'll be supporting you from the podium!" }
+    };
+
+    const gradeLabels = {
+      1: "1st Grade", 2: "2nd Grade", 3: "3rd Grade",
+      4: "4th Grade", 5: "5th Grade", 6: "6th Grade"
+    };
+
+    function normalizeCode(s) {
+      return (s || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+    }
+
+    function announce(msg) {
+      const el = document.createElement('div');
+      el.setAttribute('aria-live', 'assertive');
+      el.setAttribute('aria-atomic', 'true');
+      el.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;';
+      document.body.appendChild(el);
+      setTimeout(() => {
+        el.textContent = msg;
+        setTimeout(() => el.remove(), 4500);
+      }, 100);
+    }
+
+    // Question Anti-Repetition Registry
+    let usedQuestionSignatures = new Set();
+
+    // Grade-Appropriate, Challenging & Varied Curriculum Bank
+    function generateQuestion(grade, subject) {
+      let attempts = 0;
+      let generated = null;
+
+      while (attempts < 30) {
+        generated = createCandidateQuestion(grade, subject);
+        const signature = `${grade}-${subject}-${generated.q}`;
+        if (!usedQuestionSignatures.has(signature)) {
+          usedQuestionSignatures.add(signature);
+          return generated;
+        }
+        attempts++;
+      }
+      return generated;
+    }
+
+    function createCandidateQuestion(grade, subject) {
+      // 1. MATH (procedurally generated — effectively unlimited variety)
+      if (subject === "Math") {
+        if (grade === 1) {
+          const a = Math.floor(Math.random() * 8) + 2;
+          const b = Math.floor(Math.random() * 8) + 1;
+          const op = Math.random() < 0.5 ? 'add' : 'subtract';
+          if (op === 'add') {
+            return { grade, subject, controlType: "input", q: `What is ${a} + ${b}? Type your numerical answer.`, acceptedAnswers: [`${a + b}`], placeholder: "e.g., 9" };
+          } else {
+            const hi = Math.max(a, b) + 3, lo = Math.min(a, b);
+            return { grade, subject, controlType: "input", q: `What is ${hi} - ${lo}? Type your numerical answer.`, acceptedAnswers: [`${hi - lo}`], placeholder: "e.g., 4" };
+          }
+        } else if (grade === 2) {
+          const quarters = Math.floor(Math.random() * 3) + 1;
+          const dimes = Math.floor(Math.random() * 3) + 1;
+          const nickels = Math.floor(Math.random() * 2) + 1;
+          const total = (quarters * 25) + (dimes * 10) + (nickels * 5);
+          return {
+            grade, subject, controlType: "radio",
+            q: `How many total cents are in ${quarters} quarter(s), ${dimes} dime(s), and ${nickels} nickel(s)?`,
+            options: [`${total} cents`, `${total + 5} cents`, `${total - 10} cents`, `${total + 15} cents`].sort(() => 0.5 - Math.random()),
+            acceptedAnswers: [`${total} cents`, `${total}`]
+          };
+        } else if (grade === 3) {
+          const a = Math.floor(Math.random() * 7) + 4;
+          const b = Math.floor(Math.random() * 8) + 3;
+          return { grade, subject, controlType: "input", q: `What is ${a} multiplied by ${b}? Type your numerical answer.`, acceptedAnswers: [`${a * b}`], placeholder: "Type product" };
+        } else if (grade === 4) {
+          const l = Math.floor(Math.random() * 7) + 5;
+          const w = Math.floor(Math.random() * 5) + 3;
+          const p = 2 * (l + w);
+          return {
+            grade, subject, controlType: "radio",
+            q: `What is the perimeter of a rectangle with a length of ${l} inches and a width of ${w} inches?`,
+            options: [`${p} inches`, `${l * w} inches`, `${p + 4} inches`, `${p - 6} inches`].sort(() => 0.5 - Math.random()),
+            acceptedAnswers: [`${p} inches`, `${p}`]
+          };
+        } else if (grade === 5) {
+          const pool = [
+            { f: "1/4", d: "0.25", opts: ["0.25", "0.50", "0.20", "0.75"] },
+            { f: "3/4", d: "0.75", opts: ["0.75", "0.50", "0.85", "0.65"] },
+            { f: "1/5", d: "0.20", opts: ["0.20", "0.50", "0.15", "0.25"] },
+            { f: "2/5", d: "0.40", opts: ["0.40", "0.25", "0.50", "0.45"] },
+            { f: "3/8", d: "0.375", opts: ["0.375", "0.380", "0.350", "0.425"] },
+            { f: "5/8", d: "0.625", opts: ["0.625", "0.650", "0.585", "0.675"] },
+            { f: "1/2", d: "0.50", opts: ["0.50", "0.25", "0.75", "0.05"] },
+            { f: "7/10", d: "0.70", opts: ["0.70", "0.17", "0.07", "0.75"] },
+            { f: "3/5", d: "0.60", opts: ["0.60", "0.35", "0.65", "0.53"] },
+            { f: "9/10", d: "0.90", opts: ["0.90", "0.19", "0.09", "0.95"] }
+          ];
+          const chosen = pool[Math.floor(Math.random() * pool.length)];
+          return { grade, subject, controlType: "radio", q: `What is the fraction ${chosen.f} converted into a decimal?`, options: chosen.opts.sort(() => 0.5 - Math.random()), acceptedAnswers: [chosen.d] };
+        } else {
+          const val = Math.floor(Math.random() * 50) + 15;
+          const useAbs = Math.random() < 0.5;
+          if (useAbs) {
+            return { grade, subject, controlType: "input", q: `What is the absolute value of -${val}? Type your answer.`, acceptedAnswers: [`${val}`], placeholder: "Type absolute value" };
+          } else {
+            const base = Math.floor(Math.random() * 10) + 2;
+            const exp = Math.floor(Math.random() * 2) + 2;
+            return { grade, subject, controlType: "input", q: `What is ${base} to the power of ${exp} (${base}^${exp})? Type your numerical answer.`, acceptedAnswers: [`${Math.pow(base, exp)}`], placeholder: "Type answer" };
+          }
+        }
+      }
+
+      // 2. MEASUREMENTS (procedurally generated)
+      if (subject === "Measurements") {
+        if (grade === 1) {
+          const items = [
+            { tool: "Thermometer", use: "the temperature of water" },
+            { tool: "Clock", use: "the hour of the day" },
+            { tool: "Ruler", use: "the length of a workbook" },
+            { tool: "Scale", use: "how heavy a bag of apples is" },
+            { tool: "Measuring Cup", use: "the volume of milk in a recipe" },
+            { tool: "Calendar", use: "what day of the week it is" },
+            { tool: "Measuring Tape", use: "how tall a bookshelf is" }
+          ];
+          const pick = items[Math.floor(Math.random() * items.length)];
+          return {
+            grade, subject, controlType: "combo",
+            q: `Which tool is specifically used to measure ${pick.use}?`,
+            options: ["Select tool...", "Thermometer", "Clock", "Ruler", "Scale", "Measuring Cup", "Calendar", "Measuring Tape"].sort(() => 0.5 - Math.random()),
+            acceptedAnswers: [pick.tool]
+          };
+        } else if (grade === 2) {
+          const ft = Math.floor(Math.random() * 5) + 2;
+          const inches = ft * 12;
+          return {
+            grade, subject, controlType: "radio",
+            q: `How many inches are in ${ft} feet? (1 foot = 12 inches)`,
+            options: [`${inches} inches`, `${ft * 10} inches`, `${inches + 6} inches`, `${inches - 4} inches`].sort(() => 0.5 - Math.random()),
+            acceptedAnswers: [`${inches} inches`, `${inches}`]
+          };
+        } else if (grade === 3) {
+          const hrs = Math.floor(Math.random() * 4) + 2;
+          const mins = hrs * 60;
+          return { grade, subject, controlType: "input", q: `How many minutes are in ${hrs} hours? (60 minutes = 1 hour). Type the number.`, acceptedAnswers: [`${mins}`, `${mins} minutes`], placeholder: "e.g., 120" };
+        } else if (grade === 4) {
+          const lbs = Math.floor(Math.random() * 4) + 2;
+          const oz = lbs * 16;
+          return {
+            grade, subject, controlType: "radio",
+            q: `How many ounces are in ${lbs} standard pounds? (1 pound = 16 ounces)`,
+            options: [`${oz} ounces`, `${lbs * 12} ounces`, `${oz + 8} ounces`, `${lbs * 14} ounces`].sort(() => 0.5 - Math.random()),
+            acceptedAnswers: [`${oz} ounces`, `${oz}`]
+          };
+        } else if (grade === 5) {
+          const meters = Math.floor(Math.random() * 6) + 2;
+          const cm = meters * 100;
+          return { grade, subject, controlType: "input", q: `How many centimeters are in ${meters} meters? Type your numerical answer.`, acceptedAnswers: [`${cm}`, `${cm} cm`, `${cm} centimeters`], placeholder: "e.g., 300" };
+        } else {
+          const pool = [
+            { q: "How many yards are in one standard statute mile?", opts: ["1,760 yards", "1,500 yards", "2,000 yards", "3,280 yards"], a: "1,760 yards" },
+            { q: "How many milliliters are in 1 liter?", opts: ["1,000 mL", "100 mL", "10,000 mL", "500 mL"], a: "1,000 mL" },
+            { q: "How many grams are in 1 kilogram?", opts: ["1,000 grams", "100 grams", "10 grams", "10,000 grams"], a: "1,000 grams" }
+          ];
+          const pick = pool[Math.floor(Math.random() * pool.length)];
+          return { grade, subject, controlType: "radio", q: pick.q, options: [...pick.opts].sort(() => 0.5 - Math.random()), acceptedAnswers: [pick.a, pick.a.replace(/,/g, '')] };
+        }
+      }
+
+      // 3. SCREEN READER SKILLS (expanded pools so replays rarely repeat)
+      if (subject === "Screen Reader") {
+        if (grade === 1) {
+          const p = [
+            { q: "Which arrow key do you press to read down to the very next line of text?", a: "Down Arrow", dist: ["Up Arrow", "Left Arrow", "Escape"] },
+            { q: "Which keyboard key stops your screen reader from speaking immediately?", a: "Control", dist: ["Shift", "Tab", "Delete"] },
+            { q: "Which arrow key reads the line above the one you just heard?", a: "Up Arrow", dist: ["Down Arrow", "Tab", "End"] },
+            { q: "What is the name for software that reads the words on a screen out loud?", a: "Screen Reader", dist: ["Web Browser", "Search Engine", "Keyboard"] },
+            { q: "Which key activates a button or confirms your choice?", a: "Enter", dist: ["Escape", "Shift", "Backspace"] },
+            { q: "Which arrow key moves your reading position one character to the right?", a: "Right Arrow", dist: ["Left Arrow", "Up Arrow", "Tab"] },
+            { q: "Which arrow key moves your reading position one character to the left?", a: "Left Arrow", dist: ["Right Arrow", "Down Arrow", "Space"] },
+            { q: "What do we call moving around a webpage using only the keyboard instead of a mouse?", a: "Keyboard Navigation", dist: ["Mouse Clicking", "Scrolling", "Zooming"] },
+            { q: "Which key combination jumps to the very top of a webpage?", a: "Control + Home", dist: ["Control + End", "Shift + Home", "Tab"] },
+            { q: "Which key combination jumps to the very bottom of a webpage?", a: "Control + End", dist: ["Control + Home", "Shift + End", "Escape"] },
+            { q: "Which key erases the character right before your cursor?", a: "Backspace", dist: ["Delete", "Escape", "Tab"] },
+            { q: "Which key erases the character right after your cursor?", a: "Delete", dist: ["Backspace", "Escape", "Enter"] },
+            { q: "What is the row of keys with small bumps on the F and J keys called, where your fingers rest?", a: "Home Row", dist: ["Number Row", "Function Row", "Arrow Row"] },
+            { q: "What are the keys labeled F1 through F12 at the top of a keyboard called?", a: "Function Keys", dist: ["Arrow Keys", "Modifier Keys", "Number Keys"] },
+            { q: "Which key can pause and resume your screen reader's speech on many computers?", a: "Control", dist: ["Alt", "Delete", "Caps Lock"] },
+            { q: "Which key moves you forward to the next clickable item, like a button or link?", a: "Tab", dist: ["Shift", "Caps Lock", "Space"] },
+            { q: "What do we call a word or picture you can click to go to another page?", a: "Link", dist: ["Heading", "Paragraph", "Footer"] },
+            { q: "Which key adds a new line when typing, like pressing it at the end of a sentence?", a: "Enter", dist: ["Tab", "Shift", "Escape"] }
+          ];
+          const pick = p[Math.floor(Math.random() * p.length)];
+          return { grade, subject, controlType: "radio", q: pick.q, options: [pick.a, ...pick.dist].sort(() => 0.5 - Math.random()), acceptedAnswers: [pick.a] };
+        } else if (grade === 2) {
+          const p = [
+            { q: "Which key moves your screen reader focus forward to the next button or link?", a: "Tab", dist: ["Shift", "Caps Lock", "Delete"] },
+            { q: "Which keyboard key combination moves your focus backward to the previous button?", a: "Shift + Tab", dist: ["Control + Tab", "Alt + Tab", "Spacebar"] },
+            { q: "What is the name for a clickable word or phrase that takes you to another page?", a: "Link", dist: ["Button", "Heading", "Label"] },
+            { q: "What is the name for a box you click to confirm an action, like Submit or Cancel?", a: "Button", dist: ["Link", "Checkbox", "Heading"] },
+            { q: "What is the small square you can check or uncheck called, often used on forms?", a: "Checkbox", dist: ["Radio Button", "Button", "Link"] },
+            { q: "What is the round option button called where you can only pick one choice in a group?", a: "Radio Button", dist: ["Checkbox", "Button", "Toggle"] },
+            { q: "Which key combination opens a brand new tab in most web browsers?", a: "Control + T", dist: ["Control + N", "Alt + T", "Control + W"] },
+            { q: "Which key combination closes the current browser tab?", a: "Control + W", dist: ["Control + Q", "Alt + F4", "Control + X"] },
+            { q: "What is the bar at the top of a browser called, where you type a website address?", a: "Address Bar", dist: ["Search Bar", "Menu Bar", "Status Bar"] },
+            { q: "What is the word for the description attached to a picture so a screen reader can explain it?", a: "Alt Text", dist: ["Caption", "Title", "Footnote"] },
+            { q: "Which key combination takes you back to the previous webpage you visited?", a: "Alt + Left Arrow", dist: ["Alt + Right Arrow", "Control + Z", "Backspace only"] },
+            { q: "Which function key refreshes or reloads the current webpage?", a: "F5", dist: ["F2", "F11", "Escape"] },
+            { q: "What do we call words arranged in a bulleted or numbered list on a webpage?", a: "A List", dist: ["A Table", "A Form", "A Heading"] },
+            { q: "What is the term for a webpage box you type text into, like a search box?", a: "Edit Field", dist: ["Button", "Image", "Landmark"] },
+            { q: "Which function key toggles full-screen mode in most web browsers?", a: "F11", dist: ["F5", "F1", "Escape"] },
+            { q: "What is the biggest, most important title text on a webpage usually called?", a: "Heading", dist: ["Paragraph", "Caption", "Footer"] },
+            { q: "Which key combination selects every piece of text on a page at once?", a: "Control + A", dist: ["Control + S", "Control + C", "Control + Z"] },
+            { q: "Which key combination copies selected text to the clipboard?", a: "Control + C", dist: ["Control + V", "Control + X", "Control + A"] }
+          ];
+          const pick = p[Math.floor(Math.random() * p.length)];
+          return { grade, subject, controlType: "radio", q: pick.q, options: [pick.a, ...pick.dist].sort(() => 0.5 - Math.random()), acceptedAnswers: [pick.a] };
+        } else if (grade === 3) {
+          const p = [
+            { q: "In JAWS and NVDA web browsing, what single letter shortcut jumps directly to the next Heading?", a: "H" },
+            { q: "What single letter shortcut moves you to the next Button on a webpage in JAWS and NVDA?", a: "B" },
+            { q: "Which single letter jumps to the next bulleted or numbered List in JAWS and NVDA?", a: "L" },
+            { q: "Which single letter jumps to the next item inside a list, called a List Item, in JAWS and NVDA?", a: "I" },
+            { q: "Which single letter jumps directly to the next Link on a webpage in JAWS and NVDA?", a: "K" },
+            { q: "Which single letter jumps to the next Graphic or image in JAWS and NVDA?", a: "G" },
+            { q: "Which single letter jumps to the next Blockquote, a quoted passage, in JAWS and NVDA?", a: "Q" },
+            { q: "Which single letter jumps to the next block of plain Non-linking text in JAWS and NVDA?", a: "N" },
+            { q: "What single number key jumps to the next Heading Level 1 specifically in JAWS and NVDA?", a: "1" },
+            { q: "What single number key jumps to the next Heading Level 2 specifically in JAWS and NVDA?", a: "2" },
+            { q: "You want to skip past several sections of an article quickly using headings. Which single letter should you press repeatedly?", a: "H" },
+            { q: "Which single letter would you press to find the next picture that has alt text describing it?", a: "G" },
+            { q: "Which single letter helps you locate the next clickable button, like a Submit button on a form?", a: "B" },
+            { q: "Which single letter helps you find the next hyperlink to another webpage?", a: "K" },
+            { q: "Which single letter jumps between list items once you are already inside a list?", a: "I" },
+            { q: "Which single letter would you use to locate the next list, such as a list of ingredients on a recipe page?", a: "L" }
+          ];
+          const pick = p[Math.floor(Math.random() * p.length)];
+          return { grade, subject, controlType: "input", q: pick.q, acceptedAnswers: [pick.a, pick.a.toLowerCase()], placeholder: "Type single key" };
+        } else if (grade === 4) {
+          const p = [
+            { q: "Which single key shortcut moves directly to the next Form Field in JAWS and NVDA?", a: "F", dist: ["H", "T", "L", "B"] },
+            { q: "Which single key shortcut moves directly to the next Edit Field, a text box, in JAWS and NVDA?", a: "E", dist: ["F", "C", "R", "X"] },
+            { q: "Which single key shortcut moves directly to the next Combo Box, a dropdown menu, in JAWS and NVDA?", a: "C", dist: ["E", "F", "X", "R"] },
+            { q: "Which single key shortcut moves directly to the next Checkbox in JAWS and NVDA?", a: "X", dist: ["R", "C", "F", "E"] },
+            { q: "Which single key shortcut moves directly to the next Radio Button in JAWS and NVDA?", a: "R", dist: ["X", "C", "F", "B"] },
+            { q: "Which single key shortcut moves directly to the next Unvisited Link in JAWS and NVDA?", a: "U", dist: ["V", "K", "G", "L"] },
+            { q: "Which single key shortcut moves directly to the next Visited Link in JAWS and NVDA?", a: "V", dist: ["U", "K", "G", "L"] },
+            { q: "Which single key shortcut moves directly to the next Separator, a dividing line, in JAWS and NVDA?", a: "S", dist: ["Q", "N", "M", "D"] },
+            { q: "You need to fill out an online form quickly. Which single key jumps between the editable text boxes?", a: "E", dist: ["F", "C", "B"] },
+            { q: "You are trying to find a dropdown menu to pick your state on a form. Which single key jumps directly to it?", a: "C", dist: ["E", "X", "R"] },
+            { q: "Which single key jumps to a checkbox you have not clicked yet, like on a permission form?", a: "X", dist: ["R", "C", "E"] },
+            { q: "In a survey with several groups of radio buttons, which single key jumps between them?", a: "R", dist: ["X", "C", "E"] },
+            { q: "Which single key jumps only to links you have already clicked before?", a: "V", dist: ["U", "K", "G"] },
+            { q: "Which single key jumps only to links you have not clicked yet?", a: "U", dist: ["V", "K", "G"] },
+            { q: "Which single key would help you locate a required text box on a sign-up form?", a: "F", dist: ["E", "B", "C"] },
+            { q: "Which single key jumps to a decorative dividing line separating two sections of a page?", a: "S", dist: ["Q", "N", "D"] }
+          ];
+          const pick = p[Math.floor(Math.random() * p.length)];
+          return { grade, subject, controlType: "combo", q: pick.q, options: ["Select shortcut...", pick.a, ...pick.dist].sort(() => 0.5 - Math.random()), acceptedAnswers: [pick.a] };
+        } else if (grade === 5) {
+          const p = [
+            { q: "Which single key shortcut jumps directly to the next Data Table on a webpage in JAWS and NVDA?", a: "T", dist: ["D", "B", "1", "X"] },
+            { q: "Which single key shortcut jumps directly to the next ARIA Landmark or Region, like Main or Navigation, in JAWS and NVDA?", a: "D", dist: ["T", "H", "L"] },
+            { q: "Which single key shortcut jumps directly to the next Frame or embedded window in JAWS?", a: "M", dist: ["T", "D", "B"] },
+            { q: "What is the JAWS keyboard command that reads an entire page automatically from top to bottom, called Say All?", a: "Insert + Down Arrow", dist: ["Insert + Up Arrow", "Control + Down Arrow", "Insert + Home"] },
+            { q: "What is the NVDA keyboard command for Say All, reading continuously from your current position?", a: "NVDA + Down Arrow", dist: ["NVDA + Up Arrow", "Control + A", "NVDA + Home"] },
+            { q: "When reading a data table, which key combination moves you one cell to the right?", a: "Control + Alt + Right Arrow", dist: ["Control + Right Arrow", "Alt + Right Arrow", "Tab"] },
+            { q: "When reading a data table, which key combination moves you one cell down?", a: "Control + Alt + Down Arrow", dist: ["Control + Down Arrow", "Alt + Down Arrow", "Down Arrow"] },
+            { q: "Which JAWS shortcut opens a list of all headings on a page so you can pick one to jump to?", a: "Insert + F6", dist: ["Insert + F7", "Insert + F5", "Insert + F3"] },
+            { q: "Which JAWS shortcut opens a list of every link on the current page?", a: "Insert + F7", dist: ["Insert + F6", "Insert + F5", "Insert + F1"] },
+            { q: "Which NVDA shortcut opens the Elements List, showing headings, links, and landmarks together?", a: "NVDA + F7", dist: ["NVDA + F6", "NVDA + F5", "NVDA + Tab"] },
+            { q: "What is the term for a labeled region of a webpage, such as Navigation, Main, or Search, that helps screen reader users skip around quickly?", a: "Landmark", dist: ["Heading", "Caption", "Footer"] },
+            { q: "What do we call a hidden link at the very top of a page that jumps straight to the main content, skipping repeated menus?", a: "Skip Link", dist: ["Anchor Link", "Quick Link", "Jump Tag"] },
+            { q: "Which single number key jumps to the next Heading Level 3 specifically?", a: "3", dist: ["1", "2", "4"] },
+            { q: "Which single number key jumps to the next Heading Level 4 specifically?", a: "4", dist: ["1", "2", "3"] },
+            { q: "What do we call reading a webpage in the exact order elements appear in the code, one after another?", a: "Linear Navigation", dist: ["Random Navigation", "Table Navigation", "Landmark Navigation"] },
+            { q: "What is the name for the screen reader mode that lets you move freely through a page with letters and arrow keys, instead of only Tab?", a: "Browse Mode", dist: ["Focus Mode", "Insert Mode", "Scan Mode"] }
+          ];
+          const pick = p[Math.floor(Math.random() * p.length)];
+          return { grade, subject, controlType: "radio", q: pick.q, options: [pick.a, ...pick.dist].sort(() => 0.5 - Math.random()), acceptedAnswers: [pick.a] };
+        } else {
+          const p = [
+            { q: "On macOS VoiceOver, which default keys make up the VO modifier combination?", a: "Control + Option", dist: ["Command + Shift", "Option + Tab", "Control + Command"] },
+            { q: "In VoiceOver, which command opens the Rotor, a menu for jumping between headings, links, and landmarks?", a: "VO + U", dist: ["VO + R", "VO + Tab", "VO + Space"] },
+            { q: "In VoiceOver, which command activates the item that is currently selected?", a: "VO + Space", dist: ["VO + Enter", "VO + Return", "Space alone"] },
+            { q: "What is the default key used to turn on Windows Narrator, the built-in screen reader on Windows?", a: "Caps Lock", dist: ["Insert", "Control", "Tab"] },
+            { q: "What key combination toggles Windows Narrator completely on or off?", a: "Control + Windows + Enter", dist: ["Control + Alt + N", "Windows + Ctrl + N", "Alt + F4"] },
+            { q: "Which mobile screen reader is built into Android devices?", a: "TalkBack", dist: ["VoiceOver", "Narrator", "JAWS"] },
+            { q: "Which mobile screen reader is built into iPhones and iPads?", a: "VoiceOver", dist: ["TalkBack", "Narrator", "NVDA"] },
+            { q: "Which screen reader is free and open-source, and commonly used on Windows computers?", a: "NVDA", dist: ["JAWS", "VoiceOver", "Narrator"] },
+            { q: "Which screen reader was one of the very first commercial screen readers and is a paid product widely used in schools and workplaces?", a: "JAWS", dist: ["NVDA", "VoiceOver", "ChromeVox"] },
+            { q: "What is the name of the screen reader built into Chromebooks?", a: "ChromeVox", dist: ["TalkBack", "Narrator", "JAWS"] },
+            { q: "What term describes designing a website so that everyone, including screen reader users, can use it effectively?", a: "Accessibility", dist: ["Formatting", "Optimization", "Encryption"] },
+            { q: "What is the name for text attached to an image so a screen reader can describe it to someone who cannot see it?", a: "Alternative Text", dist: ["Caption", "Metadata", "Watermark"] },
+            { q: "What is the acronym for the internationally recognized guidelines that define how to make web content accessible?", a: "WCAG", dist: ["HTML", "URL", "API"] },
+            { q: "What do we call moving through a webpage using only the Tab and Shift+Tab keys, without any screen reader quick keys?", a: "Keyboard-Only Navigation", dist: ["Mouse Navigation", "Voice Navigation", "Touch Navigation"] },
+            { q: "Which of these is NOT a screen reader?", a: "Adobe Photoshop", dist: ["JAWS", "NVDA", "VoiceOver"] },
+            { q: "What is the term for a screen reader announcing information automatically without the user asking, such as a live sports score update?", a: "Live Region", dist: ["Dead Zone", "Static Text", "Hidden Field"] }
+          ];
+          const pick = p[Math.floor(Math.random() * p.length)];
+          return { grade, subject, controlType: "radio", q: pick.q, options: [pick.a, ...pick.dist].sort(() => 0.5 - Math.random()), acceptedAnswers: [pick.a] };
+        }
+      }
+
+      // 4. SPELLING (expanded pools)
+      if (subject === "Spelling") {
+        const pool = {
+          1: [
+            { prompt: "the number 4", accepted: ["four", "4"] },
+            { prompt: "the color of the daytime sky", accepted: ["blue"] },
+            { prompt: "the opposite of cold", accepted: ["warm", "hot"] },
+            { prompt: "the animal that barks", accepted: ["dog"] },
+            { prompt: "the animal that says meow", accepted: ["cat"] },
+            { prompt: "the star that gives Earth light and heat during the day", accepted: ["sun"] },
+            { prompt: "the frozen form of water", accepted: ["ice"] },
+            { prompt: "the color of grass", accepted: ["green"] },
+            { prompt: "the opposite of up", accepted: ["down"] },
+            { prompt: "the opposite of big", accepted: ["small", "little"] },
+            { prompt: "the meal you eat in the morning", accepted: ["breakfast"] },
+            { prompt: "the number that comes right after nine", accepted: ["ten", "10"] },
+            { prompt: "the season of the year with snow", accepted: ["winter"] },
+            { prompt: "the shape with three sides", accepted: ["triangle"] },
+            { prompt: "the shape with four equal sides", accepted: ["square"] },
+            { prompt: "the opposite of happy", accepted: ["sad"] },
+            { prompt: "the animal that says moo", accepted: ["cow"] },
+            { prompt: "the color of a ripe banana", accepted: ["yellow"] },
+            { prompt: "the number of days in one week", accepted: ["seven", "7"] },
+            { prompt: "the opposite of fast", accepted: ["slow"] }
+          ],
+          2: [
+            { prompt: "the animal with a long tail that climbs trees", accepted: ["monkey"] },
+            { prompt: "the day of the week right after Monday", accepted: ["tuesday"] },
+            { prompt: "the season when leaves fall from the trees", accepted: ["autumn", "fall"] },
+            { prompt: "the cold treat made from dairy cream", accepted: ["ice cream", "icecream"] },
+            { prompt: "the large gray animal with a long trunk", accepted: ["elephant"] },
+            { prompt: "the yellow fruit shaped like a curve", accepted: ["banana"] },
+            { prompt: "the place where you can borrow books for free", accepted: ["library"] },
+            { prompt: "the day of the week right before Saturday", accepted: ["friday"] },
+            { prompt: "the month that comes right after June", accepted: ["july"] },
+            { prompt: "the large body of salt water that covers most of Earth", accepted: ["ocean"] },
+            { prompt: "the small insect that makes honey", accepted: ["bee"] },
+            { prompt: "the vehicle that flies through the sky and carries passengers", accepted: ["airplane"] },
+            { prompt: "the person whose job is to teach a class", accepted: ["teacher"] },
+            { prompt: "the tool used to write on paper, usually made of wood and lead", accepted: ["pencil"] },
+            { prompt: "the meal eaten in the middle of the day", accepted: ["lunch"] },
+            { prompt: "the room in a house where you sleep", accepted: ["bedroom"] },
+            { prompt: "the word for a baby dog", accepted: ["puppy"] },
+            { prompt: "the word for a baby cat", accepted: ["kitten"] },
+            { prompt: "the place where you go to buy food and groceries", accepted: ["store", "grocery store"] },
+            { prompt: "the tall plant with a trunk, branches, and leaves", accepted: ["tree"] }
+          ],
+          4: [
+            { prompt: "the word meaning certainly or without doubt", accepted: ["definitely"] },
+            { prompt: "a large body of water stored for public use, or a natural lake", accepted: ["reservoir", "lake"] },
+            { prompt: "the document proving you completed a purchase", accepted: ["receipt"] },
+            { prompt: "the measurement of how hot or cold something is", accepted: ["temperature"] },
+            { prompt: "the person who lives in the house or apartment right next to yours", accepted: ["neighbor"] },
+            { prompt: "the second month of the year", accepted: ["february"] },
+            { prompt: "the thing or activity you like the very best", accepted: ["favorite"] },
+            { prompt: "the place filled with books that you can borrow", accepted: ["library"] },
+            { prompt: "a chart showing all the days, weeks, and months of a year", accepted: ["calendar"] },
+            { prompt: "a place you go to order and eat a meal someone else cooked", accepted: ["restaurant"] },
+            { prompt: "the feeling of wanting to know or learn something", accepted: ["curiosity"] },
+            { prompt: "to accept something as true", accepted: ["believe"] },
+            { prompt: "strange, unexplained, or hard to figure out", accepted: ["mysterious"] },
+            { prompt: "not the same, or set apart from each other", accepted: ["separate"] },
+            { prompt: "an unexpected event that catches you off guard", accepted: ["surprise"] },
+            { prompt: "extremely important, or required", accepted: ["necessary"] },
+            { prompt: "very unusual or strange", accepted: ["weird"] },
+            { prompt: "a measurement of how tall something or someone is", accepted: ["height"] },
+            { prompt: "having no bends or curves at all", accepted: ["straight"] },
+            { prompt: "complete and detailed, leaving nothing out", accepted: ["thorough"] }
+          ]
+        };
+        const list = pool[grade] || pool[2];
+        const item = list[Math.floor(Math.random() * list.length)];
+        return { grade, subject, controlType: "input", q: `Spell ${item.prompt}. Type the correct spelling:`, acceptedAnswers: item.accepted, placeholder: "Type word" };
+      }
+
+      // 5. VOCABULARY (expanded pools; grade 4 now has its own dedicated bank)
+      if (subject === "Vocabulary") {
+        const pool = {
+          2: [
+            { word: "heavy", ant: "Light", accepted: ["Light"], dist: ["Dark", "Huge", "Loud"] },
+            { word: "ancient", ant: "Modern", accepted: ["Modern", "New"], dist: ["Old", "Dusty", "Historic"] },
+            { word: "brave", ant: "Cowardly", accepted: ["Cowardly", "Timid"], dist: ["Heroic", "Bold", "Strong"] },
+            { word: "expand", ant: "Shrink", accepted: ["Shrink", "Contract"], dist: ["Grow", "Stretch", "Build"] },
+            { word: "happy", ant: "Sad", accepted: ["Sad", "Unhappy"], dist: ["Cheerful", "Excited", "Calm"] },
+            { word: "fast", ant: "Slow", accepted: ["Slow"], dist: ["Quick", "Speedy", "Rapid"] },
+            { word: "wet", ant: "Dry", accepted: ["Dry"], dist: ["Damp", "Soggy", "Moist"] },
+            { word: "loud", ant: "Quiet", accepted: ["Quiet", "Silent"], dist: ["Noisy", "Booming", "Roaring"] },
+            { word: "full", ant: "Empty", accepted: ["Empty"], dist: ["Stuffed", "Packed", "Crowded"] },
+            { word: "easy", ant: "Difficult", accepted: ["Difficult", "Hard"], dist: ["Simple", "Basic", "Effortless"] },
+            { word: "clean", ant: "Dirty", accepted: ["Dirty", "Messy"], dist: ["Neat", "Tidy", "Spotless"] },
+            { word: "begin", ant: "End", accepted: ["End", "Finish"], dist: ["Start", "Open", "Launch"] },
+            { word: "buy", ant: "Sell", accepted: ["Sell"], dist: ["Purchase", "Obtain", "Acquire"] },
+            { word: "strong", ant: "Weak", accepted: ["Weak", "Feeble"], dist: ["Powerful", "Sturdy", "Tough"] },
+            { word: "wide", ant: "Narrow", accepted: ["Narrow"], dist: ["Broad", "Large", "Spacious"] },
+            { word: "rise", ant: "Fall", accepted: ["Fall", "Descend"], dist: ["Climb", "Ascend", "Lift"] },
+            { word: "early", ant: "Late", accepted: ["Late"], dist: ["Prompt", "Timely", "Soon"] },
+            { word: "remember", ant: "Forget", accepted: ["Forget"], dist: ["Recall", "Recollect", "Memorize"] }
+          ],
+          3: [
+            { prefix: "un-", meaning: "Not", accepted: ["Not"], dist: ["Again", "Before", "Very"] },
+            { prefix: "re-", meaning: "Again", accepted: ["Again"], dist: ["Not", "Under", "After"] },
+            { prefix: "pre-", meaning: "Before", accepted: ["Before"], dist: ["After", "Not", "Across"] },
+            { prefix: "dis-", meaning: "Opposite of / Not", accepted: ["Opposite of / Not", "Not"], dist: ["Always", "Under", "With"] },
+            { prefix: "mis-", meaning: "Wrongly or badly", accepted: ["Wrongly or badly", "Wrongly"], dist: ["Correctly", "Always", "Before"] },
+            { prefix: "non-", meaning: "Not", accepted: ["Not"], dist: ["Again", "Over", "Under"] },
+            { prefix: "over-", meaning: "Too much or above", accepted: ["Too much or above", "Too much"], dist: ["Too little", "Under", "Before"] },
+            { prefix: "under-", meaning: "Below or not enough", accepted: ["Below or not enough", "Below"], dist: ["Above", "Too much", "Beyond"] },
+            { prefix: "bi-", meaning: "Two", accepted: ["Two"], dist: ["One", "Three", "Many"] },
+            { prefix: "tri-", meaning: "Three", accepted: ["Three"], dist: ["Two", "Four", "One"] },
+            { prefix: "sub-", meaning: "Under or below", accepted: ["Under or below", "Under"], dist: ["Over", "Beside", "Through"] },
+            { prefix: "inter-", meaning: "Between or among", accepted: ["Between or among", "Between"], dist: ["Within", "Outside", "Before"] },
+            { prefix: "super-", meaning: "Above or beyond", accepted: ["Above or beyond", "Above"], dist: ["Below", "Within", "Before"] },
+            { prefix: "mid-", meaning: "Middle", accepted: ["Middle"], dist: ["Start", "End", "Side"] },
+            { prefix: "semi-", meaning: "Half", accepted: ["Half"], dist: ["Whole", "Double", "Quarter"] },
+            { prefix: "anti-", meaning: "Against", accepted: ["Against"], dist: ["For", "With", "Beside"] },
+            { prefix: "co-", meaning: "Together or with", accepted: ["Together or with", "Together"], dist: ["Apart", "Against", "Alone"] },
+            { prefix: "ex-", meaning: "Out of or former", accepted: ["Out of or former", "Former"], dist: ["Into", "Current", "Future"] }
+          ],
+          4: [
+            { suffix: "-ful", meaning: "Full of", accepted: ["Full of"], dist: ["Without", "Before", "Again"] },
+            { suffix: "-less", meaning: "Without", accepted: ["Without"], dist: ["Full of", "Again", "Before"] },
+            { suffix: "-able", meaning: "Able to be, or capable of", accepted: ["Able to be, or capable of", "Capable of"], dist: ["Not able to", "Before", "Full of"] },
+            { suffix: "-er", meaning: "One who does something, or more", accepted: ["One who does something, or more", "One who does something"], dist: ["One who watches only", "Less", "Before"] },
+            { suffix: "-est", meaning: "Most", accepted: ["Most"], dist: ["Least", "More", "Some"] },
+            { suffix: "-ly", meaning: "In a certain way", accepted: ["In a certain way"], dist: ["Not at all", "Before", "Full of"] },
+            { suffix: "-ness", meaning: "The state or quality of being", accepted: ["The state or quality of being", "State of being"], dist: ["Action of", "Before", "Without"] },
+            { suffix: "-tion", meaning: "The action or process of", accepted: ["The action or process of", "Action or process of"], dist: ["State of being small", "Opposite of", "Before"] },
+            { suffix: "-ment", meaning: "The result or action of", accepted: ["The result or action of", "Result of"], dist: ["Without", "Before", "Most"] },
+            { suffix: "-ous", meaning: "Full of, or having qualities of", accepted: ["Full of, or having qualities of", "Full of"], dist: ["Without", "Before", "Least"] },
+            { suffix: "-ish", meaning: "Somewhat like", accepted: ["Somewhat like"], dist: ["Completely unlike", "Before", "Never"] },
+            { suffix: "-ward", meaning: "In the direction of", accepted: ["In the direction of"], dist: ["Away from everything", "Before", "Without"] },
+            { suffix: "-hood", meaning: "The state or condition of", accepted: ["The state or condition of", "State or condition of"], dist: ["Action of", "Opposite of", "Before"] },
+            { suffix: "-ify", meaning: "To make or cause to become", accepted: ["To make or cause to become", "To make become"], dist: ["To stop being", "Before", "Without"] },
+            { suffix: "-al", meaning: "Relating to", accepted: ["Relating to"], dist: ["Unrelated to", "Before", "Without"] },
+            { suffix: "-ive", meaning: "Tending to, or having the nature of", accepted: ["Tending to, or having the nature of", "Tending to"], dist: ["Lacking entirely", "Before", "Without"] },
+            { suffix: "-y", meaning: "Full of, or characterized by", accepted: ["Full of, or characterized by", "Full of"], dist: ["Without any", "Before", "Least"] },
+            { suffix: "-en", meaning: "To make", accepted: ["To make"], dist: ["To stop", "Before", "Without"] }
+          ],
+          5: [
+            { word: "benevolent", meaning: "Well-meaning and kindly", accepted: ["Well-meaning and kindly"], dist: ["Cruel and unkind", "Fast and agile", "Uncertain"] },
+            { word: "abundant", meaning: "Existing in large quantities", accepted: ["Existing in large quantities"], dist: ["Very scarce", "Extremely tiny", "Fragile"] },
+            { word: "lucid", meaning: "Expressed clearly and easy to understand", accepted: ["Expressed clearly and easy to understand"], dist: ["Murky and dark", "Complicated", "Quiet"] },
+            { word: "cautious", meaning: "Careful to avoid danger or mistakes", accepted: ["Careful to avoid danger or mistakes"], dist: ["Reckless and careless", "Extremely loud", "Very fast"] },
+            { word: "diligent", meaning: "Showing careful and persistent effort", accepted: ["Showing careful and persistent effort"], dist: ["Lazy and careless", "Confused", "Angry"] },
+            { word: "reluctant", meaning: "Unwilling and hesitant to do something", accepted: ["Unwilling and hesitant to do something"], dist: ["Eager and excited", "Confident", "Calm"] },
+            { word: "tedious", meaning: "Long, slow, and boring", accepted: ["Long, slow, and boring"], dist: ["Exciting and thrilling", "Quick and simple", "Dangerous"] },
+            { word: "genuine", meaning: "Real and authentic, not fake", accepted: ["Real and authentic, not fake"], dist: ["Fake and artificial", "Expensive", "Rare"] },
+            { word: "hostile", meaning: "Unfriendly and aggressive", accepted: ["Unfriendly and aggressive"], dist: ["Friendly and warm", "Quiet and shy", "Generous"] },
+            { word: "optional", meaning: "Available as a choice, not required", accepted: ["Available as a choice, not required"], dist: ["Absolutely required", "Forbidden", "Expensive"] },
+            { word: "immense", meaning: "Extremely large in size", accepted: ["Extremely large in size"], dist: ["Extremely small", "Average sized", "Invisible"] },
+            { word: "fragile", meaning: "Easily broken or damaged", accepted: ["Easily broken or damaged"], dist: ["Very sturdy", "Extremely heavy", "Waterproof"] },
+            { word: "vivid", meaning: "Producing powerful, clear images in the mind", accepted: ["Producing powerful, clear images in the mind"], dist: ["Dull and forgettable", "Confusing", "Silent"] },
+            { word: "peculiar", meaning: "Strange or unusual", accepted: ["Strange or unusual"], dist: ["Completely normal", "Very common", "Boring"] },
+            { word: "eager", meaning: "Full of enthusiasm and excitement to do something", accepted: ["Full of enthusiasm and excitement to do something"], dist: ["Unwilling and bored", "Angry", "Tired"] },
+            { word: "reliable", meaning: "Able to be trusted to do what is expected", accepted: ["Able to be trusted to do what is expected"], dist: ["Untrustworthy", "Confusing", "Slow"] }
+          ],
+          6: [
+            { word: "meticulous", syn: "Precise and careful", accepted: ["Precise and careful", "Precise"], dist: ["Careless", "Rapid", "Aggressive"] },
+            { word: "candid", syn: "Frank and honest", accepted: ["Frank and honest", "Direct"], dist: ["Secretive", "Shy", "Deceptive"] },
+            { word: "resilient", syn: "Able to recover quickly from difficulties", accepted: ["Able to recover quickly from difficulties"], dist: ["Fragile", "Rigid", "Exhausted"] },
+            { word: "ambiguous", syn: "Open to more than one interpretation, unclear", accepted: ["Open to more than one interpretation, unclear"], dist: ["Perfectly clear", "Simple", "Obvious"] },
+            { word: "eloquent", syn: "Fluent and persuasive in speaking or writing", accepted: ["Fluent and persuasive in speaking or writing"], dist: ["Mumbling and unclear", "Silent", "Confused"] },
+            { word: "skeptical", syn: "Doubtful and not easily convinced", accepted: ["Doubtful and not easily convinced"], dist: ["Trusting completely", "Enthusiastic", "Naive"] },
+            { word: "tenacious", syn: "Persistent and determined, not giving up", accepted: ["Persistent and determined, not giving up"], dist: ["Quick to give up", "Careless", "Timid"] },
+            { word: "arbitrary", syn: "Based on random choice rather than reason", accepted: ["Based on random choice rather than reason"], dist: ["Carefully reasoned", "Fair", "Predictable"] },
+            { word: "concise", syn: "Giving information clearly in few words", accepted: ["Giving information clearly in few words"], dist: ["Wordy and long-winded", "Confusing", "Repetitive"] },
+            { word: "plausible", syn: "Reasonable and believable", accepted: ["Reasonable and believable"], dist: ["Impossible to believe", "Ridiculous", "Fake"] },
+            { word: "inevitable", syn: "Certain to happen, unavoidable", accepted: ["Certain to happen, unavoidable"], dist: ["Very unlikely", "Optional", "Easily prevented"] },
+            { word: "versatile", syn: "Able to adapt to many different functions", accepted: ["Able to adapt to many different functions"], dist: ["Limited to one use", "Broken", "Outdated"] },
+            { word: "novice", syn: "A person new to a skill, a beginner", accepted: ["A person new to a skill, a beginner"], dist: ["An expert", "A teacher", "A judge"] },
+            { word: "profound", syn: "Very deep or intense, showing great understanding", accepted: ["Very deep or intense, showing great understanding"], dist: ["Shallow and simple", "Confusing", "Loud"] },
+            { word: "adverse", syn: "Unfavorable or harmful", accepted: ["Unfavorable or harmful"], dist: ["Favorable and helpful", "Neutral", "Exciting"] },
+            { word: "dubious", syn: "Doubtful or of questionable value", accepted: ["Doubtful or of questionable value"], dist: ["Completely certain", "Excellent", "Popular"] },
+            { word: "prudent", syn: "Acting with good judgment and care about the future", accepted: ["Acting with good judgment and care about the future"], dist: ["Reckless and careless", "Impulsive", "Lazy"] }
+          ]
+        };
+        const list = pool[grade] || pool[2];
+        const item = list[Math.floor(Math.random() * list.length)];
+        if (item.ant) {
+          return { grade, subject, controlType: "combo", q: `What is the antonym (opposite) of "${item.word}"?`, options: ["Select antonym...", item.ant, ...item.dist].sort(() => 0.5 - Math.random()), acceptedAnswers: item.accepted };
+        } else if (item.prefix) {
+          return { grade, subject, controlType: "combo", q: `What does the prefix "${item.prefix}" mean?`, options: ["Select meaning...", item.meaning, ...item.dist].sort(() => 0.5 - Math.random()), acceptedAnswers: item.accepted };
+        } else if (item.suffix) {
+          return { grade, subject, controlType: "combo", q: `What does the suffix "${item.suffix}" mean?`, options: ["Select meaning...", item.meaning, ...item.dist].sort(() => 0.5 - Math.random()), acceptedAnswers: item.accepted };
+        } else {
+          return { grade, subject, controlType: "combo", q: `What is the definition or synonym of "${item.word}"?`, options: ["Select definition...", item.meaning || item.syn, ...item.dist].sort(() => 0.5 - Math.random()), acceptedAnswers: item.accepted };
+        }
+      }
+
+      // 6. SCIENCE, SOCIAL STUDIES & READING (expanded static pools, 18-20 items per grade)
+      const staticPool = {
+        Science: {
+          1: [
+            { q: "True or False: The Sun provides Earth with light and heat.", options: ["True", "False"], accepted: ["True"] },
+            { q: "Which part of a plant absorbs water from the soil?", options: ["Roots", "Leaves", "Stem", "Flower"], accepted: ["Roots"] },
+            { q: "Which animal is a mammal?", options: ["Dog", "Snake", "Goldfish", "Frog"], accepted: ["Dog"] },
+            { q: "True or False: Fish breathe using gills.", options: ["True", "False"], accepted: ["True"] },
+            { q: "Which of these is a living thing?", options: ["Tree", "Rock", "Chair", "Car"], accepted: ["Tree"] },
+            { q: "What do plants need to grow, along with water and soil?", options: ["Sunlight", "Ice", "Sand", "Metal"], accepted: ["Sunlight"] },
+            { q: "Which season comes right after winter?", options: ["Spring", "Summer", "Fall", "Winter"], accepted: ["Spring"] },
+            { q: "Which body part do we use to smell things?", options: ["Nose", "Ears", "Eyes", "Elbow"], accepted: ["Nose"] },
+            { q: "Which body part do we use to hear sounds?", options: ["Ears", "Nose", "Eyes", "Elbow"], accepted: ["Ears"] },
+            { q: "What is the term for baby frogs before they grow legs?", options: ["Tadpoles", "Puppies", "Cubs", "Chicks"], accepted: ["Tadpoles"] },
+            { q: "True or False: The Moon creates its own light.", options: ["True", "False"], accepted: ["False"] },
+            { q: "Which of these animals can fly on its own?", options: ["Bird", "Fish", "Turtle", "Cow"], accepted: ["Bird"] },
+            { q: "Which of these is NOT a source of light?", options: ["Rock", "Sun", "Lamp", "Fire"], accepted: ["Rock"] },
+            { q: "What do we call animals that eat only plants?", options: ["Herbivores", "Carnivores", "Omnivores", "Predators"], accepted: ["Herbivores"] },
+            { q: "Which season is usually the hottest?", options: ["Summer", "Winter", "Spring", "Fall"], accepted: ["Summer"] },
+            { q: "Which of these foods comes from a chicken?", options: ["Egg", "Milk", "Wool", "Honey"], accepted: ["Egg"] },
+            { q: "Which of these foods comes from a cow?", options: ["Milk", "Egg", "Wool", "Honey"], accepted: ["Milk"] },
+            { q: "True or False: Humans need air, water, and food to survive.", options: ["True", "False"], accepted: ["True"] },
+            { q: "Which sense organ do we use to see?", options: ["Eyes", "Nose", "Ears", "Tongue"], accepted: ["Eyes"] },
+            { q: "What is the natural material found in the ground that most plants grow in called?", options: ["Soil", "Plastic", "Glass", "Metal"], accepted: ["Soil"] }
+          ],
+          2: [
+            { q: "What do caterpillars transform into during metamorphosis?", options: ["Butterflies", "Bees", "Beetles", "Spiders"], accepted: ["Butterflies"] },
+            { q: "True or False: Frogs are amphibians that can live in water and on land.", options: ["True", "False"], accepted: ["True"] },
+            { q: "Which of these is a solid state of matter?", options: ["Ice", "Water vapor", "Orange juice", "Steam"], accepted: ["Ice"] },
+            { q: "Which of these is a liquid state of matter?", options: ["Milk", "Ice cube", "Steam", "Rock"], accepted: ["Milk"] },
+            { q: "Which of these is a gas?", options: ["Steam", "Ice", "Milk", "Wood"], accepted: ["Steam"] },
+            { q: "True or False: Plants make their own food using sunlight.", options: ["True", "False"], accepted: ["True"] },
+            { q: "What is the process called when a caterpillar changes into a butterfly?", options: ["Metamorphosis", "Evaporation", "Hibernation", "Migration"], accepted: ["Metamorphosis"] },
+            { q: "Which of these animals hatches from an egg?", options: ["Chicken", "Dog", "Cat", "Horse"], accepted: ["Chicken"] },
+            { q: "What do we call animals without a backbone, like insects and worms?", options: ["Invertebrates", "Vertebrates", "Mammals", "Reptiles"], accepted: ["Invertebrates"] },
+            { q: "What do we call animals with a backbone?", options: ["Vertebrates", "Invertebrates", "Insects", "Fungi"], accepted: ["Vertebrates"] },
+            { q: "True or False: The Earth has one moon.", options: ["True", "False"], accepted: ["True"] },
+            { q: "Which simple machine helps you move heavy objects by rolling?", options: ["Wheel", "Lever", "Wedge", "Screw"], accepted: ["Wheel"] },
+            { q: "What force pulls a dropped ball down to the ground?", options: ["Gravity", "Friction", "Magnetism", "Wind"], accepted: ["Gravity"] },
+            { q: "Which of these is an example of a natural resource?", options: ["Water", "Plastic bottle", "Computer", "Backpack"], accepted: ["Water"] },
+            { q: "What do we call animals that sleep through the winter?", options: ["Hibernating animals", "Migrating animals", "Nocturnal animals", "Aquatic animals"], accepted: ["Hibernating animals"] },
+            { q: "In which season do many trees lose their leaves?", options: ["Autumn", "Spring", "Summer", "Winter"], accepted: ["Autumn", "Fall"] },
+            { q: "Which of these animals is nocturnal, meaning it is active at night?", options: ["Owl", "Chicken", "Squirrel", "Butterfly"], accepted: ["Owl"] },
+            { q: "What do bees collect from flowers that they use to make honey?", options: ["Nectar", "Water", "Pollen only", "Sap"], accepted: ["Nectar"] },
+            { q: "True or False: All insects have six legs.", options: ["True", "False"], accepted: ["True"] },
+            { q: "Which body of water is the largest on Earth?", options: ["The Ocean", "A lake", "A river", "A pond"], accepted: ["The Ocean"] }
+          ],
+          3: [
+            { q: "Which state of matter has a definite volume but takes the shape of its container?", options: ["Liquid", "Solid", "Gas", "Plasma"], accepted: ["Liquid"] },
+            { q: "True or False: The Earth orbits around the Sun once every 365 days.", options: ["True", "False"], accepted: ["True"] },
+            { q: "What is the process where liquid water turns into water vapor?", options: ["Evaporation", "Condensation", "Precipitation", "Freezing"], accepted: ["Evaporation"] },
+            { q: "What is the process where water vapor turns back into liquid water?", options: ["Condensation", "Evaporation", "Precipitation", "Freezing"], accepted: ["Condensation"] },
+            { q: "What do we call water falling from clouds as rain, snow, or hail?", options: ["Precipitation", "Evaporation", "Condensation", "Runoff"], accepted: ["Precipitation"] },
+            { q: "True or False: The three main states of matter are solid, liquid, and gas.", options: ["True", "False"], accepted: ["True"] },
+            { q: "Which planet is closest to the Sun?", options: ["Mercury", "Venus", "Earth", "Mars"], accepted: ["Mercury"] },
+            { q: "Which planet is known as the Red Planet?", options: ["Mars", "Venus", "Jupiter", "Saturn"], accepted: ["Mars"] },
+            { q: "What is the center of an atom called?", options: ["Nucleus", "Electron", "Proton shell", "Orbit"], accepted: ["Nucleus"] },
+            { q: "What do we call a rock formed from cooled melted lava or magma?", options: ["Igneous rock", "Sedimentary rock", "Metamorphic rock", "Mineral rock"], accepted: ["Igneous rock"] },
+            { q: "True or False: Sound travels faster through air than through water.", options: ["True", "False"], accepted: ["False"] },
+            { q: "What force causes objects to slow down when they rub against each other?", options: ["Friction", "Gravity", "Magnetism", "Momentum"], accepted: ["Friction"] },
+            { q: "What do we call the layer of gases surrounding Earth?", options: ["Atmosphere", "Crust", "Mantle", "Core"], accepted: ["Atmosphere"] },
+            { q: "Which of these is an example of a renewable energy source?", options: ["Solar power", "Coal", "Oil", "Natural gas"], accepted: ["Solar power"] },
+            { q: "What is the outer layer of the Earth called, the one we live on?", options: ["Crust", "Core", "Mantle", "Atmosphere"], accepted: ["Crust"] },
+            { q: "True or False: A magnet can attract objects made of iron.", options: ["True", "False"], accepted: ["True"] },
+            { q: "What do we call an animal that eats both plants and animals?", options: ["Omnivore", "Herbivore", "Carnivore", "Decomposer"], accepted: ["Omnivore"] },
+            { q: "Which organ in the human body helps you breathe?", options: ["Lungs", "Heart", "Stomach", "Liver"], accepted: ["Lungs"] },
+            { q: "What do we call living things that break down dead plants and animals, like mushrooms?", options: ["Decomposers", "Producers", "Consumers", "Predators"], accepted: ["Decomposers"] },
+            { q: "True or False: Plants release oxygen into the air.", options: ["True", "False"], accepted: ["True"] }
+          ],
+          4: [
+            { q: "True or False: Herbivores are animals that eat only plants.", options: ["True", "False"], accepted: ["True"] },
+            { q: "What force pulls objects toward the center of the Earth?", options: ["Gravity", "Friction", "Magnetism", "Electricity"], accepted: ["Gravity"] },
+            { q: "What form of energy is produced by vibrating objects?", options: ["Sound energy", "Chemical energy", "Nuclear energy", "Thermal energy"], accepted: ["Sound energy"] },
+            { q: "What is the process by which plants make their own food using sunlight called?", options: ["Photosynthesis", "Respiration", "Digestion", "Pollination"], accepted: ["Photosynthesis"] },
+            { q: "What gas do plants absorb from the air during photosynthesis?", options: ["Carbon Dioxide", "Oxygen", "Nitrogen", "Hydrogen"], accepted: ["Carbon Dioxide"] },
+            { q: "What gas do plants release into the air during photosynthesis?", options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Helium"], accepted: ["Oxygen"] },
+            { q: "What do we call the transfer of pollen from one flower to another?", options: ["Pollination", "Photosynthesis", "Germination", "Respiration"], accepted: ["Pollination"] },
+            { q: "What is the basic unit of structure and function in all living things?", options: ["A Cell", "An Organ", "A Tissue", "A Molecule"], accepted: ["A Cell"] },
+            { q: "Which simple machine is a ramp used to make it easier to move objects up or down?", options: ["Inclined Plane", "Lever", "Pulley", "Wheel and Axle"], accepted: ["Inclined Plane"] },
+            { q: "Which simple machine uses a rope and wheel to lift objects, like on a flagpole?", options: ["Pulley", "Lever", "Wedge", "Screw"], accepted: ["Pulley"] },
+            { q: "What do we call the water cycle stage where water soaks into the ground?", options: ["Infiltration", "Evaporation", "Precipitation", "Condensation"], accepted: ["Infiltration"] },
+            { q: "True or False: Electricity can flow more easily through metal than through rubber.", options: ["True", "False"], accepted: ["True"] },
+            { q: "What is the term for materials that allow electricity to pass through them easily?", options: ["Conductors", "Insulators", "Resistors", "Circuits"], accepted: ["Conductors"] },
+            { q: "What is the term for materials that block the flow of electricity?", options: ["Insulators", "Conductors", "Resistors", "Circuits"], accepted: ["Insulators"] },
+            { q: "What do we call the natural satellite that orbits the Earth?", options: ["The Moon", "The Sun", "A Star", "A Comet"], accepted: ["The Moon"] },
+            { q: "Which layer of the Earth is the hottest and located at the very center?", options: ["The Core", "The Crust", "The Mantle", "The Atmosphere"], accepted: ["The Core"] },
+            { q: "What is an animal's inherited behavior that it does not need to learn, like a spider spinning a web, called?", options: ["Instinct", "Habit", "Adaptation", "Camouflage"], accepted: ["Instinct"] },
+            { q: "What do we call a physical feature that helps an animal survive in its environment, like a polar bear's thick fur?", options: ["Adaptation", "Instinct", "Habitat", "Migration"], accepted: ["Adaptation"] },
+            { q: "True or False: Sound cannot travel through a vacuum, like outer space.", options: ["True", "False"], accepted: ["True"] },
+            { q: "What do we call the place where an organism naturally lives, like a forest or ocean?", options: ["Habitat", "Migration", "Camouflage", "Instinct"], accepted: ["Habitat"] }
+          ],
+          5: [
+            { q: "What is the most abundant gas in Earth's atmosphere?", options: ["Nitrogen", "Oxygen", "Carbon Dioxide", "Hydrogen"], accepted: ["Nitrogen"] },
+            { q: "Which organ in the human body is responsible for pumping blood?", options: ["Heart", "Lungs", "Brain", "Liver"], accepted: ["Heart"] },
+            { q: "What is the primary source of energy that drives Earth's water cycle?", options: ["The Sun", "Geothermal vents", "The Moon", "Ocean waves"], accepted: ["The Sun"] },
+            { q: "What do we call the process where the heart and blood vessels move blood through the body?", options: ["Circulation", "Digestion", "Respiration", "Reflex"], accepted: ["Circulation"] },
+            { q: "What is the smallest unit of an element that still has the properties of that element?", options: ["Atom", "Molecule", "Cell", "Compound"], accepted: ["Atom"] },
+            { q: "What do we call two or more elements chemically combined, like water (H2O)?", options: ["Compound", "Mixture", "Solution", "Atom"], accepted: ["Compound"] },
+            { q: "What is the term for a substance that speeds up a chemical reaction without being used up?", options: ["Catalyst", "Solvent", "Solute", "Reactant"], accepted: ["Catalyst"] },
+            { q: "Which force keeps planets in orbit around the Sun?", options: ["Gravity", "Magnetism", "Friction", "Inertia"], accepted: ["Gravity"] },
+            { q: "What is the term for an object's resistance to a change in motion?", options: ["Inertia", "Gravity", "Velocity", "Momentum"], accepted: ["Inertia"] },
+            { q: "What is the largest organ in the human body?", options: ["Skin", "Liver", "Lungs", "Brain"], accepted: ["Skin"] },
+            { q: "What is the name of the process by which the human body breaks down food into usable energy?", options: ["Digestion", "Respiration", "Circulation", "Excretion"], accepted: ["Digestion"] },
+            { q: "True or False: The adult human body has 206 bones.", options: ["True", "False"], accepted: ["True"] },
+            { q: "What do we call the study of weather patterns and forecasting?", options: ["Meteorology", "Geology", "Astronomy", "Biology"], accepted: ["Meteorology"] },
+            { q: "What do we call the study of living things?", options: ["Biology", "Chemistry", "Physics", "Geology"], accepted: ["Biology"] },
+            { q: "What do we call the study of matter, energy, forces, and motion?", options: ["Physics", "Biology", "Geology", "Meteorology"], accepted: ["Physics"] },
+            { q: "What is the boiling point of water in Celsius at sea level?", options: ["100 degrees Celsius", "0 degrees Celsius", "50 degrees Celsius", "212 degrees Celsius"], accepted: ["100 degrees Celsius"] },
+            { q: "What is the freezing point of water in Celsius?", options: ["0 degrees Celsius", "32 degrees Celsius", "100 degrees Celsius", "-10 degrees Celsius"], accepted: ["0 degrees Celsius"] },
+            { q: "What do we call energy stored in an object because of its position, like a ball at the top of a hill?", options: ["Potential Energy", "Kinetic Energy", "Thermal Energy", "Sound Energy"], accepted: ["Potential Energy"] },
+            { q: "What do we call the energy of motion?", options: ["Kinetic Energy", "Potential Energy", "Chemical Energy", "Nuclear Energy"], accepted: ["Kinetic Energy"] }
+          ],
+          6: [
+            { q: "True or False: Kinetic energy is the energy possessed by an object due to its motion.", options: ["True", "False"], accepted: ["True"] },
+            { q: "What cellular organelle is known as the powerhouse of the cell?", options: ["Mitochondria", "Nucleus", "Ribosome", "Chloroplast"], accepted: ["Mitochondria"] },
+            { q: "What geologic theory explains the movement of Earth's continental plates?", options: ["Plate Tectonics", "Continental Expansion", "Rock Cycle", "Seafloor Staticity"], accepted: ["Plate Tectonics"] },
+            { q: "What cellular organelle contains a cell's genetic material, its DNA?", options: ["Nucleus", "Mitochondria", "Ribosome", "Cell Membrane"], accepted: ["Nucleus"] },
+            { q: "What is the process of cell division that produces two identical daughter cells called?", options: ["Mitosis", "Meiosis", "Photosynthesis", "Osmosis"], accepted: ["Mitosis"] },
+            { q: "What do we call the movement of molecules from an area of high concentration to low concentration?", options: ["Diffusion", "Mitosis", "Convection", "Osmosis specifically"], accepted: ["Diffusion"] },
+            { q: "What is the specific term for the diffusion of water across a cell membrane?", options: ["Osmosis", "Diffusion generally", "Mitosis", "Evaporation"], accepted: ["Osmosis"] },
+            { q: "What are the three main types of rock?", options: ["Igneous, Sedimentary, and Metamorphic", "Solid, Liquid, and Gas", "Granite, Marble, and Quartz", "Crust, Mantle, and Core"], accepted: ["Igneous, Sedimentary, and Metamorphic"] },
+            { q: "What is Newton's First Law of Motion also known as?", options: ["The Law of Inertia", "The Law of Gravity", "The Law of Acceleration", "The Law of Reaction"], accepted: ["The Law of Inertia"] },
+            { q: "According to Newton's Third Law, for every action there is an equal and opposite what?", options: ["Reaction", "Force", "Mass", "Velocity"], accepted: ["Reaction"] },
+            { q: "What is the chemical formula for water?", options: ["H2O", "CO2", "O2", "NaCl"], accepted: ["H2O"] },
+            { q: "What is the chemical formula for table salt?", options: ["NaCl", "H2O", "CO2", "KCl"], accepted: ["NaCl"] },
+            { q: "What do we call a substance that cannot be broken down into simpler substances by chemical means?", options: ["Element", "Compound", "Mixture", "Molecule"], accepted: ["Element"] },
+            { q: "What pH value is considered neutral, neither acidic nor basic?", options: ["7", "0", "14", "1"], accepted: ["7"] },
+            { q: "What organ system includes the brain, spinal cord, and nerves?", options: ["The Nervous System", "The Circulatory System", "The Digestive System", "The Skeletal System"], accepted: ["The Nervous System"] },
+            { q: "What organ system is responsible for transporting blood throughout the body?", options: ["The Circulatory System", "The Nervous System", "The Respiratory System", "The Skeletal System"], accepted: ["The Circulatory System"] },
+            { q: "What is the process called where cells release energy by breaking down glucose using oxygen?", options: ["Cellular Respiration", "Photosynthesis", "Fermentation", "Transpiration"], accepted: ["Cellular Respiration"] },
+            { q: "What do we call the variety of life found in an ecosystem?", options: ["Biodiversity", "Population", "Symbiosis", "Adaptation"], accepted: ["Biodiversity"] },
+            { q: "What is the term for a close relationship between two different species where both benefit?", options: ["Mutualism", "Parasitism", "Predation", "Competition"], accepted: ["Mutualism"] },
+            { q: "What is the term for a relationship where one organism benefits and the other is harmed?", options: ["Parasitism", "Mutualism", "Commensalism", "Symbiosis generally"], accepted: ["Parasitism"] }
+          ]
+        },
+        "Social Studies": {
+          2: [
+            { q: "True or False: A map key (legend) explains what symbols mean on a map.", options: ["True", "False"], accepted: ["True"] },
+            { q: "What is the imaginary line dividing Earth into Northern and Southern Hemispheres?", options: ["Equator", "Prime Meridian", "Tropic of Cancer", "Axis"], accepted: ["Equator"] },
+            { q: "Who was the first President of the United States?", options: ["George Washington", "Abraham Lincoln", "Thomas Jefferson", "John Adams"], accepted: ["George Washington"] },
+            { q: "Which bird is a national symbol of the United States?", options: ["Bald Eagle", "Robin", "Owl", "Peacock"], accepted: ["Bald Eagle"] },
+            { q: "What do we call people like firefighters, police officers, and doctors who help our community?", options: ["Community Helpers", "Government Officials", "Explorers", "Inventors"], accepted: ["Community Helpers"] },
+            { q: "True or False: A globe is a round model of the Earth.", options: ["True", "False"], accepted: ["True"] },
+            { q: "What is the tall, famous statue in New York Harbor that welcomes visitors?", options: ["The Statue of Liberty", "The Liberty Bell", "The White House", "Mount Rushmore"], accepted: ["The Statue of Liberty"] },
+            { q: "What do we call the paper and coin money people use to buy things?", options: ["Currency", "Taxes", "Trade", "Savings"], accepted: ["Currency"] },
+            { q: "What is the name of the official home and workplace of the President of the United States?", options: ["The White House", "The Capitol", "The Statue of Liberty", "Mount Rushmore"], accepted: ["The White House"] },
+            { q: "True or False: The United States flag has 50 stars, one for each state.", options: ["True", "False"], accepted: ["True"] },
+            { q: "What is the name for a group of people elected to make laws for a community?", options: ["Government", "Family", "Neighborhood", "Classroom"], accepted: ["Government"] },
+            { q: "What is the day called when Americans celebrate the country's independence, on July 4th?", options: ["Independence Day", "Thanksgiving", "Memorial Day", "Labor Day"], accepted: ["Independence Day"] },
+            { q: "What do we call moving from one country to live in another?", options: ["Immigration", "Vacation", "Exploration", "Trading"], accepted: ["Immigration"] },
+            { q: "What is the name of the November holiday when families give thanks and share a meal?", options: ["Thanksgiving", "Independence Day", "Labor Day", "Presidents Day"], accepted: ["Thanksgiving"] },
+            { q: "What does a compass rose on a map show?", options: ["Directions", "Distance", "Population", "Weather"], accepted: ["Directions"] },
+            { q: "What do we call a large area of land surrounded by water on three sides?", options: ["Peninsula", "Island", "Continent", "Valley"], accepted: ["Peninsula"] },
+            { q: "True or False: Farmers grow crops that provide food for many people.", options: ["True", "False"], accepted: ["True"] },
+            { q: "What is the name for the goods and services a country makes and sells?", options: ["Production", "Immigration", "Legislation", "Recreation"], accepted: ["Production"] }
+          ],
+          3: [
+            { q: "Which continent is the South Pole located on?", options: ["Antarctica", "Australia", "Asia", "Europe"], accepted: ["Antarctica"] },
+            { q: "How many continents exist on planet Earth?", options: ["7", "5", "6", "8"], accepted: ["7"] },
+            { q: "What are the four cardinal directions on a compass rose?", options: ["North, South, East, West", "Up, Down, Left, Right", "Northeast, Northwest, Southeast, Southwest", "Forward, Backward, Left, Right"], accepted: ["North, South, East, West"] },
+            { q: "What is the largest continent by land area?", options: ["Asia", "Africa", "North America", "Europe"], accepted: ["Asia"] },
+            { q: "What is the smallest continent by land area?", options: ["Australia", "Europe", "Antarctica", "South America"], accepted: ["Australia"] },
+            { q: "What do we call the imaginary lines running east-west around the globe, measuring distance from the equator?", options: ["Lines of Latitude", "Lines of Longitude", "Time Zones", "Borders"], accepted: ["Lines of Latitude"] },
+            { q: "What do we call the imaginary lines running north-south around the globe, measuring distance from the Prime Meridian?", options: ["Lines of Longitude", "Lines of Latitude", "Time Zones", "Borders"], accepted: ["Lines of Longitude"] },
+            { q: "What do we call a region's typical weather patterns over a long period of time?", options: ["Climate", "Weather", "Season", "Forecast"], accepted: ["Climate"] },
+            { q: "What do we call a community's local rules made to keep order?", options: ["Laws", "Suggestions", "Traditions", "Customs"], accepted: ["Laws"] },
+            { q: "What do we call goods and services traded between different countries?", options: ["International Trade", "Taxation", "Immigration", "Diplomacy"], accepted: ["International Trade"] },
+            { q: "True or False: A legend or key helps you understand the symbols used on a map.", options: ["True", "False"], accepted: ["True"] },
+            { q: "What do we call natural materials from the Earth that people use, like water, trees, and minerals?", options: ["Natural Resources", "Manufactured Goods", "Currency", "Technology"], accepted: ["Natural Resources"] },
+            { q: "What ocean is located between North America and Europe?", options: ["The Atlantic Ocean", "The Pacific Ocean", "The Indian Ocean", "The Arctic Ocean"], accepted: ["The Atlantic Ocean"] },
+            { q: "What ocean is located between North America and Asia?", options: ["The Pacific Ocean", "The Atlantic Ocean", "The Indian Ocean", "The Arctic Ocean"], accepted: ["The Pacific Ocean"] },
+            { q: "What do we call the physical features of the land, like mountains, rivers, and plains?", options: ["Landforms", "Landmarks", "Borders", "Territories"], accepted: ["Landforms"] },
+            { q: "What is a large, flat area of raised land with steep sides called?", options: ["Plateau", "Valley", "Peninsula", "Delta"], accepted: ["Plateau"] },
+            { q: "What is a low area of land between hills or mountains called?", options: ["Valley", "Plateau", "Peninsula", "Ridge"], accepted: ["Valley"] },
+            { q: "True or False: The Sahara is the largest hot desert in the world, located in Africa.", options: ["True", "False"], accepted: ["True"] }
+          ],
+          4: [
+            { q: "Which document begins with the words 'We the People'?", options: ["The U.S. Constitution", "The Declaration of Independence", "The Bill of Rights", "The Emancipation Proclamation"], accepted: ["The U.S. Constitution"] },
+            { q: "What ocean borders the west coast of the contiguous United States?", options: ["Pacific Ocean", "Atlantic Ocean", "Indian Ocean", "Arctic Ocean"], accepted: ["Pacific Ocean"] },
+            { q: "Which landmark purchase doubled the size of the United States in 1803?", options: ["The Louisiana Purchase", "The Gadsden Purchase", "The Alaska Purchase", "The Treaty of Paris"], accepted: ["The Louisiana Purchase"] },
+            { q: "Who was President of the United States during the Louisiana Purchase?", options: ["Thomas Jefferson", "George Washington", "James Madison", "John Adams"], accepted: ["Thomas Jefferson"] },
+            { q: "What is the name of the trail many pioneers traveled westward to reach Oregon in the 1800s?", options: ["The Oregon Trail", "The Santa Fe Trail", "The Appalachian Trail", "The Silk Road"], accepted: ["The Oregon Trail"] },
+            { q: "How many states make up the United States?", options: ["50", "48", "52", "13"], accepted: ["50"] },
+            { q: "What were the original 13 British colonies that became the first US states called?", options: ["The Thirteen Colonies", "The Fifty States", "The Louisiana Territory", "The Confederacy"], accepted: ["The Thirteen Colonies"] },
+            { q: "What do we call the first ten amendments to the U.S. Constitution?", options: ["The Bill of Rights", "The Declaration of Independence", "The Articles of Confederation", "The Preamble"], accepted: ["The Bill of Rights"] },
+            { q: "Who is often called the 'Father of His Country' for leading the American Revolution and becoming the first President?", options: ["George Washington", "Thomas Jefferson", "Benjamin Franklin", "John Adams"], accepted: ["George Washington"] },
+            { q: "What natural landform runs north to south and separates much of the eastern and western United States?", options: ["The Rocky Mountains", "The Appalachian Mountains", "The Great Plains", "The Mississippi River"], accepted: ["The Rocky Mountains"] },
+            { q: "What is the longest river in the United States?", options: ["The Mississippi River", "The Colorado River", "The Rio Grande", "The Missouri River"], accepted: ["The Mississippi River"] },
+            { q: "What do we call the branch of government that makes laws, made up of Congress?", options: ["The Legislative Branch", "The Executive Branch", "The Judicial Branch", "The Diplomatic Branch"], accepted: ["The Legislative Branch"] },
+            { q: "What do we call the branch of government, led by the President, that enforces laws?", options: ["The Executive Branch", "The Legislative Branch", "The Judicial Branch", "The Diplomatic Branch"], accepted: ["The Executive Branch"] },
+            { q: "What do we call the branch of government made up of courts that interpret laws?", options: ["The Judicial Branch", "The Legislative Branch", "The Executive Branch", "The Diplomatic Branch"], accepted: ["The Judicial Branch"] },
+            { q: "What is the name of the building in Washington, D.C. where Congress meets to make laws?", options: ["The U.S. Capitol", "The White House", "The Supreme Court", "The Pentagon"], accepted: ["The U.S. Capitol"] },
+            { q: "True or False: The United States has a system of checks and balances so no single branch of government becomes too powerful.", options: ["True", "False"], accepted: ["True"] },
+            { q: "What natural resource was especially important in the Southern colonies for growing cash crops like cotton and tobacco?", options: ["Fertile Soil", "Coal", "Gold", "Oil"], accepted: ["Fertile Soil"] }
+          ],
+          5: [
+            { q: "Who was the primary author of the Declaration of Independence?", options: ["Thomas Jefferson", "George Washington", "Benjamin Franklin", "John Adams"], accepted: ["Thomas Jefferson"] },
+            { q: "What are the three branches of the United States government?", options: ["Executive, Legislative, Judicial", "Federal, State, Local", "Senate, House, Cabinet", "President, Military, Courts"], accepted: ["Executive, Legislative, Judicial"] },
+            { q: "What was the name of the secret network of routes used by enslaved African Americans to escape to freedom?", options: ["The Underground Railroad", "The Oregon Trail", "The Santa Fe Trail", "The Silk Road"], accepted: ["The Underground Railroad"] },
+            { q: "In what year was the Declaration of Independence signed?", options: ["1776", "1789", "1865", "1620"], accepted: ["1776"] },
+            { q: "What war was fought between the American colonies and Great Britain, resulting in American independence?", options: ["The American Revolutionary War", "The Civil War", "The War of 1812", "World War I"], accepted: ["The American Revolutionary War"] },
+            { q: "What war was fought between the northern and southern United States over issues including slavery?", options: ["The Civil War", "The Revolutionary War", "World War I", "The War of 1812"], accepted: ["The Civil War"] },
+            { q: "Who was President of the United States during the Civil War?", options: ["Abraham Lincoln", "George Washington", "Thomas Jefferson", "Andrew Jackson"], accepted: ["Abraham Lincoln"] },
+            { q: "What document, signed by Abraham Lincoln, declared enslaved people in Confederate states to be free?", options: ["The Emancipation Proclamation", "The Declaration of Independence", "The Constitution", "The Bill of Rights"], accepted: ["The Emancipation Proclamation"] },
+            { q: "What is the term for the right to vote?", options: ["Suffrage", "Citizenship", "Immigration", "Representation"], accepted: ["Suffrage"] },
+            { q: "In what year did women gain the right to vote nationwide in the United States?", options: ["1920", "1776", "1865", "1900"], accepted: ["1920"] },
+            { q: "What term describes the movement of people from rural farms to cities to work in factories during the Industrial Revolution?", options: ["Urbanization", "Immigration", "Colonization", "Migration"], accepted: ["Urbanization"] },
+            { q: "What do we call goods brought into a country from another country to sell?", options: ["Imports", "Exports", "Tariffs", "Surplus"], accepted: ["Imports"] },
+            { q: "What do we call goods sent out of a country to sell to other countries?", options: ["Exports", "Imports", "Tariffs", "Surplus"], accepted: ["Exports"] },
+            { q: "What is the name for a tax placed on imported goods?", options: ["Tariff", "Tax Return", "Surplus", "Deficit"], accepted: ["Tariff"] },
+            { q: "What ancient document, signed in England in 1215, limited the power of the king and influenced future democracies?", options: ["The Magna Carta", "The Declaration of Independence", "The Bill of Rights", "The Constitution"], accepted: ["The Magna Carta"] },
+            { q: "Which US President is featured on the one dollar bill?", options: ["George Washington", "Abraham Lincoln", "Thomas Jefferson", "Benjamin Franklin"], accepted: ["George Washington"] },
+            { q: "Which historical figure is known for her role in the Underground Railroad, guiding enslaved people to freedom?", options: ["Harriet Tubman", "Susan B. Anthony", "Rosa Parks", "Sojourner Truth"], accepted: ["Harriet Tubman"] }
+          ],
+          6: [
+            { q: "Which ancient civilization developed cuneiform writing on clay tablets?", options: ["Mesopotamia", "Ancient Egypt", "Indus Valley", "Ancient Greece"], accepted: ["Mesopotamia"] },
+            { q: "Which river was essential to agriculture in ancient Egypt?", options: ["Nile River", "Tigris River", "Amazon River", "Euphrates River"], accepted: ["Nile River"] },
+            { q: "In ancient Athens, Greece, what system of government was first developed where citizens vote?", options: ["Democracy", "Monarchy", "Oligarchy", "Dictatorship"], accepted: ["Democracy"] },
+            { q: "What is the name of the ancient Egyptian writing system using pictures and symbols?", options: ["Hieroglyphics", "Cuneiform", "Calligraphy", "Braille"], accepted: ["Hieroglyphics"] },
+            { q: "What were the massive stone structures built by ancient Egyptians as tombs for pharaohs called?", options: ["Pyramids", "Ziggurats", "Coliseums", "Temples"], accepted: ["Pyramids"] },
+            { q: "Which ancient civilization built the Great Wall to protect against invasions?", options: ["Ancient China", "Ancient Rome", "Ancient Greece", "Ancient Egypt"], accepted: ["Ancient China"] },
+            { q: "Which ancient civilization is credited with building the Colosseum, a large amphitheater for entertainment?", options: ["Ancient Rome", "Ancient Greece", "Ancient Egypt", "Mesopotamia"], accepted: ["Ancient Rome"] },
+            { q: "What was the name of the trade route connecting China to the Mediterranean, used to exchange silk and other goods?", options: ["The Silk Road", "The Oregon Trail", "The Amber Road", "The Grand Canal"], accepted: ["The Silk Road"] },
+            { q: "Which river valley civilization developed one of the world's first writing systems and advanced city planning in present-day Pakistan and India?", options: ["The Indus Valley Civilization", "Mesopotamia", "Ancient Egypt", "Ancient China"], accepted: ["The Indus Valley Civilization"] },
+            { q: "What was the name of the massive Roman network used to transport water into cities?", options: ["Aqueducts", "Canals", "Reservoirs", "Cisterns"], accepted: ["Aqueducts"] },
+            { q: "What was the term for a Greek city-state, like Athens or Sparta?", options: ["Polis", "Colony", "Province", "Empire"], accepted: ["Polis"] },
+            { q: "Which ancient Greek philosopher taught Alexander the Great and wrote about logic and science?", options: ["Aristotle", "Socrates", "Plato", "Homer"], accepted: ["Aristotle"] },
+            { q: "What was the name of the vast empire built by Alexander the Great that stretched from Greece to India?", options: ["The Macedonian Empire", "The Roman Empire", "The Persian Empire", "The Egyptian Empire"], accepted: ["The Macedonian Empire"] },
+            { q: "What is the term for a system of trade where people exchange goods and services without using money?", options: ["Bartering", "Currency", "Taxation", "Investment"], accepted: ["Bartering"] },
+            { q: "What was the name of the code of laws created by a Babylonian king, one of the earliest written legal codes?", options: ["The Code of Hammurabi", "The Magna Carta", "The Twelve Tables", "The Ten Commandments"], accepted: ["The Code of Hammurabi"] },
+            { q: "Which ancient civilization is known for building Machu Picchu high in the Andes Mountains?", options: ["The Inca Empire", "The Maya Civilization", "The Aztec Empire", "Ancient Egypt"], accepted: ["The Inca Empire"] },
+            { q: "Which ancient Mesoamerican civilization developed a complex calendar system and was known for step pyramids?", options: ["The Maya Civilization", "The Inca Empire", "The Aztec Empire", "Ancient Rome"], accepted: ["The Maya Civilization"] },
+            { q: "What term describes the geographic advantage a civilization has when it settles near a river for water, farming, and trade?", options: ["River Valley Civilization", "Coastal Civilization", "Mountain Civilization", "Desert Civilization"], accepted: ["River Valley Civilization"] }
+          ]
+        },
+        Reading: {
+          1: [
+            { q: "Which word rhymes with 'cat'?", options: ["Bat", "Dog", "Cup", "Sun"], accepted: ["Bat"] },
+            { q: "Which word is a noun (naming a person, place, or thing)?", options: ["School", "Quickly", "Sing", "Bright"], accepted: ["School"] },
+            { q: "Which word is a verb (an action word)?", options: ["Jump", "Happy", "Chair", "Blue"], accepted: ["Jump"] },
+            { q: "Which word rhymes with 'dog'?", options: ["Log", "Cup", "Hat", "Sun"], accepted: ["Log"] },
+            { q: "Which word rhymes with 'sun'?", options: ["Fun", "Dog", "Cup", "Hat"], accepted: ["Fun"] },
+            { q: "Which word is an adjective, a word that describes something?", options: ["Bright", "Jump", "Chair", "Sing"], accepted: ["Bright"] },
+            { q: "Which word means the same as 'happy'?", options: ["Glad", "Sad", "Angry", "Tired"], accepted: ["Glad"] },
+            { q: "Which word means the opposite of 'up'?", options: ["Down", "Over", "Sideways", "Around"], accepted: ["Down"] },
+            { q: "Which letter does the word 'Ball' begin with?", options: ["B", "P", "D", "R"], accepted: ["B"] },
+            { q: "How many syllables are in the word 'Elephant'?", options: ["3", "2", "4", "1"], accepted: ["3"] },
+            { q: "Which word is spelled correctly?", options: ["Friend", "Freind", "Frend", "Firend"], accepted: ["Friend"] },
+            { q: "What punctuation mark goes at the end of a question?", options: ["Question Mark", "Period", "Comma", "Exclamation Point"], accepted: ["Question Mark"] },
+            { q: "What punctuation mark goes at the end of a statement that is not a question?", options: ["Period", "Question Mark", "Comma", "Exclamation Point"], accepted: ["Period"] },
+            { q: "Which word is a pronoun, standing in for a person's name?", options: ["She", "Run", "Happy", "Table"], accepted: ["She"] },
+            { q: "Which of these words means more than one dog?", options: ["Dogs", "Dog's", "Doges", "Dogies"], accepted: ["Dogs"] },
+            { q: "Which word rhymes with 'tree'?", options: ["Bee", "Truck", "Star", "Moon"], accepted: ["Bee"] },
+            { q: "Which of these is the plural, or more than one, form of 'box'?", options: ["Boxes", "Boxs", "Box's", "Boxies"], accepted: ["Boxes"] }
+          ],
+          3: [
+            { q: "In a story, what term describes the central struggle faced by the protagonist?", options: ["Conflict", "Setting", "Resolution", "Theme"], accepted: ["Conflict"] },
+            { q: "What is the point of view when the narrator uses 'I', 'me', and 'we'?", options: ["First Person", "Third Person", "Second Person", "Omniscient"], accepted: ["First Person"] },
+            { q: "What term describes the time and place in which a story occurs?", options: ["Setting", "Plot", "Climax", "Characterization"], accepted: ["Setting"] },
+            { q: "What do we call the main character in a story?", options: ["Protagonist", "Antagonist", "Narrator", "Setting"], accepted: ["Protagonist"] },
+            { q: "What do we call the character who opposes the main character in a story?", options: ["Antagonist", "Protagonist", "Narrator", "Setting"], accepted: ["Antagonist"] },
+            { q: "What is the term for the series of events that make up a story, including the beginning, middle, and end?", options: ["Plot", "Setting", "Theme", "Conflict"], accepted: ["Plot"] },
+            { q: "What is the term for the message or lesson a story teaches?", options: ["Theme", "Plot", "Setting", "Conflict"], accepted: ["Theme"] },
+            { q: "What point of view uses 'he', 'she', and 'they' to tell the story from outside the characters?", options: ["Third Person", "First Person", "Second Person", "Omniscient"], accepted: ["Third Person"] },
+            { q: "What is the highest point of tension or excitement in a story called?", options: ["Climax", "Resolution", "Exposition", "Setting"], accepted: ["Climax"] },
+            { q: "What is the part of the story where the problem gets solved, near the end, called?", options: ["Resolution", "Climax", "Exposition", "Rising Action"], accepted: ["Resolution"] },
+            { q: "What is the beginning part of a story that introduces characters and setting called?", options: ["Exposition", "Climax", "Resolution", "Falling Action"], accepted: ["Exposition"] },
+            { q: "What is a word that sounds like what it describes, such as 'buzz' or 'bang', called?", options: ["Onomatopoeia", "Metaphor", "Simile", "Alliteration"], accepted: ["Onomatopoeia"] },
+            { q: "What is the repetition of the same beginning sound in a series of words, like 'Sally sells seashells', called?", options: ["Alliteration", "Onomatopoeia", "Simile", "Rhyme"], accepted: ["Alliteration"] },
+            { q: "What is a comparison between two things using 'like' or 'as' called?", options: ["Simile", "Metaphor", "Personification", "Onomatopoeia"], accepted: ["Simile"] },
+            { q: "What do we call a story told by an all-knowing narrator who can share every character's thoughts?", options: ["Omniscient Point of View", "First Person", "Second Person", "Limited Third Person"], accepted: ["Omniscient Point of View"] },
+            { q: "What is the term for a hint or clue about something that will happen later in the story?", options: ["Foreshadowing", "Flashback", "Climax", "Resolution"], accepted: ["Foreshadowing"] },
+            { q: "What is the term for a scene that interrupts the story to show an event from the past?", options: ["Flashback", "Foreshadowing", "Climax", "Exposition"], accepted: ["Flashback"] },
+            { q: "What is a short story that teaches a moral lesson, often using animal characters, called?", options: ["A Fable", "A Biography", "A Mystery", "A Memoir"], accepted: ["A Fable"] }
+          ],
+          5: [
+            { q: "What type of figurative language is 'The classroom was a zoo'?", options: ["Metaphor", "Simile", "Personification", "Hyperbole"], accepted: ["Metaphor"] },
+            { q: "What is the term for a story passed down generations explaining natural events?", options: ["Myth", "Biography", "Sonnet", "Journal"], accepted: ["Myth"] },
+            { q: "What type of figurative language gives human characteristics to non-human things?", options: ["Personification", "Alliteration", "Onomatopoeia", "Irony"], accepted: ["Personification"] },
+            { q: "What do we call an exaggeration used for emphasis or humor, like 'I've told you a million times'?", options: ["Hyperbole", "Metaphor", "Simile", "Understatement"], accepted: ["Hyperbole"] },
+            { q: "What do we call a statement that seems contradictory but reveals a truth, like 'less is more'?", options: ["Paradox", "Irony", "Hyperbole", "Metaphor"], accepted: ["Paradox"] },
+            { q: "What do we call the use of words to mean the opposite of their literal meaning, often for humorous effect?", options: ["Irony", "Paradox", "Hyperbole", "Simile"], accepted: ["Irony"] },
+            { q: "What is the term for the author's attitude or feeling toward the subject of a text?", options: ["Tone", "Mood", "Theme", "Setting"], accepted: ["Tone"] },
+            { q: "What is the term for the feeling or atmosphere a piece of writing creates for the reader?", options: ["Mood", "Tone", "Theme", "Plot"], accepted: ["Mood"] },
+            { q: "What is the term for a text written to inform or explain a topic using facts, rather than tell a story?", options: ["Nonfiction", "Fiction", "Poetry", "Fantasy"], accepted: ["Nonfiction"] },
+            { q: "What is the term for a made-up story, such as a novel or short story?", options: ["Fiction", "Nonfiction", "Biography", "Textbook"], accepted: ["Fiction"] },
+            { q: "What is the term for a text that argues a position and tries to convince the reader?", options: ["Persuasive Text", "Narrative Text", "Expository Text", "Descriptive Text"], accepted: ["Persuasive Text"] },
+            { q: "What is the term for a text that explains or informs, like a how-to article?", options: ["Expository Text", "Persuasive Text", "Narrative Text", "Poetic Text"], accepted: ["Expository Text"] },
+            { q: "What is the term for a brief story of a person's life written by someone else?", options: ["Biography", "Autobiography", "Memoir", "Diary"], accepted: ["Biography"] },
+            { q: "What is the term for a person's own account of their own life, written by themselves?", options: ["Autobiography", "Biography", "Memoir", "Journal"], accepted: ["Autobiography"] },
+            { q: "What is the term for restating the main idea and key details of a text in your own words?", options: ["A Summary", "A Citation", "A Bibliography", "An Index"], accepted: ["A Summary"] },
+            { q: "What is a word or phrase that connects two ideas across sentences or paragraphs, like 'however' or 'in addition', called?", options: ["A Transition", "A Thesis", "A Citation", "A Conclusion"], accepted: ["A Transition"] },
+            { q: "What is the term for the central argument or main point an author is making in a piece of writing?", options: ["Thesis", "Transition", "Summary", "Citation"], accepted: ["Thesis"] },
+            { q: "What is the term for evidence taken directly from a text, placed in quotation marks, to support an idea?", options: ["A Direct Quote", "A Paraphrase", "A Summary", "An Inference"], accepted: ["A Direct Quote"] }
+          ]
+        }
+      };
+
+      const subjList = (staticPool[subject] && staticPool[subject][grade]) || staticPool.Science[1];
+      const item = subjList[Math.floor(Math.random() * subjList.length)];
+      return {
+        grade, subject, controlType: "radio",
+        q: item.q,
+        options: [...item.options].sort(() => 0.5 - Math.random()),
+        acceptedAnswers: item.accepted
+      };
+    }
+
+    const GRADE_SUBJECTS = {
+      1: ["Math", "Measurements", "Reading", "Spelling", "Science", "Screen Reader"],
+      2: ["Math", "Measurements", "Vocabulary", "Spelling", "Social Studies", "Science", "Screen Reader"],
+      3: ["Math", "Measurements", "Reading", "Vocabulary", "Social Studies", "Science", "Screen Reader"],
+      4: ["Math", "Measurements", "Spelling", "Vocabulary", "Social Studies", "Science", "Screen Reader"],
+      5: ["Math", "Measurements", "Reading", "Vocabulary", "Social Studies", "Science", "Screen Reader"],
+      6: ["Math", "Measurements", "Vocabulary", "Social Studies", "Science", "Screen Reader"]
+    };
+
+    /* ===================================================================
+       AUDIO & NARRATION ENGINE
+       Three independent, student-controlled settings persisted locally:
+       - sfxEnabled   (game show stingers: blip, lock-in, correct, strike...)
+       - musicEnabled (looping background beat) + musicVolume (0-1)
+       - narrationEnabled (auto speech of each question)
+       =================================================================== */
+    const SETTINGS_KEY = 'sp_arcade_5th_grader_settings';
+    function loadSettings() {
+      let s = { sfxEnabled: true, musicEnabled: true, musicVolume: 0.45, narrationEnabled: true };
+      try {
+        const raw = localStorage.getItem(SETTINGS_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          s = Object.assign(s, parsed);
+        }
+      } catch (e) {}
+      return s;
+    }
+    function saveSettings() {
+      try {
+        localStorage.setItem(SETTINGS_KEY, JSON.stringify({
+          sfxEnabled, musicEnabled, musicVolume, narrationEnabled
+        }));
+      } catch (e) {}
+    }
+
+    let settingsState = loadSettings();
+    let sfxEnabled = settingsState.sfxEnabled;
+    let musicEnabled = settingsState.musicEnabled;
+    let musicVolume = settingsState.musicVolume;
+    let narrationEnabled = settingsState.narrationEnabled;
+
+    let audioCtx = null;
+    let bgMusicTimer = null;
+    let stepCounter = 0;
+
+    function getCtx() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      return audioCtx;
+    }
+
+    function triggerPercussion(type, volume, duration) {
+      if (!sfxEnabled && !musicEnabled) return;
+      try {
+        const ctx = getCtx();
+        const bufferSize = ctx.sampleRate * duration;
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = Math.random() * 2 - 1;
+        }
+
+        const noise = ctx.createBufferSource();
+        noise.buffer = buffer;
+
+        const filter = ctx.createBiquadFilter();
+        filter.type = type === 'hihat' ? 'highpass' : (type === 'applause' ? 'lowpass' : 'bandpass');
+        filter.frequency.setValueAtTime(type === 'hihat' ? 7500 : (type === 'applause' ? 2400 : 1200), ctx.currentTime);
+
+        const gain = ctx.createGain();
+        gain.gain.setValueAtTime(volume, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
+
+        noise.start();
+        noise.stop(ctx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    function triggerKick(volume) {
+      if (!musicEnabled) return;
+      try {
+        const ctx = getCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.frequency.setValueAtTime(140, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(35, ctx.currentTime + 0.12);
+
+        gain.gain.setValueAtTime(volume, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start();
+        osc.stop(ctx.currentTime + 0.13);
+      } catch (e) {}
+    }
+
+    // Used by both SFX stingers (gated on sfxEnabled) and background music notes (gated on musicEnabled).
+    function playSynthNote(freq, type, duration, volume, gateOn) {
+      if (gateOn === false) return;
+      try {
+        const ctx = getCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+
+        gain.gain.setValueAtTime(0, ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(volume, ctx.currentTime + 0.01);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start();
+        osc.stop(ctx.currentTime + duration + 0.02);
+      } catch (e) {}
+    }
+    function sfxNote(freq, type, duration, volume) { playSynthNote(freq, type, duration, volume, sfxEnabled); }
+    function musicNote(freq, type, duration, volume) { playSynthNote(freq, type, duration, volume * musicVolume * 2.2, musicEnabled); }
+
+    function startBgMusic() {
+      if (bgMusicTimer || !musicEnabled) return;
+
+      const bassNotes = [
+        146.83, 0, 146.83, 146.83, 174.61, 0, 174.61, 0,
+        196.00, 0, 196.00, 196.00, 164.81, 0, 130.81, 0
+      ];
+      const leadNotes = [
+        587.33, 0, 0, 587.33, 698.46, 0, 0, 659.25,
+        783.99, 0, 0, 783.99, 659.25, 0, 523.25, 0
+      ];
+
+      bgMusicTimer = setInterval(() => {
+        if (!musicEnabled) return;
+        const step = stepCounter % 16;
+        triggerPercussion('hihat', 0.035 * musicVolume * 2, 0.04);
+
+        if (step === 4 || step === 12) triggerPercussion('snare', 0.06 * musicVolume * 2, 0.09);
+        if (step === 0 || step === 6 || step === 8 || step === 14) triggerKick(0.18 * musicVolume * 2);
+        if (bassNotes[step] > 0) musicNote(bassNotes[step], 'triangle', 0.12, 0.14);
+        if (leadNotes[step] > 0) musicNote(leadNotes[step], 'sine', 0.09, 0.08);
+
+        stepCounter++;
+      }, 125);
+    }
+
+    function stopBgMusic() {
+      if (bgMusicTimer) {
+        clearInterval(bgMusicTimer);
+        bgMusicTimer = null;
+      }
+    }
+
+    // Sound FX Palette (gated on sfxEnabled via sfxNote)
+    function sfxBlip() { sfxNote(600, 'triangle', 0.04, 0.18); }
+    function sfxLockIn() { sfxNote(350, 'sawtooth', 0.08, 0.28); sfxNote(700, 'square', 0.15, 0.32); }
+
+    function sfxCorrect() {
+      sfxNote(523.25, 'triangle', 0.12, 0.4);
+      setTimeout(() => sfxNote(659.25, 'triangle', 0.12, 0.4), 90);
+      setTimeout(() => sfxNote(783.99, 'triangle', 0.12, 0.4), 180);
+      setTimeout(() => sfxNote(1046.50, 'sine', 0.4, 0.45), 270);
+      setTimeout(() => { if (sfxEnabled) triggerPercussion('applause', 0.25, 0.9); }, 280);
+    }
+
+    function sfxStrike() {
+      sfxNote(150, 'sawtooth', 0.35, 0.45);
+      setTimeout(() => sfxNote(110, 'sawtooth', 0.55, 0.45), 180);
+      setTimeout(() => sfxNote(90, 'sawtooth', 0.6, 0.4), 360);
+    }
+
+    // Synthesized fallback for level-up; a real audio file (once provided) is preferred — see playLevelUpSound().
+    function sfxLevelUp() {
+      sfxNote(440, 'triangle', 0.08, 0.35);
+      setTimeout(() => sfxNote(554.37, 'triangle', 0.08, 0.35), 80);
+      setTimeout(() => sfxNote(659.25, 'triangle', 0.08, 0.35), 160);
+      setTimeout(() => sfxNote(880, 'triangle', 0.3, 0.4), 240);
+      setTimeout(() => { if (sfxEnabled) triggerPercussion('applause', 0.35, 1.4); }, 260);
+    }
+
+    function sfxLifeline() {
+      sfxNote(600, 'sine', 0.08, 0.3);
+      setTimeout(() => sfxNote(900, 'sine', 0.15, 0.3), 80);
+    }
+
+    /* Level-Up Sound Hook
+       Drop a file named "level-up.mp3" alongside this page to have it play automatically
+       when a student passes a grade. Until that file exists, the synthesized sfxLevelUp()
+       fanfare above plays instead so nothing is ever silent. To move this cue to a different
+       moment (every correct answer, or only at the final 6th Grade victory) just move this
+       function call to a different spot in the game logic below — the function itself does
+       not need to change. */
+    let levelUpAudioEl = null;
+    let levelUpAudioChecked = false;
+    let levelUpAudioAvailable = false;
+    function primeLevelUpAudio() {
+      if (levelUpAudioChecked) return;
+      levelUpAudioChecked = true;
+      const audio = new Audio('level-up.mp3');
+      audio.oncanplaythrough = () => { levelUpAudioAvailable = true; };
+      audio.onerror = () => { levelUpAudioAvailable = false; };
+      levelUpAudioEl = audio;
+    }
+    function playLevelUpSound() {
+      if (!sfxEnabled) return;
+      if (levelUpAudioAvailable && levelUpAudioEl) {
+        try {
+          levelUpAudioEl.volume = 0.9;
+          levelUpAudioEl.currentTime = 0;
+          levelUpAudioEl.play().catch(() => sfxLevelUp());
+          return;
+        } catch (e) {}
+      }
+      sfxLevelUp();
+    }
+
+    // Settings UI wiring
+    const sfxToggle = document.getElementById('sfx-toggle');
+    const musicToggle = document.getElementById('music-toggle');
+    const musicVolumeSlider = document.getElementById('music-volume');
+    const narrationToggle = document.getElementById('narration-toggle');
+
+    function refreshSettingsUI() {
+      sfxToggle.setAttribute('aria-checked', sfxEnabled.toString());
+      sfxToggle.textContent = 'Sound Effects: ' + (sfxEnabled ? 'On' : 'Off');
+      musicToggle.setAttribute('aria-checked', musicEnabled.toString());
+      musicToggle.textContent = 'Music: ' + (musicEnabled ? 'On' : 'Off');
+      narrationToggle.setAttribute('aria-checked', narrationEnabled.toString());
+      narrationToggle.textContent = 'Narration: ' + (narrationEnabled ? 'On' : 'Off');
+      musicVolumeSlider.value = Math.round(musicVolume * 100);
+      musicVolumeSlider.setAttribute('aria-valuetext', Math.round(musicVolume * 100) + ' percent');
+    }
+    refreshSettingsUI();
+
+    sfxToggle.addEventListener('click', () => {
+      sfxEnabled = !sfxEnabled;
+      refreshSettingsUI();
+      saveSettings();
+      announce('Sound effects ' + (sfxEnabled ? 'on' : 'off') + '.');
+      if (sfxEnabled) sfxBlip();
+    });
+    musicToggle.addEventListener('click', () => {
+      musicEnabled = !musicEnabled;
+      refreshSettingsUI();
+      saveSettings();
+      announce('Music ' + (musicEnabled ? 'on' : 'off') + '.');
+      if (musicEnabled) startBgMusic(); else stopBgMusic();
+    });
+    musicVolumeSlider.addEventListener('input', () => {
+      musicVolume = Math.max(0, Math.min(1, musicVolumeSlider.value / 100));
+      musicVolumeSlider.setAttribute('aria-valuetext', musicVolumeSlider.value + ' percent');
+      saveSettings();
+    });
+    musicVolumeSlider.addEventListener('change', () => {
+      announce('Music volume set to ' + musicVolumeSlider.value + ' percent.');
+    });
+    narrationToggle.addEventListener('click', () => {
+      narrationEnabled = !narrationEnabled;
+      refreshSettingsUI();
+      saveSettings();
+      announce('Narration ' + (narrationEnabled ? 'on' : 'off') + '.');
+      if (!narrationEnabled && narrationTimeout) { clearTimeout(narrationTimeout); window.speechSynthesis && window.speechSynthesis.cancel(); }
+    });
+
+    let narrationTimeout = null;
+    function speakText(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utt = new SpeechSynthesisUtterance(text);
+        utt.rate = 0.82;
+        utt.pitch = 0.88;
+        const voices = window.speechSynthesis.getVoices();
+        const sel = voices.find(v => v.lang.startsWith('en') && /natural|enhanced|premium/i.test(v.name))
+          || voices.find(v => v.lang.startsWith('en') && /daniel|samantha|google|microsoft/i.test(v.name))
+          || voices.find(v => v.lang === 'en-US') || voices.find(v => v.lang.startsWith('en')) || null;
+        if (sel) utt.voice = sel;
+        window.speechSynthesis.speak(utt);
+      }
+    }
+
+    function scheduleNarration(text) {
+      if (!narrationEnabled) return;
+      if (narrationTimeout) clearTimeout(narrationTimeout);
+      narrationTimeout = setTimeout(() => {
+        speakText(text);
+      }, 1000);
+    }
+
+    // State Variables
+    let currentGrade = 1;
+    let gradeCorrectCount = 0;
+    let currentQuestion = null;
+    let usedSubjectsInCurrentGrade = new Set();
+
+    let lifelines = { swap: true, copy: true, poll: true };
+
+    // Session tracking (for the Progress page Arcade tab)
+    const ARCADE_SESSIONS_KEY = 'sp_arcade_5th_grader_sessions';
+    let sessionStartTime = null;
+    let questionsCorrectTotal = 0;
+    let lifelinesUsedTotal = 0;
+    let subjectsPlayedSet = new Set();
+
+    // DOM References
+    const statGrade = document.getElementById('stat-grade');
+    const statProgress = document.getElementById('stat-progress');
+    const statClassmate = document.getElementById('stat-classmate');
+    const classmateIntro = document.getElementById('classmate-intro');
+    const subjectSection = document.getElementById('subject-section');
+    const subjectGrid = document.getElementById('subject-grid');
+    const qaSection = document.getElementById('qa-section');
+    const questionText = document.getElementById('question-text');
+    const controlsMount = document.getElementById('controls-mount');
+    const quizForm = document.getElementById('quiz-form');
+    const continuationCard = document.getElementById('continuation-card');
+    const continueHeader = document.getElementById('continue-header');
+    const continueText = document.getElementById('continue-text');
+    const continueBtn = document.getElementById('continue-btn');
+    const endCard = document.getElementById('end-card');
+    const endHeader = document.getElementById('end-header');
+    const catchphraseContainer = document.getElementById('catchphrase-container');
+    const endText = document.getElementById('end-text');
+    const restartBtn = document.getElementById('restart-btn');
+    const repeatNarrationBtn = document.getElementById('repeat-narration-btn');
+
+    const btnSwap = document.getElementById('btn-swap');
+    const btnCopy = document.getElementById('btn-copy');
+    const btnPoll = document.getElementById('btn-poll');
+    const lifelineOutput = document.getElementById('lifeline-output');
+
+    // ── Landing gate — screen reader choice, once per student ──
+    (function () {
+      var gate = document.getElementById('landing-gate');
+      var gameContent = document.getElementById('game-content');
+      var srSelect = document.getElementById('gate-screen-reader');
+      var continueGateBtn = document.getElementById('gate-continue-btn');
+
+      function checkReady() {
+        continueGateBtn.disabled = (srSelect.value === '');
+      }
+      srSelect.addEventListener('change', checkReady);
+
+      function revealGameContent(isFirstEntry) {
+        gate.hidden = true;
+        gameContent.hidden = false;
+        if (musicEnabled) startBgMusic();
+        initGame();
+        if (isFirstEntry) {
+          announce("Game started. Welcome to 1st Grade. Pick a subject below.");
+        }
+      }
+
+      continueGateBtn.addEventListener('click', function () {
+        var sr = srSelect.value;
+        if (!sr) return;
+        try { localStorage.setItem('sp_arcade_5th_grader_screenreader', sr); } catch (e) {}
+        revealGameContent(true);
+      });
+
+      window.addEventListener('DOMContentLoaded', () => {
+        primeLevelUpAudio();
+        if (!gate.hidden) {
+          var gateH1 = gate.querySelector('h1');
+          if (gateH1) {
+            if (!gateH1.hasAttribute('tabindex')) gateH1.setAttribute('tabindex', '-1');
+            gateH1.focus();
+          }
+        }
+      });
+
+      // If a student already chose a screen reader before, skip straight to the game.
+      try {
+        var savedSR = localStorage.getItem('sp_arcade_5th_grader_screenreader');
+        if (savedSR) {
+          revealGameContent(false);
+        }
+      } catch (e) {}
+    })();
+
+    function updateStatusBar() {
+      statGrade.textContent = gradeLabels[currentGrade];
+      statProgress.textContent = `${gradeCorrectCount} / 2`;
+      statClassmate.textContent = CLASSMATES[currentGrade].name;
+      classmateIntro.innerHTML = `<strong>Classmate Desk:</strong> ${CLASSMATES[currentGrade].greeting}`;
+    }
+
+    function initGame() {
+      currentGrade = 1;
+      gradeCorrectCount = 0;
+      usedSubjectsInCurrentGrade.clear();
+      usedQuestionSignatures.clear();
+      lifelines = { swap: true, copy: true, poll: true };
+
+      sessionStartTime = Date.now();
+      questionsCorrectTotal = 0;
+      lifelinesUsedTotal = 0;
+      subjectsPlayedSet = new Set();
+
+      btnSwap.disabled = false;
+      btnCopy.disabled = false;
+      btnPoll.disabled = false;
+      lifelineOutput.className = 'helper-box';
+      lifelineOutput.innerHTML = '';
+
+      updateStatusBar();
+      showSubjectPicker();
+    }
+
+    function showSubjectPicker() {
+      qaSection.style.display = 'none';
+      continuationCard.style.display = 'none';
+      endCard.style.display = 'none';
+      subjectSection.style.display = 'block';
+
+      if (currentGrade === 6) {
+        btnSwap.disabled = true;
+        btnCopy.disabled = true;
+        btnPoll.disabled = true;
+        lifelineOutput.innerHTML = `<strong>Final Round Rule:</strong> No lifelines allowed during the 6th Grade Challenge!`;
+        lifelineOutput.classList.add('active');
+      }
+
+      const allSubjects = GRADE_SUBJECTS[currentGrade];
+      subjectGrid.innerHTML = '';
+
+      allSubjects.forEach((subj) => {
+        const isUsed = usedSubjectsInCurrentGrade.has(subj);
+        const btn = document.createElement('button');
+        btn.className = 'subject-btn';
+        btn.textContent = subj + (isUsed ? ' (Completed)' : '');
+        btn.disabled = isUsed;
+        btn.setAttribute('aria-label', `Select ${subj} for ${gradeLabels[currentGrade]}${isUsed ? ' - Already completed this grade' : ''}`);
+
+        if (!isUsed) {
+          btn.addEventListener('click', () => {
+            sfxNote(500, 'triangle', 0.08, 0.25);
+            usedSubjectsInCurrentGrade.add(subj);
+            selectSubject(subj);
+          });
+        }
+        subjectGrid.appendChild(btn);
+      });
+
+      // Focus moves to the section heading rather than a specific subject button, so no
+      // subject ever appears highlighted just because the page put focus there for
+      // screen reader and keyboard users. Buttons only take on the amber highlight from
+      // an actual mouse hover or from a student tabbing/arrowing onto them themselves.
+      setTimeout(() => document.getElementById('subject-header').focus(), 60);
+    }
+
+    function selectSubject(subj) {
+      subjectsPlayedSet.add(subj);
+      currentQuestion = generateQuestion(currentGrade, subj);
+      loadQuestion(currentQuestion);
+    }
+
+    function loadQuestion(q) {
+      subjectSection.style.display = 'none';
+      qaSection.style.display = 'block';
+
+      questionText.textContent = `${q.subject} (${gradeLabels[q.grade]}): ${q.q}`;
+      controlsMount.innerHTML = '';
+
+      if (q.controlType === "radio") {
+        const fieldset = document.createElement('fieldset');
+        fieldset.setAttribute('role', 'radiogroup');
+        fieldset.setAttribute('aria-required', 'true');
+        const legend = document.createElement('legend');
+        legend.className = 'sr-only';
+        legend.textContent = 'Choose your answer';
+        fieldset.appendChild(legend);
+
+        q.options.forEach((opt, idx) => {
+          const label = document.createElement('label');
+          label.className = 'radio-option';
+          label.setAttribute('for', `opt-${idx}`);
+
+          const radio = document.createElement('input');
+          radio.type = 'radio';
+          radio.name = 'quiz-answer';
+          radio.id = `opt-${idx}`;
+          radio.value = opt;
+          radio.required = true;
+          radio.addEventListener('change', () => sfxBlip());
+
+          label.appendChild(radio);
+          label.appendChild(document.createTextNode(opt));
+          fieldset.appendChild(label);
+        });
+        controlsMount.appendChild(fieldset);
+      } else if (q.controlType === "combo") {
+        const label = document.createElement('label');
+        label.setAttribute('for', 'quiz-combo');
+        label.className = 'sr-only';
+        label.textContent = 'Select your answer from the list';
+
+        const select = document.createElement('select');
+        select.id = 'quiz-combo';
+        select.name = 'quiz-answer';
+        select.className = 'form-combo';
+        select.required = true;
+        select.setAttribute('aria-required', 'true');
+        select.addEventListener('change', () => sfxBlip());
+
+        q.options.forEach(opt => {
+          const option = document.createElement('option');
+          option.value = opt.startsWith('Select') ? '' : opt;
+          option.textContent = opt;
+          if (opt.startsWith('Select')) option.disabled = true;
+          select.appendChild(option);
+        });
+
+        controlsMount.appendChild(label);
+        controlsMount.appendChild(select);
+      } else if (q.controlType === "input") {
+        const label = document.createElement('label');
+        label.setAttribute('for', 'quiz-input');
+        label.className = 'sr-only';
+        label.textContent = 'Type your answer';
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.id = 'quiz-input';
+        input.name = 'quiz-answer';
+        input.className = 'form-input';
+        input.placeholder = q.placeholder || 'Type answer here';
+        input.required = true;
+        input.setAttribute('aria-required', 'true');
+        input.autocomplete = 'off';
+
+        controlsMount.appendChild(label);
+        controlsMount.appendChild(input);
+      }
+
+      announce(`Question selected: ${gradeLabels[q.grade]}, ${q.subject}. ${q.q}. Use Answer Options header below.`);
+
+      const narrationText = `${gradeLabels[q.grade]}, ${q.subject}. ${q.q}`;
+      scheduleNarration(narrationText);
+
+      setTimeout(() => {
+        const firstFocus = controlsMount.querySelector('input, select');
+        if (firstFocus) firstFocus.focus();
+      }, 100);
+    }
+
+    repeatNarrationBtn.addEventListener('click', () => {
+      if (currentQuestion && qaSection.style.display !== 'none') {
+        speakText(`${gradeLabels[currentQuestion.grade]}, ${currentQuestion.subject}. ${currentQuestion.q}`);
+      }
+    });
+
+    // Lifelines (1 time each total)
+    btnSwap.addEventListener('click', () => {
+      if (!lifelines.swap || !currentQuestion || currentGrade === 6) return;
+      lifelines.swap = false;
+      btnSwap.disabled = true;
+      lifelinesUsedTotal++;
+      sfxLifeline();
+
+      currentQuestion = generateQuestion(currentGrade, currentQuestion.subject);
+      lifelineOutput.innerHTML = `<strong>Lifeline Used (Swap Question):</strong> Swapped for a fresh ${currentQuestion.subject} challenge.`;
+      lifelineOutput.classList.add('active');
+      loadQuestion(currentQuestion);
+    });
+
+    btnCopy.addEventListener('click', () => {
+      if (!lifelines.copy || !currentQuestion || currentGrade === 6) return;
+      lifelines.copy = false;
+      btnCopy.disabled = true;
+      lifelinesUsedTotal++;
+      sfxLifeline();
+
+      const mate = CLASSMATES[currentGrade].name;
+      const mateChoice = currentQuestion.acceptedAnswers[0];
+
+      if (currentQuestion.controlType === "radio") {
+        const targetRadio = Array.from(document.querySelectorAll('input[name="quiz-answer"]'))
+          .find(r => normalizeCode(r.value) === normalizeCode(mateChoice));
+        if (targetRadio) targetRadio.checked = true;
+      } else if (currentQuestion.controlType === "combo") {
+        const select = document.getElementById('quiz-combo');
+        if (select) select.value = mateChoice;
+      } else if (currentQuestion.controlType === "input") {
+        const input = document.getElementById('quiz-input');
+        if (input) input.value = mateChoice;
+      }
+
+      const mateMsg = `${mate} wrote "${mateChoice}". Field automatically filled!`;
+      lifelineOutput.innerHTML = `<strong>Copy Classmate (${mate}):</strong> ${mateMsg}`;
+      lifelineOutput.classList.add('active');
+      announce(mateMsg);
+    });
+
+    btnPoll.addEventListener('click', () => {
+      if (!lifelines.poll || !currentQuestion || currentGrade === 6) return;
+      lifelines.poll = false;
+      btnPoll.disabled = true;
+      lifelinesUsedTotal++;
+      sfxLifeline();
+
+      if (currentQuestion.controlType === "radio" || currentQuestion.controlType === "combo") {
+        const validOpts = currentQuestion.options.filter(o => !o.startsWith('Select'));
+        const correctPct = Math.floor(Math.random() * 20) + 70;
+        let remainingPct = 100 - correctPct;
+        let pollParts = [];
+
+        validOpts.forEach((opt, idx) => {
+          const isCorrect = currentQuestion.acceptedAnswers.some(ans => normalizeCode(ans) === normalizeCode(opt));
+          if (isCorrect) {
+            pollParts.push(`${opt}: ${correctPct}%`);
+          } else {
+            const split = idx === validOpts.length - 1 ? remainingPct : Math.floor(remainingPct / 2);
+            pollParts.push(`${opt}: ${split}%`);
+            remainingPct -= split;
+          }
+        });
+
+        const pollSummary = pollParts.join(' | ');
+        lifelineOutput.innerHTML = `<strong>Classroom Poll:</strong> ${pollSummary}`;
+        lifelineOutput.classList.add('active');
+        announce(`Classroom Poll Results: ${pollSummary}`);
+      } else {
+        const msg = `94% of the classroom wrote "${currentQuestion.acceptedAnswers[0]}".`;
+        lifelineOutput.innerHTML = `<strong>Classroom Poll:</strong> ${msg}`;
+        lifelineOutput.classList.add('active');
+        announce(msg);
+      }
+    });
+
+    // Form Lock-in
+    quizForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (narrationTimeout) clearTimeout(narrationTimeout);
+      sfxLockIn();
+
+      let userAnswer = "";
+      if (currentQuestion.controlType === "radio") {
+        const selected = document.querySelector('input[name="quiz-answer"]:checked');
+        if (!selected) return;
+        userAnswer = selected.value;
+      } else if (currentQuestion.controlType === "combo") {
+        const select = document.getElementById('quiz-combo');
+        if (!select || !select.value) return;
+        userAnswer = select.value;
+      } else if (currentQuestion.controlType === "input") {
+        const input = document.getElementById('quiz-input');
+        if (!input || !input.value.trim()) return;
+        userAnswer = input.value.trim();
+      }
+
+      const normalizedUser = normalizeCode(userAnswer);
+      const isCorrect = currentQuestion.acceptedAnswers.some(ans => normalizeCode(ans) === normalizedUser);
+
+      if (isCorrect) {
+        sfxCorrect();
+        gradeCorrectCount++;
+        questionsCorrectTotal++;
+        updateStatusBar();
+
+        if (gradeCorrectCount >= 2) {
+          if (currentGrade >= 6) {
+            handleVictory();
+          } else {
+            handleLevelUp();
+          }
+        } else {
+          showRoundContinuation(`CORRECT! You have completed 1 of 2 questions for ${gradeLabels[currentGrade]}.`);
+        }
+      } else {
+        sfxStrike();
+        handleGameOver();
+      }
+    });
+
+    function showRoundContinuation(msg) {
+      qaSection.style.display = 'none';
+      lifelineOutput.classList.remove('active');
+      continuationCard.style.display = 'block';
+      continueHeader.textContent = "Correct Answer!";
+      continueHeader.style.color = "var(--green)";
+      continueText.textContent = msg;
+      announce(msg);
+      setTimeout(() => continueHeader.focus(), 60);
+    }
+
+    continueBtn.addEventListener('click', () => {
+      showSubjectPicker();
+    });
+
+    function handleLevelUp() {
+      playLevelUpSound();
+      qaSection.style.display = 'none';
+      lifelineOutput.classList.remove('active');
+      continuationCard.style.display = 'block';
+
+      const prevGradeName = gradeLabels[currentGrade];
+      currentGrade++;
+      gradeCorrectCount = 0;
+      usedSubjectsInCurrentGrade.clear();
+      updateStatusBar();
+
+      continueHeader.textContent = `Grade Passed: Welcome to ${gradeLabels[currentGrade]}!`;
+      continueHeader.style.color = "var(--green)";
+      continueText.textContent = `Terrific job! You completed ${prevGradeName}. Partnering now with your ${gradeLabels[currentGrade]} classmate, ${CLASSMATES[currentGrade].name}!`;
+
+      announce(`Grade passed! Welcome to ${gradeLabels[currentGrade]}. Partnering with ${CLASSMATES[currentGrade].name}.`);
+      setTimeout(() => continueHeader.focus(), 60);
+    }
+
+    function recordArcadeSession(result) {
+      try {
+        const durationSeconds = sessionStartTime ? Math.round((Date.now() - sessionStartTime) / 1000) : 0;
+        const record = {
+          date: new Date().toISOString(),
+          result: result,
+          highestGrade: currentGrade,
+          highestGradeLabel: gradeLabels[currentGrade],
+          questionsCorrect: questionsCorrectTotal,
+          lifelinesUsed: lifelinesUsedTotal,
+          subjectsPlayed: Array.from(subjectsPlayedSet),
+          durationSeconds: durationSeconds
+        };
+
+        const existing = JSON.parse(localStorage.getItem(ARCADE_SESSIONS_KEY) || '[]');
+        existing.push(record);
+        // Keep the most recent 25 sessions so storage doesn't grow without bound.
+        const trimmed = existing.slice(-25);
+        localStorage.setItem(ARCADE_SESSIONS_KEY, JSON.stringify(trimmed));
+      } catch (err) {
+        // If localStorage is unavailable or full, fail silently rather than break the game.
+      }
+    }
+
+    function handleVictory() {
+      recordArcadeSession('victory');
+      playLevelUpSound();
+      setTimeout(() => sfxNote(523.25, 'triangle', 0.15, 0.4), 200);
+      setTimeout(() => sfxNote(659.25, 'triangle', 0.15, 0.4), 350);
+      setTimeout(() => sfxNote(783.99, 'triangle', 0.15, 0.4), 500);
+      setTimeout(() => sfxNote(1046.50, 'triangle', 0.6, 0.45), 650);
+      setTimeout(() => { if (sfxEnabled) triggerPercussion('applause', 0.35, 2.5); }, 660);
+
+      qaSection.style.display = 'none';
+      lifelineOutput.classList.remove('active');
+      continuationCard.style.display = 'none';
+      endCard.style.display = 'block';
+
+      endHeader.textContent = "GRAND CHAMPION!";
+      endHeader.style.color = "var(--gold)";
+      catchphraseContainer.innerHTML = `<div class="catchphrase catchphrase-win">"I AM SMARTER THAN A 5TH GRADER!"</div>`;
+      endText.textContent = "You conquered all 6 grades, worked with every student classmate, and correctly answered both 6th Grade Challenge questions without any lifelines!";
+
+      announce("Grand Champion! Look into the camera and say: I AM SMARTER THAN A 5TH GRADER!");
+      setTimeout(() => endHeader.focus(), 60);
+    }
+
+    function handleGameOver() {
+      recordArcadeSession('gameover');
+      qaSection.style.display = 'none';
+      lifelineOutput.classList.remove('active');
+      continuationCard.style.display = 'none';
+      endCard.style.display = 'block';
+
+      endHeader.textContent = "Strike Issued — Game Over";
+      endHeader.style.color = "var(--red)";
+      catchphraseContainer.innerHTML = `<div class="catchphrase catchphrase-loss">"I am NOT smarter than a 5th grader!"</div>`;
+      endText.textContent = `Incorrect! The accepted answer was "${currentQuestion.acceptedAnswers[0]}". Face the classroom and confess the phrase! Select "Play Again" to restart from 1st Grade.`;
+
+      announce(`Strike issued. Game over. Accepted answer was ${currentQuestion.acceptedAnswers[0]}. Confess the phrase: I am NOT smarter than a 5th grader.`);
+      setTimeout(() => endHeader.focus(), 60);
+    }
+
+    restartBtn.addEventListener('click', () => {
+      initGame();
+      announce("Game reset to 1st Grade.");
+    });
+  </script>
+</body>
+</html>

@@ -1,93 +1,90 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>For Teachers — ScreenPath</title>
-  
   <style>
     :root {
       --bg:#080808; --surface:#111111; --surface-2:#1c1c1c; --border:#2a2a2a;
       --text:#f0f0f0; --text-muted:#888888; --text-dim:#444444;
       --green:#39d98a; --green-dim:#0d2e1c;
+      --amber:#f5a623; --amber-dim:#2e1f00;
       --nav-bg:rgba(8,8,8,0.94);
       --radius:14px;
       --font:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
       --mono:'SF Mono','Fira Code','Consolas',monospace;
       --ease:0.24s cubic-bezier(.4,0,.2,1);
     }
-    html.light {
-      --bg:#f5f5f7; --surface:#ffffff; --surface-2:#ebebed; --border:#d2d2d4;
-      --text:#1d1d1f; --text-muted:#6e6e73; --text-dim:#b0b0b5;
-      --nav-bg:rgba(245,245,247,0.94);
-    }
     *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
     html { scroll-behavior:smooth; }
-    body { background:var(--bg); color:var(--text); font-family:var(--font); font-size:18px; line-height:1.7; min-height:100vh; transition:background var(--ease),color var(--ease); }
+    body { background:var(--bg); color:var(--text); font-family:var(--font); font-size:18px; line-height:1.7; min-height:100vh; }
 
     .skip-link { position:absolute; top:-120px; left:1rem; background:var(--green); color:#000; padding:.75rem 1.5rem; border-radius:100px; font-weight:700; font-size:.95rem; text-decoration:none; z-index:9999; transition:top .2s; }
     .skip-link:focus { top:1rem; }
 
     /* NAV */
-    nav[role="navigation"] { position:fixed; top:0; left:0; right:0; z-index:500; background:var(--nav-bg); backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px); border-bottom:1px solid var(--border); transition:background var(--ease),border-color var(--ease); }
+    nav[role="navigation"] { position:fixed; top:0; left:0; right:0; z-index:500; background:var(--nav-bg); backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px); border-bottom:1px solid var(--border); }
     .nav-inner { max-width:1400px; margin:0 auto; padding:0 2rem; height:64px; display:flex; align-items:center; justify-content:space-between; gap:1.5rem; }
     .nav-logo { display:flex; align-items:center; gap:.65rem; text-decoration:none; flex-shrink:0; }
-    .nav-logo-mark { display:flex; align-items:center; flex-shrink:0; }
-    .nav-logo-text { font-size:1.05rem; font-weight:700; color:var(--text); letter-spacing:-.01em; }
-    .nav-logo-text em { font-style:normal; color:var(--green); }
     .nav-links { display:flex; align-items:center; gap:.15rem; list-style:none; }
     .nav-links a { color:var(--text-muted); text-decoration:none; font-size:.86rem; font-weight:500; padding:.45rem .8rem; border-radius:100px; transition:color var(--ease),background var(--ease); white-space:nowrap; }
     .nav-links a:hover { color:var(--text); background:var(--surface-2); }
     .nav-links a[aria-current="page"] { color:var(--green); }
     .nav-links a:focus-visible { outline:2px solid var(--green); outline-offset:2px; border-radius:100px; }
-    .menu-btn { display:none; align-items:center; justify-content:center; background:none; border:1px solid var(--border); border-radius:8px; padding:.42rem .55rem; cursor:pointer; color:var(--text-muted); font-size:1.15rem; line-height:1; transition:border-color var(--ease),color var(--ease); }
+    .menu-btn { display:none; align-items:center; justify-content:center; background:none; border:1px solid var(--border); border-radius:8px; padding:.42rem .55rem; cursor:pointer; color:var(--text-muted); font-size:1.15rem; line-height:1; }
     .menu-btn:hover { border-color:var(--green); color:var(--text); }
     .menu-btn:focus-visible { outline:2px solid var(--green); outline-offset:2px; border-radius:8px; }
-    .nav-drawer { display:none; flex-direction:column; background:var(--nav-bg); backdrop-filter:blur(22px); border-top:1px solid var(--border); padding:1rem 1.5rem 1.5rem; }
-    .nav-drawer.open { display:flex; }
-    .nav-drawer a { color:var(--text-muted); text-decoration:none; font-size:1rem; font-weight:500; padding:.65rem 0; border-bottom:1px solid var(--border); transition:color var(--ease); }
+    .nav-drawer { display:flex; flex-direction:column; background:var(--nav-bg); backdrop-filter:blur(22px); border-top:1px solid var(--border); padding:1rem 1.5rem 1.5rem; }
+    .nav-drawer[hidden] { display:none; }
+    .nav-drawer a { color:var(--text-muted); text-decoration:none; font-size:1rem; font-weight:500; padding:.65rem 0; border-bottom:1px solid var(--border); }
     .nav-drawer a:last-child { border-bottom:none; }
     .nav-drawer a:hover { color:var(--green); }
 
     /* PAGE HERO */
     .page-hero { background:#050505; padding:140px 2rem 80px; text-align:center; }
     .page-hero-eyebrow { font-family:var(--mono); font-size:.7rem; letter-spacing:.22em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:1rem; }
-    .page-hero-title { font-size:clamp(2.2rem,6vw,4.5rem); font-weight:800; letter-spacing:-.04em; line-height:1.05; color:#fff; margin-bottom:1rem; }
-    .page-hero-sub { font-size:clamp(.9rem,2vw,1.1rem); color:rgba(255,255,255,.45); max-width:500px; margin:0 auto; line-height:1.65; }
+    .page-hero-title { font-size:clamp(2.2rem,6vw,4rem); font-weight:800; letter-spacing:-.04em; line-height:1.1; color:#fff; margin-bottom:1rem; }
+    .page-hero-sub { font-size:clamp(.9rem,2vw,1.1rem); color:rgba(255,255,255,.5); max-width:560px; margin:0 auto; line-height:1.65; }
 
     /* CONTENT */
-    .about-wrap { max-width:680px; margin:0 auto; padding:5rem 2rem 6rem; }
+    .tw-wrap { max-width:760px; margin:0 auto; padding:5rem 2rem 6rem; }
+    .tw-h2 { font-size:clamp(1.3rem,2.8vw,1.75rem); font-weight:800; letter-spacing:-.02em; line-height:1.2; color:var(--text); margin-bottom:1.25rem; }
+    .tw-lead { font-size:1rem; color:var(--text-muted); line-height:1.8; margin-bottom:1.25rem; }
+    .tw-lead:last-of-type { margin-bottom:0; }
+    .tw-lead strong { color:var(--text); font-weight:600; }
+    .tw-lead a { color:var(--green); text-decoration:none; }
+    .tw-lead a:hover { text-decoration:underline; }
+    .tw-lead a:focus-visible { outline:2px solid var(--green); outline-offset:2px; border-radius:2px; }
+    .tw-divider { border:none; border-top:1px solid var(--border); margin:3.5rem 0; }
 
-    /* Opening statement — large display, not a heading */
-    .about-opening-statement { font-size:clamp(1.5rem,3.5vw,2.2rem); font-weight:800; letter-spacing:-.03em; line-height:1.15; color:var(--text); margin-bottom:2rem; }
+    .tw-note { background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--amber); border-radius:var(--radius); padding:1.25rem 1.5rem; margin:1.75rem 0; }
+    .tw-note p { font-size:.92rem; color:var(--text-muted); line-height:1.65; margin-bottom:0; }
+    .tw-note p strong { color:var(--text); }
 
-    /* Body text */
-    .about-p { font-size:1rem; color:var(--text-muted); line-height:1.85; margin-bottom:1.25rem; }
-    .about-p:last-of-type { margin-bottom:0; }
-    .about-p strong { color:var(--text); font-weight:600; }
-    .about-p a { color:var(--green); text-decoration:none; }
-    .about-p a:hover { text-decoration:underline; }
-    .about-p a:focus-visible { outline:2px solid var(--green); outline-offset:2px; border-radius:2px; }
+    .tw-activity-grid { display:flex; flex-direction:column; gap:.9rem; margin:1.75rem 0; }
+    .tw-activity-card { background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--green); border-radius:var(--radius); padding:1.25rem 1.5rem; }
+    .tw-activity-card.amber { border-left-color:var(--amber); }
+    .tw-activity-name { font-size:1rem; font-weight:700; color:var(--text); margin-bottom:.35rem; }
+    .tw-activity-desc { font-size:.9rem; color:var(--text-muted); line-height:1.6; margin-bottom:.5rem; }
+    .tw-activity-transfer { font-size:.88rem; color:var(--text); line-height:1.65; margin-bottom:.75rem; padding-top:.65rem; border-top:1px solid var(--border); }
+    .tw-activity-transfer strong { color:var(--green); font-weight:700; }
+    .tw-activity-card.amber .tw-activity-transfer strong { color:var(--amber); }
+    .tw-activity-skills { font-family:var(--mono); font-size:.7rem; letter-spacing:.06em; text-transform:uppercase; color:var(--green); }
+    .tw-activity-card.amber .tw-activity-skills { color:var(--amber); }
 
-    /* Section headings — H2 only, stand alone */
-    .about-h2 { font-size:clamp(1.4rem,3vw,2rem); font-weight:800; letter-spacing:-.03em; line-height:1.15; color:var(--text); margin-bottom:1.5rem; }
+    .tw-steps { list-style:none; counter-reset:steps; display:flex; flex-direction:column; gap:1rem; margin:1.75rem 0; padding:0; }
+    .tw-steps li { position:relative; padding-left:2.75rem; color:var(--text-muted); font-size:.95rem; line-height:1.6; counter-increment:steps; }
+    .tw-steps li::before { content:counter(steps); position:absolute; left:0; top:0; width:1.9rem; height:1.9rem; display:flex; align-items:center; justify-content:center; background:var(--green-dim); color:var(--green); border-radius:50%; font-family:var(--mono); font-weight:700; font-size:.82rem; }
+    .tw-steps li strong { color:var(--text); }
 
-    /* Divider */
-    .about-divider { border:none; border-top:1px solid var(--border); margin:4rem 0; }
-
-    /* Options grid */
-    .options-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin:1.75rem 0; }
-    .option-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:1.25rem; display:flex; flex-direction:column; gap:.6rem; transition:border-color var(--ease); }
-    .option-icon { font-size:1.5rem; }
-    .option-title { font-size:.9rem; font-weight:700; color:var(--text); }
-    .option-desc { font-size:.78rem; color:var(--text-muted); line-height:1.6; }
     /* FOOTER — minimal */
-    footer { background:var(--surface); border-top:1px solid var(--border); padding:2.5rem 2rem; transition:background var(--ease),border-color var(--ease); }
+    footer { background:var(--surface); border-top:1px solid var(--border); padding:2.5rem 2rem; }
     .footer-minimal { max-width:1400px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1.5rem; }
     .f-logo { display:flex; align-items:center; gap:.55rem; text-decoration:none; }
-    .f-logo-mark { width:26px; height:26px; background:var(--green); border-radius:6px; display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:.62rem; font-weight:800; color:#000; }
     .f-logo-name { font-size:.9rem; font-weight:700; color:var(--text); }
     .f-nav { display:flex; gap:1.5rem; list-style:none; }
-    .f-nav a { font-size:.84rem; color:var(--text-muted); text-decoration:none; transition:color var(--ease); }
+    .f-nav a { font-size:.84rem; color:var(--text-muted); text-decoration:none; }
     .f-nav a:hover { color:var(--green); }
     .f-nav a:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:2px; }
     .f-copy { font-size:.76rem; color:var(--text-dim); width:100%; }
@@ -97,28 +94,138 @@
     @media (max-width:768px) {
       .nav-inner { padding:0 1.25rem; }
       .page-hero { padding:120px 1.25rem 60px; }
-      .about-wrap { padding:3rem 1.25rem 4rem; }
-      .options-grid { grid-template-columns:1fr; }
+      .tw-wrap { padding:3rem 1.25rem 4rem; }
       .footer-minimal { flex-direction:column; align-items:flex-start; gap:1rem; }
     }
     a:focus-visible,button:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:3px; }
   </style>
-<link rel="stylesheet" href="screenpath.css"></head>
+</head>
 <body>
 
   <a class="skip-link" href="#main">Skip to main content</a>
 
-  <nav role="navigation" aria-label="Main navigation"><div class="nav-inner"><a class="sp-wordmark" href="index.html" aria-label="ScreenPath home">Screen<span>Path</span></a><ul class="nav-links"><li><a href="index.html">Activities</a></li><li><a href="progress.html">My Progress</a></li><li><a href="teachers.html" aria-current="page">For Teachers</a></li><li><a href="about.html">About</a></li><li><a href="feedback.html">Feedback</a></li></ul><button id="menu-btn" class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu" onclick="toggleMenu()">☰</button></div><div class="nav-drawer" id="nav-drawer" hidden=""><a href="index.html">Activities</a><a href="progress.html">My Progress</a><a href="teachers.html" aria-current="page">For Teachers</a><a href="about.html">About</a><a href="feedback.html">Feedback</a></div></nav>
+  <nav role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="ScreenPath — return to home page">
+        <span style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:var(--green);color:#000;font-family:var(--font);font-weight:800;font-size:.85rem;letter-spacing:-.02em;flex-shrink:0;">SP</span>
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="progress.html">Progress</a></li>
+        <li><a href="teachers.html" aria-current="page">For Teachers</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+      </ul>
+      <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu" onclick="toggleMenu()">☰</button>
+    </div>
+    <div class="nav-drawer" id="nav-drawer" hidden aria-label="Mobile navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="progress.html">Progress</a>
+      <a href="teachers.html" aria-current="page">For Teachers</a>
+      <a href="feedback.html">Feedback</a>
+    </div>
+  </nav>
 
-  <!-- Page hero — always dark -->
-  
+  <div class="page-hero">
+    <span class="page-hero-eyebrow" aria-hidden="true">For Teachers &amp; AT Specialists</span>
+    <h1 class="page-hero-title">Bring ScreenPath into your classroom.</h1>
+    <p class="page-hero-sub">A short guide to what's here, how student progress is tracked, and how to get started.</p>
+  </div>
 
-  <main id="main" tabindex="-1"><noscript>&lt;p class="sp-note"&gt;JavaScript is needed for the activities and saved progress. Please enable it, or contact screenpathedu@gmail.com for help.&lt;/p&gt;</noscript><div class="page-hero"><span class="page-hero-eyebrow">For teachers and AT specialists</span><h1 class="page-hero-title">Practice with a purpose.</h1><p class="page-hero-sub">A short guide to using The School with screen reader learners.</p></div><div class="sp-guide"><h2>Who this is for</h2><p>ScreenPath is a fluency practice tool. Learners should already know basic screen-reader navigation: moving by heading, following links, reading tables, and entering text. Teach or review an unfamiliar skill before using its room.</p><h2>A suggested session</h2><ol><li>Choose one skill to practice. Preview the scenario together.</li><li>Begin in Practice mode with no deadline. Let the learner choose whether to use sound or scene narration.</li><li>Review the completed-room result and optional reflection. Discuss the strategy used and the help needed.</li><li>When appropriate, repeat in Challenge mode. Choose the allowance together; compare results only when the task and timing conditions are similar.</li></ol><h2>The three rooms</h2><ul><li><strong>The School Office:</strong> headings and finding a staff record in a table. Default challenge allowance: 4 minutes.</li><li><strong>The Library:</strong> table navigation and choosing meaningful links. Default challenge allowance: 5 minutes.</li><li><strong>The Computer Lab:</strong> moving through edit fields and entering a fictional profile. Default challenge allowance: 4 minutes.</li></ul><p>Each challenge allows 1–60 minutes. Learners can switch to Practice during the task or after time expires without losing their current work.</p><h2>Interpreting results</h2><p>Time is one measure of fluency, not a grade. Look at successful completion, answer submissions, the learner’s strategy, confidence, and assistance. In the Library, “other books opened” records selections that were not part of the target trail. Randomized tasks may differ between attempts.</p><p>Unfinished rooms are not saved midway. Completed rooms are saved immediately. Replaying a completed room can begin a new attempt; older completed sessions remain in My Progress.</p><h2>Sharing and privacy</h2><p>No student account or name is needed. Results and optional reflections remain in this browser on this device. On shared computers, copy results you need and use Reset Progress between learners. Clearing browser data removes local progress. Nothing is sent to a teacher automatically: Email Results opens a draft, and Copy Results puts text on the clipboard.</p><h2>Screen-reader check before a lesson</h2><p>The latest changes have automated logic checks but still require hands-on verification with your student’s screen reader and browser.</p><ul><li>Use Tab and Shift+Tab to reach controls; confirm that labels and focus are clear.</li><li>Use heading and landmark navigation to find the scene, settings, task, and results.</li><li>In the Library, read table headers and follow a book link. Confirm the note is reachable and that Continue opens the next shelf.</li><li>Check that dialogs announce their titles, contain keyboard focus, and return focus to a useful place when closed.</li><li>Try an incorrect answer, a correct answer, a timeout, and untimed practice.</li><li>Check results, optional reflections, and Copy Results before relying on them in class.</li></ul><h2>What is currently available</h2><p>The School is the featured three-room activity. Other scenario and game files in the project remain development drafts and are not listed as ready activities.</p><div class="sp-actions"><a class="sp-button primary" href="mission-1a.html">Start The School</a><a class="sp-button" href="feedback.html">Report an accessibility issue</a></div></div></main>
+  <main id="main" tabindex="-1">
+    <div class="tw-wrap">
 
-  <footer><div class="sp-footer"><p><strong>ScreenPath</strong> — Free screen-reader practice.</p><p>Built by Moises Betancourt for screen reader learners everywhere.</p><div class="sp-actions"><a href="teachers.html">Teacher guide</a><a href="feedback.html">Feedback and accessibility help</a><a href="about.html#privacy">How your results are saved</a></div></div></footer>
+      <h2 class="tw-h2">What's on ScreenPath</h2>
+      <p class="tw-lead">ScreenPath is a fluency tool, not a teaching tool. It assumes a student already knows the basics, moving by heading, following links, reading a table, entering text, and gives them story-based and game-based ways to get faster and more confident using those skills. There are three kinds of activities.</p>
 
-  
+      <div class="tw-activity-grid" role="list" aria-label="ScreenPath activities">
+        <div class="tw-activity-card" role="listitem">
+          <p class="tw-activity-name">The School — 3 rooms</p>
+          <p class="tw-activity-desc">An after-hours escape room. The School Office, The Library, and The Computer Lab, each built around one navigation skill.</p>
+          <p class="tw-activity-transfer"><strong>Why it matters:</strong> jumping by heading and scanning a directory table under a little pressure is the same move as finding an assignment section in Canvas by heading, or reading down a grades table.</p>
+          <p class="tw-activity-skills">Headings · Links &amp; Tables · Forms</p>
+        </div>
+        <div class="tw-activity-card amber" role="listitem">
+          <p class="tw-activity-name">The Doctor's Visit — 4 rooms</p>
+          <p class="tw-activity-desc">A school health office visit told across four rooms: check-in, exam room, vitals history, and the front desk.</p>
+          <p class="tw-activity-transfer"><strong>Why it matters:</strong> editing pre-filled form fields mirrors updating a real registration or profile form. The auditory attention room builds the habit of catching information from audio with no script to follow along, useful for a lecture recording or an uncaptioned video. The two-table lookup and booking room mirrors reading a grade table or picking a time slot on a real scheduling page.</p>
+          <p class="tw-activity-skills">Edit Fields &amp; Combo Boxes · Auditory Attention · Table Navigation · Interactive Tables &amp; Booking</p>
+        </div>
+        <div class="tw-activity-card" role="listitem">
+          <p class="tw-activity-name">Arcade — Word Guess</p>
+          <p class="tw-activity-desc">A quick, replayable spelling game with no ongoing story, good for a warm-up or a few spare minutes.</p>
+          <p class="tw-activity-transfer"><strong>Why it matters:</strong> typing accurate guesses while acting on spoken feedback after every try builds the habit of trusting audio feedback instead of needing to see it confirmed, plus reinforces careful typing.</p>
+          <p class="tw-activity-skills">Spelling &amp; Listening</p>
+        </div>
+        <div class="tw-activity-card" role="listitem">
+          <p class="tw-activity-name">Arcade — Are You Smarter Than a 5th Grader?</p>
+          <p class="tw-activity-desc">Climbs from 1st grade to 6th, answering questions across every subject, with lifelines that only work a limited number of times.</p>
+          <p class="tw-activity-transfer"><strong>Why it matters:</strong> it's not just a fun game, it's quick navigation practice, jumping around the page to answer different question types under a little time pressure. That builds real confidence answering questions in a Canvas quiz or a Google Classroom assignment.</p>
+          <p class="tw-activity-skills">Recall · Assistive Technology Commands</p>
+        </div>
+        <div class="tw-activity-card" role="listitem">
+          <p class="tw-activity-name">Skill Drills — Writing Lab</p>
+          <p class="tw-activity-desc">Free Write for open-ended typing practice, or Dictation Practice to type back exactly what's read aloud.</p>
+          <p class="tw-activity-transfer"><strong>Why it matters:</strong> Free Write builds general typing fluency for writing an actual assignment response. Dictation Practice builds listen-and-transcribe accuracy, the same skill used taking notes from something read aloud.</p>
+          <p class="tw-activity-skills">Typing Accuracy · Listening</p>
+        </div>
+      </div>
 
+      <p class="tw-lead">The two escape room series offer Practice mode, no timer, for building confidence, and Challenge mode, timed, once a student is ready for pressure. Every activity now opens by asking which screen reader the student is using before anything else starts, so that context is captured for every session, not just the escape rooms.</p>
 
+      <hr class="tw-divider" aria-hidden="true">
 
-<script src="screenpath.js"></script></body></html>
+      <h2 class="tw-h2">How student progress is tracked</h2>
+      <p class="tw-lead">There are no accounts and nothing to set up. As a student works, each finished room, each round of a game, each Writing Lab session saves a record directly in their own browser. Nothing is sent anywhere automatically.</p>
+      <p class="tw-lead">That history is visible anytime on the <a href="progress.html">Progress page</a>: rooms completed, attempts, time used, accuracy, and the dates a student worked on each activity.</p>
+
+      <div class="tw-note">
+        <p><strong>One limitation worth knowing.</strong> Progress lives only in the browser a student actually played in. It does not follow them to a different computer, and clearing browser data clears it too. Because of that, the Progress page is most useful reviewed on the student's own device, ideally sitting with them, rather than checked remotely.</p>
+      </div>
+
+      <p class="tw-lead">Right now, Writing Lab is the only activity with a built-in way for a student to email their results straight to you, or copy them to the clipboard, at the end of a session. The escape rooms and the Arcade games don't have that yet, so their history is best reviewed together on the Progress page.</p>
+
+      <hr class="tw-divider" aria-hidden="true">
+
+      <h2 class="tw-h2">Getting started</h2>
+      <ol class="tw-steps">
+        <li><strong>No install, no login.</strong> Send a student the link and they can start right away, on any device with a browser.</li>
+        <li><strong>Start with The School, in Practice mode.</strong> Its three rooms cover headings, links and tables, and forms, the fundamentals the rest of the platform builds on.</li>
+        <li><strong>Let Practice mode do its job.</strong> There's no timer in Practice at all. Challenge mode is there once a student wants to add real time pressure.</li>
+        <li><strong>Check in on the Progress page together.</strong> It's designed to be read with a student, not just about them.</li>
+      </ol>
+
+      <p class="tw-lead">Questions, or something not working the way you'd expect? <a href="feedback.html">Send feedback</a> and I'll get back to you.</p>
+    </div>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="footer-minimal">
+      <a href="index.html" class="f-logo" aria-label="ScreenPath — return to home page">
+        <span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:var(--green);color:#000;font-family:var(--font);font-weight:800;font-size:.72rem;letter-spacing:-.02em;flex-shrink:0;">SP</span>
+        <span class="f-logo-name">ScreenPath</span>
+      </a>
+      <ul class="f-nav" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="progress.html">Progress</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+      </ul>
+      <p class="f-copy">Built by <strong>Moises Betancourt</strong> for screen reader learners everywhere. Free always.</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu(){
+      var d = document.getElementById('nav-drawer');
+      var b = document.getElementById('menu-btn');
+      var isHidden = d.hasAttribute('hidden');
+      if (isHidden) { d.removeAttribute('hidden'); } else { d.setAttribute('hidden',''); }
+      b.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+      b.setAttribute('aria-label', isHidden ? 'Close navigation menu' : 'Open navigation menu');
+      b.textContent = isHidden ? '✕' : '☰';
+    }
+  </script>
+
+</body>
+</html>

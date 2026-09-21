@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Room 1: The Check-In Desk — The Doctor's Visit — ScreenPath</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0a0a0a; --surface:#111111; --surface-2:#1a1a1a; --border:#2a2a2a;
+  --text:#f0f0f0; --text-muted:#8a8a8a;
+  --green:#39d98a; --green-dim:#0d2e1c;
+  --red:#ff4d4d; --red-dim:#2e0d0d;
+  --amber:#f5a623; --amber-dim:#2e1f00;
+  --radius:12px;
+  --font:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'SF Mono','Fira Code','Consolas',monospace;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:18px;line-height:1.7;min-height:100vh;}
+.visually-hidden{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+.skip-link{position:absolute;top:-100px;left:1rem;background:var(--amber);color:#000;padding:.75rem 1.5rem;border-radius:var(--radius);font-weight:600;font-size:1rem;text-decoration:none;z-index:9999;transition:top .2s;}
+.skip-link:focus{top:1rem;}
+
+/* Nav */
+nav[role="navigation"]{position:sticky;top:0;left:0;right:0;z-index:500;background:rgba(10,10,10,.95);backdrop-filter:blur(22px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;}
+.nav-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0;}
+.nav-logo-mark{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:var(--amber);color:#000;font-family:var(--font);font-weight:800;font-size:.85rem;flex-shrink:0;}
+.nav-links{display:flex;align-items:center;gap:.15rem;list-style:none;}
+.nav-links a{color:var(--text-muted);text-decoration:none;font-size:.86rem;font-weight:500;padding:.45rem .8rem;border-radius:100px;transition:color .2s,background .2s;white-space:nowrap;}
+.nav-links a:hover{color:var(--text);background:var(--surface-2);}
+.nav-links a[aria-current="page"]{color:var(--amber);}
+.nav-links a:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:100px;}
+.menu-btn{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--border);border-radius:8px;padding:.42rem .55rem;cursor:pointer;color:var(--text-muted);font-size:1.15rem;line-height:1;}
+.menu-btn:hover{border-color:var(--amber);color:var(--text);}
+.menu-btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:8px;}
+.nav-drawer{display:none;flex-direction:column;background:rgba(10,10,10,.97);border-top:1px solid var(--border);padding:1rem 1.5rem 1.5rem;}
+.nav-drawer.open{display:flex;}
+.nav-drawer a{color:var(--text-muted);text-decoration:none;font-size:1rem;font-weight:500;padding:.65rem 0;border-bottom:1px solid var(--border);}
+.nav-drawer a:last-child{border-bottom:none;}
+@media(max-width:860px){.nav-links{display:none;} .menu-btn{display:flex;}}
+
+/* Main */
+main{max-width:860px;margin:0 auto;padding:3rem 2rem 6rem;}
+.back-link{display:inline-flex;align-items:center;gap:.5rem;color:var(--text-muted);text-decoration:none;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase;margin-bottom:2.5rem;}
+.back-link:hover,.back-link:focus{color:var(--amber);}
+.back-link:focus-visible{outline:2px solid var(--amber);outline-offset:4px;border-radius:3px;}
+
+.room-header{margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--border);}
+.room-meta{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:1rem;}
+.room-badge{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);padding:.3rem .85rem;border-radius:100px;}
+.room-level{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);border:1px solid var(--border);padding:.3rem .85rem;border-radius:100px;}
+.room-skill-badge{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);border:1px solid rgba(57,217,138,.3);padding:.3rem .85rem;border-radius:100px;background:var(--green-dim);}
+h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;letter-spacing:-.02em;line-height:1.15;color:var(--text);}
+h2{font-size:1.4rem;font-weight:600;letter-spacing:-.01em;margin-bottom:1.25rem;color:var(--text);}
+h3{font-size:1.1rem;font-weight:600;color:var(--amber);margin-bottom:1rem;}
+.room-image-wrap{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);margin:1.75rem 0 2.5rem;background:var(--surface-2);}
+.room-image-wrap img{width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:cover;}
+.image-caption{font-size:.82rem;color:var(--text-muted);padding:.75rem 1rem;background:var(--surface);border-top:1px solid var(--border);}
+.room-section{margin-bottom:3.5rem;padding-bottom:3rem;border-bottom:1px solid var(--border);}
+.room-section:last-of-type{border-bottom:none;}
+p{margin-bottom:1rem;}
+p:last-child{margin-bottom:0;}
+
+/* Landing gate (pre-start screen reader / mode gate for the whole series) */
+.eyebrow{font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.75rem;}
+#landing-gate h1{margin-bottom:1.1rem;}
+.synopsis{font-size:1.05rem;color:var(--text-muted);max-width:620px;line-height:1.75;margin-bottom:0;}
+.skills-summary{color:var(--text-muted);font-size:.98rem;margin-bottom:1.25rem;}
+.room-list{list-style:none;display:flex;flex-direction:column;gap:.6rem;padding:0;margin:0;}
+.room-item{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--amber);border-radius:var(--radius);padding:.9rem 1.4rem;display:flex;align-items:baseline;gap:.75rem;flex-wrap:wrap;}
+.room-number{font-family:var(--mono);color:var(--amber);font-size:.82rem;font-weight:700;}
+.room-name{font-size:1rem;font-weight:600;color:var(--text);}
+.room-skill{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);background:var(--green-dim);border:1px solid rgba(57,217,138,.3);padding:.2rem .7rem;border-radius:100px;margin-left:auto;}
+.gate{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem 1.75rem 2rem;}
+.gate .field{margin-bottom:1.5rem;}
+.gate .field:last-of-type{margin-bottom:0;}
+.gate .field label{display:block;font-weight:600;font-size:.95rem;margin-bottom:.5rem;color:var(--text);}
+.gate .field .req{color:var(--amber);font-weight:400;font-size:.82rem;}
+.gate select{width:100%;max-width:420px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.75rem .9rem;font-size:1rem;font-family:var(--font);}
+.gate select:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
+.gate .help{color:var(--text-muted);font-size:.85rem;margin-top:.5rem;max-width:420px;min-height:1.2em;}
+.gate-actions{margin-top:1rem;padding-top:1.5rem;border-top:1px solid var(--border);}
+.gate-note{color:var(--text-muted);font-size:.85rem;margin-top:1rem;}
+
+/* Skill focus */
+.skill-focus{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--green);border-radius:var(--radius);padding:1.5rem;margin:1.5rem 0;}
+.skill-focus-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green);display:block;margin-bottom:.6rem;}
+.skill-focus p{font-size:.95rem;color:var(--text-muted);margin-bottom:0;line-height:1.75;}
+
+/* Profile card */
+.profile-card{background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);border-radius:var(--radius);padding:1.75rem;margin:1.75rem 0;}
+.profile-card-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.9rem;}
+.intake-dl{display:grid;grid-template-columns:1fr;gap:1.25rem;margin:0;padding:0;}
+.intake-group{border-bottom:1px solid rgba(245,166,35,.15);padding-bottom:.75rem;}
+.intake-group:last-child{border-bottom:none;padding-bottom:0;}
+.intake-dt{color:var(--amber);font-family:var(--mono);font-size:.9rem;font-weight:700;margin-bottom:.2rem;}
+.intake-dd{color:var(--text);font-family:var(--mono);font-size:1.05rem;font-weight:600;}
+
+/* Narration */
+.narration-row{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;flex-wrap:wrap;}
+.narrate-btn{display:inline-flex;align-items:center;gap:.6rem;background:var(--surface);border:1px solid var(--green);color:var(--green);font-family:var(--font);font-size:.88rem;font-weight:600;padding:.6rem 1.4rem;border-radius:100px;cursor:pointer;transition:background .2s,transform .15s;}
+.narrate-btn:hover{background:var(--green-dim);transform:translateY(-1px);}
+.narrate-btn:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:100px;}
+.narrate-btn.playing{background:var(--green-dim);}
+.narrate-status{font-family:var(--mono);font-size:.78rem;color:var(--text-muted);}
+
+/* Timer */
+.timer-area{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin:2rem 0;text-align:center;}
+.sound-row{display:flex;align-items:center;justify-content:center;gap:.75rem;margin-bottom:.75rem;flex-wrap:wrap;}
+.sound-note{font-size:.82rem;color:var(--text-muted);font-style:italic;margin-bottom:1.25rem;line-height:1.5;}
+.sound-label{font-size:.88rem;color:var(--text-muted);font-family:var(--mono);letter-spacing:.04em;}
+.toggle-btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--surface-2);border:1px solid var(--border);border-radius:100px;color:var(--text-muted);font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;padding:.45rem 1.1rem;cursor:pointer;transition:border-color .2s,color .2s,background .2s;}
+.toggle-btn[aria-checked="true"]{border-color:var(--amber);color:var(--amber);background:var(--amber-dim);}
+.toggle-btn:focus-visible{outline:2px solid var(--amber);outline-offset:3px;}
+.toggle-dot{width:7px;height:7px;border-radius:50%;background:var(--text-muted);transition:background .2s;flex-shrink:0;}
+.toggle-btn[aria-checked="true"] .toggle-dot{background:var(--amber);}
+.timer-instructions{font-size:.95rem;color:var(--text-muted);margin-bottom:1.5rem;line-height:1.7;}
+#timer-display{font-family:var(--mono);font-size:3.5rem;font-weight:700;color:var(--amber);letter-spacing:.05em;display:block;margin-bottom:1.5rem;line-height:1;transition:color .3s;}
+#timer-display.warning{color:#ffcf70;}
+#timer-display.critical{color:var(--red);animation:pulse .8s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+
+/* Buttons */
+.btn{display:inline-block;font-family:var(--font);font-size:1rem;font-weight:600;padding:.9rem 2.5rem;border-radius:100px;border:none;cursor:pointer;letter-spacing:.02em;transition:transform .15s,box-shadow .15s,background .2s;text-decoration:none;text-align:center;}
+.btn:focus-visible{outline:3px solid var(--amber);outline-offset:4px;}
+.btn-primary{background:var(--amber);color:#000;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,166,35,.3);}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none;}
+.btn-secondary{background:var(--surface-2);color:var(--text);border:1px solid var(--border);}
+.btn-secondary:hover{background:var(--surface);transform:translateY(-1px);}
+
+/* Form */
+.registration-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin:1.5rem 0;}
+.form-fieldset{border:1px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.5rem;}
+.form-fieldset:last-of-type{margin-bottom:0;}
+.form-legend{color:var(--amber);font-family:var(--mono);font-size:.9rem;font-weight:700;padding:0 .5rem;text-transform:uppercase;letter-spacing:.05em;}
+.form-grid{display:grid;grid-template-columns:1fr;gap:1.5rem;margin-top:.5rem;}
+@media(min-width:600px){.form-grid.two-col{grid-template-columns:1fr 1fr;}}
+.form-field{display:flex;flex-direction:column;gap:.5rem;}
+.form-field label{font-size:.9rem;font-weight:600;color:var(--text);}
+.field-hint{display:block;font-size:.82rem;color:var(--text-muted);line-height:1.5;}
+.form-field input,.form-field select{background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:.75rem 1rem;color:var(--text);font-family:var(--font);font-size:.95rem;transition:border-color .2s;}
+.form-field input:focus,.form-field select:focus{outline:2px solid var(--amber);border-color:transparent;}
+.form-field select{cursor:pointer;}
+.form-field input.field-error,.form-field select.field-error{border:2px solid var(--red) !important;background:var(--red-dim);}
+.submit-btn{background:var(--amber);color:#000;font-family:var(--font);font-weight:700;font-size:.95rem;border:none;padding:.85rem 2rem;border-radius:8px;cursor:pointer;transition:transform .15s,opacity .2s;margin-top:1rem;}
+.submit-btn:hover{transform:translateY(-1px);}
+.submit-btn:focus-visible{outline:2px solid var(--amber);outline-offset:4px;}
+.feedback-box{margin-top:1.5rem;padding:1rem 1.25rem;border-radius:8px;font-size:.95rem;display:none;line-height:1.6;}
+.feedback-box.success{background:var(--green-dim);border:1px solid rgba(57,217,138,.3);color:var(--green);display:block;}
+.feedback-box.error{background:var(--red-dim);border:1px solid rgba(255,77,77,.3);color:var(--red);display:block;}
+
+/* Bridge message */
+.bridge-msg{background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);border-radius:var(--radius);padding:1.5rem;margin-top:1.5rem;display:none;}
+.bridge-msg.visible{display:block;}
+.bridge-msg-label{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.5rem;}
+.bridge-msg p{font-size:.95rem;color:var(--text);line-height:1.7;margin-bottom:0;font-style:italic;}
+
+/* Debrief / next room */
+.answer-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin-top:1.5rem;display:none;}
+.answer-section.visible{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.answer-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.5rem;}
+.answer-intro{font-size:.92rem;color:var(--text-muted);margin-bottom:1.5rem;line-height:1.6;}
+.form-group{margin-bottom:1.5rem;}
+.form-group:last-child{margin-bottom:0;}
+label{display:block;font-size:.92rem;font-weight:600;color:var(--text);margin-bottom:.5rem;}
+input[type="text"]{width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font);font-size:1rem;padding:.85rem 1rem;}
+input[type="text"]:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(245,166,35,.15);}
+textarea{width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font);font-size:1rem;padding:.85rem 1rem;resize:vertical;min-height:90px;line-height:1.6;}
+textarea:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(245,166,35,.15);}
+.radio-group{display:flex;flex-direction:column;gap:.6rem;margin-top:.25rem;}
+.radio-option{display:flex;align-items:center;gap:.75rem;cursor:pointer;font-size:.95rem;color:var(--text-muted);padding:.65rem 1rem;border:1px solid var(--border);border-radius:8px;transition:border-color .2s,color .2s;}
+.radio-option:hover{border-color:var(--amber);color:var(--text);}
+.radio-option input[type="radio"]{width:18px;height:18px;accent-color:var(--amber);flex-shrink:0;}
+.radio-option input[type="radio"]:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
+.section-divider{border:none;border-top:1px solid var(--border);margin:1.5rem 0;}
+.next-room-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin-top:1.5rem;display:none;text-align:center;}
+.next-room-box.visible{display:block;animation:fadeUp .4s ease;}
+.next-room-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.5rem;}
+.next-room-box h3{color:var(--amber);margin-bottom:.5rem;font-size:1.1rem;}
+.next-room-box p{font-size:.9rem;color:var(--text-muted);margin-bottom:1.5rem;}
+
+footer[role="contentinfo"]{border-top:1px solid var(--border);padding:2.5rem 2rem;color:var(--text-muted);font-size:.85rem;}
+.footer-inner{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:.5rem;}
+.footer-platform{font-weight:600;color:var(--text-muted);}
+.footer-a11y{font-size:.8rem;color:var(--text-muted);line-height:1.6;}
+
+@media(max-width:768px){
+  main{padding:2rem 1.25rem 4rem;}
+  .registration-card{padding:1.25rem;}
+  #timer-display{font-size:2.5rem;}
+}
+a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:3px;}
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<nav role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="ScreenPath — return to home page">
+      <span class="nav-logo-mark" aria-hidden="true">SP</span>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="progress.html">Progress</a></li>
+      <li><a href="feedback.html">Feedback</a></li>
+    </ul>
+    <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu" onclick="toggleMenu()">☰</button>
+  </div>
+  <div class="nav-drawer" id="nav-drawer" aria-label="Mobile navigation">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="progress.html">Progress</a>
+    <a href="feedback.html">Feedback</a>
+  </div>
+</nav>
+
+<main id="main-content" tabindex="-1">
+  <a href="index.html" class="back-link">← Back to Dashboard</a>
+
+  <div id="landing-gate">
+    <span class="eyebrow">The Doctor's Visit — 4 Rooms</span>
+    <h1>The Doctor's Visit</h1>
+    <p class="synopsis">Check in, get seen, and check out. A school health office visit told across four rooms, one story, at your own pace.</p>
+
+    <section class="room-section">
+      <h2 id="practice-heading">What you'll practice</h2>
+      <p class="skills-summary">Four rooms, four skills. Each room reveals its own task once you start.</p>
+      <ol class="room-list">
+        <li class="room-item">
+          <span class="room-number">Room 1</span>
+          <span class="room-name">The Check-In Desk</span>
+          <span class="room-skill">Edit Fields &amp; Combo Boxes</span>
+        </li>
+        <li class="room-item">
+          <span class="room-number">Room 2</span>
+          <span class="room-name">The Exam Room</span>
+          <span class="room-skill">Auditory Attention</span>
+        </li>
+        <li class="room-item">
+          <span class="room-number">Room 3</span>
+          <span class="room-name">Growth and Vitals History</span>
+          <span class="room-skill">Table Navigation</span>
+        </li>
+        <li class="room-item">
+          <span class="room-number">Room 4</span>
+          <span class="room-name">The Front Desk</span>
+          <span class="room-skill">Interactive Tables &amp; Booking</span>
+        </li>
+      </ol>
+    </section>
+
+    <section class="room-section" style="border-bottom:none;">
+      <h2 id="gate-heading">Before you start</h2>
+      <div class="gate">
+        <div class="field">
+          <label for="gate-screen-reader">Screen reader <span class="req">(required)</span></label>
+          <select id="gate-screen-reader" required aria-required="true">
+            <option value="">Choose one&hellip;</option>
+            <option value="JAWS">JAWS</option>
+            <option value="NVDA">NVDA</option>
+            <option value="VoiceOver">VoiceOver</option>
+            <option value="Narrator">Narrator</option>
+            <option value="ChromeVox">ChromeVox</option>
+            <option value="TalkBack">TalkBack</option>
+            <option value="Prefer not to say">Prefer not to say</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="gate-mode">Practice or Challenge <span class="req">(required)</span></label>
+          <select id="gate-mode" required aria-required="true">
+            <option value="">Choose one&hellip;</option>
+            <option value="practice">Practice — same four rooms, no timer, build confidence</option>
+            <option value="challenge">Challenge — same four rooms, timed, the real test</option>
+          </select>
+          <p class="help" id="gate-mode-help"></p>
+        </div>
+        <div class="gate-actions">
+          <button type="button" id="gate-continue-btn" class="btn btn-primary" disabled aria-describedby="gate-note">Continue to Room 1</button>
+          <p class="gate-note" id="gate-note">Choose a screen reader and a mode above to continue. Both choices apply to all four rooms, you will not be asked again.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="room-content" hidden>
+  <div class="room-header">
+    <div class="room-meta">
+      <span class="room-badge">Room 1 of 4 — The Doctor's Visit</span>
+      <span class="room-level">Clinic Visit</span>
+      <span class="room-skill-badge">Focus: Edit Fields & Combo Boxes</span>
+    </div>
+    <h1>Room 1: The Check-In Desk</h1>
+  </div>
+
+  <figure role="img" aria-label="Clinic reception image" style="margin-bottom:2.5rem;">
+    <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=860&q=80" alt="A doctor's office reception counter with a digital check-in terminal, glass dividers, and soft overhead lighting. The waiting area behind it is quiet." loading="lazy">
+    <figcaption style="font-size:.82rem;color:var(--text-muted);margin-top:.6rem;font-family:var(--mono);letter-spacing:.03em;">The Doctor's Visit — Check-In Desk — Friday, 3:40 PM</figcaption>
+  </figure>
+
+  <section class="room-section">
+    <h2 id="situation-heading">Where You Are</h2>
+    <p id="scene-p1">It is Friday afternoon and you have big plans with your friends this weekend, maybe even a sleepover. Then you remember: your mom mentioned a doctor's appointment today. The last thing you want is to lose the whole afternoon sitting in a waiting room instead of hanging out with your friends. If you want any chance of making it to your friends on time, you need to move through this checkup fast.</p>
+    <p id="scene-p2">You arrive at the front desk. The receptionist hands you a tablet and says she needs your registration finished now, while she still has an open slot for you. She only has a few minutes before she has to call the next patient in line, and if your form is not done in time, your spot goes to someone else and you wait even longer. Press Start below and your registration details will appear above the form, ready for you to match.</p>
+
+    <div class="narration-row">
+      <button class="narrate-btn" id="narrate-btn" onclick="toggleNarration()" aria-pressed="false" aria-label="Play — hear the situation read aloud">
+        <span id="narrate-icon" aria-hidden="true">▶</span>
+        <span id="narrate-label">Play Scene</span>
+      </button>
+      <span class="narrate-status" id="narrate-status" role="status" aria-live="polite" aria-atomic="true"></span>
+    </div>
+  </section>
+
+  <section class="room-section">
+    <h2>Your Registration Details</h2>
+    <p>Use the information below to fill in the form fields exactly as they appear.</p>
+    <div class="profile-card">
+      <span class="profile-card-label" id="profile-file-num">Patient Record File</span>
+      <h3>Official Registration Details</h3>
+      <dl class="intake-dl">
+        <div class="intake-group"><dt class="intake-dt">1. Full Patient Name:</dt><dd class="intake-dd" id="disp-name">—</dd></div>
+        <div class="intake-group"><dt class="intake-dt">2. Date of Birth:</dt><dd class="intake-dd" id="disp-dob">—</dd></div>
+        <div class="intake-group"><dt class="intake-dt">3. Reason for Visit:</dt><dd class="intake-dd" id="disp-reason">—</dd></div>
+        <div class="intake-group"><dt class="intake-dt">4. Primary Doctor:</dt><dd class="intake-dd" id="disp-doctor">—</dd></div>
+        <div class="intake-group"><dt class="intake-dt">5. Check-In Status:</dt><dd class="intake-dd" id="disp-status">—</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="room-section" id="form-section">
+    <h2>Patient Check-In Form</h2>
+
+    <div class="timer-area">
+      <div class="sound-row">
+        <span class="sound-label" id="sound-label">Sound effects:</span>
+        <button class="toggle-btn" id="sound-toggle" role="switch" aria-checked="true" aria-labelledby="sound-label" onclick="toggleSound()">
+          <span class="toggle-dot" aria-hidden="true"></span>
+          <span id="sound-text">On</span>
+        </button>
+      </div>
+      <p class="sound-note">Sound effects play during the room including timer warnings and feedback on your answers. Turn them off here before starting if you prefer silence.</p>
+      <p class="timer-instructions" id="timer-instructions">Review your registration details above. When you are ready, press the button below to unlock the form and start the five minute clock.</p>
+      <span id="timer-display" aria-live="off" aria-label="Time remaining: 5 minutes 0 seconds">5:00</span>
+      <div>
+        <button class="btn btn-primary" id="start-timer-btn" onclick="startRoomTimer()">Start — Begin the Intake Form</button>
+      </div>
+    </div>
+
+    <div class="registration-card">
+      <form id="clinic-form" novalidate>
+        <fieldset class="form-fieldset" id="personal-fieldset" disabled>
+          <legend class="form-legend">Personal Patient Information</legend>
+          <div class="form-grid two-col">
+            <div class="form-field">
+              <label for="patient-name">Full Patient Name <span aria-hidden="true" style="color:var(--red)">*</span></label>
+              <span class="field-hint" id="hint-name">Enter the name exactly as shown above.</span>
+              <input type="text" id="patient-name" name="patient-name" required aria-required="true" aria-describedby="hint-name" placeholder="Enter full name" autocomplete="off">
+            </div>
+            <div class="form-field">
+              <label for="patient-dob">Date of Birth <span aria-hidden="true" style="color:var(--red)">*</span></label>
+              <span class="field-hint" id="hint-dob">Enter the date shown above. Any common date format is accepted.</span>
+              <input type="text" id="patient-dob" name="patient-dob" required aria-required="true" aria-describedby="hint-dob" placeholder="MM/DD/YYYY" autocomplete="off">
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-fieldset" id="visit-fieldset" disabled>
+          <legend class="form-legend">Visit & Clinical Details</legend>
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="visit-reason">Reason for Visit (Combo Box) <span aria-hidden="true" style="color:var(--red)">*</span></label>
+              <select id="visit-reason" name="visit-reason" required aria-required="true">
+                <option value="">-- Select Visit Reason --</option>
+                <option value="Annual Wellness Checkup">Annual Wellness Checkup</option>
+                <option value="Sports Physical Exam">Sports Physical Exam</option>
+                <option value="Follow-up Consultation">Follow-up Consultation</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="assigned-doctor">Primary Doctor (Combo Box) <span aria-hidden="true" style="color:var(--red)">*</span></label>
+              <select id="assigned-doctor" name="assigned-doctor" required aria-required="true">
+                <option value="">-- Select Physician --</option>
+                <option value="Dr. Ramos (Pediatrics)">Dr. Ramos (Pediatrics)</option>
+                <option value="Dr. Chen (General Health)">Dr. Chen (General Health)</option>
+                <option value="Dr. Patel (Family Medicine)">Dr. Patel (Family Medicine)</option>
+                <option value="Dr. Nguyen (Adolescent Medicine)">Dr. Nguyen (Adolescent Medicine)</option>
+                <option value="Dr. Okafor (Pediatrics)">Dr. Okafor (Pediatrics)</option>
+                <option value="Dr. Silva (Family Medicine)">Dr. Silva (Family Medicine)</option>
+                <option value="Dr. Kim (General Health)">Dr. Kim (General Health)</option>
+                <option value="Dr. Alvarez (Adolescent Medicine)">Dr. Alvarez (Adolescent Medicine)</option>
+                <option value="Dr. Whitfield (Family Medicine)">Dr. Whitfield (Family Medicine)</option>
+                <option value="Dr. Osei (Pediatrics)">Dr. Osei (Pediatrics)</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="checkin-status">Check-In Status (Combo Box) <span aria-hidden="true" style="color:var(--red)">*</span></label>
+              <select id="checkin-status" name="checkin-status" required aria-required="true">
+                <option value="">-- Select Status --</option>
+                <option value="Pending Verification">Pending Verification</option>
+                <option value="Ready for Exam Room">Ready for Exam Room</option>
+                <option value="Incomplete Records">Incomplete Records</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <button type="submit" class="submit-btn" id="submit-btn" disabled>Submit Registration Form</button>
+      </form>
+      <div id="feedback-msg" class="feedback-box" role="status" aria-live="assertive"></div>
+      <button type="button" id="switch-practice" class="btn btn-secondary" style="margin-top:1rem;" hidden>Switch to practice — remove deadline</button>
+    </div>
+
+    <div class="bridge-msg" id="bridge-msg" role="note" aria-live="polite">
+      <span class="bridge-msg-label">// Front Desk — System Message</span>
+      <p id="bridge-msg-text"></p>
+    </div>
+
+    <div class="next-room-box" id="next-room-box" aria-labelledby="next-room-heading" aria-live="polite">
+      <span class="next-room-label">// Room 1 Complete</span>
+      <h3 id="next-room-heading" tabindex="-1" style="outline:none;">Room 2 is Now Unlocked</h3>
+      <p>Your form is on file. A nurse will call you back to the exam room next.</p>
+      <a href="mission-2b.html" class="btn btn-primary" aria-label="Enter Room 2 — The Exam Room">Enter Room 2 — The Exam Room</a>
+    </div>
+  </section>
+  </div>
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-inner">
+    <p class="footer-platform">ScreenPath — The Doctor's Visit — Screen Reader Escape Room</p>
+    <p class="footer-a11y">ScreenPath is designed for screen reader users. Every page is fully navigable by keyboard and compatible with JAWS, NVDA, and VoiceOver. If you encounter any accessibility issue please contact your instructor.</p>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu(){
+    var d=document.getElementById('nav-drawer'), b=document.getElementById('menu-btn');
+    var open=d.classList.toggle('open');
+    b.setAttribute('aria-expanded',open?'true':'false');
+    b.textContent=open?'✕':'☰';
+  }
+
+  // ── Announcer ──────────────────────────────────
+  function announce(msg){
+    var el=document.createElement('div');
+    el.setAttribute('aria-live','assertive');el.setAttribute('aria-atomic','true');
+    el.style.cssText='position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;';
+    document.body.appendChild(el);
+    setTimeout(function(){el.textContent=msg;setTimeout(function(){el.remove();},4500);},100);
+  }
+  function revealCompletion(boxId,headingId){
+    var box=document.getElementById(boxId);
+    box.classList.add('visible');
+    setTimeout(function(){
+      box.scrollIntoView({behavior:'smooth',block:'center'});
+      var h=document.getElementById(headingId);
+      if(h)h.focus({preventScroll:true});
+    },80);
+  }
+
+  function todayStr(){return new Date().toISOString().split('T')[0];}
+
+  // ── Practice vs Challenge — set by the landing gate below ───────
+  let practiceMode=false;
+
+  // ── Landing gate — screen reader + practice/challenge, once for the whole series ──
+  (function(){
+    var gate=document.getElementById('landing-gate');
+    var roomContent=document.getElementById('room-content');
+    var srSelect=document.getElementById('gate-screen-reader');
+    var modeSelect=document.getElementById('gate-mode');
+    var continueBtn=document.getElementById('gate-continue-btn');
+    var modeHelp=document.getElementById('gate-mode-help');
+
+    function checkReady(){
+      continueBtn.disabled=!(srSelect.value!==''&&modeSelect.value!=='');
+    }
+    srSelect.addEventListener('change',checkReady);
+    modeSelect.addEventListener('change',function(){
+      checkReady();
+      if(modeSelect.value==='practice'){
+        modeHelp.textContent='Practice mode: the timer never starts. You can take as long as you need.';
+      } else if(modeSelect.value==='challenge'){
+        modeHelp.textContent='Challenge mode: Room 1 gives you 5 minutes, Room 2 gives you 3, Room 3 gives you 5, Room 4 gives you 5.';
+      } else {
+        modeHelp.textContent='';
+      }
+      if(modeHelp.textContent)announce(modeHelp.textContent);
+    });
+
+    function revealRoomContent(focusHeading){
+      gate.hidden=true;
+      roomContent.hidden=false;
+      if(focusHeading){
+        var h=roomContent.querySelector('h1');
+        if(h){
+          if(!h.hasAttribute('tabindex'))h.setAttribute('tabindex','-1');
+          h.focus({preventScroll:false});
+        }
+        announce('Settings saved. Room 1, The Check-In Desk, is ready.');
+      }
+    }
+
+    continueBtn.addEventListener('click',function(){
+      var sr=srSelect.value,mode=modeSelect.value;
+      if(!sr||!mode)return;
+      try{
+        localStorage.setItem('sp_doctor_screenreader',sr);
+        localStorage.setItem('sp_doctor_mode',mode);
+        var today=todayStr();
+        var sess=JSON.parse(localStorage.getItem('sp_doctor_current_session')||'null')||{startDate:today,workDates:[today],screenReader:'',rooms:[]};
+        sess.screenReader=sr;
+        if(!sess.workDates)sess.workDates=[];
+        if(sess.workDates.indexOf(today)===-1)sess.workDates.push(today);
+        localStorage.setItem('sp_doctor_current_session',JSON.stringify(sess));
+      }catch(e){}
+      practiceMode=(mode==='practice');
+      revealRoomContent(true);
+    });
+
+    // If a student already made both choices (e.g. returning to Room 1), skip straight to the room.
+    try{
+      var savedMode=localStorage.getItem('sp_doctor_mode');
+      var savedSR=localStorage.getItem('sp_doctor_screenreader');
+      if(savedMode&&savedSR){
+        practiceMode=(savedMode==='practice');
+        revealRoomContent(false);
+      }
+    }catch(e){}
+  })();
+
+  // ── Patient profiles ───────────────────────────
+  const patientProfiles=[
+    {file:"101",name:"Jordan Rivera",dob:"04/12/2011",reason:"Annual Wellness Checkup",doctor:"Dr. Ramos (Pediatrics)",status:"Ready for Exam Room"},
+    {file:"102",name:"Taylor Vance",dob:"08/19/2010",reason:"Sports Physical Exam",doctor:"Dr. Chen (General Health)",status:"Pending Verification"},
+    {file:"103",name:"Morgan Bailey",dob:"11/03/2012",reason:"Follow-up Consultation",doctor:"Dr. Patel (Family Medicine)",status:"Ready for Exam Room"},
+    {file:"104",name:"Sam Miller",dob:"02/25/2009",reason:"Annual Wellness Checkup",doctor:"Dr. Nguyen (Adolescent Medicine)",status:"Pending Verification"},
+    {file:"105",name:"Casey Avery",dob:"06/14/2011",reason:"Sports Physical Exam",doctor:"Dr. Okafor (Pediatrics)",status:"Ready for Exam Room"},
+    {file:"106",name:"Alex Mercer",dob:"09/30/2010",reason:"Follow-up Consultation",doctor:"Dr. Silva (Family Medicine)",status:"Incomplete Records"},
+    {file:"107",name:"Riley Cooper",dob:"01/18/2012",reason:"Annual Wellness Checkup",doctor:"Dr. Kim (General Health)",status:"Ready for Exam Room"},
+    {file:"108",name:"Dakota Hayes",dob:"05/07/2011",reason:"Sports Physical Exam",doctor:"Dr. Alvarez (Adolescent Medicine)",status:"Pending Verification"},
+    {file:"109",name:"Reese Bennett",dob:"12/22/2009",reason:"Follow-up Consultation",doctor:"Dr. Whitfield (Family Medicine)",status:"Ready for Exam Room"},
+    {file:"110",name:"Quinn Sanders",dob:"07/11/2010",reason:"Annual Wellness Checkup",doctor:"Dr. Osei (Pediatrics)",status:"Ready for Exam Room"}
+  ];
+  let currentTarget=null;
+  (function(){
+    currentTarget=patientProfiles[Math.floor(Math.random()*patientProfiles.length)];
+    document.getElementById('profile-file-num').textContent='Patient Record File #'+currentTarget.file;
+    document.getElementById('disp-name').textContent=currentTarget.name;
+    document.getElementById('disp-dob').textContent=currentTarget.dob;
+    document.getElementById('disp-reason').textContent=currentTarget.reason;
+    document.getElementById('disp-doctor').textContent=currentTarget.doctor;
+    document.getElementById('disp-status').textContent=currentTarget.status;
+  })();
+
+  // ── Narration ──────────────────────────────────
+  let narSpeaking=false,narUtterance=null;
+  function getNarText(){return ['scene-p1','scene-p2'].map(function(id){var el=document.getElementById(id);return el?el.innerText.replace(/\s+/g,' ').trim():'';}).filter(Boolean).join(' ... ');}
+  function toggleNarration(){narSpeaking?stopNar():startNar();}
+  function startNar(){
+    if(!window.speechSynthesis){updateNarStatus('Speech not supported in this browser.');return;}
+    window.speechSynthesis.cancel();
+    narUtterance=new SpeechSynthesisUtterance(getNarText());
+    narUtterance.rate=0.82;narUtterance.pitch=0.88;narUtterance.volume=1.0;
+    function applyVoice(){
+      const vv=window.speechSynthesis.getVoices();
+      const v=vv.find(v=>v.lang.startsWith('en')&&/natural|enhanced|premium/i.test(v.name))||vv.find(v=>v.lang.startsWith('en')&&/daniel|samantha|karen|google|microsoft/i.test(v.name))||vv.find(v=>v.lang==='en-US')||vv.find(v=>v.lang.startsWith('en'))||null;
+      if(v)narUtterance.voice=v;
+    }
+    const vv=window.speechSynthesis.getVoices();
+    if(vv.length>0){applyVoice();window.speechSynthesis.speak(narUtterance);}
+    else{window.speechSynthesis.onvoiceschanged=function(){applyVoice();window.speechSynthesis.speak(narUtterance);window.speechSynthesis.onvoiceschanged=null;};setTimeout(function(){if(!narSpeaking){applyVoice();window.speechSynthesis.speak(narUtterance);}},500);}
+    narUtterance.onstart=function(){narSpeaking=true;setNarBtn(true);updateNarStatus('Playing...');};
+    narUtterance.onend=function(){narSpeaking=false;setNarBtn(false);updateNarStatus('Done.');setTimeout(function(){updateNarStatus('');},3000);};
+    narUtterance.onerror=function(){narSpeaking=false;setNarBtn(false);updateNarStatus('');};
+  }
+  function stopNar(){window.speechSynthesis.cancel();narSpeaking=false;setNarBtn(false);updateNarStatus('Stopped.');setTimeout(function(){updateNarStatus('');},2000);}
+  function setNarBtn(p){
+    const btn=document.getElementById('narrate-btn');
+    document.getElementById('narrate-icon').textContent=p?'■':'▶';
+    document.getElementById('narrate-label').textContent=p?'Stop Scene':'Play Scene';
+    btn.setAttribute('aria-pressed',p?'true':'false');
+    btn.setAttribute('aria-label',p?'Stop — pause the scene narration':'Play — hear the situation read aloud');
+    p?btn.classList.add('playing'):btn.classList.remove('playing');
+  }
+  function updateNarStatus(msg){document.getElementById('narrate-status').textContent=msg;}
+  window.addEventListener('beforeunload',function(){if(window.speechSynthesis)window.speechSynthesis.cancel();});
+
+  // ── Audio ──────────────────────────────────────
+  let audioCtx=null,soundEnabled=true;
+  function getCtx(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx;}
+  function tone(f,d,t,v,dl){
+    t=t||'sine';v=v||.35;dl=dl||0;
+    if(!soundEnabled)return;
+    try{
+      const ctx=getCtx(),o=ctx.createOscillator(),g=ctx.createGain();
+      o.connect(g);g.connect(ctx.destination);o.type=t;
+      o.frequency.setValueAtTime(f,ctx.currentTime+dl);
+      g.gain.setValueAtTime(0,ctx.currentTime+dl);
+      g.gain.linearRampToValueAtTime(v,ctx.currentTime+dl+0.01);
+      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+dl+d);
+      o.start(ctx.currentTime+dl);o.stop(ctx.currentTime+dl+d+0.05);
+    }catch(e){}
+  }
+  function sfxStart(){tone(440,.12,'square',.28,0);tone(554,.12,'square',.28,.13);tone(659,.22,'square',.32,.26);}
+  function sfxPing(){tone(880,.07,'sine',.3,0);tone(880,.07,'sine',.3,.14);}
+  function sfxWarn(){tone(1100,.09,'square',.3,0);tone(1100,.09,'square',.3,.17);tone(1100,.09,'square',.3,.34);}
+  function sfxTick(){tone(1400,.04,'square',.18,0);}
+  function sfxFail(){tone(660,.22,'sawtooth',.38,0);tone(550,.22,'sawtooth',.38,.25);tone(440,.22,'sawtooth',.38,.5);}
+  function sfxWin(){tone(523,.16,'sine',.38,0);tone(659,.16,'sine',.38,.18);tone(784,.16,'sine',.38,.36);tone(1047,.4,'sine',.38,.54);}
+  function sfxError(){tone(220,.15,'sawtooth',.3,0);tone(180,.25,'sawtooth',.28,.18);}
+  function toggleSound(){
+    soundEnabled=!soundEnabled;
+    const btn=document.getElementById('sound-toggle');
+    btn.setAttribute('aria-checked',soundEnabled?'true':'false');
+    document.getElementById('sound-text').textContent=soundEnabled?'On':'Off';
+    announce('Sound effects '+(soundEnabled?'on':'off'));
+    if(soundEnabled)sfxPing();
+  }
+
+  // ── Timer ──────────────────────────────────────
+  const TOTAL=5*60;
+  let secondsLeft=TOTAL,elapsed=0,interval=null,started=false,complete=false,attempts=0;
+
+  function startRoomTimer(){
+    if(started)return;
+    started=true;
+    document.getElementById('personal-fieldset').disabled=false;
+    document.getElementById('visit-fieldset').disabled=false;
+    document.getElementById('submit-btn').disabled=false;
+    document.getElementById('start-timer-btn').style.display='none';
+    const tog=document.getElementById('sound-toggle');tog.disabled=true;tog.setAttribute('aria-disabled','true');
+    sfxStart();
+    if(practiceMode){
+      const d=document.getElementById('timer-display');
+      d.textContent='No limit';
+      d.setAttribute('aria-label','Practice mode: no time limit');
+      document.getElementById('timer-instructions').textContent='Form unlocked. Practice mode: no deadline. Fill in the edit fields and combo boxes using the details above at your own pace.';
+      announce('Form unlocked. Practice mode: no deadline. Fill in the edit fields and combo boxes using your registration details above.');
+    } else {
+      document.getElementById('timer-instructions').textContent='Form unlocked. Fill in the edit fields and combo boxes using the details above. Five minutes on the clock.';
+      announce('Form unlocked. Five minutes. Fill in the edit fields and combo boxes using your registration details above.');
+    }
+    interval=setInterval(tick,1000);
+  }
+
+  function tick(){
+    if(practiceMode){elapsed++;return;}
+    secondsLeft--;elapsed++;
+    updateDisplay();
+    const m=Math.floor(secondsLeft/60),s=secondsLeft%60;
+    if(s===0&&m>0){sfxPing();announce(m===1?'One minute remaining.':m+' minutes remaining.');}
+    if(secondsLeft===30){document.getElementById('timer-display').classList.add('warning');sfxWarn();announce('Thirty seconds remaining.');}
+    if(secondsLeft===10){const d=document.getElementById('timer-display');d.classList.remove('warning');d.classList.add('critical');announce('Ten seconds remaining.');}
+    if(secondsLeft<=10&&secondsLeft>0)sfxTick();
+    if(secondsLeft<=0){clearInterval(interval);handleTimeExpired();}
+  }
+  function updateDisplay(){
+    const m=Math.floor(secondsLeft/60),s=secondsLeft%60;
+    const d=document.getElementById('timer-display');
+    d.textContent=m+':'+String(s).padStart(2,'0');
+    d.setAttribute('aria-label','Time remaining: '+m+' minutes and '+s+' seconds');
+  }
+  function fmtElapsed(s){const m=Math.floor(s/60),sec=s%60;if(m===0)return sec+' second'+(sec!==1?'s':'');if(sec===0)return m+' minute'+(m!==1?'s':'');return m+' minute'+(m!==1?'s':'')+' and '+sec+' second'+(sec!==1?'s':'');}
+
+  function handleTimeExpired(){
+    sfxFail();
+    const feedback=document.getElementById('feedback-msg');
+    feedback.className='feedback-box error';
+    feedback.textContent='Good effort. The five minutes ran out before the form was submitted, but you know the fields better now than when you started.';
+    document.getElementById('clinic-form').querySelectorAll('input,select,button').forEach(function(el){el.disabled=true;});
+    const sw=document.getElementById('switch-practice');
+    sw.hidden=false;
+    sw.focus();
+    announce('Time is up. You can switch to practice mode to keep working with no deadline.');
+  }
+
+  function switchToPractice(){
+    try{localStorage.setItem('sp_doctor_mode','practice');}catch(e){}
+    practiceMode=true;
+    const feedback=document.getElementById('feedback-msg');
+    feedback.className='feedback-box';feedback.style.display='none';feedback.textContent='';
+    document.getElementById('switch-practice').hidden=true;
+    document.getElementById('clinic-form').querySelectorAll('input,select,button').forEach(function(el){el.disabled=false;});
+    const d=document.getElementById('timer-display');
+    d.classList.remove('warning','critical');
+    d.textContent='No limit';
+    d.setAttribute('aria-label','Practice mode: no time limit');
+    document.getElementById('timer-instructions').textContent='Practice mode: no deadline. Take your time with the intake form.';
+    interval=setInterval(tick,1000);
+    announce('Deadline removed. Keep working, there is no rush.');
+  }
+  document.getElementById('switch-practice').addEventListener('click',switchToPractice);
+
+  function stripAccents(str){return str.normalize('NFD').replace(/[̀-ͯ]/g,'');}
+  function normalizeDate(str){
+    var m=str.trim().match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/);
+    if(!m)return str.trim().toLowerCase();
+    var mm=m[1].padStart(2,'0'),dd=m[2].padStart(2,'0'),yy=m[3];
+    if(yy.length===2)yy='20'+yy;
+    return mm+'/'+dd+'/'+yy;
+  }
+
+  document.getElementById('clinic-form').addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!started)return;
+    attempts++;
+    document.querySelectorAll('.field-error').forEach(function(el){el.classList.remove('field-error');el.removeAttribute('aria-invalid');});
+
+    const nameEl=document.getElementById('patient-name');
+    const dobEl=document.getElementById('patient-dob');
+    const reasonEl=document.getElementById('visit-reason');
+    const doctorEl=document.getElementById('assigned-doctor');
+    const statusEl=document.getElementById('checkin-status');
+    const feedback=document.getElementById('feedback-msg');
+
+    const nameVal=stripAccents(nameEl.value.trim().toLowerCase());
+    const nameMatch=stripAccents(currentTarget.name.toLowerCase())===nameVal;
+    const dobMatch=normalizeDate(dobEl.value)===normalizeDate(currentTarget.dob);
+
+    if(!nameMatch){
+      nameEl.classList.add('field-error');nameEl.setAttribute('aria-invalid','true');
+      feedback.className='feedback-box error';
+      feedback.textContent='The name in Full Patient Name does not match your record yet. Check it against the details above and try again.';
+      nameEl.focus();sfxError();return;
+    }
+    if(!dobMatch){
+      dobEl.classList.add('field-error');dobEl.setAttribute('aria-invalid','true');
+      feedback.className='feedback-box error';
+      feedback.textContent='The date in Date of Birth does not match your record yet. Check it against the details above and try again.';
+      dobEl.focus();sfxError();return;
+    }
+    if(reasonEl.value!==currentTarget.reason){
+      reasonEl.classList.add('field-error');reasonEl.setAttribute('aria-invalid','true');
+      feedback.className='feedback-box error';
+      feedback.textContent='The Reason for Visit combo box does not match your record yet. Check it against the details above and try again.';
+      reasonEl.focus();sfxError();return;
+    }
+    if(doctorEl.value!==currentTarget.doctor){
+      doctorEl.classList.add('field-error');doctorEl.setAttribute('aria-invalid','true');
+      feedback.className='feedback-box error';
+      feedback.textContent='The Primary Doctor combo box does not match your record yet. Check it against the details above and try again.';
+      doctorEl.focus();sfxError();return;
+    }
+    if(statusEl.value!==currentTarget.status){
+      statusEl.classList.add('field-error');statusEl.setAttribute('aria-invalid','true');
+      feedback.className='feedback-box error';
+      feedback.textContent='The Check-In Status combo box does not match your record yet. Check it against the details above and try again.';
+      statusEl.focus();sfxError();return;
+    }
+
+    if(!complete){
+      complete=true;
+      clearInterval(interval);
+      sfxWin();
+      try{
+        localStorage.setItem('sp_doctor_room1_complete','1');
+        var today=todayStr();
+        var sess=JSON.parse(localStorage.getItem('sp_doctor_current_session')||'null')||{startDate:today,workDates:[today],screenReader:'',rooms:[]};
+        if(!sess.workDates)sess.workDates=[];
+        if(sess.workDates.indexOf(today)===-1)sess.workDates.push(today);
+        sess.patientName=currentTarget.name;
+        sess.assignedDoctor=currentTarget.doctor;
+        var pct=Math.min(100,Math.round((elapsed/TOTAL)*100));
+        sess.rooms=(sess.rooms||[]).filter(function(r){return r.roomKey!=='1';});
+        sess.rooms.push({roomKey:'1',dateCompleted:today,attempts:attempts,timeUsed:elapsed,timeAllowed:TOTAL,pct:pct});
+        localStorage.setItem('sp_doctor_current_session',JSON.stringify(sess));
+      }catch(e){}
+    }
+
+    this.querySelectorAll('input,select,button[type="submit"]').forEach(function(el){el.disabled=true;});
+    feedback.className='feedback-box success';
+    feedback.textContent='Registration approved. Found in '+fmtElapsed(elapsed)+' with '+attempts+' attempt'+(attempts!==1?'s':'')+'.';
+
+    var bridgeText='"Registration confirmed for '+currentTarget.name+'. Please have a seat, a nurse will call you back to the exam room shortly to see '+currentTarget.doctor+'."';
+    document.getElementById('bridge-msg-text').textContent=bridgeText;
+    document.getElementById('bridge-msg').classList.add('visible');
+    revealCompletion('next-room-box','next-room-heading');
+    announce('Registration approved. Room 1 is complete. Room 2 is now unlocked. The button to enter Room 2 is now in view.');
+  });
+
+  // ── Session start tracking ──────────────────────
+  (function(){
+    try{
+      var today=todayStr();
+      var sess=JSON.parse(localStorage.getItem('sp_doctor_current_session')||'null');
+      if(!sess){
+        sess={startDate:today,workDates:[today],screenReader:localStorage.getItem('sp_doctor_screenreader')||'',rooms:[]};
+        localStorage.setItem('sp_doctor_current_session',JSON.stringify(sess));
+      } else {
+        if(!sess.workDates)sess.workDates=[];
+        if(sess.workDates.indexOf(today)===-1){sess.workDates.push(today);localStorage.setItem('sp_doctor_current_session',JSON.stringify(sess));}
+      }
+    }catch(e){}
+  })();
+</script>
+</body>
+</html>

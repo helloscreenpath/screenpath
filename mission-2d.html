@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Room 4: The Front Desk — The Doctor's Visit — ScreenPath</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0a0a0a; --surface:#111111; --surface-2:#1a1a1a; --border:#2a2a2a;
+  --text:#f0f0f0; --text-muted:#8a8a8a;
+  --green:#39d98a; --green-dim:#0d2e1c;
+  --red:#ff4d4d; --red-dim:#2e0d0d;
+  --amber:#f5a623; --amber-dim:#2e1f00;
+  --radius:12px;
+  --font:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'SF Mono','Fira Code','Consolas',monospace;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:18px;line-height:1.7;min-height:100vh;}
+.skip-link{position:absolute;top:-100px;left:1rem;background:var(--amber);color:#000;padding:.75rem 1.5rem;border-radius:var(--radius);font-weight:600;font-size:1rem;text-decoration:none;z-index:9999;transition:top .2s;}
+.skip-link:focus{top:1rem;}
+
+nav[role="navigation"]{position:sticky;top:0;left:0;right:0;z-index:500;background:rgba(10,10,10,.95);backdrop-filter:blur(22px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;}
+.nav-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0;}
+.nav-logo-mark{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:var(--amber);color:#000;font-family:var(--font);font-weight:800;font-size:.85rem;flex-shrink:0;}
+.nav-links{display:flex;align-items:center;gap:.15rem;list-style:none;}
+.nav-links a{color:var(--text-muted);text-decoration:none;font-size:.86rem;font-weight:500;padding:.45rem .8rem;border-radius:100px;transition:color .2s,background .2s;white-space:nowrap;}
+.nav-links a:hover{color:var(--text);background:var(--surface-2);}
+.nav-links a:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:100px;}
+.menu-btn{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--border);border-radius:8px;padding:.42rem .55rem;cursor:pointer;color:var(--text-muted);font-size:1.15rem;line-height:1;}
+.menu-btn:hover{border-color:var(--amber);color:var(--text);}
+.menu-btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:8px;}
+.nav-drawer{display:none;flex-direction:column;background:rgba(10,10,10,.97);border-top:1px solid var(--border);padding:1rem 1.5rem 1.5rem;}
+.nav-drawer.open{display:flex;}
+.nav-drawer a{color:var(--text-muted);text-decoration:none;font-size:1rem;font-weight:500;padding:.65rem 0;border-bottom:1px solid var(--border);}
+.nav-drawer a:last-child{border-bottom:none;}
+@media(max-width:860px){.nav-links{display:none;} .menu-btn{display:flex;}}
+
+main{max-width:960px;margin:0 auto;padding:3rem 2rem 6rem;}
+.back-link{display:inline-flex;align-items:center;gap:.5rem;color:var(--text-muted);text-decoration:none;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase;margin-bottom:2.5rem;}
+.back-link:hover,.back-link:focus{color:var(--amber);}
+.back-link:focus-visible{outline:2px solid var(--amber);outline-offset:4px;border-radius:3px;}
+
+.room-header{margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--border);}
+.room-meta{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:1rem;}
+.room-badge{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);padding:.3rem .85rem;border-radius:100px;}
+.room-level{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);border:1px solid var(--border);padding:.3rem .85rem;border-radius:100px;}
+.room-skill-badge{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);border:1px solid rgba(57,217,138,.3);padding:.3rem .85rem;border-radius:100px;background:var(--green-dim);}
+h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;letter-spacing:-.02em;line-height:1.15;color:var(--text);}
+h2{font-size:1.4rem;font-weight:600;letter-spacing:-.01em;margin-bottom:1rem;color:var(--text);}
+.room-image-wrap{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);margin:1.75rem 0 2.5rem;background:var(--surface-2);}
+.room-image-wrap img{width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:cover;}
+.room-section{margin-bottom:3.5rem;padding-bottom:3rem;border-bottom:1px solid var(--border);}
+.room-section:last-of-type{border-bottom:none;}
+p{margin-bottom:1rem;}
+p:last-child{margin-bottom:0;}
+
+.skill-focus{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--green);border-radius:var(--radius);padding:1.5rem;margin:1.5rem 0;}
+.skill-focus-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green);display:block;margin-bottom:.6rem;}
+.skill-focus p{font-size:.95rem;color:var(--text-muted);margin-bottom:0;line-height:1.75;}
+
+.narration-row{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;flex-wrap:wrap;}
+.narrate-btn{display:inline-flex;align-items:center;gap:.6rem;background:var(--surface);border:1px solid var(--green);color:var(--green);font-family:var(--font);font-size:.88rem;font-weight:600;padding:.6rem 1.4rem;border-radius:100px;cursor:pointer;transition:background .2s,transform .15s;}
+.narrate-btn:hover{background:var(--green-dim);transform:translateY(-1px);}
+.narrate-btn:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:100px;}
+.narrate-status{font-family:var(--mono);font-size:.78rem;color:var(--text-muted);}
+
+.target-prompt-card{background:var(--amber-dim);border:1px solid rgba(245,166,35,.4);border-radius:var(--radius);padding:1.75rem;margin:1.75rem 0;display:none;}
+.target-prompt-card.visible{display:block;}
+.target-prompt-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.5rem;}
+.target-prompt-text{font-size:1.1rem;font-weight:600;color:var(--text);margin-bottom:0;}
+
+.timer-area{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin:2rem 0;text-align:center;}
+.sound-row{display:flex;align-items:center;justify-content:center;gap:.75rem;margin-bottom:.75rem;flex-wrap:wrap;}
+.sound-note{font-size:.82rem;color:var(--text-muted);font-style:italic;margin-bottom:1.25rem;line-height:1.5;}
+.sound-label{font-size:.88rem;color:var(--text-muted);font-family:var(--mono);letter-spacing:.04em;}
+.toggle-btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--surface-2);border:1px solid var(--border);border-radius:100px;color:var(--text-muted);font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;padding:.45rem 1.1rem;cursor:pointer;transition:border-color .2s,color .2s,background .2s;}
+.toggle-btn[aria-checked="true"]{border-color:var(--amber);color:var(--amber);background:var(--amber-dim);}
+.toggle-btn:focus-visible{outline:2px solid var(--amber);outline-offset:3px;}
+.toggle-dot{width:7px;height:7px;border-radius:50%;background:var(--text-muted);transition:background .2s;flex-shrink:0;}
+.toggle-btn[aria-checked="true"] .toggle-dot{background:var(--amber);}
+.timer-instructions{font-size:.95rem;color:var(--text-muted);margin-bottom:1.5rem;line-height:1.7;}
+#timer-display{font-family:var(--mono);font-size:3.5rem;font-weight:700;color:var(--amber);letter-spacing:.05em;display:block;margin-bottom:1.5rem;line-height:1;transition:color .3s;}
+#timer-display.warning{color:#ffcf70;}
+#timer-display.critical{color:var(--red);animation:pulse .8s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+
+.btn{display:inline-block;font-family:var(--font);font-size:1rem;font-weight:600;padding:.9rem 2.5rem;border-radius:100px;border:none;cursor:pointer;letter-spacing:.02em;transition:transform .15s,box-shadow .15s,background .2s;text-decoration:none;text-align:center;}
+.btn:focus-visible{outline:3px solid var(--amber);outline-offset:4px;}
+.btn-primary{background:var(--amber);color:#000;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,166,35,.3);}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none;}
+.btn-secondary{background:var(--surface-2);color:var(--text);border:1px solid var(--border);}
+.btn-secondary:hover{background:var(--surface);transform:translateY(-1px);}
+
+.table-container{overflow-x:auto;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin:1.75rem 0;padding:1rem;}
+table{width:100%;border-collapse:collapse;text-align:center;font-size:.95rem;}
+caption{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);text-align:left;padding-bottom:.75rem;caption-side:top;}
+th{background:var(--surface-2);color:var(--amber);font-family:var(--mono);font-size:.85rem;padding:.85rem .5rem;border-bottom:2px solid var(--border);text-transform:uppercase;letter-spacing:.04em;}
+td{padding:.7rem .5rem;border-bottom:1px solid var(--border);color:var(--text);}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(245,166,35,.05);}
+.time-table{text-align:left;}
+.time-table th{text-align:left;}
+
+.cal-empty{color:var(--border);}
+.cal-closed{color:var(--text-muted);}
+.cal-daynum{display:block;font-weight:600;}
+.cal-closed-tag{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);margin-top:.15rem;}
+
+.date-btn,.slot-btn{background:transparent;border:1px solid var(--green);color:var(--green);font-family:var(--font);font-weight:700;font-size:.9rem;cursor:pointer;padding:.4rem .8rem;border-radius:6px;transition:background .2s,color .2s,transform .1s;width:100%;}
+.date-btn:hover,.date-btn:focus,.slot-btn:hover,.slot-btn:focus{color:#000;background:var(--green);transform:scale(1.02);}
+.date-btn:focus-visible,.slot-btn:focus-visible{outline:3px solid var(--green);outline-offset:2px;}
+.slot-btn.slot-closed{border-color:var(--border);color:var(--text-muted);}
+.slot-btn.slot-closed:hover,.slot-btn.slot-closed:focus{background:var(--red-dim);color:var(--red);border-color:var(--red);}
+
+.status-open{color:var(--green);font-weight:700;background:var(--green-dim);padding:.2rem .6rem;border-radius:4px;border:1px solid rgba(57,217,138,.3);}
+.status-closed{color:var(--red);font-weight:600;background:var(--red-dim);padding:.2rem .6rem;border-radius:4px;border:1px solid rgba(255,77,77,.3);}
+
+.code-reveal-box{background:var(--green-dim);border:2px solid var(--green);border-radius:var(--radius);padding:1.25rem 1.5rem;margin:1.5rem 0;text-align:center;display:none;}
+.code-reveal-box.visible{display:block;}
+.code-reveal-label{font-size:.85rem;color:var(--text);margin-bottom:.5rem;}
+.code-reveal-text{font-family:var(--mono);font-size:1.7rem;font-weight:700;color:var(--green);letter-spacing:.1em;margin-bottom:.5rem;}
+.code-reveal-hint{font-size:.82rem;color:var(--text-muted);margin-bottom:0;}
+
+.challenge-form-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin:1.5rem 0;}
+.form-field{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.25rem;}
+.form-field label{font-size:.9rem;font-weight:600;color:var(--text);}
+.field-hint{display:block;font-size:.82rem;color:var(--text-muted);line-height:1.5;}
+.form-field input{background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:.75rem 1rem;color:var(--text);font-family:var(--mono);font-size:1rem;width:100%;}
+.form-field input:focus{outline:2px solid var(--amber);border-color:transparent;}
+.form-field input.field-error{border:2px solid var(--red) !important;background:var(--red-dim);}
+.form-field input:disabled{opacity:.5;}
+.submit-btn{background:var(--amber);color:#000;font-family:var(--font);font-weight:700;font-size:.95rem;border:none;padding:.85rem 2rem;border-radius:8px;cursor:pointer;transition:transform .15s,opacity .2s;margin-top:1rem;}
+.submit-btn:hover{transform:translateY(-1px);}
+.submit-btn:focus-visible{outline:2px solid var(--amber);outline-offset:4px;}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed;}
+.feedback-box{margin-top:1.5rem;padding:1rem 1.25rem;border-radius:8px;font-size:.9rem;display:none;line-height:1.6;}
+.feedback-box.success{background:var(--green-dim);border:1px solid rgba(57,217,138,.3);color:var(--green);display:block;}
+.feedback-box.error{background:var(--red-dim);border:1px solid rgba(255,77,77,.3);color:var(--red);display:block;}
+
+.next-room-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin-top:1.5rem;display:none;text-align:center;}
+.next-room-box.visible{display:block;}
+.next-room-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.5rem;}
+.next-room-box h3{color:var(--amber);margin-bottom:.5rem;font-size:1.1rem;}
+.next-room-box p{font-size:.9rem;color:var(--text-muted);margin-bottom:0;}
+
+.escape-scene{margin-top:1.5rem;text-align:left;}
+.escape-scene p{opacity:0;transform:translateY(8px);transition:opacity .6s ease,transform .6s ease;color:var(--text);font-size:1rem;line-height:1.75;margin-bottom:1rem;}
+.escape-scene p.revealed{opacity:1;transform:translateY(0);}
+.escape-scene p:last-child{margin-bottom:0;}
+.escape-return{display:inline-block;margin-top:1.25rem;font-size:.85rem;color:var(--text-muted);text-decoration:underline;}
+.escape-return:hover,.escape-return:focus{color:var(--text);}
+
+.series-complete{position:fixed;inset:0;z-index:4000;display:none;align-items:center;justify-content:center;background:rgba(5,4,2,.96);padding:3rem 1.5rem;overflow-y:auto;}
+.series-complete.open{display:flex;}
+.sc-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.sc-particle{position:absolute;top:50%;left:50%;width:8px;height:8px;border-radius:2px;animation-name:resPFly;animation-timing-function:ease-out;animation-fill-mode:forwards;}
+@keyframes resPFly{0%{transform:translate(-50%,-50%) rotate(0deg);opacity:1;}100%{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) rotate(360deg);opacity:0;}}
+.sc-content{position:relative;z-index:1;max-width:640px;width:100%;text-align:left;animation:scFadeUp .6s ease both;}
+@keyframes scFadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.sc-eyebrow{display:block;font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:1rem;}
+.sc-heading{font-size:clamp(2.4rem,7vw,4.5rem);font-weight:800;letter-spacing:-.02em;line-height:1.05;color:var(--text);margin-bottom:.5rem;outline:none;}
+.sc-subtitle{font-size:1.05rem;color:var(--text-muted);margin-bottom:1.75rem;}
+.sc-divider{height:1px;background:var(--border);margin:1.75rem 0;}
+.sc-note p{font-size:.98rem;color:var(--text);line-height:1.75;margin-bottom:1rem;}
+.sc-note p:last-child{margin-bottom:0;}
+.sc-note-open{font-size:1.15rem;}
+.sc-sig{font-style:italic;color:var(--text-muted);margin-top:1.25rem;}
+.sc-stats{font-family:var(--mono);font-size:.85rem;color:var(--amber);background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);border-radius:var(--radius);padding:1rem 1.25rem;margin-bottom:1.75rem;line-height:1.6;}
+.sc-actions{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}
+.sc-link-plain{color:var(--text-muted);text-decoration:underline;font-size:.95rem;}
+.sc-link-plain:hover,.sc-link-plain:focus{color:var(--text);}
+@media(prefers-reduced-motion: reduce){.escape-scene p{transition:none;} .sc-content{animation:none;} .sc-particle{display:none;}}
+
+footer[role="contentinfo"]{border-top:1px solid var(--border);padding:2.5rem 2rem;color:var(--text-muted);font-size:.85rem;}
+.footer-inner{max-width:960px;margin:0 auto;display:flex;flex-direction:column;gap:.5rem;}
+.footer-platform{font-weight:600;color:var(--text-muted);}
+.footer-a11y{font-size:.8rem;color:var(--text-muted);line-height:1.6;}
+
+@media(max-width:768px){main{padding:2rem 1.25rem 4rem;} #timer-display{font-size:2.5rem;} th,td{padding:.5rem .35rem;font-size:.82rem;}}
+a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:3px;}
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<nav role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="ScreenPath — return to home page">
+      <span class="nav-logo-mark" aria-hidden="true">SP</span>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="progress.html">Progress</a></li>
+      <li><a href="feedback.html">Feedback</a></li>
+    </ul>
+    <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu" onclick="toggleMenu()">☰</button>
+  </div>
+  <div class="nav-drawer" id="nav-drawer" aria-label="Mobile navigation">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="progress.html">Progress</a>
+    <a href="feedback.html">Feedback</a>
+  </div>
+</nav>
+
+<main id="main-content" tabindex="-1">
+  <a href="index.html" class="back-link">← Back to Dashboard</a>
+
+  <div class="room-header">
+    <div class="room-meta">
+      <span class="room-badge">Room 4 of 4 — The Doctor's Visit</span>
+      <span class="room-level">Clinic Visit</span>
+      <span class="room-skill-badge">Focus: Interactive Tables &amp; Booking</span>
+    </div>
+    <h1>Room 4: The Front Desk</h1>
+  </div>
+
+  <figure role="img" aria-label="Clinic front desk image" style="margin-bottom:2.5rem;">
+    <img src="https://images.unsplash.com/photo-1764727291644-5dcb0b1a0375?w=860&q=80" alt="A modern clinic reception desk with a sign overhead and a clean, organized front desk workstation." loading="lazy">
+    <figcaption style="font-size:.82rem;color:var(--text-muted);margin-top:.6rem;font-family:var(--mono);letter-spacing:.03em;">The Doctor's Visit — Front Desk — Friday, 4:05 PM</figcaption>
+  </figure>
+
+  <section class="room-section">
+    <h2 id="situation-heading">Where You Are</h2>
+    <p id="scene-p1">You take a deep breath. You are officially done seeing the doctor, and your friends are waiting. Just as you turn for the exit, the receptionist calls you back: "Hold on, we need to book your next appointment before you go." The lobby behind you is packed, the phone at the desk will not stop ringing, and your own phone keeps buzzing with texts asking where you are.</p>
+    <p id="scene-p2">The receptionist tells you straight: there is exactly one opening left on the whole calendar, and once someone else grabs it, it is gone for months. Mom is ready to book it right now, but the clinic just switched to a brand new scheduling system and she has never touched it before, so she needs you to drive. This new system splits everything across two tables, one for the date and one for the times, so you will need to move between them to lock in the slot. Press the button below when you are ready. The moment you do, the clock starts and Mom will tell you the date to look for.</p>
+
+    <div class="narration-row">
+      <button class="narrate-btn" id="narrate-btn" onclick="toggleNarration()" aria-pressed="false" aria-label="Play — hear the situation read aloud">
+        <span id="narrate-icon" aria-hidden="true">▶</span>
+        <span id="narrate-label">Play Scene</span>
+      </button>
+      <span class="narrate-status" id="narrate-status" role="status" aria-live="polite" aria-atomic="true"></span>
+    </div>
+  </section>
+
+  <section class="room-section">
+    <h2>Book the Next Appointment</h2>
+
+    <div class="skill-focus">
+      <span class="skill-focus-label">Screen Reader Skill Focus</span>
+      <p>Practice linking two related tables together, in the exact order this new system requires: first find your assigned date in the calendar table below. Then move to the second table to see that date's available times. Activate the open time slot to reveal your confirmation code, then enter that code in the form to finalize the appointment.</p>
+    </div>
+
+    <div class="timer-area">
+      <div class="sound-row">
+        <span class="sound-label" id="sound-label">Sound effects:</span>
+        <button class="toggle-btn" id="sound-toggle" role="switch" aria-checked="true" aria-labelledby="sound-label" onclick="toggleSound()">
+          <span class="toggle-dot" aria-hidden="true"></span>
+          <span id="sound-text">On</span>
+        </button>
+      </div>
+      <p class="sound-note">Sound effects play during the room including timer warnings, booking feedback, and the finish. Turn them off here before starting if you prefer silence.</p>
+      <p class="timer-instructions" id="timer-instructions">Explore the calendar below first if you like. When you are ready, press the button to hear which date to look for and start the five minute clock.</p>
+      <span id="timer-display" aria-live="off" aria-label="Time remaining: 5 minutes 0 seconds">5:00</span>
+      <div>
+        <button class="btn btn-primary" id="start-timer-btn" onclick="startRoomTimer()">Start — Ask the Receptionist</button>
+      </div>
+    </div>
+
+    <h3 id="target-heading" style="font-size:1.15rem;font-weight:600;color:var(--amber);margin-bottom:1rem;">Your Assigned Date</h3>
+    <div class="target-prompt-card" id="target-prompt-card" aria-live="polite" aria-labelledby="target-heading">
+      <span class="target-prompt-label">Mom Says</span>
+      <p class="target-prompt-text" id="target-question-text"></p>
+    </div>
+
+    <div id="selection-announcement" class="narrate-status" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;" role="status" aria-live="assertive" aria-atomic="true"></div>
+
+    <div class="table-container">
+      <table>
+        <caption>September Appointment Calendar — press a date to see its available times</caption>
+        <thead>
+          <tr>
+            <th scope="col">Sunday</th>
+            <th scope="col">Monday</th>
+            <th scope="col">Tuesday</th>
+            <th scope="col">Wednesday</th>
+            <th scope="col">Thursday</th>
+            <th scope="col">Friday</th>
+            <th scope="col">Saturday</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="cal-empty" aria-hidden="true"></td>
+            <td class="cal-empty" aria-hidden="true"></td>
+            <td><button type="button" class="date-btn" onclick="loadTimeSlots(1)" aria-label="September 1, view appointment times">1</button></td>
+            <td><button type="button" class="date-btn" onclick="loadTimeSlots(2)" aria-label="September 2, view appointment times">2</button></td>
+            <td><button type="button" class="date-btn" onclick="loadTimeSlots(3)" aria-label="September 3, view appointment times">3</button></td>
+            <td><button type="button" class="date-btn" onclick="loadTimeSlots(4)" aria-label="September 4, view appointment times">4</button></td>
+            <td class="cal-closed"><span class="cal-daynum">5</span><span class="cal-closed-tag">Closed</span></td>
+          </tr>
+          <tr>
+            <td class="cal-closed"><span class="cal-daynum">6</span><span class="cal-closed-tag">Closed</span></td>
+            <td><button type="button" class="date-btn" onclick="loadTimeSlots(7)" aria-label="September 7, view appointment times">7</button></td>
+            <td><button type="button" class="date-btn" onclick="loadTimeSlots(8)" aria-label="September 8, view appointment times">8</button></td>
+            <td><button type="button" class="date-btn" onclick="loadTimeSlots(9)" aria-label="September 9, view appointment times">9</button></td>
+            <td><button type="button" class="date-btn" onclick="loadTimeSlots(10)" aria-label="September 10, view appointment times">10</button></td>
+            <td><button type="button" class="date-btn" onclick="loadTimeSlots(11)" aria-label="September 11, view appointment times">11</button></td>
+            <td class="cal-closed"><span class="cal-daynum">12</span><span class="cal-closed-tag">Closed</span></td>
+          </tr>
+          <tr>
+            <td class="cal-closed"><span class="cal-daynum">13</span><span class="cal-closed-tag">Closed</span></td>
+            <td><button type="button" class="date-btn" onclick="loadTimeSlots(14)" aria-label="September 14, view appointment times">14</button></td>
+            <td><button type="button" class="date-btn" onclick="loadTimeSlots(15)" aria-label="September 15, view appointment times">15</button></td>
+            <td><button type="button" class="date-btn" onclick="loadTimeSlots(16)" aria-label="September 16, view appointment times">16</button></td>
+            <td><button type="button" class="date-btn" onclick="loadTimeSlots(17)" aria-label="September 17, view appointment times">17</button></td>
+            <td><button type="button" class="date-btn" onclick="loadTimeSlots(18)" aria-label="September 18, view appointment times">18</button></td>
+            <td class="cal-closed"><span class="cal-daynum">19</span><span class="cal-closed-tag">Closed</span></td>
+          </tr>
+          <tr>
+            <td class="cal-closed"><span class="cal-daynum">20</span><span class="cal-closed-tag">Closed</span></td>
+            <td><button type="button" class="date-btn" onclick="loadTimeSlots(21)" aria-label="September 21, view appointment times">21</button></td>
+            <td><button type="button" class="date-btn" onclick="loadTimeSlots(22)" aria-label="September 22, view appointment times">22</button></td>
+            <td><button type="button" class="date-btn" onclick="loadTimeSlots(23)" aria-label="September 23, view appointment times">23</button></td>
+            <td><button type="button" class="date-btn" onclick="loadTimeSlots(24)" aria-label="September 24, view appointment times">24</button></td>
+            <td><button type="button" class="date-btn" onclick="loadTimeSlots(25)" aria-label="September 25, view appointment times">25</button></td>
+            <td class="cal-closed"><span class="cal-daynum">26</span><span class="cal-closed-tag">Closed</span></td>
+          </tr>
+          <tr>
+            <td class="cal-closed"><span class="cal-daynum">27</span><span class="cal-closed-tag">Closed</span></td>
+            <td><button type="button" class="date-btn" onclick="loadTimeSlots(28)" aria-label="September 28, view appointment times">28</button></td>
+            <td><button type="button" class="date-btn" onclick="loadTimeSlots(29)" aria-label="September 29, view appointment times">29</button></td>
+            <td><button type="button" class="date-btn" onclick="loadTimeSlots(30)" aria-label="September 30, view appointment times">30</button></td>
+            <td class="cal-empty" aria-hidden="true"></td>
+            <td class="cal-empty" aria-hidden="true"></td>
+            <td class="cal-empty" aria-hidden="true"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="table-2-section">
+      <h3 id="table-2-heading" tabindex="-1" style="font-size:1.15rem;font-weight:600;color:var(--amber);margin:2rem 0 1rem;">Available Appointment Times</h3>
+      <p id="selected-date-heading" style="color:var(--text-muted);font-size:.92rem;">Select a date button from the calendar above to view its time slots.</p>
+
+      <div class="table-container">
+        <table class="time-table">
+          <caption>Time slots for the selected date</caption>
+          <thead>
+            <tr>
+              <th scope="col">Time</th>
+              <th scope="col">Period</th>
+              <th scope="col">Availability</th>
+              <th scope="col">Book</th>
+            </tr>
+          </thead>
+          <tbody id="time-table-body">
+            <tr>
+              <td colspan="4" style="text-align:center;color:var(--text-muted);">No date selected yet.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="code-reveal-box" id="code-reveal-box" aria-live="assertive">
+      <p class="code-reveal-label">Appointment held. Here is your confirmation code:</p>
+      <div class="code-reveal-text" id="revealed-code-display">APT-000</div>
+      <p class="code-reveal-hint">Copy this code, or type it, into the confirmation box below.</p>
+    </div>
+
+    <div class="challenge-form-card">
+      <form id="confirm-form" novalidate>
+        <div class="form-field">
+          <label for="code-input" id="input-label-text">Enter the confirmation code</label>
+          <span class="field-hint">Spacing and punctuation do not need to match exactly. Example format: APT-911</span>
+          <input type="text" id="code-input" required placeholder="e.g. APT-911" autocomplete="off" aria-describedby="feedback-msg" disabled>
+        </div>
+        <button type="submit" class="submit-btn" id="submit-btn" disabled>Confirm Appointment</button>
+      </form>
+      <div id="feedback-msg" class="feedback-box" role="status" aria-live="assertive"></div>
+      <button type="button" id="switch-practice" class="btn btn-secondary" style="margin-top:1rem;" hidden>Switch to practice — remove deadline</button>
+    </div>
+
+    <div class="next-room-box" id="completion-box" aria-labelledby="completion-heading" aria-live="polite">
+      <span class="next-room-label">// The Doctor's Visit — Complete</span>
+      <h3 id="completion-heading" tabindex="-1" style="outline:none;">Appointment Booked.</h3>
+      <div class="escape-scene" id="escape-scene">
+        <p id="escape-p1">The confirmation code goes through. Appointment booked.</p>
+        <p id="escape-p2">You walk out of the clinic and the afternoon sun hits you full in the face. Somehow, you are still on time.</p>
+        <p id="escape-p3">That took real focus under real pressure. Every table, every form, every clock you beat today, that was you.</p>
+        <p id="escape-p4">Go find your friends. You earned it.</p>
+      </div>
+      <a href="index.html" class="escape-return">Return to ScreenPath</a>
+    </div>
+  </section>
+</main>
+
+<div class="series-complete" id="series-complete" role="dialog" aria-modal="true" aria-labelledby="sc-heading" aria-hidden="true">
+  <div class="sc-particles" id="sc-particles" aria-hidden="true"></div>
+  <div class="sc-content">
+    <span class="sc-eyebrow">The Doctor's Visit — Series Complete</span>
+    <h2 class="sc-heading" id="sc-heading" tabindex="-1">You made the appointment.</h2>
+    <p class="sc-subtitle">Riverside Pediatrics — Front Desk</p>
+    <div class="sc-divider" aria-hidden="true"></div>
+    <div class="sc-note">
+      <p class="sc-note-open"><strong>I am so proud of you.</strong></p>
+      <p>You just booked an appointment while the phone kept ringing, the lobby stayed packed, and Mom was counting on you to move fast. You did not freeze up. You worked the calendar, found the right table, and got it done before that slot disappeared.</p>
+      <p>That is the same skill you will use for the rest of your life: staying calm and organized when a system is confusing and the clock is not on your side. You have now proven you can do that in four different rooms, four different ways.</p>
+      <p class="sc-sig">— Moises</p>
+    </div>
+    <div class="sc-divider" aria-hidden="true"></div>
+    <p class="sc-stats" id="sc-stats" aria-live="off"></p>
+    <div class="sc-actions">
+      <a href="progress.html" class="btn btn-primary">View My Progress</a>
+      <a href="index.html" class="sc-link-plain">Return to ScreenPath</a>
+    </div>
+  </div>
+</div>
+
+<footer role="contentinfo">
+  <div class="footer-inner">
+    <p class="footer-platform">ScreenPath — The Doctor's Visit — Screen Reader Escape Room</p>
+    <p class="footer-a11y">ScreenPath is designed for screen reader users. Every page is fully navigable by keyboard and compatible with JAWS, NVDA, and VoiceOver. If you encounter any accessibility issue please contact your instructor.</p>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu(){
+    var d=document.getElementById('nav-drawer'), b=document.getElementById('menu-btn');
+    var open=d.classList.toggle('open');
+    b.setAttribute('aria-expanded',open?'true':'false');
+    b.textContent=open?'✕':'☰';
+  }
+  function announce(msg){
+    var el=document.createElement('div');
+    el.setAttribute('aria-live','assertive');el.setAttribute('aria-atomic','true');
+    el.style.cssText='position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;';
+    document.body.appendChild(el);
+    setTimeout(function(){el.textContent=msg;setTimeout(function(){el.remove();},4500);},100);
+  }
+  function revealCompletion(boxId,headingId){
+    var box=document.getElementById(boxId);
+    box.classList.add('visible');
+    setTimeout(function(){
+      box.scrollIntoView({behavior:'smooth',block:'center'});
+      var h=document.getElementById(headingId);
+      if(h)h.focus({preventScroll:true});
+    },80);
+  }
+  function todayStr(){return new Date().toISOString().split('T')[0];}
+
+  // ── Practice vs Challenge — chosen back in Room 1's gate. If a student ──
+  // ── links straight into this room, sp_doctor_mode is simply absent and ──
+  // ── the room falls back to normal timed Challenge behavior. ─────────────
+  let practiceMode=false;
+  (function(){
+    try{
+      practiceMode=localStorage.getItem('sp_doctor_mode')==='practice';
+      var sr=localStorage.getItem('sp_doctor_screenreader');
+      if(sr){
+        var sess=JSON.parse(localStorage.getItem('sp_doctor_current_session')||'null');
+        if(sess&&!sess.screenReader){
+          sess.screenReader=sr;
+          localStorage.setItem('sp_doctor_current_session',JSON.stringify(sess));
+        }
+      }
+    }catch(e){}
+  })();
+
+  const datePool=[
+    {dateNum:3,openTime:"10:15 AM",code:"APT-303"},
+    {dateNum:7,openTime:"9:30 AM",code:"APT-707"},
+    {dateNum:9,openTime:"1:45 PM",code:"APT-909"},
+    {dateNum:14,openTime:"2:15 PM",code:"APT-414"},
+    {dateNum:15,openTime:"11:30 AM",code:"APT-515"},
+    {dateNum:21,openTime:"8:45 AM",code:"APT-121"},
+    {dateNum:22,openTime:"3:15 PM",code:"APT-222"},
+    {dateNum:24,openTime:"2:45 PM",code:"APT-424"},
+    {dateNum:29,openTime:"10:00 AM",code:"APT-929"}
+  ];
+  let currentTargetDateNum=null,currentTargetTime="",currentTargetCode="",selectedDateNum=null,attempts=0;
+
+  (function(){
+    const chosen=datePool[Math.floor(Math.random()*datePool.length)];
+    currentTargetDateNum=chosen.dateNum;
+    currentTargetTime=chosen.openTime;
+    currentTargetCode=chosen.code;
+  })();
+
+  function loadTimeSlots(dayNum){
+    selectedDateNum=dayNum;
+    document.getElementById('selection-announcement').textContent='September '+dayNum+' selected. Showing its time table.';
+    document.getElementById('selected-date-heading').textContent='Time slots for September '+dayNum+':';
+
+    const tbody=document.getElementById('time-table-body');
+    tbody.innerHTML='';
+    document.getElementById('code-reveal-box').classList.remove('visible');
+    const feedback=document.getElementById('feedback-msg');
+    feedback.className='feedback-box';feedback.style.display='none';
+
+    let slots;
+    if(dayNum===currentTargetDateNum){
+      slots=[
+        {time:"8:30 AM",period:"Morning",open:false},
+        {time:currentTargetTime,period:currentTargetTime.indexOf('AM')>-1?'Morning':'Afternoon',open:true},
+        {time:"1:15 PM",period:"Afternoon",open:false},
+        {time:"4:00 PM",period:"Afternoon",open:false}
+      ];
+    }else{
+      slots=["9:00 AM","11:15 AM","1:30 PM","3:45 PM"].map(function(t){return {time:t,period:t.indexOf('AM')>-1?'Morning':'Afternoon',open:false};});
+    }
+
+    slots.forEach(function(s){
+      const tr=document.createElement('tr');
+      const statusHtml=s.open?'<span class="status-open">Open</span>':'<span class="status-closed">Closed</span>';
+      const btnClass=s.open?'slot-btn':'slot-btn slot-closed';
+      const btnLabel='Book the '+s.time+' slot, '+(s.open?'open':'closed');
+      tr.innerHTML='<td style="font-weight:700;">'+s.time+'</td><td>'+s.period+'</td><td>'+statusHtml+'</td><td><button type="button" class="'+btnClass+'" onclick="bookSlot('+s.open+',\''+s.time+'\')" aria-label="'+btnLabel+'">Book</button></td>';
+      tbody.appendChild(tr);
+    });
+
+    document.getElementById('table-2-heading').focus();
+  }
+
+  function bookSlot(isOpen,timeStr){
+    const feedback=document.getElementById('feedback-msg');
+    if(isOpen){
+      sfxPing();
+      feedback.className='feedback-box';feedback.style.display='none';
+      revealCode(currentTargetCode);
+    }else{
+      sfxError();
+      document.getElementById('code-reveal-box').classList.remove('visible');
+      feedback.className='feedback-box error';
+      feedback.textContent='That '+timeStr+' slot is not available. Look for the slot marked Open.';
+      feedback.style.display='block';
+    }
+  }
+
+  function revealCode(codeStr){
+    const box=document.getElementById('code-reveal-box');
+    box.classList.add('visible');
+    document.getElementById('revealed-code-display').textContent=codeStr;
+    document.getElementById('code-input').focus();
+  }
+
+  let audioCtx=null,soundEnabled=true;
+  function getCtx(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx;}
+  function tone(f,d,t,v,dl){
+    t=t||'sine';v=v||.35;dl=dl||0;
+    if(!soundEnabled)return;
+    try{
+      const ctx=getCtx(),o=ctx.createOscillator(),g=ctx.createGain();
+      o.connect(g);g.connect(ctx.destination);o.type=t;
+      o.frequency.setValueAtTime(f,ctx.currentTime+dl);
+      g.gain.setValueAtTime(0,ctx.currentTime+dl);
+      g.gain.linearRampToValueAtTime(v,ctx.currentTime+dl+0.01);
+      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+dl+d);
+      o.start(ctx.currentTime+dl);o.stop(ctx.currentTime+dl+d+0.05);
+    }catch(e){}
+  }
+  function sfxStart(){tone(440,.12,'square',.28,0);tone(554,.12,'square',.28,.13);tone(659,.22,'square',.32,.26);}
+  function sfxPing(){tone(880,.07,'sine',.3,0);tone(880,.07,'sine',.3,.14);}
+  function sfxWarn(){tone(1100,.09,'square',.3,0);tone(1100,.09,'square',.3,.17);tone(1100,.09,'square',.3,.34);}
+  function sfxTick(){tone(1400,.04,'square',.18,0);}
+  function sfxFail(){tone(660,.22,'sawtooth',.38,0);tone(550,.22,'sawtooth',.38,.25);tone(440,.22,'sawtooth',.38,.5);}
+  function sfxError(){tone(220,.15,'sawtooth',.3,0);tone(180,.25,'sawtooth',.28,.18);}
+  function toggleSound(){
+    soundEnabled=!soundEnabled;
+    const btn=document.getElementById('sound-toggle');
+    btn.setAttribute('aria-checked',soundEnabled?'true':'false');
+    document.getElementById('sound-text').textContent=soundEnabled?'On':'Off';
+    announce('Sound effects '+(soundEnabled?'on':'off'));
+    if(soundEnabled)sfxPing();
+  }
+
+  const TOTAL=5*60;
+  let secondsLeft=TOTAL,elapsed=0,interval=null,started=false,complete=false;
+
+  function startRoomTimer(){
+    if(started)return;
+    started=true;
+    document.getElementById('target-prompt-card').classList.add('visible');
+    document.getElementById('target-question-text').textContent='Mom leans over and says, "September '+currentTargetDateNum+' is the only opening left. Let\'s get it locked in before it is gone."';
+    document.getElementById('code-input').disabled=false;
+    document.getElementById('submit-btn').disabled=false;
+    document.getElementById('start-timer-btn').style.display='none';
+    const tog=document.getElementById('sound-toggle');tog.disabled=true;tog.setAttribute('aria-disabled','true');
+    sfxStart();
+    if(practiceMode){
+      const d=document.getElementById('timer-display');
+      d.textContent='No limit';
+      d.setAttribute('aria-label','Practice mode: no time limit');
+      document.getElementById('timer-instructions').textContent='Your assigned date is revealed above. Practice mode: no deadline, work through the calendar at your own pace.';
+      announce('Your assigned date is revealed above the calendar. Practice mode: no deadline. Find that date in the calendar table.');
+    } else {
+      document.getElementById('timer-instructions').textContent='Your assigned date is revealed above. Find it in the calendar table. Five minutes on the clock.';
+      announce('Your assigned date is revealed above the calendar. Five minutes. Find that date in the calendar table.');
+    }
+    interval=setInterval(tick,1000);
+  }
+  function tick(){
+    if(practiceMode){elapsed++;return;}
+    secondsLeft--;elapsed++;
+    updateDisplay();
+    const m=Math.floor(secondsLeft/60),s=secondsLeft%60;
+    if(s===0&&m>0){sfxPing();announce(m===1?'One minute remaining.':m+' minutes remaining.');}
+    if(secondsLeft===30){document.getElementById('timer-display').classList.add('warning');sfxWarn();announce('Thirty seconds remaining.');}
+    if(secondsLeft===10){const d=document.getElementById('timer-display');d.classList.remove('warning');d.classList.add('critical');announce('Ten seconds remaining.');}
+    if(secondsLeft<=10&&secondsLeft>0)sfxTick();
+    if(secondsLeft<=0){clearInterval(interval);handleTimeExpired();}
+  }
+  function updateDisplay(){
+    const m=Math.floor(secondsLeft/60),s=secondsLeft%60;
+    const d=document.getElementById('timer-display');
+    d.textContent=m+':'+String(s).padStart(2,'0');
+    d.setAttribute('aria-label','Time remaining: '+m+' minutes and '+s+' seconds');
+  }
+  function fmtElapsed(s){const m=Math.floor(s/60),sec=s%60;if(m===0)return sec+' second'+(sec!==1?'s':'');if(sec===0)return m+' minute'+(m!==1?'s':'');return m+' minute'+(m!==1?'s':'')+' and '+sec+' second'+(sec!==1?'s':'');}
+
+  function handleTimeExpired(){
+    sfxFail();
+    const feedback=document.getElementById('feedback-msg');
+    feedback.className='feedback-box error';
+    feedback.textContent='Good effort. The five minutes ran out before you booked the appointment, but you know the calendar better now than when you started.';
+    document.getElementById('confirm-form').querySelectorAll('input,button').forEach(function(el){el.disabled=true;});
+    const sw=document.getElementById('switch-practice');
+    sw.hidden=false;
+    sw.focus();
+    announce('Time is up. You can switch to practice mode to keep working with no deadline.');
+  }
+
+  function switchToPractice(){
+    try{localStorage.setItem('sp_doctor_mode','practice');}catch(e){}
+    practiceMode=true;
+    const feedback=document.getElementById('feedback-msg');
+    feedback.className='feedback-box';feedback.style.display='none';feedback.textContent='';
+    document.getElementById('switch-practice').hidden=true;
+    document.getElementById('confirm-form').querySelectorAll('input,button').forEach(function(el){el.disabled=false;});
+    const d=document.getElementById('timer-display');
+    d.classList.remove('warning','critical');
+    d.textContent='No limit';
+    d.setAttribute('aria-label','Practice mode: no time limit');
+    document.getElementById('timer-instructions').textContent='Practice mode: no deadline. Take your time booking the appointment.';
+    interval=setInterval(tick,1000);
+    announce('Deadline removed. Keep working, there is no rush.');
+  }
+  document.getElementById('switch-practice').addEventListener('click',switchToPractice);
+
+  let narSpeaking=false,narUtterance=null;
+  function getNarText(){return ['scene-p1','scene-p2'].map(function(id){var el=document.getElementById(id);return el?el.innerText.replace(/\s+/g,' ').trim():'';}).filter(Boolean).join(' ... ');}
+  function toggleNarration(){narSpeaking?stopNar():startNar();}
+  function startNar(){
+    if(!window.speechSynthesis){updateNarStatus('Speech not supported in this browser.');return;}
+    window.speechSynthesis.cancel();
+    narUtterance=new SpeechSynthesisUtterance(getNarText());
+    narUtterance.rate=0.82;narUtterance.pitch=0.88;narUtterance.volume=1.0;
+    function applyVoice(){
+      const vv=window.speechSynthesis.getVoices();
+      const v=vv.find(v=>v.lang.startsWith('en')&&/natural|enhanced|premium/i.test(v.name))||vv.find(v=>v.lang.startsWith('en')&&/daniel|samantha|karen|google|microsoft/i.test(v.name))||vv.find(v=>v.lang==='en-US')||vv.find(v=>v.lang.startsWith('en'))||null;
+      if(v)narUtterance.voice=v;
+    }
+    const vv=window.speechSynthesis.getVoices();
+    if(vv.length>0){applyVoice();window.speechSynthesis.speak(narUtterance);}
+    else{window.speechSynthesis.onvoiceschanged=function(){applyVoice();window.speechSynthesis.speak(narUtterance);window.speechSynthesis.onvoiceschanged=null;};setTimeout(function(){if(!narSpeaking){applyVoice();window.speechSynthesis.speak(narUtterance);}},500);}
+    narUtterance.onstart=function(){narSpeaking=true;setNarBtn(true);updateNarStatus('Playing...');};
+    narUtterance.onend=function(){narSpeaking=false;setNarBtn(false);updateNarStatus('Done.');setTimeout(function(){updateNarStatus('');},3000);};
+    narUtterance.onerror=function(){narSpeaking=false;setNarBtn(false);updateNarStatus('');};
+  }
+  function stopNar(){window.speechSynthesis.cancel();narSpeaking=false;setNarBtn(false);updateNarStatus('Stopped.');setTimeout(function(){updateNarStatus('');},2000);}
+  function setNarBtn(p){
+    const btn=document.getElementById('narrate-btn');
+    document.getElementById('narrate-icon').textContent=p?'■':'▶';
+    document.getElementById('narrate-label').textContent=p?'Stop Scene':'Play Scene';
+    btn.setAttribute('aria-pressed',p?'true':'false');
+    btn.setAttribute('aria-label',p?'Stop — pause the scene narration':'Play — hear the situation read aloud');
+    p?btn.classList.add('playing'):btn.classList.remove('playing');
+  }
+  function updateNarStatus(msg){document.getElementById('narrate-status').textContent=msg;}
+  window.addEventListener('beforeunload',function(){if(window.speechSynthesis)window.speechSynthesis.cancel();});
+
+  function normalizeCode(s){return (s||'').toUpperCase().replace(/[^A-Z0-9]/g,'');}
+
+  function sfxDoorOpen(){
+    tone(196.00,.25,'sine',.3,0);
+    tone(246.94,.25,'sine',.32,.22);
+    tone(329.63,.35,'sine',.35,.44);
+    tone(392.00,.5,'sine',.4,.68);
+    tone(523.25,.7,'sine',.42,.95);
+  }
+
+  function getBestVoice(){
+    if(!window.speechSynthesis)return null;
+    const vv=window.speechSynthesis.getVoices();
+    return vv.find(function(v){return v.lang.startsWith('en')&&/natural|enhanced|premium/i.test(v.name);})
+      ||vv.find(function(v){return v.lang.startsWith('en')&&/daniel|samantha|karen|google|microsoft/i.test(v.name);})
+      ||vv.find(function(v){return v.lang==='en-US';})
+      ||vv.find(function(v){return v.lang.startsWith('en');})
+      ||null;
+  }
+  function speakEscapeLine(text){
+    if(!window.speechSynthesis)return;
+    const u=new SpeechSynthesisUtterance(text);
+    u.rate=0.78;u.pitch=0.88;u.volume=1.0;
+    const v=getBestVoice();
+    if(v)u.voice=v;
+    window.speechSynthesis.speak(u);
+  }
+
+  function playEscapeScene(){
+    if(window.speechSynthesis)window.speechSynthesis.cancel();
+    sfxDoorOpen();
+    const lines=[
+      "The confirmation code goes through. Appointment booked.",
+      "You walk out of the clinic and the afternoon sun hits you full in the face. Somehow, you are still on time.",
+      "That took real focus under real pressure. Every table, every form, every clock you beat today, that was you.",
+      "Go find your friends. You earned it."
+    ];
+    const stepDelays=[0,3500,7000,10500];
+    const base=150;
+    lines.forEach(function(text,i){
+      setTimeout(function(){
+        const p=document.getElementById('escape-p'+(i+1));
+        if(p)p.classList.add('revealed');
+        speakEscapeLine(text);
+      },base+stepDelays[i]);
+    });
+    const totalDuration=base+10500+4500;
+    setTimeout(function(){
+      const sess=saveDoctorCompletedSession();
+      showSeriesComplete(sess);
+    },totalDuration);
+  }
+
+  function saveDoctorCompletedSession(){
+    try{
+      const today=todayStr();
+      let sess=JSON.parse(localStorage.getItem('sp_doctor_current_session')||'null')||{startDate:today,workDates:[today],screenReader:'',rooms:[]};
+      sess.endDate=today;
+      if(!sess.workDates)sess.workDates=[];
+      if(sess.workDates.indexOf(today)===-1)sess.workDates.push(today);
+      sess.seriesComplete=true;
+      sess.seriesCompleteDate=today;
+      const sessions=JSON.parse(localStorage.getItem('sp_doctor_sessions')||'[]');
+      sessions.push(sess);
+      localStorage.setItem('sp_doctor_sessions',JSON.stringify(sessions));
+      localStorage.removeItem('sp_doctor_current_session');
+      return sess;
+    }catch(e){return null;}
+  }
+
+  function renderStats(sess){
+    const el=document.getElementById('sc-stats');
+    if(!el)return;
+    if(!sess||!sess.rooms||!sess.rooms.length){el.textContent='';return;}
+    const rooms=sess.rooms;
+    const totalTime=rooms.reduce(function(a,r){return a+(r.timeUsed||0);},0);
+    const totalAttempts=rooms.reduce(function(a,r){return a+(r.attempts||0);},0);
+    let dateStr=sess.seriesCompleteDate||todayStr();
+    try{dateStr=new Date(dateStr+'T00:00:00').toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});}catch(e){}
+    el.textContent='Completed '+dateStr+' — '+rooms.length+' of 4 rooms — '+fmtElapsed(totalTime)+' total time — '+totalAttempts+' attempt'+(totalAttempts!==1?'s':'')+' total.';
+  }
+
+  function scKeyHandler(e){
+    if(e.key!=='Tab')return;
+    const modal=document.getElementById('series-complete');
+    const focusable=modal.querySelectorAll('a[href]');
+    if(!focusable.length)return;
+    const first=focusable[0],last=focusable[focusable.length-1];
+    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+    else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+  }
+
+  function createSeriesParticles(){
+    const container=document.getElementById('sc-particles');
+    container.innerHTML='';
+    if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    const colors=['#f5a623','#ffcc00','#ffffff','#ffe0a3','#39d98a','#4da6ff'];
+    for(let i=0;i<80;i++){
+      const p=document.createElement('div');
+      p.className='sc-particle';
+      const angle=Math.random()*Math.PI*2;
+      const dist=80+Math.random()*260;
+      const dx=Math.cos(angle)*dist,dy=Math.sin(angle)*dist;
+      p.style.setProperty('--dx',dx+'px');
+      p.style.setProperty('--dy',dy+'px');
+      p.style.background=colors[Math.floor(Math.random()*colors.length)];
+      p.style.animationDelay=(Math.random()*.3)+'s';
+      p.style.animationDuration=(1.1+Math.random()*.9)+'s';
+      container.appendChild(p);
+    }
+  }
+
+  function showSeriesComplete(sess){
+    const modal=document.getElementById('series-complete');
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    createSeriesParticles();
+    renderStats(sess);
+    setTimeout(function(){
+      const h=document.getElementById('sc-heading');
+      if(h)h.focus({preventScroll:true});
+    },400);
+    document.addEventListener('keydown',scKeyHandler);
+    announce('Series complete. You booked the appointment. Read your message and use the links below to view your progress or return home.');
+  }
+
+  document.getElementById('confirm-form').addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!started)return;
+    attempts++;
+    const inputEl=document.getElementById('code-input');
+    const feedback=document.getElementById('feedback-msg');
+    inputEl.classList.remove('field-error');
+
+    const userNorm=normalizeCode(inputEl.value);
+    const targetNorm=normalizeCode(currentTargetCode);
+
+    if(userNorm===''||userNorm!==targetNorm){
+      inputEl.classList.add('field-error');
+      feedback.className='feedback-box error';
+      feedback.textContent='That confirmation code does not match yet. Check the code shown after you book the open slot in the time table.';
+      inputEl.focus();sfxError();return;
+    }
+
+    if(!complete){
+      complete=true;
+      clearInterval(interval);
+      try{
+        localStorage.setItem('sp_doctor_room4_complete','1');
+        var today=todayStr();
+        var sess=JSON.parse(localStorage.getItem('sp_doctor_current_session')||'null')||{startDate:today,workDates:[today],screenReader:'',rooms:[]};
+        if(!sess.workDates)sess.workDates=[];
+        if(sess.workDates.indexOf(today)===-1)sess.workDates.push(today);
+        var pct=Math.min(100,Math.round((elapsed/TOTAL)*100));
+        sess.rooms=(sess.rooms||[]).filter(function(r){return r.roomKey!=='4';});
+        sess.rooms.push({roomKey:'4',dateCompleted:today,attempts:attempts,timeUsed:elapsed,timeAllowed:TOTAL,pct:pct});
+        localStorage.setItem('sp_doctor_current_session',JSON.stringify(sess));
+      }catch(e){}
+    }
+
+    this.querySelectorAll('input,button[type="submit"]').forEach(function(el){el.disabled=true;});
+    feedback.className='feedback-box success';
+    feedback.textContent='Correct. Appointment confirmed in '+fmtElapsed(elapsed)+' with '+attempts+' attempt'+(attempts!==1?'s':'')+'.';
+    revealCompletion('completion-box','completion-heading');
+    announce('Correct. Appointment confirmed. The Doctor\'s Visit is complete.');
+    playEscapeScene();
+  });
+</script>
+</body>
+</html>

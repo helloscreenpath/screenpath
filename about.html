@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About — ScreenPath</title>
-  
+  <script>
+    (function(){
+      try { if(localStorage.getItem('sp_theme')==='light') document.documentElement.classList.add('light'); } catch(e){}
+    })();
+  </script>
   <style>
     :root {
       --bg:#080808; --surface:#111111; --surface-2:#1c1c1c; --border:#2a2a2a;
@@ -84,7 +89,7 @@
     footer { background:var(--surface); border-top:1px solid var(--border); padding:2.5rem 2rem; transition:background var(--ease),border-color var(--ease); }
     .footer-minimal { max-width:1400px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1.5rem; }
     .f-logo { display:flex; align-items:center; gap:.55rem; text-decoration:none; }
-    .f-logo-mark { width:26px; height:26px; background:var(--green); border-radius:6px; display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:.62rem; font-weight:800; color:#000; }
+    .f-logo-mark { display:flex; align-items:center; }
     .f-logo-name { font-size:.9rem; font-weight:700; color:var(--text); }
     .f-nav { display:flex; gap:1.5rem; list-style:none; }
     .f-nav a { font-size:.84rem; color:var(--text-muted); text-decoration:none; transition:color var(--ease); }
@@ -103,21 +108,40 @@
     }
     a:focus-visible,button:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:3px; }
   </style>
-<link rel="stylesheet" href="screenpath.css"></head>
+</head>
 <body>
 
   <a class="skip-link" href="#main">Skip to main content</a>
 
-  <nav role="navigation" aria-label="Main navigation"><div class="nav-inner"><a class="sp-wordmark" href="index.html" aria-label="ScreenPath home">Screen<span>Path</span></a><ul class="nav-links"><li><a href="index.html">Activities</a></li><li><a href="progress.html">My Progress</a></li><li><a href="teachers.html">For Teachers</a></li><li><a href="about.html" aria-current="page">About</a></li><li><a href="feedback.html">Feedback</a></li></ul><button id="menu-btn" class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu" onclick="toggleMenu()">☰</button></div><div class="nav-drawer" id="nav-drawer" hidden=""><a href="index.html">Activities</a><a href="progress.html">My Progress</a><a href="teachers.html">For Teachers</a><a href="about.html" aria-current="page">About</a><a href="feedback.html">Feedback</a></div></nav>
+  <nav role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="ScreenPath — return to home page">
+        <div class="nav-logo-mark" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:var(--green);color:#000;font-family:var(--font);font-weight:800;font-size:.85rem;letter-spacing:-.02em;flex-shrink:0;">SP</div>
+
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html" aria-current="page">About</a></li>
+        <li><a href="progress.html">Progress</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+      </ul>
+      <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu" onclick="toggleMenu()">☰</button>
+    </div>
+    <div class="nav-drawer" id="nav-drawer" aria-label="Mobile navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html" aria-current="page">About</a>
+      <a href="feedback.html">Feedback</a>
+    </div>
+  </nav>
 
   <!-- Page hero — always dark -->
-  
-
-  <main id="main" tabindex="-1"><noscript>&lt;p class="sp-note"&gt;JavaScript is needed for the activities and saved progress. Please enable it, or contact screenpathedu@gmail.com for help.&lt;/p&gt;</noscript><div class="page-hero">
+  <div class="page-hero">
     <span class="page-hero-eyebrow" aria-hidden="true">About ScreenPath</span>
-    <h1 class="page-hero-title" tabindex="-1">Built for every student<br>who ever felt left out.</h1>
+    <h1 class="page-hero-title">Built for every student<br>who ever felt left out.</h1>
     <p class="page-hero-sub">A free accessible learning platform for screen reader users. No cost. No login. No barriers.</p>
   </div>
+
+  <main id="main" tabindex="-1">
     <div class="about-wrap">
 
       <!-- Opening — display statement, not a heading -->
@@ -134,7 +158,7 @@
       <hr class="about-divider" aria-hidden="true">
 
       <!-- What ScreenPath is for -->
-      <h2 class="about-h2" tabindex="-1">What ScreenPath is for</h2>
+      <h2 class="about-h2">What ScreenPath is for</h2>
 
       <p class="about-p">ScreenPath is not here to teach screen reader navigation from scratch. Your teacher does that. ScreenPath is here for what comes after.</p>
 
@@ -145,11 +169,11 @@
       <hr class="about-divider" aria-hidden="true">
 
       <!-- How progress works -->
-      <h2 class="about-h2" tabindex="-1" id="privacy">How progress works</h2><p>Results are stored in this browser on this device. Clearing browser data removes them. On a shared device, other people using this browser can see saved results. Copy or email results you want to keep before resetting progress.</p>
+      <h2 class="about-h2">How progress works</h2>
 
-      <p class="about-p">Each completed room records the time used and the number of answer submissions. Results appear immediately in My Progress.</p>
+      <p class="about-p">When you complete an activity ScreenPath quietly captures a few basic things. How long it took. How many attempts you made. Whether you completed it successfully. That is all.</p>
 
-      <p class="about-p">ScreenPath saves completed-room times, answer attempts, activity mode, and any optional reflection you add. You may choose to record which screen reader you use. No name or account is required. These results stay in this browser unless you choose to share them.</p>
+      <p class="about-p"><strong>No names. No personal information. Nothing is sent anywhere automatically.</strong> Everything stays on the device you are using. Your teacher uses this information to understand how you are progressing and where you might benefit from more practice.</p>
 
       <p class="about-p">At the end of each activity you will see a summary. From there you have three options.</p>
 
@@ -166,32 +190,53 @@
         </div>
         <div class="option-card" role="listitem">
           <span class="option-icon" aria-hidden="true">→</span>
-          <p class="option-title">Continue</p>
-          <p class="option-desc">Closes the summary and takes you to the next step and optional reflection.</p>
+          <p class="option-title">Skip</p>
+          <p class="option-desc">Closes the summary and moves on. No pressure. Your progress is still saved on this device.</p>
         </div>
       </div>
 
       <hr class="about-divider" aria-hidden="true">
 
       <!-- For teachers -->
-      <h2 class="about-h2" tabindex="-1">For teachers and AT specialists</h2>
+      <h2 class="about-h2">For teachers and AT specialists</h2>
 
       <p class="about-p">Use it with your students. Share it with your colleagues. No permission required. No cost. Ever.</p>
 
-      <p class="about-p">ScreenPath uses landmarks, headings, labeled fields, and keyboard controls to support screen-reader practice. Accessibility is ongoing work. Please report any barrier you encounter.</p>
+      <p class="about-p">Every page uses proper landmark structure. Every heading follows a logical order. Every image that matters has a description written for the experience. Every form field is labeled. Every button says what it does before it says anything else.</p>
 
-      <p class="about-p">Intended for use with JAWS and NVDA on Windows and VoiceOver on Apple devices. The latest changes still need hands-on testing with those screen readers. The teacher guide includes a testing checklist.</p>
+      <p class="about-p">Tested with JAWS on Windows, NVDA on Windows, and VoiceOver on Mac and iPhone. One honest note — the narration feature inside some activities uses the Web Speech API. It works best in Chrome and Edge and is always optional. Every activity works fully without it.</p>
 
       <p class="about-p"><strong>One thing worth knowing.</strong> ScreenPath is a fluency tool, not a teaching tool. Students need the foundation before they arrive here. What this platform builds on top of that is speed, confidence, and independence.</p>
 
       <p class="about-p">If your student is still building that foundation, a structured teaching packet is currently in development. It will include lessons, practice exercises, and instructional videos designed to take a student from no screen reader experience to the point where they are ready to practice independently on ScreenPath. If you would like to be notified when it becomes available, reach out at <a href="mailto:screenpathedu@gmail.com">screenpathedu@gmail.com</a> and I will be in touch.</p>
     </div>
-  <div class="sp-guide-link"><a class="sp-button" href="teachers.html">Read the teacher guide</a></div></main>
+  </main>
 
-  <footer><div class="sp-footer"><p><strong>ScreenPath</strong> — Free screen-reader practice.</p><p>Built by Moises Betancourt for screen reader learners everywhere.</p><div class="sp-actions"><a href="teachers.html">Teacher guide</a><a href="feedback.html">Feedback and accessibility help</a><a href="about.html#privacy">How your results are saved</a></div></div></footer>
+  <footer role="contentinfo">
+    <div class="footer-minimal">
+      <a href="index.html" class="f-logo" aria-label="ScreenPath — return to home page">
+        <div class="f-logo-mark" style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:var(--green);color:#000;font-family:var(--font);font-weight:800;font-size:.72rem;letter-spacing:-.02em;flex-shrink:0;">SP</div>
 
-  
+      </a>
+      <ul class="f-nav" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="progress.html">Progress</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+      </ul>
+      <p class="f-copy">Built by <strong>Moises Betancourt</strong> for screen reader learners everywhere. Free always.</p>
+    </div>
+  </footer>
 
+  <script>
+    function toggleMenu(){
+      var drawer=document.getElementById('nav-drawer');
+      var btn=document.getElementById('menu-btn');
+      var open=drawer.classList.toggle('open');
+      btn.setAttribute('aria-expanded',open?'true':'false');
+      btn.textContent=open?'✕':'☰';
+      btn.setAttribute('aria-label',open?'Close navigation menu':'Open navigation menu');
+    }
+  </script>
 
-
-<script src="screenpath.js"></script></body></html>
+</body>
+</html>

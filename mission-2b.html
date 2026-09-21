@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Room 2: The Exam Room — The Doctor's Visit — ScreenPath</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0a0a0a; --surface:#111111; --surface-2:#1a1a1a; --border:#2a2a2a;
+  --text:#f0f0f0; --text-muted:#8a8a8a;
+  --green:#39d98a; --green-dim:#0d2e1c;
+  --red:#ff4d4d; --red-dim:#2e0d0d;
+  --amber:#f5a623; --amber-dim:#2e1f00;
+  --radius:12px;
+  --font:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'SF Mono','Fira Code','Consolas',monospace;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:18px;line-height:1.7;min-height:100vh;}
+.skip-link{position:absolute;top:-100px;left:1rem;background:var(--amber);color:#000;padding:.75rem 1.5rem;border-radius:var(--radius);font-weight:600;font-size:1rem;text-decoration:none;z-index:9999;transition:top .2s;}
+.skip-link:focus{top:1rem;}
+
+nav[role="navigation"]{position:sticky;top:0;left:0;right:0;z-index:500;background:rgba(10,10,10,.95);backdrop-filter:blur(22px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;}
+.nav-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0;}
+.nav-logo-mark{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:var(--amber);color:#000;font-family:var(--font);font-weight:800;font-size:.85rem;flex-shrink:0;}
+.nav-links{display:flex;align-items:center;gap:.15rem;list-style:none;}
+.nav-links a{color:var(--text-muted);text-decoration:none;font-size:.86rem;font-weight:500;padding:.45rem .8rem;border-radius:100px;transition:color .2s,background .2s;white-space:nowrap;}
+.nav-links a:hover{color:var(--text);background:var(--surface-2);}
+.nav-links a:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:100px;}
+.menu-btn{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--border);border-radius:8px;padding:.42rem .55rem;cursor:pointer;color:var(--text-muted);font-size:1.15rem;line-height:1;}
+.menu-btn:hover{border-color:var(--amber);color:var(--text);}
+.menu-btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:8px;}
+.nav-drawer{display:none;flex-direction:column;background:rgba(10,10,10,.97);border-top:1px solid var(--border);padding:1rem 1.5rem 1.5rem;}
+.nav-drawer.open{display:flex;}
+.nav-drawer a{color:var(--text-muted);text-decoration:none;font-size:1rem;font-weight:500;padding:.65rem 0;border-bottom:1px solid var(--border);}
+.nav-drawer a:last-child{border-bottom:none;}
+@media(max-width:860px){.nav-links{display:none;} .menu-btn{display:flex;}}
+
+main{max-width:860px;margin:0 auto;padding:3rem 2rem 6rem;}
+.back-link{display:inline-flex;align-items:center;gap:.5rem;color:var(--text-muted);text-decoration:none;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase;margin-bottom:2.5rem;}
+.back-link:hover,.back-link:focus{color:var(--amber);}
+.back-link:focus-visible{outline:2px solid var(--amber);outline-offset:4px;border-radius:3px;}
+
+.room-header{margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--border);}
+.room-meta{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:1rem;}
+.room-badge{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);padding:.3rem .85rem;border-radius:100px;}
+.room-level{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);border:1px solid var(--border);padding:.3rem .85rem;border-radius:100px;}
+.room-skill-badge{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);border:1px solid rgba(57,217,138,.3);padding:.3rem .85rem;border-radius:100px;background:var(--green-dim);}
+h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;letter-spacing:-.02em;line-height:1.15;color:var(--text);}
+h2{font-size:1.4rem;font-weight:600;letter-spacing:-.01em;margin-bottom:1.25rem;color:var(--text);}
+.room-image-wrap{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);margin:1.75rem 0 2.5rem;background:var(--surface-2);}
+.room-image-wrap img{width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:cover;}
+.image-caption{font-size:.82rem;color:var(--text-muted);padding:.75rem 1rem;background:var(--surface);border-top:1px solid var(--border);}
+.room-section{margin-bottom:3.5rem;padding-bottom:3rem;border-bottom:1px solid var(--border);}
+.room-section:last-of-type{border-bottom:none;}
+p{margin-bottom:1rem;}
+p:last-child{margin-bottom:0;}
+
+.skill-focus{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--green);border-radius:var(--radius);padding:1.5rem;margin:1.5rem 0;}
+.skill-focus-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green);display:block;margin-bottom:.6rem;}
+.skill-focus p{font-size:.95rem;color:var(--text-muted);margin-bottom:0;line-height:1.75;}
+
+.narration-row{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;flex-wrap:wrap;}
+.narrate-btn{display:inline-flex;align-items:center;gap:.6rem;background:var(--surface);border:1px solid var(--green);color:var(--green);font-family:var(--font);font-size:.88rem;font-weight:600;padding:.6rem 1.4rem;border-radius:100px;cursor:pointer;transition:background .2s,transform .15s;}
+.narrate-btn:hover{background:var(--green-dim);transform:translateY(-1px);}
+.narrate-btn:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:100px;}
+.narrate-btn.playing{background:var(--green-dim);}
+.narrate-status{font-family:var(--mono);font-size:.78rem;color:var(--text-muted);}
+
+.timer-area{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin:2rem 0;text-align:center;}
+.sound-row{display:flex;align-items:center;justify-content:center;gap:.75rem;margin-bottom:.75rem;flex-wrap:wrap;}
+.sound-note{font-size:.82rem;color:var(--text-muted);font-style:italic;margin-bottom:1.25rem;line-height:1.5;}
+.sound-label{font-size:.88rem;color:var(--text-muted);font-family:var(--mono);letter-spacing:.04em;}
+.toggle-btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--surface-2);border:1px solid var(--border);border-radius:100px;color:var(--text-muted);font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;padding:.45rem 1.1rem;cursor:pointer;transition:border-color .2s,color .2s,background .2s;}
+.toggle-btn[aria-checked="true"]{border-color:var(--amber);color:var(--amber);background:var(--amber-dim);}
+.toggle-btn:focus-visible{outline:2px solid var(--amber);outline-offset:3px;}
+.toggle-dot{width:7px;height:7px;border-radius:50%;background:var(--text-muted);transition:background .2s;flex-shrink:0;}
+.toggle-btn[aria-checked="true"] .toggle-dot{background:var(--amber);}
+.timer-instructions{font-size:.95rem;color:var(--text-muted);margin-bottom:1.5rem;line-height:1.7;}
+#timer-display{font-family:var(--mono);font-size:3.5rem;font-weight:700;color:var(--amber);letter-spacing:.05em;display:block;margin-bottom:1.5rem;line-height:1;transition:color .3s;}
+#timer-display.warning{color:#ffcf70;}
+#timer-display.critical{color:var(--red);animation:pulse .8s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+
+.btn{display:inline-block;font-family:var(--font);font-size:1rem;font-weight:600;padding:.9rem 2.5rem;border-radius:100px;border:none;cursor:pointer;letter-spacing:.02em;transition:transform .15s,box-shadow .15s,background .2s;text-decoration:none;text-align:center;}
+.btn:focus-visible{outline:3px solid var(--amber);outline-offset:4px;}
+.btn-primary{background:var(--amber);color:#000;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,166,35,.3);}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none;}
+.btn-secondary{background:var(--surface-2);color:var(--text);border:1px solid var(--border);}
+.btn-secondary:hover{background:var(--surface);transform:translateY(-1px);}
+
+.audio-challenge-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin:1.5rem 0;text-align:center;}
+.play-beats-btn{background:var(--amber);color:#000;font-family:var(--font);font-weight:700;font-size:1.02rem;border:none;padding:.95rem 2rem;border-radius:100px;cursor:pointer;display:inline-flex;align-items:center;gap:.65rem;transition:transform .15s,box-shadow .2s;}
+.play-beats-btn:hover{transform:scale(1.02);box-shadow:0 4px 20px rgba(245,166,35,.3);}
+.play-beats-btn:focus-visible{outline:3px solid var(--amber);outline-offset:4px;}
+.play-beats-btn:disabled{opacity:.5;cursor:not-allowed;}
+.monitor-status{margin-top:1rem;font-family:var(--mono);font-size:.9rem;color:var(--amber);}
+
+.input-group{margin-top:1.5rem;display:flex;flex-direction:column;gap:.5rem;}
+.input-group label{font-size:.9rem;font-weight:600;color:var(--text);}
+.field-hint{display:block;font-size:.82rem;color:var(--text-muted);line-height:1.5;}
+.input-field-wrap{display:flex;gap:.75rem;flex-wrap:wrap;}
+.input-field-wrap input{flex:1;min-width:200px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:.75rem 1rem;color:var(--text);font-family:var(--mono);font-size:1rem;}
+.input-field-wrap input:focus{outline:2px solid var(--amber);border-color:transparent;}
+.input-field-wrap input.field-error{border:2px solid var(--red) !important;background:var(--red-dim);}
+.input-field-wrap input:disabled{opacity:.5;}
+.submit-btn{background:var(--amber);color:#000;font-family:var(--font);font-weight:700;font-size:.95rem;border:none;padding:.75rem 1.75rem;border-radius:8px;cursor:pointer;transition:transform .15s,opacity .2s;}
+.submit-btn:hover{transform:translateY(-1px);}
+.submit-btn:focus-visible{outline:2px solid var(--amber);outline-offset:4px;}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed;}
+.feedback-box{margin-top:1rem;padding:1rem 1.25rem;border-radius:8px;font-size:.9rem;display:none;line-height:1.6;}
+.feedback-box.success{background:var(--green-dim);border:1px solid rgba(57,217,138,.3);color:var(--green);display:block;}
+.feedback-box.error{background:var(--red-dim);border:1px solid rgba(255,77,77,.3);color:var(--red);display:block;}
+
+.bridge-msg{background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);border-radius:var(--radius);padding:1.5rem;margin-top:1.5rem;display:none;}
+.bridge-msg.visible{display:block;}
+.bridge-msg-label{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.5rem;}
+.bridge-msg p{font-size:.95rem;color:var(--text);line-height:1.7;margin-bottom:0;font-style:italic;}
+
+.next-room-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin-top:1.5rem;display:none;text-align:center;}
+.next-room-box.visible{display:block;}
+.next-room-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.5rem;}
+.next-room-box h3{color:var(--amber);margin-bottom:.5rem;font-size:1.1rem;outline:none;}
+.next-room-box p{font-size:.9rem;color:var(--text-muted);margin-bottom:1.5rem;}
+
+footer[role="contentinfo"]{border-top:1px solid var(--border);padding:2.5rem 2rem;color:var(--text-muted);font-size:.85rem;}
+.footer-inner{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:.5rem;}
+.footer-platform{font-weight:600;color:var(--text-muted);}
+.footer-a11y{font-size:.8rem;color:var(--text-muted);line-height:1.6;}
+
+@media(max-width:768px){main{padding:2rem 1.25rem 4rem;} #timer-display{font-size:2.5rem;}}
+a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:3px;}
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<nav role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="ScreenPath — return to home page">
+      <span class="nav-logo-mark" aria-hidden="true">SP</span>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="progress.html">Progress</a></li>
+      <li><a href="feedback.html">Feedback</a></li>
+    </ul>
+    <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu" onclick="toggleMenu()">☰</button>
+  </div>
+  <div class="nav-drawer" id="nav-drawer" aria-label="Mobile navigation">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="progress.html">Progress</a>
+    <a href="feedback.html">Feedback</a>
+  </div>
+</nav>
+
+<main id="main-content" tabindex="-1">
+  <a href="index.html" class="back-link">← Back to Dashboard</a>
+
+  <div class="room-header">
+    <div class="room-meta">
+      <span class="room-badge">Room 2 of 4 — The Doctor's Visit</span>
+      <span class="room-level">Clinic Visit</span>
+      <span class="room-skill-badge">Focus: Auditory Attention</span>
+    </div>
+    <h1>Room 2: The Exam Room</h1>
+  </div>
+
+  <figure role="img" aria-label="Exam room image" style="margin-bottom:2.5rem;">
+    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=860&q=80" alt="A clean doctor's examination room with a padded chair, an exam table covered in paper, a stethoscope hanging on the wall, and a digital heart monitor screen." loading="lazy">
+    <figcaption style="font-size:.82rem;color:var(--text-muted);margin-top:.6rem;font-family:var(--mono);letter-spacing:.03em;" id="image-caption">The Doctor's Visit — Exam Room — Friday, 3:52 PM</figcaption>
+  </figure>
+
+  <section class="room-section">
+    <h2 id="situation-heading">Where You Are</h2>
+    <p id="scene-p1">The nurse calls your name and walks you back to Exam Room 2. The paper crinkles under you as you climb up onto the table. Your mom settles into the chair by the door with a magazine, in no hurry at all, which only makes you more impatient to get this over with and get to your friend's house.</p>
+    <p id="scene-p2"><span id="doctor-name-slot">The doctor</span>'s clipboard flips to a form you have not seen before. This year's checkup includes a hearing screening, and the specialist who runs it is only in the building for a short session today before she drives to her next clinic. If the screening does not finish in her window, it does not get squeezed in later, it gets rescheduled for an entirely different day, an actual second trip back here on a future weekend. Press the button below when you are ready to begin. The moment you do, the clock starts and a short sequence of tones plays through the room speaker after a brief pause, so get comfortable and get ready to listen.</p>
+
+    <div class="narration-row">
+      <button class="narrate-btn" id="narrate-btn" onclick="toggleNarration()" aria-pressed="false" aria-label="Play — hear the situation read aloud">
+        <span id="narrate-icon" aria-hidden="true">▶</span>
+        <span id="narrate-label">Play Scene</span>
+      </button>
+      <span class="narrate-status" id="narrate-status" role="status" aria-live="polite" aria-atomic="true"></span>
+    </div>
+  </section>
+
+  <section class="room-section">
+    <h2>Complete the Hearing Screening</h2>
+
+    <div class="skill-focus">
+      <span class="skill-focus-label">Screen Reader Skill Focus</span>
+      <p>Practice focused auditory attention. Count every tone in the sequence, nothing else matters until it ends. You can replay the sequence as many times as you need, but each replay uses time from the same clock, so it pays to listen closely the first time instead of leaning on repeats.</p>
+    </div>
+
+    <div class="timer-area">
+      <div class="sound-row">
+        <span class="sound-label" id="sound-label">Sound effects:</span>
+        <button class="toggle-btn" id="sound-toggle" role="switch" aria-checked="true" aria-labelledby="sound-label" onclick="toggleSound()">
+          <span class="toggle-dot" aria-hidden="true"></span>
+          <span id="sound-text">On</span>
+        </button>
+      </div>
+      <p class="sound-note">Sound effects cover timer warnings and feedback on your answer, not the hearing screening tones themselves, so turning them off will not affect the test. Turn them off here before starting if you prefer silence otherwise.</p>
+      <p class="timer-instructions" id="timer-instructions">Explore the room if you like. When you are ready, press the button below to begin your hearing screening and start the three minute clock.</p>
+      <span id="timer-display" aria-live="off" aria-label="Time remaining: 3 minutes 0 seconds">3:00</span>
+      <div>
+        <button class="btn btn-primary" id="start-timer-btn" onclick="startScreening()">Start — Begin Hearing Screening</button>
+      </div>
+    </div>
+
+    <div class="audio-challenge-card">
+      <button class="play-beats-btn" id="replay-btn" onclick="playTones()" disabled aria-label="Play the tone sequence again">
+        <span aria-hidden="true">▶</span> Play Tones Again
+      </button>
+      <p class="monitor-status" id="monitor-status" role="status" aria-live="polite" aria-atomic="true">Your hearing screening will begin when you press Start above.</p>
+    </div>
+
+    <form id="beat-form" novalidate class="input-group">
+      <label for="beat-input">How many tones did you hear?</label>
+      <span class="field-hint">Enter a number. You can replay the sequence, but each replay uses time from the clock above.</span>
+      <div class="input-field-wrap">
+        <input type="number" id="beat-input" required aria-describedby="feedback-msg" autocomplete="off" min="1" max="20" placeholder="Enter tone count" disabled>
+        <button type="submit" class="submit-btn" id="submit-btn" disabled>Confirm Your Count</button>
+      </div>
+      <div id="feedback-msg" class="feedback-box" role="status" aria-live="assertive"></div>
+    </form>
+    <button type="button" id="switch-practice" class="btn btn-secondary" style="margin-top:1rem;" hidden>Switch to practice — remove deadline</button>
+
+    <div class="bridge-msg" id="bridge-msg" role="note" aria-live="polite">
+      <span class="bridge-msg-label">// Exam Room — System Message</span>
+      <p id="bridge-msg-text"></p>
+    </div>
+
+    <div class="next-room-box" id="next-room-box" aria-labelledby="next-room-heading" aria-live="polite">
+      <span class="next-room-label">// Room 2 Complete</span>
+      <h3 id="next-room-heading" tabindex="-1">Room 3 is Now Unlocked</h3>
+      <p>Your hearing screening is signed off and on file. Next you will review your growth and vitals history.</p>
+      <a href="mission-2c.html" class="btn btn-primary" aria-label="Enter Room 3 — Growth and Vitals History">Enter Room 3 — Growth and Vitals History</a>
+    </div>
+  </section>
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-inner">
+    <p class="footer-platform">ScreenPath — The Doctor's Visit — Screen Reader Escape Room</p>
+    <p class="footer-a11y">ScreenPath is designed for screen reader users. Every page is fully navigable by keyboard and compatible with JAWS, NVDA, and VoiceOver. If you encounter any accessibility issue please contact your instructor.</p>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu(){
+    var d=document.getElementById('nav-drawer'), b=document.getElementById('menu-btn');
+    var open=d.classList.toggle('open');
+    b.setAttribute('aria-expanded',open?'true':'false');
+    b.textContent=open?'✕':'☰';
+  }
+  function announce(msg){
+    var el=document.createElement('div');
+    el.setAttribute('aria-live','assertive');el.setAttribute('aria-atomic','true');
+    el.style.cssText='position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;';
+    document.body.appendChild(el);
+    setTimeout(function(){el.textContent=msg;setTimeout(function(){el.remove();},4500);},100);
+  }
+  function todayStr(){return new Date().toISOString().split('T')[0];}
+
+  function revealCompletion(boxId,headingId){
+    var box=document.getElementById(boxId);
+    box.classList.add('visible');
+    setTimeout(function(){
+      box.scrollIntoView({behavior:'smooth',block:'center'});
+      var h=document.getElementById(headingId);
+      if(h)h.focus({preventScroll:true});
+    },80);
+  }
+
+  // ── Continuity — greet by the doctor assigned in Room 1, if known ──
+  (function(){
+    try{
+      var sess=JSON.parse(localStorage.getItem('sp_doctor_current_session')||'null');
+      if(sess&&sess.assignedDoctor){
+        document.getElementById('doctor-name-slot').textContent=sess.assignedDoctor;
+      }
+    }catch(e){}
+  })();
+
+  // ── Practice vs Challenge — chosen back in Room 1's gate. If a student ──
+  // ── links straight into this room, sp_doctor_mode is simply absent and ──
+  // ── the room falls back to normal timed Challenge behavior. ─────────────
+  let practiceMode=false;
+  (function(){
+    try{
+      practiceMode=localStorage.getItem('sp_doctor_mode')==='practice';
+      var sr=localStorage.getItem('sp_doctor_screenreader');
+      if(sr){
+        var sess=JSON.parse(localStorage.getItem('sp_doctor_current_session')||'null');
+        if(sess&&!sess.screenReader){
+          sess.screenReader=sr;
+          localStorage.setItem('sp_doctor_current_session',JSON.stringify(sess));
+        }
+      }
+    }catch(e){}
+  })();
+
+  let audioCtx=null,targetBeatCount=0,isPlaying=false,playbackDone=false,attempts=0;
+  targetBeatCount=Math.floor(Math.random()*9)+6; // 6 to 14 tones
+
+  function playTones(){
+    if(isPlaying)return;
+    if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+    if(audioCtx.state==='suspended')audioCtx.resume();
+    isPlaying=true;
+    const replayBtn=document.getElementById('replay-btn');
+    replayBtn.disabled=true;
+    document.getElementById('monitor-status').textContent='Playing the tone sequence. Listen closely.';
+
+    let startTime=audioCtx.currentTime+1.2;
+    for(let i=0;i<targetBeatCount;i++){
+      scheduleBeep(startTime,880,0.08);
+      scheduleBeep(startTime+0.12,660,0.06);
+      startTime+=0.65+Math.random()*0.55;
+    }
+    const totalDuration=(startTime-audioCtx.currentTime)*1000;
+    setTimeout(function(){
+      isPlaying=false;playbackDone=true;
+      replayBtn.disabled=!started||complete;
+      document.getElementById('beat-input').disabled=complete;
+      document.getElementById('submit-btn').disabled=complete;
+      document.getElementById('monitor-status').textContent='Playback finished. Enter the number of tones you counted below, or press Play Tones Again to listen once more.';
+      announce('Playback finished. Enter the number of tones you counted.');
+    },totalDuration);
+  }
+  function scheduleBeep(time,freq,duration){
+    const osc=audioCtx.createOscillator(),gain=audioCtx.createGain();
+    osc.type='sine';osc.frequency.setValueAtTime(freq,time);
+    gain.gain.setValueAtTime(0,time);
+    gain.gain.linearRampToValueAtTime(0.3,time+0.01);
+    gain.gain.exponentialRampToValueAtTime(0.001,time+duration);
+    osc.connect(gain);gain.connect(audioCtx.destination);
+    osc.start(time);osc.stop(time+duration);
+  }
+
+  let soundEnabled=true;
+  function getCtx(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx;}
+  function tone(f,d,t,v,dl){
+    t=t||'sine';v=v||.35;dl=dl||0;
+    if(!soundEnabled)return;
+    try{
+      const ctx=getCtx(),o=ctx.createOscillator(),g=ctx.createGain();
+      o.connect(g);g.connect(ctx.destination);o.type=t;
+      o.frequency.setValueAtTime(f,ctx.currentTime+dl);
+      g.gain.setValueAtTime(0,ctx.currentTime+dl);
+      g.gain.linearRampToValueAtTime(v,ctx.currentTime+dl+0.01);
+      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+dl+d);
+      o.start(ctx.currentTime+dl);o.stop(ctx.currentTime+dl+d+0.05);
+    }catch(e){}
+  }
+  function sfxStart(){tone(440,.12,'square',.28,0);tone(554,.12,'square',.28,.13);tone(659,.22,'square',.32,.26);}
+  function sfxPing(){tone(880,.07,'sine',.3,0);tone(880,.07,'sine',.3,.14);}
+  function sfxWarn(){tone(1100,.09,'square',.3,0);tone(1100,.09,'square',.3,.17);tone(1100,.09,'square',.3,.34);}
+  function sfxTick(){tone(1400,.04,'square',.18,0);}
+  function sfxFail(){tone(660,.22,'sawtooth',.38,0);tone(550,.22,'sawtooth',.38,.25);tone(440,.22,'sawtooth',.38,.5);}
+  function sfxWin(){tone(523,.16,'sine',.38,0);tone(659,.16,'sine',.38,.18);tone(784,.16,'sine',.38,.36);tone(1047,.4,'sine',.38,.54);}
+  function sfxError(){tone(220,.15,'sawtooth',.3,0);tone(180,.25,'sawtooth',.28,.18);}
+  function toggleSound(){
+    soundEnabled=!soundEnabled;
+    const btn=document.getElementById('sound-toggle');
+    btn.setAttribute('aria-checked',soundEnabled?'true':'false');
+    document.getElementById('sound-text').textContent=soundEnabled?'On':'Off';
+    announce('Sound effects '+(soundEnabled?'on':'off'));
+    if(soundEnabled)sfxPing();
+  }
+
+  const TOTAL=3*60;
+  let secondsLeft=TOTAL,elapsed=0,interval=null,started=false,complete=false;
+
+  function startScreening(){
+    if(started)return;
+    started=true;
+    document.getElementById('start-timer-btn').style.display='none';
+    const tog=document.getElementById('sound-toggle');tog.disabled=true;tog.setAttribute('aria-disabled','true');
+    sfxStart();
+    if(practiceMode){
+      const d=document.getElementById('timer-display');
+      d.textContent='No limit';
+      d.setAttribute('aria-label','Practice mode: no time limit');
+      document.getElementById('timer-instructions').textContent='Listening in progress. Practice mode: no deadline, replay the sequence as many times as you need.';
+      announce('Hearing screening started. Practice mode: no deadline. Listen for the tone sequence, which begins now.');
+    } else {
+      document.getElementById('timer-instructions').textContent='Listening in progress. The clock above keeps running, including while you replay the sequence.';
+      announce('Hearing screening started. Three minutes. Listen for the tone sequence, which begins now.');
+    }
+    interval=setInterval(tick,1000);
+    playTones();
+  }
+  function tick(){
+    if(complete)return;
+    if(practiceMode){elapsed++;return;}
+    secondsLeft--;elapsed++;
+    updateDisplay();
+    const m=Math.floor(secondsLeft/60),s=secondsLeft%60;
+    if(s===0&&m>0){sfxPing();announce(m===1?'One minute remaining.':m+' minutes remaining.');}
+    if(secondsLeft===30){document.getElementById('timer-display').classList.add('warning');sfxWarn();announce('Thirty seconds remaining.');}
+    if(secondsLeft===10){const d=document.getElementById('timer-display');d.classList.remove('warning');d.classList.add('critical');announce('Ten seconds remaining.');}
+    if(secondsLeft<=10&&secondsLeft>0)sfxTick();
+    if(secondsLeft<=0){clearInterval(interval);handleTimeExpired();}
+  }
+  function updateDisplay(){
+    const m=Math.floor(secondsLeft/60),s=secondsLeft%60;
+    const d=document.getElementById('timer-display');
+    d.textContent=m+':'+String(s).padStart(2,'0');
+    d.setAttribute('aria-label','Time remaining: '+m+' minutes and '+s+' seconds');
+  }
+  function fmtElapsed(s){const m=Math.floor(s/60),sec=s%60;if(m===0)return sec+' second'+(sec!==1?'s':'');if(sec===0)return m+' minute'+(m!==1?'s':'');return m+' minute'+(m!==1?'s':'')+' and '+sec+' second'+(sec!==1?'s':'');}
+
+  function handleTimeExpired(){
+    complete=true;
+    sfxFail();
+    const feedback=document.getElementById('feedback-msg');
+    feedback.className='feedback-box error';
+    feedback.textContent='Good effort. The three minutes ran out before the screening finished, and the specialist has already moved on to her next stop.';
+    document.getElementById('beat-form').querySelectorAll('input,button').forEach(function(el){el.disabled=true;});
+    document.getElementById('replay-btn').disabled=true;
+    const sw=document.getElementById('switch-practice');
+    sw.hidden=false;
+    sw.focus();
+    announce('Time is up. You can switch to practice mode to keep working with no deadline.');
+  }
+
+  function switchToPractice(){
+    try{localStorage.setItem('sp_doctor_mode','practice');}catch(e){}
+    practiceMode=true;
+    complete=false;
+    const feedback=document.getElementById('feedback-msg');
+    feedback.className='feedback-box';feedback.style.display='none';feedback.textContent='';
+    document.getElementById('switch-practice').hidden=true;
+    document.getElementById('beat-form').querySelectorAll('input,button').forEach(function(el){el.disabled=false;});
+    document.getElementById('replay-btn').disabled=!playbackDone;
+    const d=document.getElementById('timer-display');
+    d.classList.remove('warning','critical');
+    d.textContent='No limit';
+    d.setAttribute('aria-label','Practice mode: no time limit');
+    document.getElementById('timer-instructions').textContent='Practice mode: no deadline. Listen and replay as many times as you need.';
+    interval=setInterval(tick,1000);
+    announce('Deadline removed. Keep working, there is no rush.');
+  }
+  document.getElementById('switch-practice').addEventListener('click',switchToPractice);
+
+  let narSpeaking=false,narUtterance=null;
+  function getNarText(){return ['scene-p1','scene-p2'].map(function(id){var el=document.getElementById(id);return el?el.innerText.replace(/\s+/g,' ').trim():'';}).filter(Boolean).join(' ... ');}
+  function toggleNarration(){narSpeaking?stopNar():startNar();}
+  function startNar(){
+    if(!window.speechSynthesis){updateNarStatus('Speech not supported in this browser.');return;}
+    window.speechSynthesis.cancel();
+    narUtterance=new SpeechSynthesisUtterance(getNarText());
+    narUtterance.rate=0.82;narUtterance.pitch=0.88;narUtterance.volume=1.0;
+    function applyVoice(){
+      const vv=window.speechSynthesis.getVoices();
+      const v=vv.find(v=>v.lang.startsWith('en')&&/natural|enhanced|premium/i.test(v.name))||vv.find(v=>v.lang.startsWith('en')&&/daniel|samantha|karen|google|microsoft/i.test(v.name))||vv.find(v=>v.lang==='en-US')||vv.find(v=>v.lang.startsWith('en'))||null;
+      if(v)narUtterance.voice=v;
+    }
+    const vv=window.speechSynthesis.getVoices();
+    if(vv.length>0){applyVoice();window.speechSynthesis.speak(narUtterance);}
+    else{window.speechSynthesis.onvoiceschanged=function(){applyVoice();window.speechSynthesis.speak(narUtterance);window.speechSynthesis.onvoiceschanged=null;};setTimeout(function(){if(!narSpeaking){applyVoice();window.speechSynthesis.speak(narUtterance);}},500);}
+    narUtterance.onstart=function(){narSpeaking=true;setNarBtn(true);updateNarStatus('Playing...');};
+    narUtterance.onend=function(){narSpeaking=false;setNarBtn(false);updateNarStatus('Done.');setTimeout(function(){updateNarStatus('');},3000);};
+    narUtterance.onerror=function(){narSpeaking=false;setNarBtn(false);updateNarStatus('');};
+  }
+  function stopNar(){window.speechSynthesis.cancel();narSpeaking=false;setNarBtn(false);updateNarStatus('Stopped.');setTimeout(function(){updateNarStatus('');},2000);}
+  function setNarBtn(p){
+    const btn=document.getElementById('narrate-btn');
+    document.getElementById('narrate-icon').textContent=p?'■':'▶';
+    document.getElementById('narrate-label').textContent=p?'Stop Scene':'Play Scene';
+    btn.setAttribute('aria-pressed',p?'true':'false');
+    btn.setAttribute('aria-label',p?'Stop — pause the scene narration':'Play — hear the situation read aloud');
+    p?btn.classList.add('playing'):btn.classList.remove('playing');
+  }
+  function updateNarStatus(msg){document.getElementById('narrate-status').textContent=msg;}
+  window.addEventListener('beforeunload',function(){if(window.speechSynthesis)window.speechSynthesis.cancel();});
+
+  document.getElementById('beat-form').addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!started||complete)return;
+    const inputEl=document.getElementById('beat-input');
+    const feedback=document.getElementById('feedback-msg');
+    inputEl.classList.remove('field-error');
+
+    if(!playbackDone||isPlaying){
+      feedback.className='feedback-box error';
+      feedback.textContent='Wait for the tone sequence to finish playing before you submit a count.';
+      return;
+    }
+    attempts++;
+    const userVal=parseInt(inputEl.value.trim(),10);
+
+    if(userVal===targetBeatCount){
+      complete=true;
+      clearInterval(interval);
+      sfxWin();
+      feedback.className='feedback-box success';
+      feedback.textContent='Correct. You counted all '+targetBeatCount+' tones accurately in '+fmtElapsed(elapsed)+' with '+attempts+' attempt'+(attempts!==1?'s':'')+'.';
+      this.querySelectorAll('input,button[type="submit"]').forEach(function(el){el.disabled=true;});
+      document.getElementById('replay-btn').disabled=true;
+      try{
+        localStorage.setItem('sp_doctor_room2_complete','1');
+        var today=todayStr();
+        var sess=JSON.parse(localStorage.getItem('sp_doctor_current_session')||'null')||{startDate:today,workDates:[today],screenReader:'',rooms:[]};
+        if(!sess.workDates)sess.workDates=[];
+        if(sess.workDates.indexOf(today)===-1)sess.workDates.push(today);
+        var pct=Math.min(100,Math.round((elapsed/TOTAL)*100));
+        sess.rooms=(sess.rooms||[]).filter(function(r){return r.roomKey!=='2';});
+        sess.rooms.push({roomKey:'2',dateCompleted:today,attempts:attempts,timeUsed:elapsed,timeAllowed:TOTAL,pct:pct});
+        localStorage.setItem('sp_doctor_current_session',JSON.stringify(sess));
+      }catch(e){}
+
+      var doctorName='The doctor';
+      try{var s2=JSON.parse(localStorage.getItem('sp_doctor_current_session')||'null');if(s2&&s2.assignedDoctor)doctorName=s2.assignedDoctor;}catch(e){}
+      document.getElementById('bridge-msg-text').textContent='"Screening complete and signed off with time to spare. '+doctorName+' would like to review your growth history before finishing up. Head over to the vitals station when you are ready."';
+      document.getElementById('bridge-msg').classList.add('visible');
+      revealCompletion('next-room-box','next-room-heading');
+      announce('Correct. Room 2 is complete. Room 3 is now unlocked.');
+    } else {
+      sfxError();
+      inputEl.classList.add('field-error');
+      feedback.className='feedback-box error';
+      feedback.textContent='That number does not match the sequence yet. Press Play Tones Again to listen once more, then try your count again.';
+      inputEl.focus();
+    }
+  });
+</script>
+</body>
+</html>
