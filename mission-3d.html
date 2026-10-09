@@ -288,7 +288,7 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
 
 <nav role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo" aria-label="ScreenPath, return to home page">
+    <a href="index.html" class="nav-logo" aria-label="SP, ScreenPath home page">
       <span class="nav-logo-mark" aria-hidden="true">SP</span>
     </a>
     <ul class="nav-links" role="list">
@@ -328,7 +328,7 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
     <p id="scene-p3">Three minutes until he pulls away.</p>
 
     <div class="narration-row">
-      <button type="button" class="narrate-btn" id="narrate-btn" aria-pressed="false" aria-label="Play, hear the situation read aloud">
+      <button type="button" class="narrate-btn" id="narrate-btn" aria-pressed="false" aria-label="Play Scene, hear the situation read aloud">
         <span id="narrate-icon" aria-hidden="true">▶</span>
         <span id="narrate-label">Play Scene</span>
       </button>
@@ -596,7 +596,7 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
     $('narrate-icon').textContent=p?'■':'▶';
     $('narrate-label').textContent=p?'Stop Scene':'Play Scene';
     btn.setAttribute('aria-pressed',p?'true':'false');
-    btn.setAttribute('aria-label',p?'Stop, pause the scene narration':'Play, hear the situation read aloud');
+    btn.setAttribute('aria-label',p?'Stop Scene, pause the scene narration':'Play Scene, hear the situation read aloud');
     p?btn.classList.add('playing'):btn.classList.remove('playing');
   }
   function updateNarStatus(msg){$('narrate-status').textContent=msg;}

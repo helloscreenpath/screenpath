@@ -142,7 +142,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
 
 <nav role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo" aria-label="ScreenPath — return to home page">
+    <a href="index.html" class="nav-logo" aria-label="SP, ScreenPath home page">
       <span class="nav-logo-mark" aria-hidden="true">SP</span>
     </a>
     <ul class="nav-links" role="list">
@@ -173,7 +173,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
     <h1>Room 2: The Exam Room</h1>
   </div>
 
-  <figure role="img" aria-label="Exam room image" style="margin-bottom:2.5rem;">
+  <figure style="margin-bottom:2.5rem;">
     <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=860&q=80" alt="A clean doctor's examination room with a padded chair, an exam table covered in paper, a stethoscope hanging on the wall, and a digital heart monitor screen." loading="lazy">
     <figcaption style="font-size:.82rem;color:var(--text-muted);margin-top:.6rem;font-family:var(--mono);letter-spacing:.03em;" id="image-caption">The Doctor's Visit — Exam Room — Friday, 3:52 PM</figcaption>
   </figure>
@@ -184,7 +184,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
     <p id="scene-p2"><span id="doctor-name-slot">The doctor</span>'s clipboard flips to a form you have not seen before. This year's checkup includes a hearing screening, and the specialist who runs it is only in the building for a short session today before she drives to her next clinic. If the screening does not finish in her window, it does not get squeezed in later, it gets rescheduled for an entirely different day, an actual second trip back here on a future weekend. Press the button below when you are ready to begin. The moment you do, the clock starts and a short sequence of tones plays through the room speaker after a brief pause, so get comfortable and get ready to listen.</p>
 
     <div class="narration-row">
-      <button class="narrate-btn" id="narrate-btn" onclick="toggleNarration()" aria-pressed="false" aria-label="Play — hear the situation read aloud">
+      <button class="narrate-btn" id="narrate-btn" onclick="toggleNarration()" aria-pressed="false" aria-label="Play Scene, hear the situation read aloud">
         <span id="narrate-icon" aria-hidden="true">▶</span>
         <span id="narrate-label">Play Scene</span>
       </button>
@@ -217,7 +217,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
     </div>
 
     <div class="audio-challenge-card">
-      <button class="play-beats-btn" id="replay-btn" onclick="playTones()" disabled aria-label="Play the tone sequence again">
+      <button class="play-beats-btn" id="replay-btn" onclick="playTones()" disabled aria-label="Play Tones Again, replay the tone sequence">
         <span aria-hidden="true">▶</span> Play Tones Again
       </button>
       <p class="monitor-status" id="monitor-status" role="status" aria-live="polite" aria-atomic="true">Your hearing screening will begin when you press Start above.</p>
@@ -479,7 +479,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
     document.getElementById('narrate-icon').textContent=p?'■':'▶';
     document.getElementById('narrate-label').textContent=p?'Stop Scene':'Play Scene';
     btn.setAttribute('aria-pressed',p?'true':'false');
-    btn.setAttribute('aria-label',p?'Stop — pause the scene narration':'Play — hear the situation read aloud');
+    btn.setAttribute('aria-label',p?'Stop Scene, pause the scene narration':'Play Scene, hear the situation read aloud');
     p?btn.classList.add('playing'):btn.classList.remove('playing');
   }
   function updateNarStatus(msg){document.getElementById('narrate-status').textContent=msg;}

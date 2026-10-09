@@ -314,7 +314,7 @@
   <!-- Header -->
   <header role="banner">
     <div>
-      <a href="index.html" class="nav-logo" aria-label="ScreenPath, return to home"><span style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:9px;background:var(--green,#39d98a);color:#000;font-family:var(--font,inherit);font-weight:800;font-size:.82rem;letter-spacing:-.02em;flex-shrink:0;">SP</span></a>
+      <a href="index.html" class="nav-logo" aria-label="SP, ScreenPath home page"><span style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:9px;background:var(--green,#39d98a);color:#000;font-family:var(--font,inherit);font-weight:800;font-size:.82rem;letter-spacing:-.02em;flex-shrink:0;">SP</span></a>
       <p class="site-series">Arcade</p>
     </div>
     <nav aria-label="Main navigation">
@@ -366,6 +366,7 @@
     </div>
 
     <div id="game-content" hidden>
+    <h1 class="game-title">Word Guess</h1>
 
     <!-- Game Settings -->
     <section aria-labelledby="settings-header" class="game-card">
@@ -378,7 +379,7 @@
           <input type="range" id="music-volume" min="0" max="100" value="45" aria-valuetext="45 percent">
         </div>
         <button id="narration-toggle" class="btn btn-secondary toggle-btn" role="switch" aria-checked="true">Narration: On</button>
-        <button id="repeat-narration-btn" class="btn btn-secondary" aria-label="Repeat the most recent guess feedback">Repeat Feedback</button>
+        <button id="repeat-narration-btn" class="btn btn-secondary" aria-label="Repeat Feedback, replay the most recent guess feedback">Repeat Feedback</button>
       </div>
     </section>
 
@@ -937,8 +938,7 @@ const VALID_WORDS = {
         const info = GRADE_WORDS[g];
         const btn = document.createElement('button');
         btn.className = 'grade-btn';
-        btn.innerHTML = gradeLabels[g] + '<span class="grade-sub">' + info.length + '-letter words, ' + (info.length + 1) + ' tries</span>';
-        btn.setAttribute('aria-label', gradeLabels[g] + ': ' + info.length + ' letter words, ' + (info.length + 1) + ' tries allowed');
+        btn.innerHTML = gradeLabels[g] + ' <span class="grade-sub">' + info.length + '-letter words, ' + (info.length + 1) + ' tries</span>';
         btn.addEventListener('click', () => {
           sfxNote(500, 'triangle', 0.08, 0.25);
           currentGrade = g;

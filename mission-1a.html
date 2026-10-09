@@ -406,7 +406,7 @@
 
 
     <!-- Classroom image — accessible with descriptive alt text -->
-    <figure role="img" aria-label="Classroom image" style="margin-bottom:2.5rem;">
+    <figure style="margin-bottom:2.5rem;">
       <img
         src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=860&q=80"
         alt="An empty middle school classroom photographed at dusk. Rows of student desks sit in dim light. A whiteboard at the front still has equations written on it from the last class of the day. The hallway visible through the door window is completely dark."
@@ -429,7 +429,7 @@
       <p id="scene-p5">Every staff member's emergency access code is listed in the staff directory in the main office, just down the hall. The office door is unlocked, and the computer at the front desk is still open to the directory. Find the person who matches the keypad, get their access code, and get yourself out of here.</p>
 
       <div class="narration-row">
-        <button class="narrate-btn" id="narrate-btn" onclick="toggleNarration()" aria-pressed="false" aria-label="Play — hear the situation read aloud">
+        <button class="narrate-btn" id="narrate-btn" onclick="toggleNarration()" aria-pressed="false" aria-label="Play Scene, hear the situation read aloud">
           <span id="narrate-icon" aria-hidden="true">▶</span>
           <span id="narrate-label">Play Scene</span>
         </button>
@@ -470,7 +470,7 @@
       </div>
 
       <!-- Directory content -->
-      <div id="directory-content" class="directory directory-locked" aria-hidden="true">
+      <div id="directory-content" class="directory directory-locked" aria-hidden="true" inert>
 
         <div class="directory-header-bar" aria-hidden="true">// WESTLAKE MIDDLE SCHOOL — STAFF DIRECTORY — EMERGENCY ACCESS CODES</div>
 
@@ -767,7 +767,7 @@
       document.getElementById('narrate-icon').textContent=p?'■':'▶';
       document.getElementById('narrate-label').textContent=p?'Stop Scene':'Play Scene';
       btn.setAttribute('aria-pressed',p?'true':'false');
-      btn.setAttribute('aria-label',p?'Stop — pause the scene narration':'Play — hear the situation read aloud');
+      btn.setAttribute('aria-label',p?'Stop Scene, pause the scene narration':'Play Scene, hear the situation read aloud');
       p?btn.classList.add('playing'):btn.classList.remove('playing');
     }
     function updateNarStatus(msg){document.getElementById('narrate-status').textContent=msg;}
@@ -797,6 +797,7 @@
       const dc=document.getElementById('directory-content');
       dc.classList.remove('directory-locked');
       dc.removeAttribute('aria-hidden');
+      dc.removeAttribute('inert');
       document.getElementById('answer-section-1').classList.add('visible');
       document.getElementById('start-btn').style.display='none';
       const tog=document.getElementById('sound-toggle');tog.disabled=true;tog.setAttribute('aria-disabled','true');

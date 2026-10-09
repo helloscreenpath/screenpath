@@ -45,7 +45,7 @@
     .page-hero { background:#050505; padding:140px 2rem 80px; text-align:center; }
     .page-hero-eyebrow { font-family:var(--mono); font-size:.7rem; letter-spacing:.22em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:1rem; }
     .page-hero-title { font-size:clamp(2.2rem,6vw,4rem); font-weight:800; letter-spacing:-.04em; line-height:1.1; color:#fff; margin-bottom:1rem; }
-    .page-hero-sub { font-size:clamp(.9rem,2vw,1.1rem); color:rgba(255,255,255,.5); max-width:560px; margin:0 auto; line-height:1.65; }
+    .page-hero-sub { font-size:clamp(.9rem,2vw,1.1rem); color:var(--text-muted); max-width:560px; margin:0 auto; line-height:1.65; }
 
     /* CONTENT */
     .tw-wrap { max-width:760px; margin:0 auto; padding:5rem 2rem 6rem; }
@@ -53,7 +53,7 @@
     .tw-lead { font-size:1rem; color:var(--text-muted); line-height:1.8; margin-bottom:1.25rem; }
     .tw-lead:last-of-type { margin-bottom:0; }
     .tw-lead strong { color:var(--text); font-weight:600; }
-    .tw-lead a { color:var(--green); text-decoration:none; }
+    .tw-lead a { color:var(--green); text-decoration:underline; text-underline-offset:.15em; }
     .tw-lead a:hover { text-decoration:underline; }
     .tw-lead a:focus-visible { outline:2px solid var(--green); outline-offset:2px; border-radius:2px; }
     .tw-divider { border:none; border-top:1px solid var(--border); margin:3.5rem 0; }
@@ -87,7 +87,7 @@
     .f-nav a { font-size:.84rem; color:var(--text-muted); text-decoration:none; }
     .f-nav a:hover { color:var(--green); }
     .f-nav a:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:2px; }
-    .f-copy { font-size:.76rem; color:var(--text-dim); width:100%; }
+    .f-copy { font-size:.76rem; color:var(--text-muted); width:100%; }
     .f-copy strong { color:var(--green); font-weight:600; }
 
     @media (max-width:1024px) { .nav-links { display:none; } .menu-btn { display:flex; } }
@@ -106,7 +106,7 @@
 
   <nav role="navigation" aria-label="Main navigation">
     <div class="nav-inner">
-      <a href="index.html" class="nav-logo" aria-label="ScreenPath — return to home page">
+      <a href="index.html" class="nav-logo" aria-label="SP, ScreenPath home page">
         <span style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:var(--green);color:#000;font-family:var(--font);font-weight:800;font-size:.85rem;letter-spacing:-.02em;flex-shrink:0;">SP</span>
       </a>
       <ul class="nav-links" role="list">
@@ -127,13 +127,13 @@
     </div>
   </nav>
 
+  <main id="main" tabindex="-1">
   <div class="page-hero">
     <span class="page-hero-eyebrow" aria-hidden="true">For Teachers &amp; AT Specialists</span>
     <h1 class="page-hero-title">Bring ScreenPath into your classroom.</h1>
     <p class="page-hero-sub">A short guide to what's here, how student progress is tracked, and how to get started.</p>
   </div>
 
-  <main id="main" tabindex="-1">
     <div class="tw-wrap">
 
       <h2 class="tw-h2">What's on ScreenPath</h2>
@@ -208,7 +208,7 @@
 
   <footer role="contentinfo">
     <div class="footer-minimal">
-      <a href="index.html" class="f-logo" aria-label="ScreenPath — return to home page">
+      <a href="index.html" class="f-logo" aria-label="SP ScreenPath, home page">
         <span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:var(--green);color:#000;font-family:var(--font);font-weight:800;font-size:.72rem;letter-spacing:-.02em;flex-shrink:0;">SP</span>
         <span class="f-logo-name">ScreenPath</span>
       </a>
