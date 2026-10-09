@@ -332,7 +332,7 @@
   <!-- Header -->
   <header role="banner">
     <div>
-      <a href="index.html" class="nav-logo" aria-label="ScreenPath, return to home"><span style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:9px;background:var(--green,#39d98a);color:#000;font-family:var(--font,inherit);font-weight:800;font-size:.82rem;letter-spacing:-.02em;flex-shrink:0;">SP</span></a>
+      <a href="index.html" class="nav-logo" aria-label="SP, ScreenPath home page"><span style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:9px;background:var(--green,#39d98a);color:#000;font-family:var(--font,inherit);font-weight:800;font-size:.82rem;letter-spacing:-.02em;flex-shrink:0;">SP</span></a>
       <p class="site-series">Arcade</p>
     </div>
     <nav aria-label="Main navigation">
@@ -384,6 +384,7 @@
     </div>
 
     <div id="game-content" hidden>
+    <h1 class="game-title">Are You Smarter Than a 5th Grader?</h1>
 
     <!-- Game Settings -->
     <section aria-labelledby="settings-header" class="game-card">
@@ -396,7 +397,7 @@
           <input type="range" id="music-volume" min="0" max="100" value="45" aria-valuetext="45 percent">
         </div>
         <button id="narration-toggle" class="btn btn-secondary toggle-btn" role="switch" aria-checked="true">Narration: On</button>
-        <button id="repeat-narration-btn" class="btn btn-secondary" aria-label="Repeat active question narration">Repeat Question</button>
+        <button id="repeat-narration-btn" class="btn btn-secondary" aria-label="Repeat Question, replay the question narration">Repeat Question</button>
       </div>
     </section>
 
@@ -418,7 +419,7 @@
       <div class="lifeline-bar">
         <button id="btn-swap" class="btn btn-lifeline" aria-label="Lifeline: Swap Question">Swap Question</button>
         <button id="btn-copy" class="btn btn-lifeline" aria-label="Lifeline: Copy Classmate">Copy Classmate</button>
-        <button id="btn-poll" class="btn btn-lifeline" aria-label="Lifeline: Ask the Classroom">Ask Classroom</button>
+        <button id="btn-poll" class="btn btn-lifeline" aria-label="Ask Classroom lifeline">Ask Classroom</button>
       </div>
       <div id="lifeline-output" class="helper-box" role="region" aria-live="polite"></div>
     </section>

@@ -191,7 +191,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
 
 <nav role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo" aria-label="ScreenPath — return to home page">
+    <a href="index.html" class="nav-logo" aria-label="SP, ScreenPath home page">
       <span class="nav-logo-mark" aria-hidden="true">SP</span>
     </a>
     <ul class="nav-links" role="list">
@@ -222,7 +222,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
     <h1>Room 4: The Front Desk</h1>
   </div>
 
-  <figure role="img" aria-label="Clinic front desk image" style="margin-bottom:2.5rem;">
+  <figure style="margin-bottom:2.5rem;">
     <img src="https://images.unsplash.com/photo-1764727291644-5dcb0b1a0375?w=860&q=80" alt="A modern clinic reception desk with a sign overhead and a clean, organized front desk workstation." loading="lazy">
     <figcaption style="font-size:.82rem;color:var(--text-muted);margin-top:.6rem;font-family:var(--mono);letter-spacing:.03em;">The Doctor's Visit — Front Desk — Friday, 4:05 PM</figcaption>
   </figure>
@@ -233,7 +233,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
     <p id="scene-p2">The receptionist tells you straight: there is exactly one opening left on the whole calendar, and once someone else grabs it, it is gone for months. Mom is ready to book it right now, but the clinic just switched to a brand new scheduling system and she has never touched it before, so she needs you to drive. This new system splits everything across two tables, one for the date and one for the times, so you will need to move between them to lock in the slot. Press the button below when you are ready. The moment you do, the clock starts and Mom will tell you the date to look for.</p>
 
     <div class="narration-row">
-      <button class="narrate-btn" id="narrate-btn" onclick="toggleNarration()" aria-pressed="false" aria-label="Play — hear the situation read aloud">
+      <button class="narrate-btn" id="narrate-btn" onclick="toggleNarration()" aria-pressed="false" aria-label="Play Scene, hear the situation read aloud">
         <span id="narrate-icon" aria-hidden="true">▶</span>
         <span id="narrate-label">Play Scene</span>
       </button>
@@ -672,7 +672,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
     document.getElementById('narrate-icon').textContent=p?'■':'▶';
     document.getElementById('narrate-label').textContent=p?'Stop Scene':'Play Scene';
     btn.setAttribute('aria-pressed',p?'true':'false');
-    btn.setAttribute('aria-label',p?'Stop — pause the scene narration':'Play — hear the situation read aloud');
+    btn.setAttribute('aria-label',p?'Stop Scene, pause the scene narration':'Play Scene, hear the situation read aloud');
     p?btn.classList.add('playing'):btn.classList.remove('playing');
   }
   function updateNarStatus(msg){document.getElementById('narrate-status').textContent=msg;}

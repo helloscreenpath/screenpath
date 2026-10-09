@@ -58,7 +58,7 @@
     .profile-box h3 { color:var(--green); font-size:1rem; margin-bottom:.75rem; }
     .profile-line { display:flex; align-items:baseline; gap:.75rem; padding:.5rem 0; border-bottom:1px solid rgba(57,217,138,.12); flex-wrap:wrap; }
     .profile-line:last-child { border-bottom:none; padding-bottom:0; }
-    .profile-num { font-family:var(--mono); font-size:.72rem; color:var(--green); opacity:.6; min-width:20px; flex-shrink:0; }
+    .profile-num { font-family:var(--mono); font-size:.72rem; color:var(--green); min-width:20px; flex-shrink:0; }
     .profile-key { color:var(--green); font-family:var(--mono); font-size:.85rem; min-width:180px; flex-shrink:0; }
     .profile-val { color:var(--text); font-weight:600; font-size:.98rem; font-family:var(--mono); }
 
@@ -343,7 +343,7 @@
     </div>
 
     <!-- Computer lab image -->
-    <figure role="img" aria-label="Computer lab image" style="margin-bottom:2.5rem;">
+    <figure style="margin-bottom:2.5rem;">
       <img
         src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=860&q=80"
         alt="A school computer lab in the dark. Rows of computer monitors sit on long desks, all powered off except for one screen at the far end of the room that glows faintly in the darkness. The rest of the lab is completely empty."
@@ -364,7 +364,7 @@
       <p id="scene-p3">Your student information is displayed below. Fill out every field in the form using those exact values and submit it before the session times out.</p>
 
       <div class="narration-row">
-        <button class="narrate-btn" id="narrate-btn" onclick="toggleNarration()" aria-pressed="false" aria-label="Play — hear the situation read aloud">
+        <button class="narrate-btn" id="narrate-btn" onclick="toggleNarration()" aria-pressed="false" aria-label="Play Scene, hear the situation read aloud">
           <span id="narrate-icon" aria-hidden="true">▶</span>
           <span id="narrate-label">Play Scene</span>
         </button>
@@ -375,7 +375,7 @@
       <div class="profile-box">
         <span class="profile-box-label" aria-hidden="true">// Your Student Information</span>
         <h3 id="profile-heading">Enter This Information Into the Form</h3>
-        <p style="font-size:.88rem;color:var(--text-muted);margin-bottom:1.25rem;">Each numbered item below matches a field in the form. Read through all five before starting the timer.</p>
+        <p style="font-size:.88rem;color:#b5b5b5;margin-bottom:1.25rem;">Each numbered item below matches a field in the form. Read through all five before starting the timer.</p>
         <div class="profile-line"><span class="profile-num">1.</span><span class="profile-key">First Name —</span><span class="profile-val" id="p-firstname"></span></div>
         <div class="profile-line"><span class="profile-num">2.</span><span class="profile-key">Last Name —</span><span class="profile-val" id="p-lastname"></span></div>
         <div class="profile-line"><span class="profile-num">3.</span><span class="profile-key">Student ID Number —</span><span class="profile-val" id="p-studentid"></span></div>
@@ -408,7 +408,7 @@
       </div>
 
       <!-- Computer terminal -->
-      <div id="computer-terminal" class="computer-terminal terminal-locked" aria-hidden="true">
+      <div id="computer-terminal" class="computer-terminal terminal-locked" aria-hidden="true" inert>
         <div class="terminal-header-bar">
           <span aria-hidden="true">// WESTLAKE MIDDLE SCHOOL — AFTER-HOURS EMERGENCY ALERT SYSTEM</span>
           <span class="terminal-status" aria-label="Session active">● Session Active</span>
@@ -594,7 +594,7 @@
       narUtterance.onerror=()=>{narSpeaking=false;setNarBtn(false);updateNarStatus('');};
     }
     function stopNar(){window.speechSynthesis.cancel();narSpeaking=false;setNarBtn(false);updateNarStatus('Stopped.');setTimeout(()=>updateNarStatus(''),2000);}
-    function setNarBtn(p){const btn=document.getElementById('narrate-btn');document.getElementById('narrate-icon').textContent=p?'■':'▶';document.getElementById('narrate-label').textContent=p?'Stop Scene':'Play Scene';btn.setAttribute('aria-pressed',p?'true':'false');btn.setAttribute('aria-label',p?'Stop — pause the scene narration':'Play — hear the situation read aloud');p?btn.classList.add('playing'):btn.classList.remove('playing');}
+    function setNarBtn(p){const btn=document.getElementById('narrate-btn');document.getElementById('narrate-icon').textContent=p?'■':'▶';document.getElementById('narrate-label').textContent=p?'Stop Scene':'Play Scene';btn.setAttribute('aria-pressed',p?'true':'false');btn.setAttribute('aria-label',p?'Stop Scene, pause the scene narration':'Play Scene, hear the situation read aloud');p?btn.classList.add('playing'):btn.classList.remove('playing');}
     function updateNarStatus(msg){document.getElementById('narrate-status').textContent=msg;}
     window.addEventListener('beforeunload',()=>{if(window.speechSynthesis)window.speechSynthesis.cancel();});
 
@@ -626,7 +626,7 @@
       if(started)return;
       started=true;
       const ct=document.getElementById('computer-terminal');
-      ct.classList.remove('terminal-locked');ct.removeAttribute('aria-hidden');
+      ct.classList.remove('terminal-locked');ct.removeAttribute('aria-hidden');ct.removeAttribute('inert');
       document.getElementById('start-btn').style.display='none';
       const tog=document.getElementById('sound-toggle');tog.disabled=true;tog.setAttribute('aria-disabled','true');
       sfxStart();

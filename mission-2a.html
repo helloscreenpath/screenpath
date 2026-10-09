@@ -203,7 +203,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
 
 <nav role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo" aria-label="ScreenPath — return to home page">
+    <a href="index.html" class="nav-logo" aria-label="SP, ScreenPath home page">
       <span class="nav-logo-mark" aria-hidden="true">SP</span>
     </a>
     <ul class="nav-links" role="list">
@@ -300,7 +300,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
     <h1>Room 1: The Check-In Desk</h1>
   </div>
 
-  <figure role="img" aria-label="Clinic reception image" style="margin-bottom:2.5rem;">
+  <figure style="margin-bottom:2.5rem;">
     <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=860&q=80" alt="A doctor's office reception counter with a digital check-in terminal, glass dividers, and soft overhead lighting. The waiting area behind it is quiet." loading="lazy">
     <figcaption style="font-size:.82rem;color:var(--text-muted);margin-top:.6rem;font-family:var(--mono);letter-spacing:.03em;">The Doctor's Visit — Check-In Desk — Friday, 3:40 PM</figcaption>
   </figure>
@@ -311,7 +311,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
     <p id="scene-p2">You arrive at the front desk. The receptionist hands you a tablet and says she needs your registration finished now, while she still has an open slot for you. She only has a few minutes before she has to call the next patient in line, and if your form is not done in time, your spot goes to someone else and you wait even longer. Press Start below and your registration details will appear above the form, ready for you to match.</p>
 
     <div class="narration-row">
-      <button class="narrate-btn" id="narrate-btn" onclick="toggleNarration()" aria-pressed="false" aria-label="Play — hear the situation read aloud">
+      <button class="narrate-btn" id="narrate-btn" onclick="toggleNarration()" aria-pressed="false" aria-label="Play Scene, hear the situation read aloud">
         <span id="narrate-icon" aria-hidden="true">▶</span>
         <span id="narrate-label">Play Scene</span>
       </button>
@@ -588,7 +588,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
     document.getElementById('narrate-icon').textContent=p?'■':'▶';
     document.getElementById('narrate-label').textContent=p?'Stop Scene':'Play Scene';
     btn.setAttribute('aria-pressed',p?'true':'false');
-    btn.setAttribute('aria-label',p?'Stop — pause the scene narration':'Play — hear the situation read aloud');
+    btn.setAttribute('aria-label',p?'Stop Scene, pause the scene narration':'Play Scene, hear the situation read aloud');
     p?btn.classList.add('playing'):btn.classList.remove('playing');
   }
   function updateNarStatus(msg){document.getElementById('narrate-status').textContent=msg;}

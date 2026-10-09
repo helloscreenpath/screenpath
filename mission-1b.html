@@ -350,7 +350,7 @@
     </div>
 
     <!-- Library image -->
-    <figure role="img" aria-label="Library image" style="margin-bottom:2.5rem;">
+    <figure style="margin-bottom:2.5rem;">
       <img
         src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=860&q=80"
         alt="A school library photographed in near darkness. Long rows of bookshelves stretch toward the back of the room. Emergency lights cast a faint green glow across the spines of hundreds of books. The checkout desk at the front is empty. Nobody is here."
@@ -371,7 +371,7 @@
       <p id="scene-p3">Ms. Rivera left a note on the circulation desk. She is famously obsessed with one particular book series and keeps personal display copies of it on shelves throughout the library. She hid a note inside each one. The notes lead to each other and the final book has the terminal access code written inside the back cover. The note tells you which series to look for.</p>
 
       <div class="narration-row">
-        <button class="narrate-btn" id="narrate-btn" onclick="toggleNarration()" aria-pressed="false" aria-label="Play — hear the situation read aloud">
+        <button class="narrate-btn" id="narrate-btn" onclick="toggleNarration()" aria-pressed="false" aria-label="Play Scene, hear the situation read aloud">
           <span id="narrate-icon" aria-hidden="true">▶</span>
           <span id="narrate-label">Play Scene</span>
         </button>
@@ -410,7 +410,7 @@
       </div>
 
       <!-- Library zone -->
-      <div id="library-zone" class="library-zone library-locked" aria-hidden="true">
+      <div id="library-zone" class="library-zone library-locked" aria-hidden="true" inert>
 
         <!-- Step tracker -->
         <div class="step-tracker" role="status" aria-live="polite" aria-label="Trail progress" id="step-tracker">
@@ -716,8 +716,8 @@
         if(book.isTarget||book.hasWrongLink){
           const btn=document.createElement('button');
           btn.className='book-link';
-          btn.textContent='Display copy — Open book';
-          btn.setAttribute('aria-label','Open '+book.title);
+          btn.textContent='Display copy: Open book';
+          btn.setAttribute('aria-label','Display copy: Open book, '+book.title);
           btn.id=uid+'-btn';
           const fb=document.createElement('div');
           fb.className='book-feedback';fb.id=uid+'-fb';fb.setAttribute('role','alert');
@@ -805,7 +805,7 @@
       narUtterance.onerror=()=>{narSpeaking=false;setNarBtn(false);updateNarStatus('');};
     }
     function stopNar(){window.speechSynthesis.cancel();narSpeaking=false;setNarBtn(false);updateNarStatus('Stopped.');setTimeout(()=>updateNarStatus(''),2000);}
-    function setNarBtn(p){const btn=document.getElementById('narrate-btn');document.getElementById('narrate-icon').textContent=p?'■':'▶';document.getElementById('narrate-label').textContent=p?'Stop Scene':'Play Scene';btn.setAttribute('aria-pressed',p?'true':'false');btn.setAttribute('aria-label',p?'Stop — pause the scene narration':'Play — hear the situation read aloud');p?btn.classList.add('playing'):btn.classList.remove('playing');}
+    function setNarBtn(p){const btn=document.getElementById('narrate-btn');document.getElementById('narrate-icon').textContent=p?'■':'▶';document.getElementById('narrate-label').textContent=p?'Stop Scene':'Play Scene';btn.setAttribute('aria-pressed',p?'true':'false');btn.setAttribute('aria-label',p?'Stop Scene, pause the scene narration':'Play Scene, hear the situation read aloud');p?btn.classList.add('playing'):btn.classList.remove('playing');}
     function updateNarStatus(msg){document.getElementById('narrate-status').textContent=msg;}
     window.addEventListener('beforeunload',()=>{if(window.speechSynthesis)window.speechSynthesis.cancel();});
 
@@ -833,7 +833,7 @@
       setReminders();
       buildTable('page1-tbody',currentSeries.targets[0],1);
       const lz=document.getElementById('library-zone');
-      lz.classList.remove('library-locked');lz.removeAttribute('aria-hidden');
+      lz.classList.remove('library-locked');lz.removeAttribute('aria-hidden');lz.removeAttribute('inert');
       document.getElementById('start-btn').style.display='none';
       const tog=document.getElementById('sound-toggle');tog.disabled=true;tog.setAttribute('aria-disabled','true');
       sfxStart();
