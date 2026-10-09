@@ -425,6 +425,8 @@
       <p id="scene-p1">You stayed after school to study for tomorrow's math exam in Mr. Okafor's classroom. He unlocked it for you before he left and told you to be out by four thirty.</p>
       <p id="scene-p2">You got absorbed in your notes and lost track of time. When you finally looked up the hallway was dark and silent. You packed your bag and walked to the front door. Locked. You tried the side exit. Also locked. You reached for your phone. Dead.</p>
       <p id="scene-p3">The automatic locks engaged while you were still inside and nobody knows you are here. You are standing in the empty hallway of Westlake Middle School at 4:47 in the afternoon and you need to find a way out.</p>
+      <p id="scene-p4">Next to the front doors, you find the emergency exit keypad. Its screen reads: "After hours exit. Enter the access code of tonight's on-call staff member." Below that, it shows a department and a job title, but no name and no code.</p>
+      <p id="scene-p5">Every staff member's emergency access code is listed in the staff directory in the main office, just down the hall. The office door is unlocked, and the computer at the front desk is still open to the directory. Find the person who matches the keypad, get their access code, and get yourself out of here.</p>
 
       <div class="narration-row">
         <button class="narrate-btn" id="narrate-btn" onclick="toggleNarration()" aria-pressed="false" aria-label="Play — hear the situation read aloud">
@@ -441,8 +443,8 @@
 
       <!-- Target box -->
       <div class="target-box" aria-labelledby="target-heading">
-        <span class="target-box-label" aria-hidden="true">// Who You Are Looking For</span>
-        <h3 id="target-heading">Your Target</h3>
+        <span class="target-box-label" aria-hidden="true">// Shown on the Exit Keypad</span>
+        <h3 id="target-heading">Tonight's On-Call Staff Member</h3>
         <div class="target-line"><span class="target-key">Department —</span><span class="target-val" id="target-dept">Loading...</span></div>
         <div class="target-line"><span class="target-key">Title —</span><span class="target-val" id="target-title">Loading...</span></div>
         <div class="target-line"><span class="target-key">Find —</span><span class="target-val">Their full name and emergency exit access code</span></div>
@@ -458,7 +460,7 @@
           </button>
         </div>
         <p class="sound-note">Sound effects play during the room including timer warnings and feedback on your answers. Turn them off here before starting if you prefer silence.</p>
-        <p class="timer-instructions" id="timer-instructions">Read your target above and the situation above it. When you are ready press the button below to unlock the directory and start the four minute clock.</p>
+        <p class="timer-instructions" id="timer-instructions">Read the keypad details above and the situation above them. When you are ready press the button below to unlock the directory and start the four minute clock.</p>
         <span id="timer-display" aria-live="off" aria-label="Time remaining: 4 minutes 0 seconds">4:00</span>
         <div>
           <button class="btn btn-primary" id="start-btn" onclick="startTimer()">
@@ -472,7 +474,7 @@
 
         <div class="directory-header-bar" aria-hidden="true">// WESTLAKE MIDDLE SCHOOL — STAFF DIRECTORY — EMERGENCY ACCESS CODES</div>
 
-        <p class="directory-intro">You are reading the official staff directory. Each department is listed under its own section heading. Navigate by heading to find the right department, then read the table to find the staff member matching your target. Their emergency exit access code is in the third column.</p>
+        <p class="directory-intro">You are reading the official staff directory. Each department is listed under its own section heading. Navigate by heading to find the right department, then read the table to find the staff member shown on the exit keypad. Their emergency exit access code is in the third column.</p>
 
         <!-- Administration -->
         <div class="dept">
@@ -564,11 +566,11 @@
       <div class="answer-section" id="answer-section-1" aria-labelledby="answer1-heading">
         <span class="answer-label">Section A — Submit Your Answer</span>
         <h3 id="answer1-heading">What Did You Find?</h3>
-        <p class="answer-intro">Found your target? Enter their name and access code below. The timer is still running.</p>
+        <p class="answer-intro">Found the on-call staff member? Enter their name and access code below. The timer is still running.</p>
         <form id="answer-form-1" novalidate>
           <div class="form-group">
             <label for="staff-name">Staff Member Name <span aria-hidden="true" style="color:var(--red)">*</span></label>
-            <span class="field-hint" id="hint-name">Enter the full name of the person who matches your target title.</span>
+            <span class="field-hint" id="hint-name">Enter the full name of the person who matches the title on the keypad.</span>
             <input type="text" id="staff-name" name="staff_name" required aria-required="true" aria-describedby="hint-name" placeholder="First and last name" autocomplete="off">
           </div>
           <div class="form-group">
@@ -736,7 +738,7 @@
     // ── Narration ──────────────────────────────────
     let narSpeaking=false, narUtterance=null;
     function getNarText() {
-      return ['scene-p1','scene-p2','scene-p3'].map(id => {
+      return ['scene-p1','scene-p2','scene-p3','scene-p4','scene-p5'].map(id => {
         const el=document.getElementById(id);
         return el ? el.innerText.replace(/\s+/g,' ').trim() : '';
       }).filter(Boolean).join(' ... ');
