@@ -256,10 +256,15 @@
         <section class="series-section" aria-labelledby="series-grocery">
           <div class="series-header">
             <h2 id="series-grocery">The Grocery Store</h2>
-            <span class="series-status status-coming">Coming Soon</span>
+            <span class="series-status" id="grocery-status-badge" aria-label="Status">Not Started</span>
           </div>
-          <div class="no-data">
-            <p>The Grocery Store escape room series is currently in development. Check back soon.</p>
+          <div id="grocery-history">
+            <!-- Populated by JS -->
+          </div>
+          <div class="global-btns" id="grocery-global-btns" style="display:none;">
+            <button type="button" class="btn-global btn-global-email" id="grocery-share-all" aria-label="Share all sessions for The Grocery Store via email">Share All Sessions</button>
+            <button type="button" class="btn-global btn-global-copy" id="grocery-copy-all" aria-label="Copy all sessions for The Grocery Store to clipboard">Copy All Sessions</button>
+            <button type="button" class="btn-global btn-reset" id="grocery-reset" aria-label="Reset all progress for The Grocery Store, this cannot be undone">Reset Progress</button>
           </div>
         </section>
 
@@ -901,6 +906,234 @@
       });
       renderDoctorHistory();
       announce('Progress for The Doctor\'s Visit has been reset.');
+    }
+
+    // ── ESCAPE ROOMS: THE GROCERY STORE (DINNER AT SEVEN) ───────────
+    // sp_grocery_sessions = [ { startDate, workDates[], screenReader,
+    //   rooms:[{roomKey,dateCompleted,attempts,timeUsed,timeAllowed,pct}],
+    //   endDate, seriesComplete, seriesCompleteDate } ]
+
+    var GROCERY_ROOM_META = [
+      { key:'1', name:'The Entrance',         skill:'Matching Questions',     timeAllowed:360 },
+      { key:'2', name:'The Aisles',           skill:'Tables & Checkboxes',    timeAllowed:300 },
+      { key:'3', name:'The Express Checkout', skill:'Links & Verification',   timeAllowed:240 },
+      { key:'4', name:'Out the Door',         skill:'Radio Buttons',          timeAllowed:180 },
+    ];
+
+    function loadGrocerySessions() {
+      return recall('sp_grocery_sessions', []);
+    }
+
+    function renderGroceryHistory() {
+      var sessions = loadGrocerySessions();
+      var container = document.getElementById('grocery-history');
+      var badge     = document.getElementById('grocery-status-badge');
+      var globalBtns= document.getElementById('grocery-global-btns');
+
+      // Also check legacy simple completion keys
+      // Room flags are saved as the text '1'; recall() parses JSON, which turns that into the number 1.
+      function groceryDone(n){ var v=recall('sp_grocery_room'+n+'_complete',null); return v===1 || v==='1' || v===true; }
+      var r1done = groceryDone(1);
+      var r2done = groceryDone(2);
+      var r3done = groceryDone(3);
+      var r4done = groceryDone(4);
+
+      if (sessions.length === 0) {
+        if (!r1done && !r2done && !r3done && !r4done) {
+          badge.textContent = 'Not Started';
+          badge.className = 'series-status status-notstarted';
+          container.innerHTML = '<div class="no-data"><p>You have not started The Grocery Store yet. Head to the home page to begin.</p></div>';
+          return;
+        }
+        if (r4done) {
+          badge.textContent = 'Complete';
+          badge.className = 'series-status status-complete';
+        } else {
+          badge.textContent = 'In Progress';
+          badge.className = 'series-status status-progress';
+        }
+        container.innerHTML = '<div class="no-data"><p>Complete the series using the current version of ScreenPath to see your full session history here.</p></div>';
+        return;
+      }
+
+      var lastSession = sessions[sessions.length - 1];
+      var allComplete = lastSession.rooms && lastSession.rooms.length === 4;
+      if (allComplete) {
+        badge.textContent = 'Complete';
+        badge.className = 'series-status status-complete';
+      } else if (sessions.length > 0) {
+        badge.textContent = 'In Progress';
+        badge.className = 'series-status status-progress';
+      }
+
+      container.innerHTML = '';
+
+      sessions.forEach(function(session, sIdx) {
+        var sNum = sIdx + 1;
+        var startFmt = fmtDate(session.startDate);
+        var endFmt   = session.endDate ? fmtDate(session.endDate) : 'In Progress';
+        var dateRange = session.endDate ? startFmt + ' to ' + endFmt : 'Started ' + startFmt;
+
+        var heading = document.createElement('h3');
+        heading.id  = 'session-grocery-' + sNum;
+        heading.textContent = 'Session ' + sNum + ' — ' + dateRange;
+
+        var block = document.createElement('div');
+        block.className = 'session-block';
+
+        if (session.screenReader) {
+          var srLine = document.createElement('p');
+          srLine.className = 'session-sr';
+          srLine.textContent = 'Screen reader: ' + session.screenReader;
+          block.appendChild(srLine);
+        }
+
+        if (session.workDates && session.workDates.length > 1) {
+          var wdLine = document.createElement('p');
+          wdLine.className = 'session-meta';
+          wdLine.textContent = 'Working dates: ' + session.workDates.map(fmtDate).join(', ');
+          block.appendChild(wdLine);
+        }
+
+        var tableWrap = document.createElement('div');
+        tableWrap.className = 'data-table-wrap';
+
+        var rooms = session.rooms || [];
+        var table = document.createElement('table');
+        table.setAttribute('aria-label', 'Session ' + sNum + ' results for The Grocery Store');
+
+        table.innerHTML = '<thead><tr>' +
+          '<th scope="col">Room</th>' +
+          '<th scope="col">Skill</th>' +
+          '<th scope="col">Date Completed</th>' +
+          '<th scope="col">Attempts</th>' +
+          '<th scope="col">Time Used</th>' +
+          '<th scope="col">Time Allowed</th>' +
+          '<th scope="col">Used</th>' +
+          '</tr></thead>';
+
+        var tbody = document.createElement('tbody');
+
+        GROCERY_ROOM_META.forEach(function(rm) {
+          var roomData = rooms.find(function(r){ return r.roomKey===rm.key; });
+          var tr = document.createElement('tr');
+          tr.innerHTML =
+            '<td>' + rm.name + '</td>' +
+            '<td class="td-skill">' + rm.skill + '</td>' +
+            '<td>' + (roomData ? fmtDate(roomData.dateCompleted) : '—') + '</td>' +
+            '<td class="td-attempts">' + (roomData ? roomData.attempts : '—') + '</td>' +
+            '<td class="td-time">' + (roomData ? fmtTime(roomData.timeUsed) : '—') + '</td>' +
+            '<td class="td-time">' + fmtTime(rm.timeAllowed) + '</td>' +
+            '<td class="td-pct">' + (roomData ? roomData.pct + '%' : '—') + '</td>';
+          tbody.appendChild(tr);
+        });
+        table.appendChild(tbody);
+        tableWrap.appendChild(table);
+        block.appendChild(tableWrap);
+
+        if (rooms.length > 0) {
+          var totalTime = rooms.reduce(function(sum, r){ return sum + (r.timeUsed||0); }, 0);
+          var totalAttempts = rooms.reduce(function(sum, r){ return sum + (r.attempts||0); }, 0);
+          var totalLine = document.createElement('p');
+          totalLine.className = 'session-total';
+          totalLine.innerHTML = '<strong>Session total:</strong> ' + fmtTime(totalTime) + ' across ' + totalAttempts + ' attempts';
+          block.appendChild(totalLine);
+        }
+
+        var btns = document.createElement('div');
+        btns.className = 'session-btns';
+
+        var shareBtn = document.createElement('button');
+        shareBtn.type = 'button';
+        shareBtn.className = 'btn-share btn-share-email';
+        shareBtn.setAttribute('aria-label', 'Share Session ' + sNum + ' via email');
+        shareBtn.textContent = 'Share Session ' + sNum;
+        shareBtn.addEventListener('click', function(){ shareGrocerySession(session, sNum); });
+
+        var copyBtn = document.createElement('button');
+        copyBtn.type = 'button';
+        copyBtn.className = 'btn-share btn-share-copy';
+        copyBtn.setAttribute('aria-label', 'Copy Session ' + sNum + ' to clipboard');
+        copyBtn.textContent = 'Copy Session ' + sNum;
+        copyBtn.addEventListener('click', function(){ copyGrocerySession(session, sNum, copyBtn); });
+
+        btns.appendChild(shareBtn);
+        btns.appendChild(copyBtn);
+        block.appendChild(btns);
+
+        container.appendChild(heading);
+        container.appendChild(block);
+      });
+
+      if (sessions.length > 0) {
+        globalBtns.style.display = 'flex';
+        document.getElementById('grocery-share-all').onclick = function(){ shareAllGrocerySessions(); };
+        document.getElementById('grocery-copy-all').onclick  = function(){ copyAllGrocerySessions(); };
+        document.getElementById('grocery-reset').onclick     = function(){ resetGrocery(); };
+      }
+    }
+
+    function grocerySessionText(session, sNum) {
+      var lines = [];
+      var startFmt = fmtDate(session.startDate);
+      var endFmt   = session.endDate ? fmtDate(session.endDate) : 'In Progress';
+      lines.push('Escape Rooms: The Grocery Store, Dinner at Seven');
+      lines.push('Session ' + sNum + ' — ' + startFmt + ' to ' + endFmt);
+      if (session.screenReader) lines.push('Screen reader: ' + session.screenReader);
+      lines.push('');
+
+      var rooms = session.rooms || [];
+      GROCERY_ROOM_META.forEach(function(rm) {
+        var r = rooms.find(function(x){ return x.roomKey===rm.key; });
+        if (r) {
+          lines.push('Room ' + rm.key + ', ' + rm.name + ' — ' + rm.skill);
+          lines.push('Completed: ' + fmtDate(r.dateCompleted) + ' — Attempts: ' + r.attempts + ' — Time: ' + fmtTime(r.timeUsed) + ' of ' + fmtTime(rm.timeAllowed) + ' — ' + r.pct + '%');
+          lines.push('');
+        }
+      });
+
+      if (rooms.length > 0) {
+        var totalTime = rooms.reduce(function(s,r){ return s+(r.timeUsed||0); },0);
+        var totalAttempts = rooms.reduce(function(s,r){ return s+(r.attempts||0); },0);
+        lines.push('Total: ' + fmtTime(totalTime) + ' across ' + totalAttempts + ' attempts');
+      }
+
+      return lines.join('\n');
+    }
+
+    function shareGrocerySession(session, sNum) {
+      var text = grocerySessionText(session, sNum);
+      var subj = 'ScreenPath Activity Results';
+      window.location.href = 'mailto:?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(text);
+    }
+
+    function copyGrocerySession(session, sNum, btn) {
+      var text = grocerySessionText(session, sNum);
+      copyText(text, btn, 'Copy Session ' + sNum);
+    }
+
+    function shareAllGrocerySessions() {
+      var sessions = loadGrocerySessions();
+      var all = sessions.map(function(s,i){ return grocerySessionText(s, i+1); }).join('\n\n---\n\n');
+      var subj = 'ScreenPath Activity Results';
+      window.location.href = 'mailto:?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(all);
+    }
+
+    function copyAllGrocerySessions() {
+      var sessions = loadGrocerySessions();
+      var all = sessions.map(function(s,i){ return grocerySessionText(s, i+1); }).join('\n\n---\n\n');
+      var btn = document.getElementById('grocery-copy-all');
+      copyText(all, btn, 'Copy All Sessions');
+    }
+
+    function resetGrocery() {
+      if (!confirm('This will delete all progress and session history for The Grocery Store. This cannot be undone. Are you sure?')) return;
+      ['sp_grocery_room1_complete','sp_grocery_room2_complete','sp_grocery_room3_complete','sp_grocery_room4_complete',
+       'sp_grocery_sessions','sp_grocery_current_session','sp_grocery_mode','sp_grocery_screenreader'].forEach(function(k){
+        try { localStorage.removeItem(k); } catch(e){}
+      });
+      renderGroceryHistory();
+      announce('Progress for The Grocery Store has been reset.');
     }
 
     // ── ARCADE: ARE YOU SMARTER THAN A 5TH GRADER? ─────────────────
@@ -1545,6 +1778,7 @@
     // ── INIT ──────────────────────────────────────────────────────
     renderSchoolHistory();
     renderDoctorHistory();
+    renderGroceryHistory();
     renderArcade5thGraderHistory();
     renderWordGuessHistory();
     renderWritingLabHistory();

@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Room 1: The Entrance | The Grocery Store | ScreenPath</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+[hidden]{display:none !important;}
+:root{
+  --bg:#0a0a0a; --surface:#111111; --surface-2:#1a1a1a; --border:#2a2a2a;
+  --text:#f0f0f0; --text-muted:#8a8a8a;
+  --green:#39d98a; --green-dim:#0d2e1c;
+  --red:#ff4d4d; --red-dim:#2e0d0d;
+  --amber:#f5a623; --amber-dim:#2e1f00;
+  --radius:12px;
+  --font:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'SF Mono','Fira Code','Consolas',monospace;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:18px;line-height:1.7;min-height:100vh;}
+.visually-hidden{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+.skip-link{position:absolute;top:-100px;left:1rem;background:var(--amber);color:#000;padding:.75rem 1.5rem;border-radius:var(--radius);font-weight:600;font-size:1rem;text-decoration:none;z-index:9999;transition:top .2s;}
+.skip-link:focus{top:1rem;}
+
+/* Nav */
+nav[role="navigation"]{position:sticky;top:0;left:0;right:0;z-index:500;background:rgba(10,10,10,.95);backdrop-filter:blur(22px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;}
+.nav-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0;}
+.nav-logo-mark{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:var(--amber);color:#000;font-family:var(--font);font-weight:800;font-size:.85rem;flex-shrink:0;}
+.nav-links{display:flex;align-items:center;gap:.15rem;list-style:none;}
+.nav-links a{color:var(--text-muted);text-decoration:none;font-size:.86rem;font-weight:500;padding:.45rem .8rem;border-radius:100px;transition:color .2s,background .2s;white-space:nowrap;}
+.nav-links a:hover{color:var(--text);background:var(--surface-2);}
+.nav-links a[aria-current="page"]{color:var(--amber);}
+.nav-links a:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:100px;}
+.menu-btn{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--border);border-radius:8px;padding:.42rem .55rem;cursor:pointer;color:var(--text-muted);font-size:1.15rem;line-height:1;}
+.menu-btn:hover{border-color:var(--amber);color:var(--text);}
+.menu-btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:8px;}
+.nav-drawer{display:none;flex-direction:column;background:rgba(10,10,10,.97);border-top:1px solid var(--border);padding:1rem 1.5rem 1.5rem;}
+.nav-drawer.open{display:flex;}
+.nav-drawer a{color:var(--text-muted);text-decoration:none;font-size:1rem;font-weight:500;padding:.65rem 0;border-bottom:1px solid var(--border);}
+.nav-drawer a:last-child{border-bottom:none;}
+@media(max-width:860px){.nav-links{display:none;} .menu-btn{display:flex;}}
+
+/* Main */
+main{max-width:860px;margin:0 auto;padding:3rem 2rem 6rem;}
+.back-link{display:inline-flex;align-items:center;gap:.5rem;color:var(--text-muted);text-decoration:none;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase;margin-bottom:2.5rem;}
+.back-link:hover,.back-link:focus{color:var(--amber);}
+.back-link:focus-visible{outline:2px solid var(--amber);outline-offset:4px;border-radius:3px;}
+
+.room-header{margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--border);}
+.room-meta{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:1rem;}
+.room-badge{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);padding:.3rem .85rem;border-radius:100px;}
+.room-level{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);border:1px solid var(--border);padding:.3rem .85rem;border-radius:100px;}
+.room-skill-badge{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);border:1px solid rgba(57,217,138,.3);padding:.3rem .85rem;border-radius:100px;background:var(--green-dim);}
+h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;letter-spacing:-.02em;line-height:1.15;color:var(--text);}
+h2{font-size:1.4rem;font-weight:600;letter-spacing:-.01em;margin-bottom:1.25rem;color:var(--text);}
+h3{font-size:1.1rem;font-weight:600;color:var(--amber);margin-bottom:1rem;}
+.room-image-wrap{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);margin:1.75rem 0 2.5rem;background:var(--surface-2);}
+.room-image-wrap img{width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:cover;}
+.image-caption{font-size:.82rem;color:var(--text-muted);padding:.75rem 1rem;background:var(--surface);border-top:1px solid var(--border);}
+.room-section{margin-bottom:3.5rem;padding-bottom:3rem;border-bottom:1px solid var(--border);}
+.room-section:last-of-type{border-bottom:none;}
+p{margin-bottom:1rem;}
+p:last-child{margin-bottom:0;}
+
+/* Landing gate (pre-start screen reader / mode gate for the whole series) */
+.eyebrow{font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.75rem;}
+#landing-gate h1{margin-bottom:1.1rem;}
+.synopsis{font-size:1.05rem;color:var(--text-muted);max-width:620px;line-height:1.75;margin-bottom:0;}
+.skills-summary{color:var(--text-muted);font-size:.98rem;margin-bottom:1.25rem;}
+.room-list{list-style:none;display:flex;flex-direction:column;gap:.6rem;padding:0;margin:0;}
+.room-item{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--amber);border-radius:var(--radius);padding:.9rem 1.4rem;display:flex;align-items:baseline;gap:.75rem;flex-wrap:wrap;}
+.room-number{font-family:var(--mono);color:var(--amber);font-size:.82rem;font-weight:700;}
+.room-name{font-size:1rem;font-weight:600;color:var(--text);}
+.room-skill{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);background:var(--green-dim);border:1px solid rgba(57,217,138,.3);padding:.2rem .7rem;border-radius:100px;margin-left:auto;}
+.gate{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem 1.75rem 2rem;}
+.gate .field{margin-bottom:1.5rem;}
+.gate .field:last-of-type{margin-bottom:0;}
+.gate .field label{display:block;font-weight:600;font-size:.95rem;margin-bottom:.5rem;color:var(--text);}
+.gate .field .req{color:var(--amber);font-weight:400;font-size:.82rem;}
+.gate select{width:100%;max-width:420px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.75rem .9rem;font-size:1rem;font-family:var(--font);}
+.gate select:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
+.gate .help{color:var(--text-muted);font-size:.85rem;margin-top:.5rem;max-width:420px;min-height:1.2em;}
+.gate-actions{margin-top:1rem;padding-top:1.5rem;border-top:1px solid var(--border);}
+.gate-note{color:var(--text-muted);font-size:.85rem;margin-top:1rem;}
+
+/* Skill focus */
+.skill-focus{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--green);border-radius:var(--radius);padding:1.5rem;margin:1.5rem 0;}
+.skill-focus-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green);display:block;margin-bottom:.6rem;}
+.skill-focus p{font-size:.95rem;color:var(--text-muted);margin-bottom:0;line-height:1.75;}
+
+/* Profile card */
+.profile-card{background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);border-radius:var(--radius);padding:1.75rem;margin:1.75rem 0;}
+.profile-card-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.9rem;}
+.intake-dl{display:grid;grid-template-columns:1fr;gap:1.25rem;margin:0;padding:0;}
+.intake-group{border-bottom:1px solid rgba(245,166,35,.15);padding-bottom:.75rem;}
+.intake-group:last-child{border-bottom:none;padding-bottom:0;}
+.intake-dt{color:var(--amber);font-family:var(--mono);font-size:.9rem;font-weight:700;margin-bottom:.2rem;}
+.intake-dd{color:var(--text);font-family:var(--mono);font-size:1.05rem;font-weight:600;}
+
+/* Narration */
+.narration-row{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;flex-wrap:wrap;}
+.narrate-btn{display:inline-flex;align-items:center;gap:.6rem;background:var(--surface);border:1px solid var(--green);color:var(--green);font-family:var(--font);font-size:.88rem;font-weight:600;padding:.6rem 1.4rem;border-radius:100px;cursor:pointer;transition:background .2s,transform .15s;}
+.narrate-btn:hover{background:var(--green-dim);transform:translateY(-1px);}
+.narrate-btn:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:100px;}
+.narrate-btn.playing{background:var(--green-dim);}
+.narrate-status{font-family:var(--mono);font-size:.78rem;color:var(--text-muted);}
+
+/* Timer */
+.timer-area{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin:2rem 0;text-align:center;}
+.sound-row{display:flex;align-items:center;justify-content:center;gap:.75rem;margin-bottom:.75rem;flex-wrap:wrap;}
+.sound-note{font-size:.82rem;color:var(--text-muted);font-style:italic;margin-bottom:1.25rem;line-height:1.5;}
+.sound-label{font-size:.88rem;color:var(--text-muted);font-family:var(--mono);letter-spacing:.04em;}
+.toggle-btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--surface-2);border:1px solid var(--border);border-radius:100px;color:var(--text-muted);font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;padding:.45rem 1.1rem;cursor:pointer;transition:border-color .2s,color .2s,background .2s;}
+.toggle-btn[aria-checked="true"]{border-color:var(--amber);color:var(--amber);background:var(--amber-dim);}
+.toggle-btn:focus-visible{outline:2px solid var(--amber);outline-offset:3px;}
+.toggle-dot{width:7px;height:7px;border-radius:50%;background:var(--text-muted);transition:background .2s;flex-shrink:0;}
+.toggle-btn[aria-checked="true"] .toggle-dot{background:var(--amber);}
+.timer-instructions{font-size:.95rem;color:var(--text-muted);margin-bottom:1.5rem;line-height:1.7;}
+#timer-display{font-family:var(--mono);font-size:3.5rem;font-weight:700;color:var(--amber);letter-spacing:.05em;display:block;margin-bottom:1.5rem;line-height:1;transition:color .3s;}
+#timer-display.warning{color:#ffcf70;}
+#timer-display.critical{color:var(--red);animation:pulse .8s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+
+/* Buttons */
+.btn{display:inline-block;font-family:var(--font);font-size:1rem;font-weight:600;padding:.9rem 2.5rem;border-radius:100px;border:none;cursor:pointer;letter-spacing:.02em;transition:transform .15s,box-shadow .15s,background .2s;text-decoration:none;text-align:center;}
+.btn:focus-visible{outline:3px solid var(--amber);outline-offset:4px;}
+.btn-primary{background:var(--amber);color:#000;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,166,35,.3);}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none;}
+.btn-secondary{background:var(--surface-2);color:var(--text);border:1px solid var(--border);}
+.btn-secondary:hover{background:var(--surface);transform:translateY(-1px);}
+
+/* Form */
+.registration-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin:1.5rem 0;}
+.form-fieldset{border:1px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.5rem;}
+.form-fieldset:last-of-type{margin-bottom:0;}
+.form-legend{color:var(--amber);font-family:var(--mono);font-size:.9rem;font-weight:700;padding:0 .5rem;text-transform:uppercase;letter-spacing:.05em;}
+.form-grid{display:grid;grid-template-columns:1fr;gap:1.5rem;margin-top:.5rem;}
+@media(min-width:600px){.form-grid.two-col{grid-template-columns:1fr 1fr;}}
+.form-field{display:flex;flex-direction:column;gap:.5rem;}
+.form-field label{font-size:.9rem;font-weight:600;color:var(--text);}
+.field-hint{display:block;font-size:.82rem;color:var(--text-muted);line-height:1.5;}
+.form-field input,.form-field select{background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:.75rem 1rem;color:var(--text);font-family:var(--font);font-size:.95rem;transition:border-color .2s;}
+.form-field input:focus,.form-field select:focus{outline:2px solid var(--amber);border-color:transparent;}
+.form-field select{cursor:pointer;}
+.form-field input.field-error,.form-field select.field-error{border:2px solid var(--red) !important;background:var(--red-dim);}
+.submit-btn{background:var(--amber);color:#000;font-family:var(--font);font-weight:700;font-size:.95rem;border:none;padding:.85rem 2rem;border-radius:8px;cursor:pointer;transition:transform .15s,opacity .2s;margin-top:1rem;}
+.submit-btn:hover{transform:translateY(-1px);}
+.submit-btn:focus-visible{outline:2px solid var(--amber);outline-offset:4px;}
+.feedback-box{margin-top:1.5rem;padding:1rem 1.25rem;border-radius:8px;font-size:.95rem;display:none;line-height:1.6;}
+.feedback-box.success{background:var(--green-dim);border:1px solid rgba(57,217,138,.3);color:var(--green);display:block;}
+.feedback-box.error{background:var(--red-dim);border:1px solid rgba(255,77,77,.3);color:var(--red);display:block;}
+
+/* Bridge message */
+.bridge-msg{background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);border-radius:var(--radius);padding:1.5rem;margin-top:1.5rem;display:none;}
+.bridge-msg.visible{display:block;}
+.bridge-msg-label{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.5rem;}
+.bridge-msg p{font-size:.95rem;color:var(--text);line-height:1.7;margin-bottom:0;font-style:italic;}
+
+/* Debrief / next room */
+.answer-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin-top:1.5rem;display:none;}
+.answer-section.visible{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.answer-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.5rem;}
+.answer-intro{font-size:.92rem;color:var(--text-muted);margin-bottom:1.5rem;line-height:1.6;}
+.form-group{margin-bottom:1.5rem;}
+.form-group:last-child{margin-bottom:0;}
+label{display:block;font-size:.92rem;font-weight:600;color:var(--text);margin-bottom:.5rem;}
+input[type="text"]{width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font);font-size:1rem;padding:.85rem 1rem;}
+input[type="text"]:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(245,166,35,.15);}
+textarea{width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font);font-size:1rem;padding:.85rem 1rem;resize:vertical;min-height:90px;line-height:1.6;}
+textarea:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(245,166,35,.15);}
+.radio-group{display:flex;flex-direction:column;gap:.6rem;margin-top:.25rem;}
+.radio-option{display:flex;align-items:center;gap:.75rem;cursor:pointer;font-size:.95rem;color:var(--text-muted);padding:.65rem 1rem;border:1px solid var(--border);border-radius:8px;transition:border-color .2s,color .2s;}
+.radio-option:hover{border-color:var(--amber);color:var(--text);}
+.radio-option input[type="radio"]{width:18px;height:18px;accent-color:var(--amber);flex-shrink:0;}
+.radio-option input[type="radio"]:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
+.section-divider{border:none;border-top:1px solid var(--border);margin:1.5rem 0;}
+.next-room-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin-top:1.5rem;display:none;text-align:center;}
+.next-room-box.visible{display:block;animation:fadeUp .4s ease;}
+.next-room-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.5rem;}
+.next-room-box h3{color:var(--amber);margin-bottom:.5rem;font-size:1.1rem;}
+.next-room-box p{font-size:.9rem;color:var(--text-muted);margin-bottom:1.5rem;}
+
+footer[role="contentinfo"]{border-top:1px solid var(--border);padding:2.5rem 2rem;color:var(--text-muted);font-size:.85rem;}
+.footer-inner{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:.5rem;}
+.footer-platform{font-weight:600;color:var(--text-muted);}
+.footer-a11y{font-size:.8rem;color:var(--text-muted);line-height:1.6;}
+
+@media(max-width:768px){
+  main{padding:2rem 1.25rem 4rem;}
+  .registration-card{padding:1.25rem;}
+  #timer-display{font-size:2.5rem;}
+}
+a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:3px;}
+
+/* Grocery Store additions */
+#landing-gate .synopsis{margin-bottom:2.5rem;}
+.story-time{font-family:var(--mono);font-size:.82rem;color:var(--text-muted);letter-spacing:.03em;margin:-1rem 0 2.5rem;}
+.skill-focus p + p{margin-top:.75rem;}
+.feedback-box a{color:inherit;text-decoration:underline;}
+.feedback-box ul{margin:.5rem 0 0 1.25rem;}
+.feedback-box li{margin-bottom:.25rem;}
+.feedback-box:focus{outline:2px solid var(--amber);outline-offset:3px;}
+.list-card ul{margin:0 0 0 1.25rem;}
+.list-card li{font-family:var(--mono);font-size:1rem;color:var(--text);margin-bottom:.35rem;}
+.activity-intro{color:var(--text-muted);font-size:.95rem;margin-bottom:1.25rem;}
+.activity-actions{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem;}
+.activity-actions .submit-btn{margin-top:0;}
+.submit-btn:disabled,.btn-secondary:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+
+.match-list{list-style:none;display:flex;flex-direction:column;gap:.75rem;padding:0;margin:0;}
+.match-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.25rem;display:grid;gap:.6rem;}
+@media(min-width:640px){.match-item{grid-template-columns:1fr 16rem;align-items:center;}.match-item .item-error{grid-column:1 / -1;}}
+.match-item label{margin:0;font-size:1rem;}
+.match-item select{width:100%;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.7rem .9rem;font-size:1rem;font-family:var(--font);cursor:pointer;}
+.match-item select:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
+.match-item select[aria-invalid="true"]{border:2px solid var(--red);background:var(--red-dim);}
+.item-error{color:var(--red);font-size:.88rem;font-weight:600;margin:0;}
+.item-error:empty{display:none;}
+
+.table-container{overflow-x:auto;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin:1rem 0 2rem;padding:1rem;}
+table{width:100%;border-collapse:collapse;text-align:left;font-size:.95rem;}
+caption{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);text-align:left;padding-bottom:.75rem;caption-side:top;}
+th{background:var(--surface-2);color:var(--amber);font-family:var(--mono);font-size:.85rem;padding:.75rem .6rem;border-bottom:2px solid var(--border);text-align:left;letter-spacing:.03em;}
+tbody th{background:transparent;color:var(--text);font-family:var(--font);font-size:.95rem;border-bottom:1px solid var(--border);}
+td{padding:.7rem .6rem;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top;}
+tr:last-child td,tr:last-child th{border-bottom:none;}
+tfoot th,tfoot td{border-top:2px solid var(--border);font-weight:700;color:var(--amber);}
+td input[type="checkbox"]{width:22px;height:22px;accent-color:var(--amber);cursor:pointer;}
+td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
+.shelf-sign{background:var(--amber-dim);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;padding:.75rem 1rem;font-style:italic;font-size:.95rem;margin:0;}
+.stop-heading{margin-top:2rem;}
+
+.flag-card{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--amber);border-radius:var(--radius);padding:1.25rem 1.5rem;margin-bottom:1.25rem;}
+.flag-card h3{margin-bottom:.5rem;}
+.flag-card a{color:var(--green);}
+.choice-row{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem;}
+.choice-btn{background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:100px;padding:.6rem 1.3rem;font-family:var(--font);font-size:.95rem;font-weight:600;cursor:pointer;}
+.choice-btn:hover{border-color:var(--amber);}
+.choice-btn:disabled{opacity:.5;cursor:not-allowed;}
+.choice-btn[aria-disabled="true"]{border-style:dashed;color:var(--text-muted);cursor:not-allowed;}
+.flag-result{margin-top:.9rem;font-size:.95rem;line-height:1.6;}
+.flag-result:empty{display:none;}
+.flag-result.ok{color:var(--green);}
+.flag-result.error{color:var(--red);}
+.table-container a{color:var(--green);}
+
+.question-fieldset{border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.5rem;margin:1rem 0 2rem;}
+.question-fieldset legend{font-weight:600;color:var(--text);padding:0 .5rem;font-size:1rem;}
+.question-fieldset .radio-group{margin-top:.75rem;}
+.question-fieldset .item-error{margin-top:.75rem;}
+
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<nav role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="ScreenPath, return to home page">
+      <span class="nav-logo-mark" aria-hidden="true">SP</span>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="progress.html">Progress</a></li>
+      <li><a href="feedback.html">Feedback</a></li>
+    </ul>
+    <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu">☰</button>
+  </div>
+  <div class="nav-drawer" id="nav-drawer" aria-label="Mobile navigation">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="progress.html">Progress</a>
+    <a href="feedback.html">Feedback</a>
+  </div>
+</nav>
+
+<main id="main-content" tabindex="-1">
+  <a href="index.html" class="back-link">← Back to Dashboard</a>
+
+  <div id="landing-gate">
+    <span class="eyebrow">The Grocery Store, 4 Rooms</span>
+    <h1>Dinner at Seven</h1>
+    <p class="synopsis">Your grandparents arrive for dinner at 7:00, Mom is stuck at work, and your brother can only pick you up at 6:15. Sort the list, shop the aisles, beat the scanner, and get out the door. Four rooms, one Friday evening grocery run.</p>
+
+    <section class="room-section" aria-labelledby="practice-heading">
+      <h2 id="practice-heading">What you'll practice</h2>
+      <p class="skills-summary">Four rooms, four skills. Each room reveals its own task once you start.</p>
+      <ol class="room-list">
+        <li class="room-item">
+          <span class="room-number">Room 1</span>
+          <span class="room-name">The Entrance</span>
+          <span class="room-skill">Matching Questions</span>
+        </li>
+        <li class="room-item">
+          <span class="room-number">Room 2</span>
+          <span class="room-name">The Aisles</span>
+          <span class="room-skill">Tables &amp; Checkboxes</span>
+        </li>
+        <li class="room-item">
+          <span class="room-number">Room 3</span>
+          <span class="room-name">The Express Checkout</span>
+          <span class="room-skill">Links &amp; Verification</span>
+        </li>
+        <li class="room-item">
+          <span class="room-number">Room 4</span>
+          <span class="room-name">Out the Door</span>
+          <span class="room-skill">Radio Buttons</span>
+        </li>
+      </ol>
+    </section>
+
+    <section class="room-section" style="border-bottom:none;" aria-labelledby="gate-heading">
+      <h2 id="gate-heading">Before you start</h2>
+      <div class="gate">
+        <div class="field">
+          <label for="gate-screen-reader">Screen reader <span class="req">(required)</span></label>
+          <select id="gate-screen-reader" required aria-required="true">
+            <option value="">Choose one&hellip;</option>
+            <option value="JAWS">JAWS</option>
+            <option value="NVDA">NVDA</option>
+            <option value="VoiceOver">VoiceOver</option>
+            <option value="Narrator">Narrator</option>
+            <option value="ChromeVox">ChromeVox</option>
+            <option value="TalkBack">TalkBack</option>
+            <option value="Prefer not to say">Prefer not to say</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="gate-mode">Practice or Challenge <span class="req">(required)</span></label>
+          <select id="gate-mode" required aria-required="true" aria-describedby="gate-mode-help">
+            <option value="">Choose one&hellip;</option>
+            <option value="practice">Practice: same four rooms, no timer, build confidence</option>
+            <option value="challenge">Challenge: same four rooms, timed, the real test</option>
+          </select>
+          <p class="help" id="gate-mode-help"></p>
+        </div>
+        <div class="gate-actions">
+          <button type="button" id="gate-continue-btn" class="btn btn-primary" disabled aria-describedby="gate-note">Continue to Room 1</button>
+          <p class="gate-note" id="gate-note">Choose a screen reader and a mode above to continue. Both choices apply to all four rooms, so you will not be asked again.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="room-content" hidden>
+  <div class="room-header">
+    <div class="room-meta">
+      <span class="room-badge">Room 1 of 4: The Grocery Store</span>
+      <span class="room-level">Grocery Run</span>
+      <span class="room-skill-badge">Focus: Matching Questions</span>
+    </div>
+    <h1>Room 1: The Entrance</h1>
+  </div>
+  <p class="story-time">Dinner at Seven, The Entrance, Friday, 5:57 PM</p>
+
+  <section class="room-section" aria-labelledby="situation-heading">
+    <h2 id="situation-heading">Where You Are</h2>
+    <p id="scene-p1">It's 5:57 on a Friday evening, and your grandparents are driving in for dinner at 7:00. It's the first family dinner in months. Mom is making Grandpa's favorite, chicken parmesan. She gets home at 6:30 to start cooking, but only if the groceries are already there.</p>
+    <p id="scene-p2">Mom got stuck at work, so she texted you the grocery list. She typed it in a hurry, and the store's app jumbled everything into one long, random mess.</p>
+    <p id="scene-p3">Your brother can pick you up at 6:15, but only for a minute. He's heading to a 6:30 shift and can't wait. Miss him, and you're walking home carrying melting ice cream.</p>
+    <p id="scene-p4">You push through the front doors. Priya, the teen who works as the self checkout attendant, spots your panicked face and waves you over. "Big night?" she asks. You show her the list. She counts it. "Twelve items. That's exactly the express lane limit. Here's the trick: match every item to its department in the app, and it builds your fastest route through the store. Six minutes to sort, five to shop, four to check out, three to the curb. You can make 6:15."</p>
+    <p id="scene-p5">She taps your phone. Twelve items appear, each one waiting for its department.</p>
+
+    <div class="narration-row">
+      <button type="button" class="narrate-btn" id="narrate-btn" aria-pressed="false" aria-label="Play, hear the situation read aloud">
+        <span id="narrate-icon" aria-hidden="true">▶</span>
+        <span id="narrate-label">Play Scene</span>
+      </button>
+      <span class="narrate-status" id="narrate-status" role="status" aria-live="polite" aria-atomic="true"></span>
+    </div>
+  </section>
+
+  <section class="room-section" aria-labelledby="mission-heading">
+    <h2 id="mission-heading" tabindex="-1">Match the List</h2>
+
+    <div class="skill-focus">
+      <span class="skill-focus-label">Screen Reader Skill Focus</span>
+      <p>This room works like a matching question in a Canvas quiz: a list of items, and each item has its own dropdown of answers. Every dropdown has the same 10 departments.</p>
+      <p>You can use a department more than once, and some departments are not used at all. In real quizzes, a dropdown may not say which item it belongs to, so get in the habit of reading the item text before each box.</p>
+      <p>Use the Review My Matches button to check that nothing is left unmatched before you submit.</p>
+    </div>
+
+    <div class="timer-area">
+      <div class="sound-row">
+        <span class="sound-label" id="sound-label">Sound effects:</span>
+        <button type="button" class="toggle-btn" id="sound-toggle" role="switch" aria-checked="true" aria-labelledby="sound-label">
+          <span class="toggle-dot" aria-hidden="true"></span>
+          <span id="sound-text">On</span>
+        </button>
+      </div>
+      <p class="sound-note">Sound effects play during the room, including timer warnings and feedback on your answers. Turn them off here before starting if you prefer silence.</p>
+      <p class="timer-instructions" id="timer-instructions"></p>
+      <span id="timer-display" aria-live="off"></span>
+      <div>
+        <button type="button" class="btn btn-primary" id="start-timer-btn">Start: Sort the List</button>
+      </div>
+    </div>
+
+    <div id="activity">
+      <h3 id="match-heading">Mom's List: Match Each Item to Its Department</h3>
+      <p class="activity-intro">Match each item to its department. Departments can be used more than once, and some may not be used.</p>
+      <ul class="match-list" id="match-list"></ul>
+      <div class="activity-actions">
+        <button type="button" class="btn btn-secondary" id="review-btn">Review My Matches</button>
+        <button type="button" class="submit-btn" id="submit-btn">Submit My List</button>
+      </div>
+    </div>
+
+    <div id="feedback-msg" class="feedback-box" tabindex="-1"></div>
+    <button type="button" id="switch-practice" class="btn btn-secondary" style="margin-top:1rem;" hidden>Switch to practice, remove deadline</button>
+
+    <div class="bridge-msg" id="bridge-msg" role="note">
+      <span class="bridge-msg-label" id="bridge-msg-label">// Store App, Route Ready</span>
+      <p id="bridge-msg-text"></p>
+    </div>
+
+    <div class="next-room-box" id="next-room-box" aria-labelledby="next-room-heading">
+      <span class="next-room-label">// Room 1 Complete</span>
+      <h3 id="next-room-heading" tabindex="-1" style="outline:none;">Room 2 is Now Unlocked</h3>
+      <p>Your route is ready: four stops, with frozen foods last.</p>
+      <a href="mission-3b.html" class="btn btn-primary">Enter Room 2: The Aisles</a>
+    </div>
+  </section>
+  </div>
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-inner">
+    <p class="footer-platform">ScreenPath: The Grocery Store, Dinner at Seven. A screen reader escape room.</p>
+    <p class="footer-a11y">ScreenPath is designed for screen reader users. Every page is fully navigable by keyboard and compatible with JAWS, NVDA, and VoiceOver. If you encounter any accessibility issue please contact your instructor.</p>
+  </div>
+</footer>
+
+<script>
+
+  // ── Shared: The Grocery Store (Dinner at Seven) ─────────────────
+  var ROOM_KEY='1';
+  var TOTAL=360;
+
+  function $(id){return document.getElementById(id);}
+  function toggleMenu(){
+    var d=$('nav-drawer'),b=$('menu-btn');
+    var open=d.classList.toggle('open');
+    b.setAttribute('aria-expanded',open?'true':'false');
+    b.setAttribute('aria-label',open?'Close navigation menu':'Open navigation menu');
+    b.textContent=open?'✕':'☰';
+  }
+  $('menu-btn').addEventListener('click',toggleMenu);
+
+  // Announcer: assertive by default, polite when asked
+  function announce(msg,polite){
+    var el=document.createElement('div');
+    el.setAttribute('aria-live',polite?'polite':'assertive');el.setAttribute('aria-atomic','true');
+    el.className='visually-hidden';
+    document.body.appendChild(el);
+    setTimeout(function(){el.textContent=msg;setTimeout(function(){el.remove();},4500);},100);
+  }
+  function revealCompletion(boxId,headingId){
+    var box=$(boxId);
+    box.classList.add('visible');
+    setTimeout(function(){
+      box.scrollIntoView({behavior:'smooth',block:'center'});
+      var h=$(headingId);
+      if(h)h.focus({preventScroll:true});
+    },80);
+  }
+  function todayStr(){return new Date().toISOString().split('T')[0];}
+  function plural(n,one,many){return n+' '+(n===1?one:many);}
+  function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+  function escapeHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+  // ── Session storage (same shape as the other escape rooms) ──────
+  function loadSess(){try{return JSON.parse(localStorage.getItem('sp_grocery_current_session')||'null');}catch(e){return null;}}
+  function ensureSess(){
+    var today=todayStr();
+    var s=loadSess()||{startDate:today,workDates:[today],screenReader:'',rooms:[]};
+    if(!s.workDates)s.workDates=[];
+    if(s.workDates.indexOf(today)===-1)s.workDates.push(today);
+    if(!s.rooms)s.rooms=[];
+    if(!s.screenReader){try{s.screenReader=localStorage.getItem('sp_grocery_screenreader')||'';}catch(e){}}
+    return s;
+  }
+  function saveSess(s){try{localStorage.setItem('sp_grocery_current_session',JSON.stringify(s));}catch(e){}}
+  function recordRoom(){
+    try{
+      localStorage.setItem('sp_grocery_room'+ROOM_KEY+'_complete','1');
+      var s=ensureSess();
+      var pct=Math.min(100,Math.round((elapsed/TOTAL)*100));
+      s.rooms=s.rooms.filter(function(r){return r.roomKey!==ROOM_KEY;});
+      s.rooms.push({roomKey:ROOM_KEY,dateCompleted:todayStr(),attempts:attempts,timeUsed:elapsed,timeAllowed:TOTAL,pct:pct});
+      saveSess(s);
+    }catch(e){}
+  }
+  (function(){try{saveSess(ensureSess());}catch(e){}})();
+
+  // ── Practice vs Challenge: chosen in Room 1. A student who links straight
+  // ── into a later room gets Challenge, the same as the other series.
+  var practiceMode=false;
+  try{practiceMode=localStorage.getItem('sp_grocery_mode')==='practice';}catch(e){}
+
+  // ── Narration ─────────────────────────────────────────────────
+  var narSpeaking=false,narUtterance=null;
+  function getNarText(){
+    return Array.prototype.map.call(document.querySelectorAll('[id^="scene-p"]'),function(el){return el.textContent.replace(/\s+/g,' ').trim();}).filter(Boolean).join(' ... ');
+  }
+  function bestVoice(){
+    if(!window.speechSynthesis)return null;
+    var vv=window.speechSynthesis.getVoices();
+    return vv.find(function(v){return v.lang.startsWith('en')&&/natural|enhanced|premium/i.test(v.name);})
+      ||vv.find(function(v){return v.lang.startsWith('en')&&/daniel|samantha|karen|google|microsoft/i.test(v.name);})
+      ||vv.find(function(v){return v.lang==='en-US';})
+      ||vv.find(function(v){return v.lang.startsWith('en');})||null;
+  }
+  function toggleNarration(){narSpeaking?stopNar():startNar();}
+  function startNar(){
+    if(!window.speechSynthesis){updateNarStatus('Speech not supported in this browser.');return;}
+    window.speechSynthesis.cancel();
+    narUtterance=new SpeechSynthesisUtterance(getNarText());
+    narUtterance.rate=0.82;narUtterance.pitch=0.88;narUtterance.volume=1.0;
+    narUtterance.onstart=function(){narSpeaking=true;setNarBtn(true);updateNarStatus('Playing...');};
+    narUtterance.onend=function(){narSpeaking=false;setNarBtn(false);updateNarStatus('Done.');setTimeout(function(){updateNarStatus('');},3000);};
+    narUtterance.onerror=function(){narSpeaking=false;setNarBtn(false);updateNarStatus('');};
+    var vv=window.speechSynthesis.getVoices();
+    if(vv.length>0){var v=bestVoice();if(v)narUtterance.voice=v;window.speechSynthesis.speak(narUtterance);}
+    else{
+      var spoken=false;
+      window.speechSynthesis.onvoiceschanged=function(){if(spoken)return;spoken=true;var v=bestVoice();if(v)narUtterance.voice=v;window.speechSynthesis.speak(narUtterance);window.speechSynthesis.onvoiceschanged=null;};
+      setTimeout(function(){if(!spoken){spoken=true;window.speechSynthesis.speak(narUtterance);}},500);
+    }
+  }
+  function stopNar(){window.speechSynthesis.cancel();narSpeaking=false;setNarBtn(false);updateNarStatus('Stopped.');setTimeout(function(){updateNarStatus('');},2000);}
+  function setNarBtn(p){
+    var btn=$('narrate-btn');
+    $('narrate-icon').textContent=p?'■':'▶';
+    $('narrate-label').textContent=p?'Stop Scene':'Play Scene';
+    btn.setAttribute('aria-pressed',p?'true':'false');
+    btn.setAttribute('aria-label',p?'Stop, pause the scene narration':'Play, hear the situation read aloud');
+    p?btn.classList.add('playing'):btn.classList.remove('playing');
+  }
+  function updateNarStatus(msg){$('narrate-status').textContent=msg;}
+  $('narrate-btn').addEventListener('click',toggleNarration);
+  window.addEventListener('beforeunload',function(){if(window.speechSynthesis)window.speechSynthesis.cancel();});
+
+  // ── Sound effects ─────────────────────────────────────────────
+  var audioCtx=null,soundEnabled=true;
+  function getCtx(){
+    if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+    if(audioCtx.state==='suspended'&&audioCtx.resume)audioCtx.resume();
+    return audioCtx;
+  }
+  function tone(f,d,t,v,dl){
+    t=t||'sine';v=v||.35;dl=dl||0;
+    if(!soundEnabled)return;
+    try{
+      var ctx=getCtx(),o=ctx.createOscillator(),g=ctx.createGain();
+      o.connect(g);g.connect(ctx.destination);o.type=t;
+      o.frequency.setValueAtTime(f,ctx.currentTime+dl);
+      g.gain.setValueAtTime(0,ctx.currentTime+dl);
+      g.gain.linearRampToValueAtTime(v,ctx.currentTime+dl+0.01);
+      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+dl+d);
+      o.start(ctx.currentTime+dl);o.stop(ctx.currentTime+dl+d+0.05);
+    }catch(e){}
+  }
+  function sfxStart(){tone(440,.12,'square',.28,0);tone(554,.12,'square',.28,.13);tone(659,.22,'square',.32,.26);}
+  function sfxPing(){tone(880,.07,'sine',.3,0);tone(880,.07,'sine',.3,.14);}
+  function sfxWarn(){tone(1100,.09,'square',.3,0);tone(1100,.09,'square',.3,.17);tone(1100,.09,'square',.3,.34);}
+  function sfxTick(){tone(1400,.04,'square',.18,0);}
+  function sfxFail(){tone(660,.22,'sawtooth',.38,0);tone(550,.22,'sawtooth',.38,.25);tone(440,.22,'sawtooth',.38,.5);}
+  function sfxWin(){tone(523,.16,'sine',.38,0);tone(659,.16,'sine',.38,.18);tone(784,.16,'sine',.38,.36);tone(1047,.4,'sine',.38,.54);}
+  function sfxError(){tone(220,.15,'sawtooth',.3,0);tone(180,.25,'sawtooth',.28,.18);}
+  function toggleSound(){
+    soundEnabled=!soundEnabled;
+    $('sound-toggle').setAttribute('aria-checked',soundEnabled?'true':'false');
+    $('sound-text').textContent=soundEnabled?'On':'Off';
+    announce('Sound effects '+(soundEnabled?'on':'off'));
+    if(soundEnabled)sfxPing();
+  }
+  $('sound-toggle').addEventListener('click',toggleSound);
+
+  // ── Controls: locked before Start and after time runs out ───────
+  function controls(){return Array.prototype.slice.call($('activity').querySelectorAll('input,select,button'));}
+  function lockControls(reason){
+    controls().forEach(function(el){if(!el.disabled){el.disabled=true;el.setAttribute('data-locked',reason);}});
+  }
+  function unlockControls(reason){
+    controls().forEach(function(el){if(el.getAttribute('data-locked')===reason){el.disabled=false;el.removeAttribute('data-locked');}});
+  }
+
+  // ── Feedback box: errors move focus here so the message is read once ──
+  function showFeedback(kind,html,moveFocus){
+    var fb=$('feedback-msg');
+    fb.className='feedback-box '+kind;
+    fb.innerHTML=html;
+    if(moveFocus){fb.focus();}
+    else{announce(fb.textContent);}
+  }
+  function hideFeedback(){var fb=$('feedback-msg');fb.className='feedback-box';fb.innerHTML='';}
+  // In page links move keyboard and screen reader focus to their target
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[href^="#"]');
+    if(!a)return;
+    var t=$(a.getAttribute('href').slice(1));
+    if(!t)return;
+    e.preventDefault();
+    if(!/^(A|BUTTON|INPUT|SELECT|TEXTAREA)$/.test(t.tagName)&&!t.hasAttribute('tabindex'))t.setAttribute('tabindex','-1');
+    t.focus();
+    t.scrollIntoView({block:'center'});
+  });
+
+  // ── Timer ─────────────────────────────────────────────────────
+  var secondsLeft=TOTAL,elapsed=0,interval=null,started=false,complete=false,attempts=0;
+  function fmtClock(s){return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
+  function fmtElapsed(s){var m=Math.floor(s/60),sec=s%60;if(m===0)return sec+' second'+(sec!==1?'s':'');if(sec===0)return m+' minute'+(m!==1?'s':'');return m+' minute'+(m!==1?'s':'')+' and '+sec+' second'+(sec!==1?'s':'');}
+  function setPracticeDisplay(){
+    var d=$('timer-display');
+    d.classList.remove('warning','critical');
+    d.textContent='No limit';
+    d.setAttribute('aria-label','Practice mode: no time limit');
+  }
+  function updateDisplay(){
+    var m=Math.floor(secondsLeft/60),s=secondsLeft%60;
+    var d=$('timer-display');
+    d.textContent=fmtClock(secondsLeft);
+    d.setAttribute('aria-label','Time remaining: '+m+' minutes and '+s+' seconds');
+  }
+  function initTimerArea(){
+    if(practiceMode){
+      setPracticeDisplay();
+      $('timer-instructions').textContent=ROOM.preStartPractice;
+    }else{
+      updateDisplay();
+      $('timer-instructions').textContent=ROOM.preStartChallenge;
+    }
+  }
+  function startRoomTimer(){
+    if(started)return;
+    started=true;
+    unlockControls('prestart');
+    $('start-timer-btn').style.display='none';
+    var tog=$('sound-toggle');tog.disabled=true;tog.setAttribute('aria-disabled','true');
+    sfxStart();
+    if(window.speechSynthesis&&narSpeaking)stopNar();
+    if(practiceMode){
+      setPracticeDisplay();
+      $('timer-instructions').textContent=ROOM.startedPractice;
+    }else{
+      $('timer-instructions').textContent=ROOM.startedChallenge;
+    }
+    if(ROOM.onStart)ROOM.onStart();
+    var target=$(ROOM.focusOnStart);
+    if(target){if(!target.hasAttribute('tabindex'))target.setAttribute('tabindex','-1');target.focus();}
+    announce(practiceMode?ROOM.startedPractice:ROOM.startedChallenge,true);
+    interval=setInterval(tick,1000);
+  }
+  $('start-timer-btn').addEventListener('click',startRoomTimer);
+  function tick(){
+    if(practiceMode){elapsed++;return;}
+    secondsLeft--;elapsed++;
+    updateDisplay();
+    var m=Math.floor(secondsLeft/60),s=secondsLeft%60;
+    if(s===0&&m>0){sfxPing();announce(m===1?'One minute remaining.':m+' minutes remaining.');}
+    if(secondsLeft===30){$('timer-display').classList.add('warning');sfxWarn();announce('Thirty seconds remaining.');}
+    if(secondsLeft===10){var d=$('timer-display');d.classList.remove('warning');d.classList.add('critical');announce('Ten seconds remaining.');}
+    if(secondsLeft<=10&&secondsLeft>0)sfxTick();
+    if(secondsLeft<=0){clearInterval(interval);handleTimeExpired();}
+  }
+  function handleTimeExpired(){
+    sfxFail();
+    lockControls('timeout');
+    showFeedback('error','<p>'+ROOM.timeoutText+'</p>',false);
+    var sw=$('switch-practice');
+    sw.hidden=false;
+    sw.focus();
+    announce('Time is up. You can switch to practice mode to keep working with no deadline.');
+  }
+  function switchToPractice(){
+    try{localStorage.setItem('sp_grocery_mode','practice');}catch(e){}
+    practiceMode=true;
+    hideFeedback();
+    $('switch-practice').hidden=true;
+    unlockControls('timeout');
+    setPracticeDisplay();
+    $('timer-instructions').textContent='Practice mode: no deadline. Take your time.';
+    interval=setInterval(tick,1000);
+    var target=$(ROOM.focusOnStart);
+    if(target)target.focus();
+    announce('Deadline removed. Keep working, there is no rush.',true);
+  }
+  $('switch-practice').addEventListener('click',switchToPractice);
+
+  function finishRoom(successText){
+    if(complete)return;
+    complete=true;
+    clearInterval(interval);
+    sfxWin();
+    recordRoom();
+    lockControls('complete');
+    var fb=$('feedback-msg');
+    fb.className='feedback-box success';
+    fb.innerHTML='<p>'+successText+' Finished in '+fmtElapsed(elapsed)+' with '+plural(attempts,'attempt','attempts')+'.</p>';
+    if(ROOM.bridgeText){
+      $('bridge-msg-text').textContent=ROOM.bridgeText;
+      $('bridge-msg').classList.add('visible');
+    }
+  }
+
+
+  // ── Landing gate: screen reader and mode, once for the whole series ──
+  (function(){
+    var gate=$('landing-gate'),roomContent=$('room-content');
+    var srSelect=$('gate-screen-reader'),modeSelect=$('gate-mode');
+    var continueBtn=$('gate-continue-btn'),modeHelp=$('gate-mode-help');
+    function checkReady(){continueBtn.disabled=!(srSelect.value!==''&&modeSelect.value!=='');}
+    srSelect.addEventListener('change',checkReady);
+    modeSelect.addEventListener('change',function(){
+      checkReady();
+      if(modeSelect.value==='practice')modeHelp.textContent='Practice mode: the timer never starts. You can take as long as you need.';
+      else if(modeSelect.value==='challenge')modeHelp.textContent='Challenge mode: Room 1 gives you 6 minutes, Room 2 gives you 5, Room 3 gives you 4, Room 4 gives you 3.';
+      else modeHelp.textContent='';
+    });
+    function revealRoomContent(focusHeading){
+      gate.hidden=true;
+      roomContent.hidden=false;
+      if(focusHeading){
+        var h=roomContent.querySelector('h1');
+        if(h){if(!h.hasAttribute('tabindex'))h.setAttribute('tabindex','-1');h.focus();}
+        announce('Settings saved. Room 1, The Entrance, is ready.',true);
+      }
+    }
+    continueBtn.addEventListener('click',function(){
+      var sr=srSelect.value,mode=modeSelect.value;
+      if(!sr||!mode)return;
+      try{
+        localStorage.setItem('sp_grocery_screenreader',sr);
+        localStorage.setItem('sp_grocery_mode',mode);
+        var s=ensureSess();s.screenReader=sr;saveSess(s);
+      }catch(e){}
+      practiceMode=(mode==='practice');
+      initTimerArea();
+      revealRoomContent(true);
+    });
+    try{
+      var savedMode=localStorage.getItem('sp_grocery_mode'),savedSR=localStorage.getItem('sp_grocery_screenreader');
+      if(savedMode&&savedSR){practiceMode=(savedMode==='practice');revealRoomContent(false);}
+    }catch(e){}
+  })();
+  var ITEMS=[{"id": "apples", "n": "Gala apples", "s": "3 pound bag", "dept": "Produce"}, {"id": "carrots", "n": "Baby carrots", "s": "2 pound bag", "dept": "Produce"}, {"id": "milk", "n": "2% milk", "s": "1 gallon", "dept": "Dairy and Eggs"}, {"id": "mozz", "n": "Shredded mozzarella", "s": "8 ounces", "dept": "Dairy and Eggs"}, {"id": "bread", "n": "Whole wheat bread", "s": "1 loaf", "dept": "Bakery"}, {"id": "icecream", "n": "Vanilla ice cream", "s": "1.5 quarts", "dept": "Frozen"}, {"id": "spaghetti", "n": "Spaghetti", "s": "16 ounces", "dept": "Pantry"}, {"id": "marinara", "n": "Marinara sauce", "s": "24 ounce jar", "dept": "Pantry"}, {"id": "crumbs", "n": "Plain breadcrumbs", "s": "15 ounce canister", "dept": "Pantry"}, {"id": "chicken", "n": "Chicken breasts", "s": "1.5 pounds", "dept": "Meat and Seafood"}, {"id": "water", "n": "Sparkling water", "s": "pack of 12", "dept": "Beverages"}, {"id": "towels", "n": "Paper towels", "s": "pack of 6", "dept": "Household"}];
+  var DEPTS=["Bakery", "Beverages", "Dairy and Eggs", "Floral", "Frozen", "Household", "Meat and Seafood", "Pantry", "Pharmacy", "Produce"];
+
+  var ROOM={
+    preStartChallenge:'Read the list below if you like. When you are ready, press Start to unlock the dropdowns and start the six minute clock.',
+    preStartPractice:'Read the list below if you like. When you are ready, press Start to unlock the dropdowns. Practice mode: no clock.',
+    startedChallenge:'Dropdowns unlocked. Match all 12 items to their departments. Six minutes on the clock.',
+    startedPractice:'Dropdowns unlocked. Match all 12 items to their departments. Practice mode: no deadline.',
+    timeoutText:'Good effort. The six minutes ran out before the list was sorted, but you know how matching questions work better now than when you started.',
+    focusOnStart:'match-heading',
+    bridgeText:'Route ready. Four stops, frozen foods last. Priya calls after you: "Five minutes to shop. Go!"'
+  };
+  var items=shuffle(ITEMS.slice());
+  function full(it){return it.n+', '+it.s;}
+  $('match-list').innerHTML=items.map(function(it){
+    return '<li class="match-item"><label for="m-'+it.id+'">'+escapeHtml(full(it))+'</label>'+
+      '<select id="m-'+it.id+'" aria-describedby="e-'+it.id+'"><option value="">Choose a department</option>'+
+      DEPTS.map(function(d){return '<option>'+escapeHtml(d)+'</option>';}).join('')+'</select>'+
+      '<p class="item-error" id="e-'+it.id+'"></p></li>';
+  }).join('');
+  items.forEach(function(it){
+    $('m-'+it.id).addEventListener('change',function(){
+      this.removeAttribute('aria-invalid');
+      $('e-'+it.id).textContent='';
+      if(!complete)hideFeedback();
+    });
+  });
+  function unmatched(){return items.filter(function(it){return !$('m-'+it.id).value;});}
+  function linkList(list){return '<ul>'+list.map(function(it){return '<li><a href="#m-'+it.id+'">'+escapeHtml(full(it))+'</a></li>';}).join('')+'</ul>';}
+  $('review-btn').addEventListener('click',function(){
+    var u=unmatched();
+    if(!u.length)showFeedback('success','<p>All 12 items are matched. When you are ready, submit your list.</p>',true);
+    else showFeedback('error','<p>You have matched '+(12-u.length)+' of 12 items. Still unmatched:</p>'+linkList(u),true);
+  });
+  $('submit-btn').addEventListener('click',function(){
+    if(!started||complete)return;
+    var u=unmatched();
+    if(u.length){showFeedback('error','<p>Match all 12 items before you submit. Still unmatched:</p>'+linkList(u),true);return;}
+    attempts++;
+    var wrong=items.filter(function(it){
+      var sel=$('m-'+it.id),bad=sel.value!==it.dept;
+      if(bad){sel.setAttribute('aria-invalid','true');$('e-'+it.id).textContent='Not this department. Try another one.';}
+      return bad;
+    });
+    if(!wrong.length){
+      finishRoom('List sorted. The app builds your route.');
+      revealCompletion('next-room-box','next-room-heading');
+      announce('List sorted. Room 1 is complete. Room 2 is now unlocked.',true);
+      return;
+    }
+    sfxError();
+    showFeedback('error','<p>'+plural(wrong.length,'item is','items are')+' in the wrong department. Priya says, "So close. Fix the flagged ones and send it again."</p>'+linkList(wrong),true);
+  });
+  lockControls('prestart');
+  initTimerArea();
+
+</script>
+</body>
+</html>
