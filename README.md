@@ -37,4 +37,4 @@ Keep the HTML, CSS, and JavaScript files together. Test the School activity befo
 
 ## Feedback
 
-Use the website feedback page or email screenpathedu@gmail.com. Do not include student-identifying information in public issues.
+Use the website feedback page or email helloscreenpath@gmail.com. Do not include student-identifying information in public issues.
