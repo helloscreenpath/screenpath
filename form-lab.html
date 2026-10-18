@@ -68,7 +68,10 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
 
 .form-group{margin-bottom:2.5rem;}
 .form-group h2{font-size:1.4rem;font-weight:700;margin-bottom:.4rem;}
-.form-group > p{color:var(--text-muted);margin-bottom:1rem;max-width:760px;}
+.group-head{display:flex;flex-direction:column;gap:1rem;margin-bottom:1.25rem;max-width:760px;}
+.group-text p,.form-group > p{color:var(--text-muted);max-width:760px;}
+.group-img{order:-1;display:block;width:100%;max-width:320px;height:auto;aspect-ratio:400/220;border-radius:var(--radius);}
+@media (min-width:640px){.group-head{flex-direction:row;align-items:center;gap:1.5rem;}.group-img{width:200px;flex-shrink:0;}}
 .form-list{list-style:none;display:flex;flex-direction:column;gap:.9rem;max-width:760px;}
 .form-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.4rem;position:relative;}
 .form-item:hover{border-color:var(--green);}
@@ -82,13 +85,13 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
 <main id="main" tabindex="-1">
 <div class="page-hero"><span class="page-hero-eyebrow" aria-hidden="true">Skill Drills</span><h1>Form Lab</h1></div><div class="main-wrap">
 <div class="form-group">
-<h2>Middle School and Junior High</h2>
-<p>Everyday forms like ordering food, joining a club, or signing up for a team.</p>
+<div class="group-head"><div class="group-text"><h2>Middle School and Junior High</h2>
+<p>Everyday forms like ordering food, joining a club, or signing up for a team.</p></div><img class="group-img" src="images/form-lab-younger.svg" alt=""></div>
 <p>Forms for this section are on the way.</p>
 </div>
 <div class="form-group">
-<h2>High School</h2>
-<p>Forms for work and life after school, like jobs, side jobs, scholarships, college, and housing.</p>
+<div class="group-head"><div class="group-text"><h2>High School</h2>
+<p>Forms for work and life after school, like jobs, side jobs, scholarships, college, and housing.</p></div><img class="group-img" src="images/form-lab-high.svg" alt=""></div>
 <ul class="form-list"><li class="form-item"><a class="card-link" href="form-skills-rental.html">Rental Property Application</a><p>Apply to rent a home, with a clean version and a version with real accessibility problems on purpose.</p></li></ul>
 </div>
 <a class="back-link" href="skill-drills.html">Back to Skill Drills</a>
