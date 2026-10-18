@@ -77,6 +77,16 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
 .cat-item:hover{border-color:var(--green);}
 .cat-item .card-link{font-weight:700;font-size:1.1rem;}
 .cat-item p{margin:.35rem 0 0;font-size:.97rem;}
+.faq-list{display:flex;flex-direction:column;gap:.6rem;margin-top:1rem;}
+.faq{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);}
+.faq[open]{border-color:var(--green);}
+.faq summary{cursor:pointer;padding:1rem 1.25rem;font-weight:700;color:var(--text);font-size:1.05rem;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+.faq summary::-webkit-details-marker{display:none;}
+.faq summary::after{content:"+";color:var(--green);font-size:1.4rem;font-weight:400;line-height:1;flex-shrink:0;}
+.faq[open] summary::after{content:"\2212";}
+.faq summary:focus-visible{outline:3px solid var(--green);outline-offset:2px;border-radius:var(--radius);}
+.faq-answer{padding:0 1.25rem 1.1rem;}
+.faq-answer p:last-child{margin-bottom:0;}
 </style>
 </head>
 <body>
@@ -87,39 +97,37 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
 <div class="page-hero"><span class="page-hero-eyebrow" aria-hidden="true">For Teachers</span><h1>Bring ScreenPath into your classroom.</h1><p>ScreenPath is free and needs no account. It is made for learners who already know the basics and want to become more independent.</p></div><div class="main-wrap"><div class="guide">
 
 <h2>What ScreenPath is</h2>
-<p>ScreenPath is a fluency tool, not a teaching tool. It assumes a student already knows the basics, like moving by heading, following links, reading a table, and filling in a form, and gives them engaging ways to get faster and more confident with those skills.</p>
-<p>Every activity is set in a situation students will meet at school or in everyday life, so the moves they practice here are the same ones they use in Canvas, Google Classroom, online forms, and the websites they visit outside of school.</p>
+<p>ScreenPath is a fluency tool, not a teaching tool. Students practice skills they already know in situations they will meet at school and in everyday life, so the same moves carry over to Canvas, Google Classroom, online forms, and the websites they use outside of school.</p>
 
 <h2>Three kinds of activities</h2>
-<p>Each category page lists every activity in it and the skills each one practices, so you always have the current list in one place.</p>
+<p>Each category page lists every activity in it and the skills each one practices.</p>
 <ul class="cat-list">
-<li class="cat-item"><a class="card-link" href="escape-rooms.html">Escape Rooms</a><p>Story based series where each room focuses on one skill. Practice mode has no timer for building confidence, and Challenge mode adds a timer once a student is ready for some pressure.</p></li>
-<li class="cat-item"><a class="card-link" href="arcade.html">Arcade</a><p>Short games students can replay anytime. Good for a warm up, a review, or a few spare minutes at the end of a lesson.</p></li>
-<li class="cat-item"><a class="card-link" href="skill-drills.html">Skill Drills</a><p>Focused practice on one skill at a time, including Form Lab, where students fill out real life forms grouped by school level.</p></li>
+<li class="cat-item"><a class="card-link" href="escape-rooms.html">Escape Rooms</a><p>Story based series where each room focuses on one skill, with an untimed Practice mode and a timed Challenge mode.</p></li>
+<li class="cat-item"><a class="card-link" href="arcade.html">Arcade</a><p>Short games students can replay anytime, good for a warm up or a few spare minutes.</p></li>
+<li class="cat-item"><a class="card-link" href="skill-drills.html">Skill Drills</a><p>Focused practice on one skill at a time, including Form Lab, where students fill out real life forms.</p></li>
 </ul>
-
-<h2>Connections to the expanded core curriculum</h2>
-<p>Many activities go beyond screen reader skills and connect to areas of the expanded core curriculum, such as independent living, career education, self determination, and compensatory skills. Students order food and check the tax, apply for housing, verify prices before paying, and decide what personal information is safe to share.</p>
-<p>Look for two features you can build a lesson around. <strong>Why they ask</strong> notes explain why a form asks for something, like income before taxes or a phone number. <strong>Talk it over</strong> questions at the end of an activity give you ready made discussion topics about money, budgeting, and privacy.</p>
-<p>A few forms in Form Lab also include a Not Accessible version with real problems built in on purpose, so students can practice working around missing labels and fake headings. The Form Lab page notes which forms include it.</p>
-
-<h2>How student progress is tracked</h2>
-<p>There are no accounts and nothing to set up. Every activity starts by asking which screen reader the student is using, and each finished room, game, or practice session saves a record in the student's own browser. Nothing is sent anywhere automatically.</p>
-<p>Students can see their history anytime on the <a href="progress.html">My Progress page</a>, including what they completed, attempts, time, and the dates they practiced.</p>
-<p><strong>One limitation to know:</strong> progress lives only in the browser the student used. It does not follow them to another computer, and clearing browser data erases it. The My Progress page works best reviewed on the student's own device, ideally sitting with them.</p>
-<p>Many activities end with a summary the student can copy or email to you. When an activity asks for a teacher's email at the start, entering yours there has the email ready when they finish.</p>
 
 <h2>Getting started</h2>
 <ol>
-<li><strong>Share the link.</strong> There is nothing to install and no login, and it works on any device with a browser.</li>
+<li><strong>Share the link.</strong> There is nothing to install and no login.</li>
 <li><strong>Start with The School in Practice mode.</strong> Its rooms cover the fundamentals the rest of ScreenPath builds on.</li>
-<li><strong>Add Challenge mode when a student is ready.</strong> Practice mode has no timer at all, so save the pressure for later.</li>
-<li><strong>Use the discussion pieces.</strong> The Why they ask notes and Talk it over questions are a natural way into expanded core curriculum conversations.</li>
-<li><strong>Check My Progress together.</strong> It is designed to be read with a student, not just about them.</li>
+<li><strong>Add Challenge mode when a student is ready</strong> for some time pressure.</li>
+<li><strong>Review My Progress together</strong> on the student's own device.</li>
 </ol>
 
-<h2>Questions or problems</h2>
-<p>If something is not working the way you expect, or you have an idea for a new activity, <a href="feedback.html">send feedback</a> and I will get back to you.</p>
+<h2>Frequently asked questions</h2>
+<p>Select a question to show its answer.</p>
+<div class="faq-list">
+<details class="faq"><summary>Who is ScreenPath for?</summary><div class="faq-answer"><p>Students who already know the basics of their screen reader, like moving by heading, following links, and reading a table, and want to get faster and more independent. It works for middle school, junior high, and high school students, and Form Lab groups its forms by school level.</p></div></details>
+<details class="faq"><summary>Which screen readers and devices work with it?</summary><div class="faq-answer"><p>ScreenPath runs in any current web browser, so it works with JAWS, NVDA, VoiceOver, Narrator, ChromeVox, and TalkBack on computers, tablets, and phones. Nothing needs to be installed.</p><p>Each activity asks which screen reader the student is using before it starts, so you can see it in their results.</p></div></details>
+<details class="faq"><summary>What is the difference between Practice mode and Challenge mode?</summary><div class="faq-answer"><p>The escape rooms offer both. Practice mode has no timer, so students can take their time and build confidence. Challenge mode adds a timer for each room once a student is ready for some pressure. Each escape room page lists its time limits.</p></div></details>
+<details class="faq"><summary>How is student progress saved, and where can I see it?</summary><div class="faq-answer"><p>Each finished room, game, or practice session saves a record in the student's own browser. There are no accounts and nothing is sent anywhere automatically.</p><p>Students can see their history anytime on the <a href="progress.html">My Progress page</a>, including what they completed, attempts, time, and the dates they practiced. It works best when you review it with the student on their own device.</p></div></details>
+<details class="faq"><summary>Why did a student's progress disappear?</summary><div class="faq-answer"><p>Progress is saved only in the browser where the student practiced. It does not follow them to another computer or another browser, and clearing browsing data or using a private window erases it. If a student switches devices often, ask them to copy or email their results at the end of each activity.</p></div></details>
+<details class="faq"><summary>How do students send me their results?</summary><div class="faq-answer"><p>Many activities end with a summary the student can copy or email to you. When an activity asks for a teacher's email at the start, have the student enter yours so the email is ready to send when they finish. Nothing is sent until the student presses send in their own email app.</p></div></details>
+<details class="faq"><summary>How does ScreenPath connect to the expanded core curriculum?</summary><div class="faq-answer"><p>Many activities practice real life tasks, such as ordering food, applying for housing, checking prices, and deciding what personal information is safe to share. These connect to independent living, career education, self determination, and compensatory skills.</p><p>Two features make good lesson starters. <strong>Why they ask</strong> notes explain why a form asks for something, like income before taxes or a phone number. <strong>Talk it over</strong> questions at the end of an activity give you ready made discussion topics about money, budgeting, and privacy.</p></div></details>
+<details class="faq"><summary>What are the Not Accessible versions in Form Lab?</summary><div class="faq-answer"><p>A few forms in Form Lab come in two versions. The Accessible version is built correctly. The Not Accessible version has real problems built in on purpose, like missing labels and fake headings, so students learn how to work around the forms they will run into on real websites.</p><p>In the Not Accessible version, students can switch to a correctly built reference copy at any time to compare. The Form Lab page notes which forms include this version.</p></div></details>
+<details class="faq"><summary>How do I report a problem or suggest a new activity?</summary><div class="faq-answer"><p>Use the <a href="feedback.html">Feedback page</a>. It opens an email to me with details like the browser and device already filled in, so I can find and fix problems faster.</p></div></details>
+</div>
 
 </div></div>
 </main>
