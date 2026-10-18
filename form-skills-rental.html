@@ -109,6 +109,11 @@ legend{font-weight:700;padding:0 .5rem;font-size:1.05rem;}
 .stat-list li:last-child{border-bottom:none;}
 .stat-list li strong{color:var(--green);font-family:var(--mono);}
 .modal-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1rem;}
+.hint.why{color:var(--text-muted);border-left:3px solid var(--amber);padding-left:.6rem;}
+.talk{background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:1rem 1.1rem;margin-bottom:1.25rem;}
+.talk h3{font-size:1.05rem;margin-bottom:.4rem;}
+.talk p{color:var(--text-muted);font-size:.92rem;margin-bottom:.6rem;}
+.talk ol{padding-left:1.3rem;display:flex;flex-direction:column;gap:.5rem;font-size:.95rem;}
 textarea.summary-box{width:100%;min-height:9rem;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--mono);font-size:.8rem;padding:.75rem;margin-bottom:1rem;}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;}}
@@ -137,6 +142,7 @@ textarea.summary-box{width:100%;min-height:9rem;background:var(--surface-2);bord
       <h2 style="border:none;padding:0;margin-bottom:1rem;">What to expect</h2>
       <p>This form has seven sections: your information, your current residence, your employment, your household, an emergency contact, move-in details and documents, and a final agreement you sign by typing your name.</p>
       <p>Choose <strong>Accessible</strong> below to practice on a clean, correctly built copy of the form. Choose <strong>Not Accessible</strong> to practice on a copy with real problems in it on purpose: some fields missing labels, some groups not announced as groups, and at least one heading that only looks like a heading. In that mode you'll still submit from the Not Accessible tab, but the Accessible tab is one keystroke away any time you want to check how a field should have been built.</p>
+      <p>Some fields have a short "Why they ask" note under them that explains what the landlord is looking for. Your screen reader reads it when you reach the field.</p>
       <p class="lead" style="margin-bottom:0;">Nothing on this page is a dead end, and nothing you type is saved or sent anywhere on its own. At the end, you can choose to copy a practice summary or email it to your teacher.</p>
     </div>
 
@@ -206,7 +212,7 @@ textarea.summary-box{width:100%;min-height:9rem;background:var(--surface-2);bord
         </div>
         <div class="field">
           <label for="acc-dob">Date of birth<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
-          <input type="date" id="acc-dob" name="dob" aria-required="true">
+          <input type="date" id="acc-dob" name="dob" aria-required="true" aria-describedby="acc-dob-why"><p class="hint why" id="acc-dob-why">Why they ask: landlords use your date of birth to confirm who you are and to run checks on your application. Only share it on a form from a business you trust, never in a reply to an unexpected email or text.</p>
         </div>
         <div class="field">
           <label for="acc-phone">Phone number<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
@@ -253,7 +259,7 @@ textarea.summary-box{width:100%;min-height:9rem;background:var(--surface-2);bord
         </div>
         <div class="field">
           <label for="acc-income">Monthly income (before taxes)<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
-          <input type="text" id="acc-income" name="income" inputmode="numeric" aria-required="true">
+          <input type="text" id="acc-income" name="income" inputmode="numeric" aria-required="true" aria-describedby="acc-income-why"><p class="hint why" id="acc-income-why">Why they ask: income before taxes is your pay before taxes and other deductions come out, so it is more than what you actually take home. Many landlords want this number to be about three times the monthly rent.</p>
         </div>
         <div class="field">
           <label for="acc-emplength">How long at this job?</label>
@@ -304,10 +310,11 @@ textarea.summary-box{width:100%;min-height:9rem;background:var(--surface-2);bord
         </div>
         <div class="field">
           <label for="acc-lease">Lease term desired<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
-          <select id="acc-lease" name="lease" aria-required="true">
+          <select id="acc-lease" name="lease" aria-required="true" aria-describedby="acc-lease-why">
             <option value="">Select&hellip;</option>
             <option>6 months</option><option>12 months</option><option>Month-to-month</option>
           </select>
+          <p class="hint why" id="acc-lease-why">Why they ask: a 12 month lease means you agree to pay rent for the whole year, even if you move out early. Month to month usually costs more, but you can leave after giving notice, often 30 days.</p>
         </div>
         <div class="field">
           <label for="acc-proof">Upload proof of income (optional, PDF or image)</label>
@@ -319,11 +326,12 @@ textarea.summary-box{width:100%;min-height:9rem;background:var(--surface-2);bord
           <label><input type="checkbox" id="acc-certify" name="certify" aria-required="true"> I certify the information above is accurate.<span class="req-mark" aria-hidden="true">*</span></label>
         </div>
         <div class="field">
-          <label><input type="checkbox" id="acc-authorize" name="authorize" aria-required="true"> I authorize a background and credit check.<span class="req-mark" aria-hidden="true">*</span></label>
+          <label><input type="checkbox" id="acc-authorize" name="authorize" aria-required="true" aria-describedby="acc-authorize-why"> I authorize a background and credit check.<span class="req-mark" aria-hidden="true">*</span></label>
+          <p class="hint why" id="acc-authorize-why">Why they ask: a credit check shows whether you have paid bills and loans on time, and a background check looks at records like past evictions. Many landlords charge an application fee to run these checks.</p>
         </div>
         <div class="field">
           <label for="acc-signature">Type your full legal name as your signature<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
-          <input type="text" id="acc-signature" name="signature" aria-required="true">
+          <input type="text" id="acc-signature" name="signature" aria-required="true" aria-describedby="acc-signature-why"><p class="hint why" id="acc-signature-why">Why they ask: typing your name here counts as signing. You are promising everything above is true, so read it over before you sign.</p>
         </div>
         <p class="hint" id="acc-hint-note">This is the reference copy. There is no submit button here on purpose, since this tab is only for checking how a field should look and sound.</p>
         <div id="submit-acc-wrap" style="margin-top:1.75rem;" hidden>
@@ -342,7 +350,7 @@ textarea.summary-box{width:100%;min-height:9rem;background:var(--surface-2);bord
           <div class="field-row"><input type="text" id="na-name" name="name" required>
           <button type="button" class="icon-btn" onclick="document.getElementById('na-name').value='';"><span aria-hidden="true">&times;</span></button></div>
         </div>
-        <div class="field"><label for="na-dob">Date of birth <span class="req-mark" aria-hidden="true">*</span></label><input type="date" id="na-dob" name="dob" required></div>
+        <div class="field"><label for="na-dob">Date of birth <span class="req-mark" aria-hidden="true">*</span></label><input type="date" id="na-dob" name="dob" required aria-describedby="na-dob-why"><p class="hint why" id="na-dob-why">Why they ask: landlords use your date of birth to confirm who you are and to run checks on your application. Only share it on a form from a business you trust, never in a reply to an unexpected email or text.</p></div>
         <div class="field"><label for="na-phone">Phone number <span class="req-mark" aria-hidden="true">*</span></label><input type="tel" id="na-phone" name="phone" required></div>
         <div class="field"><label for="na-email">Email address <span class="req-mark" aria-hidden="true">*</span></label><input type="email" id="na-email" name="email" required></div>
 
@@ -367,7 +375,7 @@ textarea.summary-box{width:100%;min-height:9rem;background:var(--surface-2);bord
         <p class="fake-h2">Employment &amp; Income</p>
         <div class="field"><label for="na-employer">Employer name <span class="req-mark" aria-hidden="true">*</span></label><input type="text" id="na-employer" name="employer" required></div>
         <div class="field"><label for="na-title">Job title</label><input type="text" id="na-title" name="title"></div>
-        <div class="field"><label for="na-income">Monthly income (before taxes) <span class="req-mark" aria-hidden="true">*</span></label><input type="text" id="na-income" name="income" inputmode="numeric" required></div>
+        <div class="field"><label for="na-income">Monthly income (before taxes) <span class="req-mark" aria-hidden="true">*</span></label><input type="text" id="na-income" name="income" inputmode="numeric" required aria-describedby="na-income-why"><p class="hint why" id="na-income-why">Why they ask: income before taxes is your pay before taxes and other deductions come out, so it is more than what you actually take home. Many landlords want this number to be about three times the monthly rent.</p></div>
         <!-- BUG: combo box with no associated label. Workaround: arrow to the text just before it. -->
         <div class="field">
           <span class="fake-label">How long at this job?</span>
@@ -403,7 +411,8 @@ textarea.summary-box{width:100%;min-height:9rem;background:var(--surface-2);bord
         <!-- BUG: second unlabeled combo box, so the workaround is practiced more than once. -->
         <div class="field">
           <span class="fake-label">Lease term desired <span class="req-mark" aria-hidden="true">*</span></span>
-          <select name="lease" required><option value="">Select&hellip;</option><option>6 months</option><option>12 months</option><option>Month-to-month</option></select>
+          <select name="lease" required aria-describedby="na-lease-why"><option value="">Select&hellip;</option><option>6 months</option><option>12 months</option><option>Month-to-month</option></select>
+          <p class="hint why" id="na-lease-why">Why they ask: a 12 month lease means you agree to pay rent for the whole year, even if you move out early. Month to month usually costs more, but you can leave after giving notice, often 30 days.</p>
         </div>
         <!-- BUG: file field described by a span, not a label, so screen readers hear only "Choose File". -->
         <div class="field">
@@ -413,8 +422,8 @@ textarea.summary-box{width:100%;min-height:9rem;background:var(--surface-2);bord
 
         <h2>Agreement &amp; Signature</h2>
         <div class="field"><label><input type="checkbox" name="certify" required> I certify the information above is accurate. <span class="req-mark" aria-hidden="true">*</span></label></div>
-        <div class="field"><label><input type="checkbox" name="authorize" required> I authorize a background and credit check. <span class="req-mark" aria-hidden="true">*</span></label></div>
-        <div class="field"><label for="na-signature">Type your full legal name as your signature <span class="req-mark" aria-hidden="true">*</span></label><input type="text" id="na-signature" name="signature" required></div>
+        <div class="field"><label><input type="checkbox" name="authorize" required aria-describedby="na-authorize-why"> I authorize a background and credit check. <span class="req-mark" aria-hidden="true">*</span></label><p class="hint why" id="na-authorize-why">Why they ask: a credit check shows whether you have paid bills and loans on time, and a background check looks at records like past evictions. Many landlords charge an application fee to run these checks.</p></div>
+        <div class="field"><label for="na-signature">Type your full legal name as your signature <span class="req-mark" aria-hidden="true">*</span></label><input type="text" id="na-signature" name="signature" required aria-describedby="na-signature-why"><p class="hint why" id="na-signature-why">Why they ask: typing your name here counts as signing. You are promising everything above is true, so read it over before you sign.</p></div>
 
         <div style="margin-top:1.75rem;">
           <button type="button" class="btn primary" id="submit-na">Submit Application</button>
@@ -434,6 +443,17 @@ textarea.summary-box{width:100%;min-height:9rem;background:var(--surface-2);bord
     <p class="lead" id="completion-sub">Here is a summary of this practice run.</p>
 
     <ul class="stat-list" id="stat-list"></ul>
+
+    <div class="talk">
+      <h3>Talk it over</h3>
+      <p>Answer these with your teacher, or type your answers into the email before you send it.</p>
+      <ol>
+        <li>If the rent is $1,200 a month, how much would you need to earn each month, before taxes, to meet the three times rule?</li>
+        <li>Your pay is $2,400 before taxes, but you take home $1,950. Where did the other $450 go?</li>
+        <li>Would you choose a 12 month lease or month to month? What would make you pick one over the other?</li>
+        <li>A website asks for your date of birth and a fee for a credit check before you have even seen the home. What would you do?</li>
+      </ol>
+    </div>
 
     <label for="summary-text" style="font-weight:600;display:block;margin-bottom:.4rem;">Plain text summary</label>
     <textarea id="summary-text" class="summary-box" readonly></textarea>
