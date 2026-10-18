@@ -73,7 +73,6 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
 .hero-subtitle{font-size:clamp(.95rem,2.2vw,1.25rem);color:rgba(255,255,255,.62);max-width:540px;margin:0 auto 1rem;line-height:1.65;}
 .hero-note{font-size:.95rem;color:rgba(255,255,255,.55);margin:0 0 1.5rem;}
 .hero .sp-actions{justify-content:center;}
-.hero #home-progress{margin-top:.5rem;}
 </style>
 </head>
 <body>
@@ -87,14 +86,13 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
 <h1 class="hero-title">Build confidence.<br><span class="accent">Find your own way.</span></h1>
 <p class="hero-subtitle">Practice headings, links, tables, and forms through story based challenges made for screen reader users.</p>
 <p class="hero-note">For learners who already know the basics and want to become more independent.</p>
-<div class="sp-actions"><a href="mission-1a.html" class="sp-button primary" id="home-continue">Start The School: Room 1</a><a href="teachers.html" class="sp-button">For teachers</a></div>
-<p id="home-progress" class="hero-note">Three rooms. Practice at your own pace.</p>
+<div class="sp-actions"><a href="mission-1a.html" class="sp-button primary" id="home-continue">Start The School: Room 1</a></div>
 </div>
 <div class="main-wrap">
 <ul class="card-grid"><li class="card"><div class="card-body"><h2><a class="card-link" href="escape-rooms.html">Escape Rooms</a></h2><p>Step into a story where your screen reader is the key. Each escape room is set somewhere you know, with clues to find and puzzles to solve before time runs out.</p><p>Skills practiced: moving through web pages, reading tables, and completing forms, with each room focused on one skill.</p></div><img class="card-img" src="images/escape-rooms.svg" alt=""></li><li class="card"><div class="card-body"><h2><a class="card-link" href="arcade.html">Arcade</a></h2><p>Quick games you can replay anytime to stay sharp between lessons.</p><p>Skills practiced: listening, recall, and screen reader commands.</p></div><img class="card-img" src="images/arcade.svg" alt=""></li><li class="card"><div class="card-body"><h2><a class="card-link" href="skill-drills.html">Skill Drills</a></h2><p>Focused practice on one skill at a time, built around tasks you will meet in everyday life.</p><p>Skills practiced: typing, listening, and other everyday screen reader tasks.</p></div><img class="card-img" src="images/skill-drills.svg" alt=""></li></ul>
 </div>
 </main>
-<footer><div class="sp-footer"><p><strong>ScreenPath</strong>: free screen reader practice.</p><p>Built by Moises Betancourt for screen reader learners everywhere.</p><div class="sp-actions"><a href="teachers.html">Teacher guide</a><a href="feedback.html">Feedback and accessibility help</a><a href="about.html#privacy">How your results are saved</a></div></div></footer>
+<footer><div class="sp-footer"><p><strong>ScreenPath</strong>: free screen reader practice.</p><p>Built by Moises Betancourt for screen reader learners everywhere.</p><div class="sp-actions"><a href="about.html#privacy">How your results are saved</a></div></div></footer>
 <script>
 (function(){var b=document.getElementById('menu-btn'),d=document.getElementById('nav-drawer');if(!b||!d)return;
 b.addEventListener('click',function(){var open=d.hasAttribute('hidden');if(open){d.removeAttribute('hidden');}else{d.setAttribute('hidden','');}
@@ -130,7 +128,7 @@ function getMostRecentActivity(){
   if(candidates.length===0)return null;
   candidates.sort(function(a,b){return new Date(b.date)-new Date(a.date);});return candidates[0];
 }
-(function(){var w=getMostRecentActivity();if(!w)return;var b=document.getElementById('home-continue'),p=document.getElementById('home-progress');if(b){b.textContent=w.label;b.href=w.href;}if(p)p.textContent=w.sub;})();
+(function(){var w=getMostRecentActivity();if(!w)return;var b=document.getElementById('home-continue');if(b){b.textContent=w.label;b.href=w.href;}})();
 </script>
 </body>
 </html>

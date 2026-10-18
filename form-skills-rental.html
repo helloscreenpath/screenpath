@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rental Property Application | Form Lab | ScreenPath</title>
+<style>
+:root{
+  --bg:#0a0a0a; --surface:#111111; --surface-2:#1a1a1a; --border:#2a2a2a;
+  --text:#f0f0f0; --text-muted:#8f8f8f;
+  --green:#39d98a; --green-dim:#0d2e1c;
+  --red:#ff4d4d; --red-dim:#2e0d0d;
+  --amber:#f5a623; --amber-dim:#2e1f00;
+  --radius:12px;
+  --font:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'SF Mono','Fira Code','Consolas',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:17px;line-height:1.65;min-height:100vh;}
+.skip-link{position:absolute;top:-120px;left:1rem;background:var(--green);color:#000;padding:.75rem 1.5rem;border-radius:100px;font-weight:700;font-size:.95rem;text-decoration:none;z-index:9999;transition:top .2s;}
+.skip-link:focus{top:1rem;}
+#live{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+a{color:var(--green);}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--green);outline-offset:2px;}
+
+.topbar{border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.topbar a.home-link{color:var(--text-muted);text-decoration:none;font-size:.9rem;font-weight:600;}
+.topbar a.home-link:hover{color:var(--text);}
+.topbar .title{font-weight:800;font-size:1rem;letter-spacing:-.01em;color:var(--text);text-decoration:none;}
+.topbar .title span{color:var(--green);}
+
+.wrap{max-width:760px;margin:0 auto;padding:2.5rem 1.5rem 5rem;}
+
+h1{font-size:1.85rem;font-weight:800;letter-spacing:-.01em;margin-bottom:.5rem;}
+h2,.fake-h2{font-size:1.3rem;font-weight:700;margin-bottom:.9rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
+p{margin-bottom:.9rem;}
+p:last-child{margin-bottom:0;}
+
+.lead{color:var(--text-muted);margin-bottom:1.75rem;}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem;margin-bottom:1.5rem;}
+
+fieldset{border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.25rem 1.5rem;margin-bottom:1.5rem;}
+legend{font-weight:700;padding:0 .5rem;font-size:1.05rem;}
+.radio-row{display:flex;gap:1.5rem;flex-wrap:wrap;margin-top:.4rem;}
+.radio-row label{display:flex;align-items:center;gap:.5rem;font-weight:500;cursor:pointer;}
+
+.field{margin-bottom:1.25rem;}
+.field label,.field .fake-label{display:block;font-weight:600;margin-bottom:.4rem;}
+.field .hint{color:var(--text-muted);font-size:.85rem;margin-top:.3rem;margin-bottom:0;}
+.field input[type=text],.field input[type=email],.field input[type=tel],.field input[type=date],.field input[type=number],.field select,.field textarea{
+  width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);
+  padding:.7rem .85rem;font-family:var(--font);font-size:1rem;
+}
+.field textarea{min-height:5rem;resize:vertical;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green);}
+.req-mark{color:var(--red);margin-left:.15rem;}
+.req-text{color:var(--text-muted);font-size:.8rem;font-weight:500;margin-left:.4rem;}
+
+.field-row{display:flex;gap:.6rem;align-items:flex-end;}
+.field-row .field{flex:1;margin-bottom:0;}
+.icon-btn{background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text-muted);width:2.6rem;height:2.6rem;font-size:1rem;cursor:pointer;flex-shrink:0;}
+.icon-btn:hover{color:var(--text);border-color:var(--red);}
+
+.field.invalid input,.field.invalid select,.field.invalid textarea{border-color:var(--red);}
+.field-error{color:var(--red);font-size:.85rem;margin-top:.3rem;font-weight:600;}
+
+.error-summary{background:var(--red-dim);border:1px solid var(--red);border-radius:var(--radius);padding:1.1rem 1.25rem;margin-bottom:1.5rem;}
+.error-summary h3{font-size:1rem;color:var(--red);margin-bottom:.5rem;}
+.error-summary ul{list-style:none;padding:0;margin:0;}
+.error-summary li{margin-bottom:.35rem;}
+.error-summary a{color:var(--text);text-decoration:underline;}
+.error-summary.quiet{background:transparent;border:none;padding:0;color:var(--red);}
+.error-summary.quiet h3{color:var(--red);font-size:.95rem;}
+
+.btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--surface-2);color:var(--text);font-family:var(--font);font-size:.95rem;font-weight:600;padding:.8rem 1.6rem;border-radius:100px;border:1px solid var(--border);cursor:pointer;text-decoration:none;}
+.btn:hover{border-color:var(--green);}
+.btn.primary{background:var(--green);color:#000;border-color:var(--green);}
+.btn.primary:hover{opacity:.9;}
+.btn[disabled]{opacity:.5;cursor:not-allowed;}
+
+.setup-group{margin-bottom:1.75rem;}
+.setup-group > .fake-label{display:block;font-weight:700;margin-bottom:.6rem;font-size:1.05rem;}
+
+/* Tabs */
+.tablist{display:flex;gap:.5rem;border-bottom:1px solid var(--border);margin-bottom:1.5rem;flex-wrap:wrap;}
+.tablist[hidden]{display:none;}
+.tab{background:none;border:none;border-bottom:3px solid transparent;color:var(--text-muted);font-family:var(--font);font-size:.95rem;font-weight:700;padding:.9rem 1rem;cursor:pointer;}
+.tab[aria-selected="true"]{color:var(--green);border-bottom-color:var(--green);}
+.tab.ref-tab[aria-selected="true"]{color:var(--amber);border-bottom-color:var(--amber);}
+.tabpanel[hidden]{display:none;}
+.ref-banner{background:var(--amber-dim);border:1px solid var(--amber);border-radius:var(--radius);padding:.9rem 1.1rem;margin-bottom:1.5rem;font-size:.92rem;}
+.ref-banner strong{color:var(--amber);}
+
+.status-bar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem 1.25rem;margin-bottom:1.5rem;font-family:var(--mono);font-size:.85rem;color:var(--text-muted);}
+.status-bar strong{color:var(--text);}
+
+.skill-focus{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--green);border-radius:0;padding:1.1rem 1.25rem;margin-bottom:1.75rem;font-size:.95rem;color:var(--text-muted);}
+.skill-focus strong{color:var(--text);}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:1.5rem;z-index:2000;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);max-width:560px;width:100%;max-height:88vh;overflow-y:auto;padding:2rem;}
+.modal h2{border:none;padding:0;font-size:1.4rem;margin-bottom:.3rem;}
+.modal .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:.6rem;}
+.stat-list{list-style:none;padding:0;margin:1rem 0 1.5rem;border:1px solid var(--border);border-radius:8px;}
+.stat-list li{padding:.6rem .9rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;gap:1rem;font-size:.92rem;}
+.stat-list li:last-child{border-bottom:none;}
+.stat-list li strong{color:var(--green);font-family:var(--mono);}
+.modal-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1rem;}
+textarea.summary-box{width:100%;min-height:9rem;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--mono);font-size:.8rem;padding:.75rem;margin-bottom:1rem;}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;}}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<div id="live" aria-live="assertive" aria-atomic="true"></div>
+
+<div class="topbar">
+  <a class="title" href="index.html" aria-label="ScreenPath home">Screen<span>Path</span></a>
+  <a class="home-link" href="form-lab.html">Back to Form Lab</a>
+</div>
+
+<main id="main-content" tabindex="-1">
+<div class="wrap">
+
+  <!-- ============ SETUP SCREEN ============ -->
+  <div id="setup-section">
+    <p class="lead" style="margin-bottom:.25rem;font-family:var(--mono);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--green);">Form Lab</p>
+    <h1 id="setup-title">Rental Property Application</h1>
+    <p class="lead">Practice filling out a realistic rental application with your screen reader. Choose a clean version to build speed and comfort, or a version with real accessibility problems built in on purpose, the same kind you may run into with real forms one day.</p>
+
+    <div class="card">
+      <h2 style="border:none;padding:0;margin-bottom:1rem;">What to expect</h2>
+      <p>This form has seven sections: your information, your current residence, your employment, your household, an emergency contact, move-in details and documents, and a final agreement you sign by typing your name.</p>
+      <p>Choose <strong>Accessible</strong> below to practice on a clean, correctly built copy of the form. Choose <strong>Not Accessible</strong> to practice on a copy with real problems in it on purpose: some fields missing labels, some groups not announced as groups, and at least one heading that only looks like a heading. In that mode you'll still submit from the Not Accessible tab, but the Accessible tab is one keystroke away any time you want to check how a field should have been built.</p>
+      <p class="lead" style="margin-bottom:0;">Nothing on this page is a dead end, and nothing you type is saved or sent anywhere on its own. At the end, you can choose to copy a practice summary or email it to your teacher.</p>
+    </div>
+
+    <div class="card">
+      <div class="setup-group">
+        <span class="fake-label" id="sr-label">Which screen reader are you using?</span>
+        <div class="radio-row" role="radiogroup" aria-labelledby="sr-label">
+          <label><input type="radio" name="setup-sr" value="JAWS" checked> JAWS</label>
+          <label><input type="radio" name="setup-sr" value="NVDA"> NVDA</label>
+          <label><input type="radio" name="setup-sr" value="VoiceOver"> VoiceOver</label>
+          <label><input type="radio" name="setup-sr" value="Other"> Other</label>
+        </div>
+      </div>
+
+      <div class="setup-group">
+        <span class="fake-label" id="mode-label">Which version would you like to practice?</span>
+        <div class="radio-row" role="radiogroup" aria-labelledby="mode-label" style="flex-direction:column;align-items:flex-start;gap:.9rem;">
+          <label><input type="radio" name="setup-mode" value="accessible" checked> Accessible: a clean, correctly built form. Good for building speed and comfort with the basics.</label>
+          <label><input type="radio" name="setup-mode" value="nonaccessible"> Not Accessible: the same form, but with real accessibility problems on purpose, plus a reference tab to check against.</label>
+        </div>
+      </div>
+
+      <div class="field" style="max-width:22rem;">
+        <label for="setup-teacher-email">Teacher's email (optional)</label>
+        <input type="email" id="setup-teacher-email" placeholder="teacher@dsdmail.net">
+        <p class="hint">If you fill this in, it will be ready to go when you choose to email your results at the end.</p>
+      </div>
+
+      <button type="button" class="btn primary" id="begin-btn" style="margin-top:.5rem;">Begin Practice</button>
+    </div>
+  </div>
+
+  <!-- ============ PRACTICE SCREEN ============ -->
+  <div id="practice-section" hidden>
+    <h1 id="practice-title">Rental Property Application</h1>
+
+    <div class="status-bar">
+      <span>Screen reader: <strong id="status-sr">Not set</strong></span>
+      <span>Version: <strong id="status-mode">Not set</strong></span>
+      <span>Time elapsed: <strong id="status-timer">0:00</strong></span>
+    </div>
+
+    <div class="skill-focus" id="skill-focus-box">
+      <span id="skill-focus-text"></span>
+    </div>
+
+    <div class="tablist" role="tablist" aria-label="Form version">
+      <button type="button" class="tab" id="tab-notaccessible" role="tab" aria-selected="true" aria-controls="panel-notaccessible" tabindex="0">Not Accessible (practice)</button>
+      <button type="button" class="tab ref-tab" id="tab-accessible" role="tab" aria-selected="false" aria-controls="panel-accessible" tabindex="-1">Accessible (reference)</button>
+    </div>
+
+    <!-- ACCESSIBLE PANEL: standalone practice in Accessible mode, reference only in Not Accessible mode -->
+    <div class="tabpanel" id="panel-accessible" role="tabpanel" aria-labelledby="tab-accessible" tabindex="0" hidden>
+      <div class="ref-banner" id="ref-banner-acc"><strong>Reference copy.</strong> This tab shows the same form built correctly. It is not submitted from here. Use it to check a field, then switch back to the Not Accessible tab to finish.</div>
+      <div id="errors-acc"></div>
+
+      <form id="form-accessible" novalidate>
+        <h2>Your Information</h2>
+        <div class="field">
+          <label for="acc-name">Full legal name<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
+          <input type="text" id="acc-name" name="name" autocomplete="name" aria-required="true">
+        </div>
+        <div class="field">
+          <label for="acc-dob">Date of birth<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
+          <input type="date" id="acc-dob" name="dob" aria-required="true">
+        </div>
+        <div class="field">
+          <label for="acc-phone">Phone number<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
+          <input type="tel" id="acc-phone" name="phone" autocomplete="tel" aria-required="true">
+        </div>
+        <div class="field">
+          <label for="acc-email">Email address<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
+          <input type="email" id="acc-email" name="email" autocomplete="email" aria-required="true">
+        </div>
+
+        <h2>Current Residence</h2>
+        <div class="field">
+          <label for="acc-address">Current street address<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
+          <input type="text" id="acc-address" name="address" autocomplete="street-address" aria-required="true">
+        </div>
+        <div class="field">
+          <label for="acc-city">City<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
+          <input type="text" id="acc-city" name="city" aria-required="true">
+        </div>
+        <div class="field">
+          <label for="acc-state">State<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
+          <select id="acc-state" name="state" class="state-select" aria-required="true"><option value="">Select a state&hellip;</option></select>
+        </div>
+        <div class="field">
+          <label for="acc-zip">ZIP code<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
+          <input type="text" id="acc-zip" name="zip" autocomplete="postal-code" aria-required="true">
+        </div>
+        <div class="field">
+          <label for="acc-duration">How long have you lived at your current address?<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
+          <select id="acc-duration" name="duration" aria-required="true">
+            <option value="">Select&hellip;</option>
+            <option>Less than 1 year</option><option>1 to 3 years</option><option>3 to 5 years</option><option>More than 5 years</option>
+          </select>
+        </div>
+
+        <h2>Employment &amp; Income</h2>
+        <div class="field">
+          <label for="acc-employer">Employer name<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
+          <input type="text" id="acc-employer" name="employer" aria-required="true">
+        </div>
+        <div class="field">
+          <label for="acc-title">Job title</label>
+          <input type="text" id="acc-title" name="title">
+        </div>
+        <div class="field">
+          <label for="acc-income">Monthly income (before taxes)<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
+          <input type="text" id="acc-income" name="income" inputmode="numeric" aria-required="true">
+        </div>
+        <div class="field">
+          <label for="acc-emplength">How long at this job?</label>
+          <select id="acc-emplength" name="emplength">
+            <option value="">Select&hellip;</option>
+            <option>Less than 6 months</option><option>6 months to 1 year</option><option>1 to 3 years</option><option>3+ years</option>
+          </select>
+        </div>
+
+        <h2>Household</h2>
+        <fieldset>
+          <legend>Do you have any pets?<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></legend>
+          <div class="radio-row">
+            <label><input type="radio" name="acc-pets" value="Yes" aria-required="true"> Yes</label>
+            <label><input type="radio" name="acc-pets" value="No"> No</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Do you smoke?<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></legend>
+          <div class="radio-row">
+            <label><input type="radio" name="acc-smoke" value="Yes" aria-required="true"> Yes</label>
+            <label><input type="radio" name="acc-smoke" value="No"> No</label>
+          </div>
+        </fieldset>
+        <div class="field">
+          <label for="acc-comments">Anything else we should know about your household? (optional)</label>
+          <textarea id="acc-comments" name="comments"></textarea>
+        </div>
+
+        <h2>Emergency Contact</h2>
+        <div class="field">
+          <label for="acc-ecname">Emergency contact name<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
+          <input type="text" id="acc-ecname" name="ecname" aria-required="true">
+        </div>
+        <div class="field">
+          <label for="acc-ecphone">Emergency contact phone<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
+          <input type="tel" id="acc-ecphone" name="ecphone" aria-required="true">
+        </div>
+        <div class="field">
+          <label for="acc-ecrel">Relationship to you<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
+          <input type="text" id="acc-ecrel" name="ecrel" aria-required="true">
+        </div>
+
+        <h2>Move-In Details &amp; Documents</h2>
+        <div class="field">
+          <label for="acc-movein">Desired move-in date<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
+          <input type="date" id="acc-movein" name="movein" aria-required="true">
+        </div>
+        <div class="field">
+          <label for="acc-lease">Lease term desired<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
+          <select id="acc-lease" name="lease" aria-required="true">
+            <option value="">Select&hellip;</option>
+            <option>6 months</option><option>12 months</option><option>Month-to-month</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="acc-proof">Upload proof of income (optional, PDF or image)</label>
+          <input type="file" id="acc-proof" name="proof">
+        </div>
+
+        <h2>Agreement &amp; Signature</h2>
+        <div class="field">
+          <label><input type="checkbox" id="acc-certify" name="certify" aria-required="true"> I certify the information above is accurate.<span class="req-mark" aria-hidden="true">*</span></label>
+        </div>
+        <div class="field">
+          <label><input type="checkbox" id="acc-authorize" name="authorize" aria-required="true"> I authorize a background and credit check.<span class="req-mark" aria-hidden="true">*</span></label>
+        </div>
+        <div class="field">
+          <label for="acc-signature">Type your full legal name as your signature<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
+          <input type="text" id="acc-signature" name="signature" aria-required="true">
+        </div>
+        <p class="hint" id="acc-hint-note">This is the reference copy. There is no submit button here on purpose, since this tab is only for checking how a field should look and sound.</p>
+        <div id="submit-acc-wrap" style="margin-top:1.75rem;" hidden>
+          <button type="button" class="btn primary" id="submit-acc">Submit Application</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- NOT ACCESSIBLE PANEL: single practice tier, bugs varied across sections -->
+    <div class="tabpanel" id="panel-notaccessible" role="tabpanel" aria-labelledby="tab-notaccessible" tabindex="0">
+      <div id="errors-na"></div>
+      <form id="form-na" novalidate>
+        <h2>Your Information</h2>
+        <div class="field"><label for="na-name">Full legal name <span class="req-mark" aria-hidden="true">*</span></label>
+          <!-- BUG: icon only "clear" button with no accessible name. The glyph is aria-hidden, so screen readers announce only "button". -->
+          <div class="field-row"><input type="text" id="na-name" name="name" required>
+          <button type="button" class="icon-btn" onclick="document.getElementById('na-name').value='';"><span aria-hidden="true">&times;</span></button></div>
+        </div>
+        <div class="field"><label for="na-dob">Date of birth <span class="req-mark" aria-hidden="true">*</span></label><input type="date" id="na-dob" name="dob" required></div>
+        <div class="field"><label for="na-phone">Phone number <span class="req-mark" aria-hidden="true">*</span></label><input type="tel" id="na-phone" name="phone" required></div>
+        <div class="field"><label for="na-email">Email address <span class="req-mark" aria-hidden="true">*</span></label><input type="email" id="na-email" name="email" required></div>
+
+        <h2>Current Residence</h2>
+        <div class="field"><label for="na-address">Current street address <span class="req-mark" aria-hidden="true">*</span></label><input type="text" id="na-address" name="address" required></div>
+        <div class="field"><label for="na-city">City <span class="req-mark" aria-hidden="true">*</span></label>
+          <!-- BUG: another unlabeled icon only clear button. -->
+          <div class="field-row"><input type="text" id="na-city" name="city" required>
+          <button type="button" class="icon-btn" onclick="document.getElementById('na-city').value='';"><span aria-hidden="true">&times;</span></button></div>
+        </div>
+        <div class="field"><label for="na-state">State <span class="req-mark" aria-hidden="true">*</span></label><select id="na-state" name="state" class="state-select" required><option value="">Select a state&hellip;</option></select></div>
+        <!-- BUG: ZIP code has no label, only a placeholder. Workaround: arrow out of the field to read the preceding text. -->
+        <div class="field">
+          <span class="fake-label">ZIP code <span class="req-mark" aria-hidden="true">*</span></span>
+          <input type="text" id="na-zip" name="zip" placeholder="ZIP code" required>
+        </div>
+        <div class="field"><label for="na-duration">How long have you lived at your current address? <span class="req-mark" aria-hidden="true">*</span></label>
+          <select id="na-duration" name="duration" required><option value="">Select&hellip;</option><option>Less than 1 year</option><option>1 to 3 years</option><option>3 to 5 years</option><option>More than 5 years</option></select>
+        </div>
+
+        <!-- BUG: fake heading. Styled like the other section headings, but it is a paragraph, so jumping by heading skips it. -->
+        <p class="fake-h2">Employment &amp; Income</p>
+        <div class="field"><label for="na-employer">Employer name <span class="req-mark" aria-hidden="true">*</span></label><input type="text" id="na-employer" name="employer" required></div>
+        <div class="field"><label for="na-title">Job title</label><input type="text" id="na-title" name="title"></div>
+        <div class="field"><label for="na-income">Monthly income (before taxes) <span class="req-mark" aria-hidden="true">*</span></label><input type="text" id="na-income" name="income" inputmode="numeric" required></div>
+        <!-- BUG: combo box with no associated label. Workaround: arrow to the text just before it. -->
+        <div class="field">
+          <span class="fake-label">How long at this job?</span>
+          <select name="emplength"><option value="">Select&hellip;</option><option>Less than 6 months</option><option>6 months to 1 year</option><option>1 to 3 years</option><option>3+ years</option></select>
+        </div>
+
+        <h2>Household</h2>
+        <!-- BUG: pets and smoke groups have no fieldset or legend, so each radio has no group context. -->
+        <p><strong>Do you have any pets?</strong> <span class="req-mark" aria-hidden="true">*</span></p>
+        <div class="radio-row" style="margin-bottom:1.25rem;">
+          <label><input type="radio" name="na-pets" value="Yes" required> Yes</label>
+          <label><input type="radio" name="na-pets" value="No"> No</label>
+        </div>
+        <p><strong>Do you smoke?</strong> <span class="req-mark" aria-hidden="true">*</span></p>
+        <div class="radio-row" style="margin-bottom:1.25rem;">
+          <label><input type="radio" name="na-smoke" value="Yes" required> Yes</label>
+          <label><input type="radio" name="na-smoke" value="No"> No</label>
+        </div>
+        <!-- BUG: textarea has no label, only a placeholder that disappears once text is entered. -->
+        <div class="field">
+          <span class="fake-label">Anything else we should know about your household? (optional)</span>
+          <textarea name="comments" placeholder="Anything else we should know about your household? (optional)"></textarea>
+        </div>
+
+        <!-- BUG: heading level broken. Should be a level 2 heading like the other sections, but it is level 4. -->
+        <h4>Emergency Contact</h4>
+        <div class="field"><label for="na-ecname">Emergency contact name <span class="req-mark" aria-hidden="true">*</span></label><input type="text" id="na-ecname" name="ecname" required></div>
+        <div class="field"><label for="na-ecphone">Emergency contact phone <span class="req-mark" aria-hidden="true">*</span></label><input type="tel" id="na-ecphone" name="ecphone" required></div>
+        <div class="field"><label for="na-ecrel">Relationship to you <span class="req-mark" aria-hidden="true">*</span></label><input type="text" id="na-ecrel" name="ecrel" required></div>
+
+        <h2>Move-In Details &amp; Documents</h2>
+        <div class="field"><label for="na-movein">Desired move-in date <span class="req-mark" aria-hidden="true">*</span></label><input type="date" id="na-movein" name="movein" required></div>
+        <!-- BUG: second unlabeled combo box, so the workaround is practiced more than once. -->
+        <div class="field">
+          <span class="fake-label">Lease term desired <span class="req-mark" aria-hidden="true">*</span></span>
+          <select name="lease" required><option value="">Select&hellip;</option><option>6 months</option><option>12 months</option><option>Month-to-month</option></select>
+        </div>
+        <!-- BUG: file field described by a span, not a label, so screen readers hear only "Choose File". -->
+        <div class="field">
+          <span class="fake-label">Upload proof of income (optional, PDF or image)</span>
+          <input type="file" name="proof">
+        </div>
+
+        <h2>Agreement &amp; Signature</h2>
+        <div class="field"><label><input type="checkbox" name="certify" required> I certify the information above is accurate. <span class="req-mark" aria-hidden="true">*</span></label></div>
+        <div class="field"><label><input type="checkbox" name="authorize" required> I authorize a background and credit check. <span class="req-mark" aria-hidden="true">*</span></label></div>
+        <div class="field"><label for="na-signature">Type your full legal name as your signature <span class="req-mark" aria-hidden="true">*</span></label><input type="text" id="na-signature" name="signature" required></div>
+
+        <div style="margin-top:1.75rem;">
+          <button type="button" class="btn primary" id="submit-na">Submit Application</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+</main>
+
+<!-- ============ COMPLETION MODAL ============ -->
+<div class="modal-overlay" id="completion-overlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="completion-heading">
+    <p class="eyebrow">Practice complete</p>
+    <h2 id="completion-heading" tabindex="-1">Nice work finishing the application.</h2>
+    <p class="lead" id="completion-sub">Here is a summary of this practice run.</p>
+
+    <ul class="stat-list" id="stat-list"></ul>
+
+    <label for="summary-text" style="font-weight:600;display:block;margin-bottom:.4rem;">Plain text summary</label>
+    <textarea id="summary-text" class="summary-box" readonly></textarea>
+
+    <div class="modal-actions">
+      <button type="button" class="btn primary" id="copy-btn">Copy to Clipboard</button>
+      <a href="#" class="btn" id="email-btn">Email My Teacher</a>
+      <a href="form-lab.html" class="btn">Back to Form Lab</a>
+      <button type="button" class="btn" id="skip-btn">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function announce(msg){
+  var el=document.getElementById('live');
+  if(!el) return;
+  el.textContent='';
+  setTimeout(function(){ el.textContent=msg; }, 100);
+}
+
+// ---- populate state dropdowns ----
+var STATES=["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","District of Columbia","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"];
+document.querySelectorAll('.state-select').forEach(function(sel){
+  STATES.forEach(function(s){ var o=document.createElement('option'); o.textContent=s; sel.appendChild(o); });
+});
+
+// ---- dynamic skill-focus copy ----
+function buildSkillFocusHTML(mode, sr){
+  if(mode==='accessible'){
+    return '<strong>Skill focus.</strong> You are on the clean, fully built version of this form. Move through each section by heading, fill in every required field, and choose Submit Application when you are done. If something is missing, the error summary will tell you exactly what and move your focus straight to it.';
+  }
+  var txt='<strong>Skill focus.</strong> You are on the Not Accessible tab. This version has real accessibility problems built in on purpose: some fields are missing labels, some groups are not announced as groups, and at least one section heading is not really a heading. You still have to submit from this tab, but the Accessible tab is one keystroke away any time you want to check how a field should have been built. If a field or dropdown does not announce a label, use your arrow keys to read the text just before it. That is usually the label your screen reader could not find.';
+  if(sr==='JAWS'){
+    txt+=' If a heading does not show up when you jump by heading (H), try Y to navigate by glance highlight. It can catch text that is only styled to look like a heading.';
+  } else if(sr==='VoiceOver'){
+    txt+=' If a heading does not show up in your headings list, open the Rotor and look for it as static text instead. That is often a sign it is only styled to look like a heading.';
+  } else {
+    txt+=' If a heading does not show up when you jump by heading, try exploring the nearby text with your arrow keys, or check your screen reader’s full list of on screen elements. It may only be styled to look like a heading.';
+  }
+  return txt;
+}
+
+// ---- setup screen ----
+var chosenMode='accessible', chosenSR='JAWS', teacherEmail='';
+
+document.getElementById('begin-btn').addEventListener('click', function(){
+  chosenSR = document.querySelector('input[name="setup-sr"]:checked').value;
+  chosenMode = document.querySelector('input[name="setup-mode"]:checked').value;
+  teacherEmail = document.getElementById('setup-teacher-email').value.trim();
+
+  document.getElementById('setup-section').hidden = true;
+  document.getElementById('practice-section').hidden = false;
+  document.getElementById('status-sr').textContent = chosenSR;
+  document.getElementById('status-mode').textContent = chosenMode==='accessible' ? 'Accessible' : 'Not Accessible';
+  document.getElementById('skill-focus-text').innerHTML = buildSkillFocusHTML(chosenMode, chosenSR);
+
+  var tablistEl=document.querySelector('.tablist');
+  var tabAcc=document.getElementById('tab-accessible');
+  var tabNA=document.getElementById('tab-notaccessible');
+  var panelAcc=document.getElementById('panel-accessible');
+  var panelNA=document.getElementById('panel-notaccessible');
+  var refBanner=document.getElementById('ref-banner-acc');
+  var accHintNote=document.getElementById('acc-hint-note');
+  var submitAccWrap=document.getElementById('submit-acc-wrap');
+
+  if(chosenMode==='accessible'){
+    tablistEl.hidden=true;
+    tabNA.hidden=true; tabAcc.hidden=true;
+    panelNA.hidden=true;
+    panelAcc.hidden=false;
+    panelAcc.removeAttribute('role'); panelAcc.removeAttribute('aria-labelledby');
+    refBanner.hidden=true; accHintNote.hidden=true; submitAccWrap.hidden=false;
+  } else {
+    tablistEl.hidden=false;
+    tabNA.hidden=false; tabAcc.hidden=false;
+    panelAcc.setAttribute('role','tabpanel'); panelAcc.setAttribute('aria-labelledby','tab-accessible');
+    refBanner.hidden=false; accHintNote.hidden=false; submitAccWrap.hidden=true;
+    activateTab('tab-notaccessible');
+  }
+
+  startTimer();
+  announce(chosenMode==='accessible' ? 'Practice started on the accessible version of the form.' : 'Practice started. You are on the Not Accessible tab. Switch to the Accessible tab anytime to check a field.');
+  var h=document.getElementById('practice-title'); h.setAttribute('tabindex','-1'); h.focus();
+});
+
+// ---- tabs (roving tabindex, automatic activation) ----
+var hintViews=0, hintMsTotal=0, hintEnteredAt=null;
+
+function getVisibleTabs(){
+  return Array.prototype.filter.call(document.querySelectorAll('.tab'), function(t){ return !t.hidden; });
+}
+function activateTab(tabId){
+  var tabs=getVisibleTabs();
+  tabs.forEach(function(t){
+    var selected = t.id===tabId;
+    t.setAttribute('aria-selected', selected?'true':'false');
+    t.tabIndex = selected?0:-1;
+    var panel=document.getElementById(t.getAttribute('aria-controls'));
+    if(panel) panel.hidden = !selected;
+  });
+  if(tabId==='tab-accessible'){
+    hintViews++; hintEnteredAt=Date.now();
+  } else if(hintEnteredAt){
+    hintMsTotal += (Date.now()-hintEnteredAt); hintEnteredAt=null;
+  }
+}
+document.querySelectorAll('.tab').forEach(function(tab){
+  tab.addEventListener('click', function(){ activateTab(tab.id); tab.focus(); });
+  tab.addEventListener('keydown', function(e){
+    var tabs=getVisibleTabs();
+    var i=tabs.indexOf(tab);
+    var next=null;
+    if(e.key==='ArrowRight') next=tabs[(i+1)%tabs.length];
+    else if(e.key==='ArrowLeft') next=tabs[(i-1+tabs.length)%tabs.length];
+    else if(e.key==='Home') next=tabs[0];
+    else if(e.key==='End') next=tabs[tabs.length-1];
+    if(next){ e.preventDefault(); activateTab(next.id); next.focus(); }
+  });
+});
+
+// ---- timer ----
+var startTime=null, timerInterval=null;
+function startTimer(){
+  startTime=Date.now();
+  timerInterval=setInterval(function(){
+    var s=Math.floor((Date.now()-startTime)/1000);
+    var m=Math.floor(s/60), r=s%60;
+    document.getElementById('status-timer').textContent = m+':'+(r<10?'0':'')+r;
+  },1000);
+}
+function stopTimer(){ clearInterval(timerInterval); return Date.now()-startTime; }
+
+// ---- field stats ----
+function collectStats(panel){
+  var counts={text:0,email:0,tel:0,date:0,select:0,radioGroup:0,checkbox:0,textarea:0,file:0};
+  var filled={text:0,email:0,tel:0,date:0,select:0,radioGroup:0,checkbox:0,textarea:0,file:0};
+  var seenRadioGroups={};
+
+  panel.querySelectorAll('input,select,textarea').forEach(function(el){
+    if(el.type==='radio'){
+      if(seenRadioGroups[el.name]) return;
+      seenRadioGroups[el.name]=true;
+      counts.radioGroup++;
+      if(panel.querySelector('input[name="'+el.name+'"]:checked')) filled.radioGroup++;
+    } else if(el.type==='checkbox'){
+      counts.checkbox++; if(el.checked) filled.checkbox++;
+    } else if(el.tagName==='SELECT'){
+      counts.select++; if(el.selectedIndex>0) filled.select++;
+    } else if(el.tagName==='TEXTAREA'){
+      counts.textarea++; if(el.value.trim()!=='') filled.textarea++;
+    } else if(el.type==='file'){
+      counts.file++; if(el.files && el.files.length>0) filled.file++;
+    } else if(['text','email','tel','date'].indexOf(el.type)>-1){
+      counts[el.type]++; if(el.value.trim()!=='') filled[el.type]++;
+    }
+  });
+  return {counts:counts, filled:filled};
+}
+
+function findInvalid(panel){
+  var invalid=[];
+  var seen={};
+  panel.querySelectorAll('[required], [aria-required="true"]').forEach(function(el){
+    if(el.type==='radio'){
+      if(seen[el.name]) return; seen[el.name]=true;
+      if(!panel.querySelector('input[name="'+el.name+'"]:checked')) invalid.push({el:el,name:el.name});
+    } else if(el.type==='checkbox'){
+      if(!el.checked) invalid.push({el:el,name:el.name});
+    } else if(el.value.trim()===''){
+      invalid.push({el:el,name:el.name});
+    }
+  });
+  return invalid;
+}
+
+// friendly name for an invalid field, used only by the accessible error summary
+function fieldFriendlyName(el){
+  var txt='';
+  if(el.type==='radio'){
+    var fs=el.closest('fieldset');
+    if(fs){ var lg=fs.querySelector('legend'); if(lg) txt=lg.textContent; }
+  } else if(el.type==='checkbox'){
+    var lbl=el.closest('label');
+    if(lbl) txt=lbl.textContent;
+  }
+  if(!txt && el.id){
+    var l=document.querySelector('label[for="'+el.id+'"]');
+    if(l) txt=l.textContent;
+  }
+  if(!txt) txt=el.name||'This field';
+  return txt.replace(/\*/g,'').replace(/\(required\)/i,'').replace(/\s+/g,' ').trim();
+}
+
+// Not Accessible submit: no live region, no focus move, color only cue (mirrors the real bug being taught)
+document.getElementById('submit-na').addEventListener('click', function(){
+  attemptSubmit('panel-notaccessible','errors-na','silent');
+});
+// Accessible submit: focus move, live region announcement, linked error list (models the right way)
+document.getElementById('submit-acc').addEventListener('click', function(){
+  attemptSubmit('panel-accessible','errors-acc','good');
+});
+
+var attemptCount=0;
+function attemptSubmit(panelId, errorsBoxId, mode){
+  attemptCount++;
+  var panel=document.getElementById(panelId);
+  var invalid=findInvalid(panel);
+  var box=document.getElementById(errorsBoxId);
+  box.innerHTML='';
+  if(invalid.length>0){
+    var div=document.createElement('div');
+    div.className='error-summary'+(mode==='silent'?' quiet':'');
+    var h=document.createElement('h3');
+    h.tabIndex=-1;
+    h.textContent='Please complete '+invalid.length+' more field'+(invalid.length===1?'':'s')+' before submitting.';
+    div.appendChild(h);
+    if(mode==='good'){
+      var ul=document.createElement('ul');
+      invalid.forEach(function(item){
+        var li=document.createElement('li');
+        var a=document.createElement('a');
+        a.href='#'+(item.el.id||'');
+        a.textContent=fieldFriendlyName(item.el);
+        a.addEventListener('click', function(ev){
+          ev.preventDefault();
+          item.el.focus();
+          if(item.el.scrollIntoView) item.el.scrollIntoView({block:'center'});
+        });
+        li.appendChild(a);
+        ul.appendChild(li);
+      });
+      div.appendChild(ul);
+    }
+    box.appendChild(div);
+    if(mode==='good'){
+      setTimeout(function(){ h.focus(); },30);
+      announce(invalid.length+' field'+(invalid.length===1?'':'s')+' need'+(invalid.length===1?'s':'')+' attention before you can submit.');
+    }
+    // silent mode: no focus move, no announcement, color is the only cue. This is the bug being taught.
+    return;
+  }
+  box.innerHTML='';
+  finishPractice(panel);
+}
+
+// ---- summaries ----
+var TYPE_LABELS={text:'Text edit fields',email:'Email edit fields',tel:'Telephone edit fields',date:'Date edit fields',select:'Dropdowns and combo boxes',radioGroup:'Radio button groups',checkbox:'Checkboxes',textarea:'Multi line text areas',file:'File upload fields'};
+var TYPE_ABBR={text:'Txt',email:'Email',tel:'Tel',date:'Date',select:'Combo',radioGroup:'Radio',checkbox:'Chk',textarea:'TxtArea',file:'File'};
+var TYPE_ORDER=['text','email','tel','date','select','radioGroup','checkbox','textarea','file'];
+
+function buildFullSummary(modeLabel, timeStr, hintSeconds, stats, totalFilled, totalFields, dateStr){
+  var lines=[
+    'ScreenPath Form Lab Practice',
+    'Form: Rental Property Application',
+    'Screen reader used: '+chosenSR,
+    'Version practiced: '+modeLabel
+  ];
+  if(chosenMode!=='accessible'){
+    lines.push('Accessible tab checked: '+hintViews+' time'+(hintViews===1?'':'s')+(hintViews>0?' ('+hintSeconds+' sec total)':''));
+  }
+  lines.push('Submit attempts: '+attemptCount);
+  lines.push('Time to complete: '+timeStr);
+  lines.push('Total fields completed: '+totalFilled+' of '+totalFields);
+  TYPE_ORDER.forEach(function(k){
+    if(stats.counts[k]>0){ lines.push('  '+TYPE_LABELS[k]+': '+stats.filled[k]+' of '+stats.counts[k]); }
+  });
+  lines.push('Date: '+dateStr);
+  return lines.join('\n');
+}
+
+function buildCompactSummary(modeLabel, timeShort, hintSeconds, stats, totalFilled, totalFields, dateShort){
+  var fieldsParts=[];
+  TYPE_ORDER.forEach(function(k){
+    if(stats.counts[k]>0){ fieldsParts.push(TYPE_ABBR[k]+' '+stats.filled[k]+'/'+stats.counts[k]); }
+  });
+  var line1='ScreenPath Form Lab: Rental Property Application';
+  var line2='SR: '+chosenSR+' | Mode: '+modeLabel+' | Time: '+timeShort+' | Attempts: '+attemptCount;
+  if(chosenMode!=='accessible'){
+    line2+=' | Hint tab: '+hintViews+'x ('+hintSeconds+'s)';
+  }
+  var line3='Fields: '+totalFilled+'/'+totalFields+' ('+fieldsParts.join(', ')+')';
+  var line4='Date: '+dateShort;
+  return [line1,line2,line3,line4].join('\n');
+}
+
+// ---- completion ----
+function finishPractice(workingPanel){
+  var elapsedMs=stopTimer();
+  var stats=collectStats(workingPanel);
+  if(hintEnteredAt){ hintMsTotal += (Date.now()-hintEnteredAt); hintEnteredAt=null; }
+
+  var seconds=Math.round(elapsedMs/1000);
+  var mm=Math.floor(seconds/60), ss=seconds%60;
+  var timeStr=mm+' min '+(ss<10?'0':'')+ss+' sec';
+  var timeShort=mm+':'+(ss<10?'0':'')+ss;
+  var hintSeconds=Math.round(hintMsTotal/1000);
+
+  var totalFields=0, totalFilled=0;
+  TYPE_ORDER.forEach(function(k){ totalFields+=stats.counts[k]; totalFilled+=stats.filled[k]; });
+
+  var modeLabel = chosenMode==='accessible' ? 'Accessible' : 'Not Accessible';
+  var dateStr = new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  var dateShort = new Date().toLocaleDateString('en-US');
+
+  var summaryText = buildFullSummary(modeLabel, timeStr, hintSeconds, stats, totalFilled, totalFields, dateStr);
+  var compactText = buildCompactSummary(modeLabel, timeShort, hintSeconds, stats, totalFilled, totalFields, dateShort);
+
+  var statList=document.getElementById('stat-list');
+  statList.innerHTML='';
+  var headline=[['Version practiced',modeLabel],['Time to complete',timeStr]];
+  if(chosenMode!=='accessible'){ headline.push(['Accessible tab checked',hintViews+' time'+(hintViews===1?'':'s')]); }
+  headline.push(['Fields completed',totalFilled+' of '+totalFields]);
+  var detailLines=[];
+  TYPE_ORDER.forEach(function(k){
+    if(stats.counts[k]>0){ detailLines.push([TYPE_LABELS[k], stats.filled[k]+' of '+stats.counts[k]]); }
+  });
+  headline.concat(detailLines).forEach(function(pair){
+    var li=document.createElement('li');
+    var span=document.createElement('span'); span.textContent=pair[0];
+    var strong=document.createElement('strong'); strong.textContent=pair[1];
+    li.appendChild(span); li.appendChild(strong);
+    statList.appendChild(li);
+  });
+  document.getElementById('summary-text').value=summaryText;
+
+  // email link uses the compact summary to stay under mailto length limits
+  var mailSubject=encodeURIComponent('ScreenPath Practice Summary: Rental Property Application');
+  var mailBody=encodeURIComponent(compactText);
+  document.getElementById('email-btn').href='mailto:'+encodeURIComponent(teacherEmail)+'?subject='+mailSubject+'&body='+mailBody;
+
+  // save to localStorage (metadata only, never the text students typed into fields)
+  try{
+    var sessions=JSON.parse(localStorage.getItem('sp_formskills_sessions')||'[]');
+    sessions.push({
+      category:'Rental Property Application', format:'web', screenReader:chosenSR, mode:modeLabel,
+      hintViews:hintViews, hintSeconds:hintSeconds, attempts:attemptCount,
+      elapsedSeconds:seconds, totalFields:totalFields, totalFilled:totalFilled,
+      fieldCounts:stats.counts, fieldFilled:stats.filled, date:new Date().toISOString()
+    });
+    localStorage.setItem('sp_formskills_sessions', JSON.stringify(sessions));
+  }catch(e){}
+
+  var overlay=document.getElementById('completion-overlay');
+  overlay.classList.add('open');
+  var heading=document.getElementById('completion-heading');
+  setTimeout(function(){ heading.focus(); },80);
+  announce('Practice complete. Your summary is ready. Choose copy to clipboard, email your teacher, go back to Form Lab, or close.');
+}
+
+document.getElementById('copy-btn').addEventListener('click', function(){
+  var text=document.getElementById('summary-text').value;
+  try{
+    navigator.clipboard.writeText(text).then(function(){ announce('Copied to clipboard.'); });
+  }catch(e){ announce('Could not copy automatically. The summary is selected below for you to copy.'); document.getElementById('summary-text').select(); }
+});
+function closeModal(){
+  document.getElementById('completion-overlay').classList.remove('open');
+  var h=document.getElementById('practice-title'); if(h) h.focus();
+}
+document.getElementById('skip-btn').addEventListener('click', closeModal);
+document.getElementById('email-btn').addEventListener('click', function(){ announce('Opening your email application.'); });
+
+// modal focus trap
+document.addEventListener('keydown', function(e){
+  var overlay=document.getElementById('completion-overlay');
+  if(!overlay.classList.contains('open')) return;
+  if(e.key==='Escape'){ closeModal(); return; }
+  if(e.key!=='Tab') return;
+  var focusable=overlay.querySelectorAll('button,a[href]');
+  var first=focusable[0], last=focusable[focusable.length-1];
+  if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+  else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+});
+</script>
+</body></html>
