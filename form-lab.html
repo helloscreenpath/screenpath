@@ -66,18 +66,13 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
 @media (max-width:1024px){.nav-links{display:none;}.menu-btn{display:flex;}}
 @media (max-width:768px){.nav-inner{padding:0 1rem;}.page-hero{padding:110px 1rem 50px;}.main-wrap{padding:2.5rem 1rem 4rem;}.card-grid{grid-template-columns:1fr;}}
 
-.filter{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem 1rem;margin:0 0 .75rem;}
-.filter label{font-weight:600;}
-.filter select{background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.6rem .85rem;font-family:var(--font);font-size:1rem;min-width:12rem;}
-#filter-status{color:var(--text-muted);font-size:.95rem;margin-bottom:2rem;}
 .form-group{margin-bottom:2.5rem;}
-.form-group h2{font-size:1.4rem;font-weight:700;margin-bottom:1rem;}
+.form-group h2{font-size:1.4rem;font-weight:700;margin-bottom:.4rem;}
+.form-group > p{color:var(--text-muted);margin-bottom:1rem;max-width:760px;}
 .form-list{list-style:none;display:flex;flex-direction:column;gap:.9rem;max-width:760px;}
 .form-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.4rem;position:relative;}
 .form-item:hover{border-color:var(--green);}
 .form-item p{color:var(--text-muted);font-size:.95rem;margin-top:.25rem;}
-.form-item[hidden],.form-group[hidden],#no-forms[hidden]{display:none;}
-#no-forms{color:var(--text-muted);margin-bottom:2rem;}
 </style>
 </head>
 <body>
@@ -86,21 +81,21 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
 <nav role="navigation" aria-label="Main navigation"><div class="nav-inner"><a class="sp-wordmark" href="index.html" aria-label="ScreenPath home">Screen<span>Path</span></a><ul class="nav-links"><li><a href="index.html">Activities</a></li><li><a href="progress.html">My Progress</a></li><li><a href="teachers.html">For Teachers</a></li><li><a href="about.html">About</a></li><li><a href="feedback.html">Feedback</a></li></ul><button id="menu-btn" class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu">&#9776;</button></div><div class="nav-drawer" id="nav-drawer" hidden><a href="index.html">Activities</a><a href="progress.html">My Progress</a><a href="teachers.html">For Teachers</a><a href="about.html">About</a><a href="feedback.html">Feedback</a></div></nav>
 <main id="main" tabindex="-1">
 <div class="page-hero"><span class="page-hero-eyebrow" aria-hidden="true">Skill Drills</span><h1>Form Lab</h1></div><div class="main-wrap">
-<div class="filter"><label for="grade-filter">Show forms for grade</label>
-<select id="grade-filter"><option value="all">All grades</option><option value="6">Grade 6</option><option value="7">Grade 7</option><option value="8">Grade 8</option><option value="9">Grade 9</option><option value="10">Grade 10</option><option value="11">Grade 11</option><option value="12">Grade 12</option></select></div>
-<p id="filter-status" role="status"></p>
-<p id="no-forms" hidden>There are no forms for this grade yet. Choose All grades to see every form.</p>
-
-<!-- To add a form: copy one list item below into the right group and set data-min and data-max to its grade range.
-     To add a group: copy a whole form-group block and change its heading. Groups with no matching forms hide themselves. -->
-
 <div class="form-group">
-<h2>Housing</h2>
-<ul class="form-list">
-<li class="form-item" data-min="9" data-max="12"><a class="card-link" href="form-skills-rental.html">Rental Property Application</a><p>Grades 9 to 12. A seven section application with a clean version and a version with real accessibility problems on purpose.</p></li>
-</ul>
+<h2>Middle School</h2>
+<p>Everyday forms like signing up for a club or ordering food.</p>
+<p>Forms for this section are on the way.</p>
 </div>
-
+<div class="form-group">
+<h2>Junior High</h2>
+<p>Forms for getting more involved, like trying out for a team or signing up for an activity.</p>
+<p>Forms for this section are on the way.</p>
+</div>
+<div class="form-group">
+<h2>High School</h2>
+<p>Forms for work and life after school, like jobs, side jobs, scholarships, college, and housing.</p>
+<ul class="form-list"><li class="form-item"><a class="card-link" href="form-skills-rental.html">Rental Property Application</a><p>Apply to rent a home, with a clean version and a version with real accessibility problems on purpose.</p></li></ul>
+</div>
 <a class="back-link" href="skill-drills.html">Back to Skill Drills</a>
 </div>
 </main>
@@ -110,29 +105,6 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
 b.addEventListener('click',function(){var open=d.hasAttribute('hidden');if(open){d.removeAttribute('hidden');}else{d.setAttribute('hidden','');}
 b.setAttribute('aria-expanded',open?'true':'false');b.setAttribute('aria-label',open?'Close navigation menu':'Open navigation menu');b.innerHTML=open?'&#10005;':'&#9776;';});})();
 function announce(msg){var el=document.getElementById('live');if(!el)return;el.textContent='';setTimeout(function(){el.textContent=msg;},100);}
-
-(function(){
-var sel=document.getElementById('grade-filter'),status=document.getElementById('filter-status'),none=document.getElementById('no-forms');
-var KEY='sp_formlab_grade';
-function apply(speak){
-  var g=sel.value,shown=0;
-  document.querySelectorAll('.form-group').forEach(function(grp){
-    var vis=0;
-    grp.querySelectorAll('.form-item').forEach(function(it){
-      var ok=(g==='all')||(+g>=+it.getAttribute('data-min')&&+g<=+it.getAttribute('data-max'));
-      if(ok){it.removeAttribute('hidden');vis++;}else{it.setAttribute('hidden','');}
-    });
-    if(vis){grp.removeAttribute('hidden');}else{grp.setAttribute('hidden','');}
-    shown+=vis;
-  });
-  none.hidden=shown!==0;
-  var msg=(g==='all'?'Showing all ':'Showing ')+shown+' form'+(shown===1?'':'s')+(g==='all'?'.':' for grade '+g+'.');
-  if(speak){status.textContent=msg;}else{status.textContent=msg;}
-}
-try{var saved=localStorage.getItem(KEY);if(saved&&sel.querySelector('option[value="'+saved+'"]'))sel.value=saved;}catch(e){}
-apply(false);
-sel.addEventListener('change',function(){try{localStorage.setItem(KEY,sel.value);}catch(e){}apply(true);});
-})();
 </script>
 </body>
 </html>
