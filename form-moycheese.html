@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MoyCheese Online Order | Form Lab | ScreenPath</title>
+<style>
+
+:root{
+  --bg:#0a0a0a; --surface:#111111; --surface-2:#1a1a1a; --border:#2a2a2a;
+  --text:#f0f0f0; --text-muted:#8f8f8f;
+  --green:#39d98a; --green-dim:#0d2e1c;
+  --red:#ff4d4d; --red-dim:#2e0d0d;
+  --amber:#f5a623; --amber-dim:#2e1f00;
+  --radius:12px;
+  --font:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'SF Mono','Fira Code','Consolas',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:17px;line-height:1.65;min-height:100vh;}
+.skip-link{position:absolute;top:-120px;left:1rem;background:var(--green);color:#000;padding:.75rem 1.5rem;border-radius:100px;font-weight:700;font-size:.95rem;text-decoration:none;z-index:9999;transition:top .2s;}
+.skip-link:focus{top:1rem;}
+#live{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+a{color:var(--green);}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--green);outline-offset:2px;}
+
+.topbar{border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.topbar a.home-link{color:var(--text-muted);text-decoration:none;font-size:.9rem;font-weight:600;}
+.topbar a.home-link:hover{color:var(--text);}
+.topbar .title{font-weight:800;font-size:1rem;letter-spacing:-.01em;color:var(--text);text-decoration:none;}
+.topbar .title span{color:var(--green);}
+
+.wrap{max-width:760px;margin:0 auto;padding:2.5rem 1.5rem 5rem;}
+
+h1{font-size:1.85rem;font-weight:800;letter-spacing:-.01em;margin-bottom:.5rem;}
+h2,.fake-h2{font-size:1.3rem;font-weight:700;margin-bottom:.9rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
+p{margin-bottom:.9rem;}
+p:last-child{margin-bottom:0;}
+
+.lead{color:var(--text-muted);margin-bottom:1.75rem;}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem;margin-bottom:1.5rem;}
+
+fieldset{border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.25rem 1.5rem;margin-bottom:1.5rem;}
+legend{font-weight:700;padding:0 .5rem;font-size:1.05rem;}
+.radio-row{display:flex;gap:1.5rem;flex-wrap:wrap;margin-top:.4rem;}
+.radio-row label{display:flex;align-items:center;gap:.5rem;font-weight:500;cursor:pointer;}
+
+.field{margin-bottom:1.25rem;}
+.field label,.field .fake-label{display:block;font-weight:600;margin-bottom:.4rem;}
+.field .hint{color:var(--text-muted);font-size:.85rem;margin-top:.3rem;margin-bottom:0;}
+.field input[type=text],.field input[type=email],.field input[type=tel],.field input[type=date],.field input[type=number],.field select,.field textarea{
+  width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);
+  padding:.7rem .85rem;font-family:var(--font);font-size:1rem;
+}
+.field textarea{min-height:5rem;resize:vertical;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green);}
+.req-mark{color:var(--red);margin-left:.15rem;}
+.req-text{color:var(--text-muted);font-size:.8rem;font-weight:500;margin-left:.4rem;}
+
+.field-row{display:flex;gap:.6rem;align-items:flex-end;}
+.field-row .field{flex:1;margin-bottom:0;}
+.icon-btn{background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text-muted);width:2.6rem;height:2.6rem;font-size:1rem;cursor:pointer;flex-shrink:0;}
+.icon-btn:hover{color:var(--text);border-color:var(--red);}
+
+.field.invalid input,.field.invalid select,.field.invalid textarea{border-color:var(--red);}
+.field-error{color:var(--red);font-size:.85rem;margin-top:.3rem;font-weight:600;}
+
+.error-summary{background:var(--red-dim);border:1px solid var(--red);border-radius:var(--radius);padding:1.1rem 1.25rem;margin-bottom:1.5rem;}
+.error-summary h3{font-size:1rem;color:var(--red);margin-bottom:.5rem;}
+.error-summary ul{list-style:none;padding:0;margin:0;}
+.error-summary li{margin-bottom:.35rem;}
+.error-summary a{color:var(--text);text-decoration:underline;}
+.error-summary.quiet{background:transparent;border:none;padding:0;color:var(--red);}
+.error-summary.quiet h3{color:var(--red);font-size:.95rem;}
+
+.btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--surface-2);color:var(--text);font-family:var(--font);font-size:.95rem;font-weight:600;padding:.8rem 1.6rem;border-radius:100px;border:1px solid var(--border);cursor:pointer;text-decoration:none;}
+.btn:hover{border-color:var(--green);}
+.btn.primary{background:var(--green);color:#000;border-color:var(--green);}
+.btn.primary:hover{opacity:.9;}
+.btn[disabled]{opacity:.5;cursor:not-allowed;}
+
+.setup-group{margin-bottom:1.75rem;}
+.setup-group > .fake-label{display:block;font-weight:700;margin-bottom:.6rem;font-size:1.05rem;}
+
+/* Tabs */
+.tablist{display:flex;gap:.5rem;border-bottom:1px solid var(--border);margin-bottom:1.5rem;flex-wrap:wrap;}
+.tablist[hidden]{display:none;}
+.tab{background:none;border:none;border-bottom:3px solid transparent;color:var(--text-muted);font-family:var(--font);font-size:.95rem;font-weight:700;padding:.9rem 1rem;cursor:pointer;}
+.tab[aria-selected="true"]{color:var(--green);border-bottom-color:var(--green);}
+.tab.ref-tab[aria-selected="true"]{color:var(--amber);border-bottom-color:var(--amber);}
+.tabpanel[hidden]{display:none;}
+.ref-banner{background:var(--amber-dim);border:1px solid var(--amber);border-radius:var(--radius);padding:.9rem 1.1rem;margin-bottom:1.5rem;font-size:.92rem;}
+.ref-banner strong{color:var(--amber);}
+
+.status-bar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem 1.25rem;margin-bottom:1.5rem;font-family:var(--mono);font-size:.85rem;color:var(--text-muted);}
+.status-bar strong{color:var(--text);}
+
+.skill-focus{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--green);border-radius:0;padding:1.1rem 1.25rem;margin-bottom:1.75rem;font-size:.95rem;color:var(--text-muted);}
+.skill-focus strong{color:var(--text);}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:1.5rem;z-index:2000;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);max-width:560px;width:100%;max-height:88vh;overflow-y:auto;padding:2rem;}
+.modal h2{border:none;padding:0;font-size:1.4rem;margin-bottom:.3rem;}
+.modal .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:.6rem;}
+.stat-list{list-style:none;padding:0;margin:1rem 0 1.5rem;border:1px solid var(--border);border-radius:8px;}
+.stat-list li{padding:.6rem .9rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;gap:1rem;font-size:.92rem;}
+.stat-list li:last-child{border-bottom:none;}
+.stat-list li strong{color:var(--green);font-family:var(--mono);}
+.modal-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1rem;}
+.hint.why{color:var(--text-muted);border-left:3px solid var(--amber);padding-left:.6rem;}
+.talk{background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:1rem 1.1rem;margin-bottom:1.25rem;}
+.talk h3{font-size:1.05rem;margin-bottom:.4rem;}
+.talk p{color:var(--text-muted);font-size:.92rem;margin-bottom:.6rem;}
+.talk ol{padding-left:1.3rem;display:flex;flex-direction:column;gap:.5rem;font-size:.95rem;}
+textarea.summary-box{width:100%;min-height:9rem;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--mono);font-size:.8rem;padding:.75rem;margin-bottom:1rem;}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;}}
+
+.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+#live-polite{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+.restaurant-intro{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.5rem;margin-bottom:2rem;}
+.restaurant-intro .brand{font-size:1.5rem;font-weight:800;color:var(--amber);margin-bottom:.25rem;}
+.restaurant-intro p{color:var(--text-muted);margin-bottom:.4rem;}
+.table-wrap{position:relative;overflow-x:auto;margin-bottom:2rem;border:1px solid var(--border);border-radius:var(--radius);}
+table.menu{width:100%;border-collapse:collapse;font-size:.95rem;}
+table.menu caption{text-align:left;padding:.75rem 1rem;color:var(--text-muted);font-size:.85rem;}
+table.menu th,table.menu td{padding:.65rem .8rem;border-top:1px solid var(--border);text-align:left;vertical-align:top;}
+table.menu thead th{background:var(--surface-2);font-size:.82rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);}
+table.menu tbody th{font-weight:700;color:var(--text);}
+table.menu td.price{font-family:var(--mono);white-space:nowrap;}
+table.menu input[type=checkbox]{width:1.25rem;height:1.25rem;accent-color:var(--green);}
+table.menu select.qty{background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:.3rem .4rem;font-family:var(--font);}
+table.menu select.qty[hidden]{display:none;}
+tr.picked{background:var(--green-dim);}
+.order-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.5rem;margin-bottom:2rem;}
+.order-box ul{list-style:none;padding:0;margin:0 0 .75rem;}
+.order-box li{display:flex;justify-content:space-between;gap:1rem;padding:.3rem 0;}
+.order-box .totals{border-top:1px solid var(--border);padding-top:.6rem;}
+.order-box .totals li:last-child{font-weight:800;color:var(--green);}
+.order-box .empty{color:var(--text-muted);}
+.field[hidden]{display:none;}
+.talk{background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:1rem 1.1rem;margin-bottom:1.25rem;}
+.talk h3{font-size:1.05rem;margin-bottom:.4rem;}
+.talk p{color:var(--text-muted);font-size:.92rem;margin-bottom:.6rem;}
+.talk ol{padding-left:1.3rem;display:flex;flex-direction:column;gap:.5rem;font-size:.95rem;}
+.receipt{width:100%;border-collapse:collapse;margin:1rem 0 1.25rem;font-size:.92rem;}
+.receipt caption{text-align:left;color:var(--text-muted);font-size:.85rem;margin-bottom:.3rem;}
+.receipt th,.receipt td{padding:.45rem .6rem;border-bottom:1px solid var(--border);text-align:left;}
+.receipt td.num,.receipt th.num{text-align:right;font-family:var(--mono);}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<div id="live" aria-live="assertive" aria-atomic="true"></div>
+<div id="live-polite" aria-live="polite" aria-atomic="true"></div>
+
+<div class="topbar">
+  <a class="title" href="index.html" aria-label="ScreenPath home">Screen<span>Path</span></a>
+  <a class="home-link" href="form-lab.html">Back to Form Lab</a>
+</div>
+
+<main id="main-content" tabindex="-1">
+<div class="wrap">
+
+  <!-- ============ SETUP SCREEN ============ -->
+  <div id="setup-section">
+    <p class="lead" style="margin-bottom:.25rem;font-family:var(--mono);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--green);">Form Lab</p>
+    <h1 id="setup-title">MoyCheese Online Order</h1>
+    <p class="lead">Order lunch from MoyCheese, a burger and sandwich restaurant, using its online menu. Pick your food, choose pickup or delivery, add a tip, and check your total before you place the order.</p>
+
+    <div class="card">
+      <h2 style="border:none;padding:0;margin-bottom:1rem;">What to expect</h2>
+      <p>The menu has five sections, each with a heading and a table: Burgers, Sandwiches, Sides, Drinks, and Desserts. Check the box next to anything you want, then choose how many. Every time you add or change something, the page tells you what changed and your new total with tax.</p>
+      <p>After the menu, you choose pickup or delivery, pick a tip, and enter your name and phone number. Some fields have a short "Why they ask" note that explains what the restaurant is looking for.</p>
+      <p>Choose <strong>Accessible</strong> below to practice on a clean, correctly built copy of the order page. Choose <strong>Not Accessible</strong> to practice on a copy with real problems in it on purpose: some checkboxes with no names, a total that changes without telling you, and a section name that only looks like a heading. In that mode you can switch to the Accessible tab any time to check how something should have been built.</p>
+      <p class="lead" style="margin-bottom:0;">This is practice. No food is ordered and nothing you type is sent anywhere on its own.</p>
+    </div>
+
+    <div class="card">
+      <div class="field" style="max-width:22rem;margin-bottom:1.75rem;">
+        <label for="gate-screen-reader">Screen reader <span class="req-text">(required)</span></label>
+        <select id="gate-screen-reader" required aria-required="true" aria-describedby="sr-error">
+          <option value="">Choose one&hellip;</option>
+          <option value="JAWS">JAWS</option>
+          <option value="NVDA">NVDA</option>
+          <option value="VoiceOver">VoiceOver</option>
+          <option value="Narrator">Narrator</option>
+          <option value="ChromeVox">ChromeVox</option>
+          <option value="TalkBack">TalkBack</option>
+          <option value="Prefer not to say">Prefer not to say</option>
+        </select>
+        <p class="field-error" id="sr-error" hidden>Choose your screen reader before you begin.</p>
+      </div>
+
+      <div class="setup-group">
+        <span class="fake-label" id="mode-label">Which version would you like to practice?</span>
+        <div class="radio-row" role="radiogroup" aria-labelledby="mode-label" style="flex-direction:column;align-items:flex-start;gap:.9rem;">
+          <label><input type="radio" name="setup-mode" value="accessible" checked> Accessible: a clean, correctly built order page. Good for building speed and comfort.</label>
+          <label><input type="radio" name="setup-mode" value="nonaccessible"> Not Accessible: the same order page, but with real accessibility problems on purpose, plus a reference tab to check against.</label>
+        </div>
+      </div>
+
+      <div class="field" style="max-width:22rem;">
+        <label for="setup-teacher-email">Teacher's email (optional)</label>
+        <input type="email" id="setup-teacher-email" placeholder="teacher@dsdmail.net">
+        <p class="hint">If you fill this in, it will be ready to go when you choose to email your results at the end.</p>
+      </div>
+
+      <button type="button" class="btn primary" id="begin-btn" style="margin-top:.5rem;">Begin Practice</button>
+    </div>
+  </div>
+
+  <!-- ============ PRACTICE SCREEN ============ -->
+  <div id="practice-section" hidden>
+    <h1 id="practice-title">MoyCheese Online Order</h1>
+
+    <div class="status-bar">
+      <span>Screen reader: <strong id="status-sr">Not set</strong></span>
+      <span>Version: <strong id="status-mode">Not set</strong></span>
+      <span>Time elapsed: <strong id="status-timer">0:00</strong></span>
+    </div>
+
+    <div class="skill-focus"><span id="skill-focus-text"></span></div>
+
+    <div class="tablist" role="tablist" aria-label="Order page version">
+      <button type="button" class="tab" id="tab-notaccessible" role="tab" aria-selected="true" aria-controls="panel-notaccessible" tabindex="0">Not Accessible (practice)</button>
+      <button type="button" class="tab ref-tab" id="tab-accessible" role="tab" aria-selected="false" aria-controls="panel-accessible" tabindex="-1">Accessible (reference)</button>
+    </div>
+
+    <div class="tabpanel" id="panel-accessible" role="tabpanel" aria-labelledby="tab-accessible" tabindex="0" hidden></div>
+    <div class="tabpanel" id="panel-notaccessible" role="tabpanel" aria-labelledby="tab-notaccessible" tabindex="0"></div>
+  </div>
+</div>
+</main>
+
+<!-- ============ COMPLETION MODAL ============ -->
+<div class="modal-overlay" id="completion-overlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="completion-heading">
+    <p class="eyebrow">Order placed</p>
+    <h2 id="completion-heading" tabindex="-1">Thanks for ordering from MoyCheese.</h2>
+    <p id="order-line"></p>
+    <table class="receipt" id="receipt"></table>
+
+    <div class="talk">
+      <h3>Talk it over</h3>
+      <p>Answer these with your teacher, or type your answers into the email before you send it.</p>
+      <ol>
+        <li>You have $15. Can you buy a Cheeseburger, French Fries, and a Fountain Soda once the 7 percent tax is added? How much would you have left?</li>
+        <li>Why was your total more than the prices printed on the menu?</li>
+        <li>Delivery costs $2.99 plus a tip. On a $12 order with a 15 percent tip, how much more do you pay for delivery than for picking it up yourself with no tip?</li>
+        <li>The order page required your phone number but said your email was optional. Why might a restaurant need one but not the other?</li>
+      </ol>
+    </div>
+
+    <ul class="stat-list" id="stat-list"></ul>
+
+    <label for="summary-text" style="font-weight:600;display:block;margin-bottom:.4rem;">Plain text summary</label>
+    <textarea id="summary-text" class="summary-box" readonly></textarea>
+
+    <div class="modal-actions">
+      <button type="button" class="btn primary" id="copy-btn">Copy to Clipboard</button>
+      <a href="#" class="btn" id="email-btn">Email My Teacher</a>
+      <a href="form-lab.html" class="btn">Back to Form Lab</a>
+      <button type="button" class="btn" id="skip-btn">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ---- the menu: edit items and prices here ----
+var MENU=[
+ {cat:'Burgers',items:[
+  ['Simple Burger','A single beef patty with lettuce, tomato, and onion on a toasted bun.',4.75],
+  ['Cheeseburger','Our Simple Burger topped with a slice of melted cheddar cheese.',5.75],
+  ['Double Cheeseburger','Two beef patties and two slices of cheddar, stacked high.',7.25],
+  ['Bacon Cheeseburger','A classic cheeseburger topped with crispy bacon strips.',7.95],
+  ['Mushroom Swiss Burger','A beef patty topped with sauteed mushrooms and melted Swiss cheese.',8.25],
+  ['Spicy Jalapeño Burger','A beef patty topped with pepper jack cheese and fresh jalapeños.',8.95],
+  ['Triple Stack Burger','Three beef patties, three slices of cheese, and all the fixings.',10.50]]},
+ {cat:'Sandwiches',items:[
+  ['Sunrise Breakfast Sandwich','A fried egg, cheddar cheese, and sausage on a toasted English muffin.',6.25],
+  ['Classic Grilled Cheese','Three cheeses melted between two slices of grilled sourdough.',5.50],
+  ['Turkey and Swiss Melt','Sliced turkey and Swiss cheese on grilled rye bread.',7.50],
+  ['Philly Cheesesteak','Sliced steak, grilled peppers, and onions, topped with melted provolone.',8.75],
+  ['Caprese Melt','Fresh mozzarella, tomato, and basil on grilled ciabatta bread.',7.25]]},
+ {cat:'Sides',items:[
+  ['French Fries','Golden, crispy fries served hot.',3.25],
+  ['Cheese Curds','Breaded cheese curds, fried until golden and gooey.',5.25],
+  ['Onion Rings','Thick cut onion rings in a crispy batter.',4.50],
+  ['Mac and Cheese Cup','Creamy macaroni and cheese in an individual serving cup.',4.95],
+  ['Side Garden Salad','Mixed greens, tomato, and cucumber with your choice of dressing.',3.95]]},
+ {cat:'Drinks',items:[
+  ['Fountain Soda','Your choice of cola, lemon lime, or root beer.',2.25],
+  ['Fresh Lemonade','Made fresh daily with real lemons.',2.75],
+  ['Iced Tea','Sweet or unsweetened, served over ice.',2.50],
+  ['Chocolate Milkshake','A thick, creamy milkshake topped with whipped cream.',4.95],
+  ['Bottled Water','Chilled spring water.',1.75]]},
+ {cat:'Desserts',items:[
+  ['New York Cheesecake Slice','A rich, creamy classic cheesecake slice.',4.50],
+  ['Cheese Danish','A flaky pastry filled with sweet cream cheese.',3.75],
+  ['Chocolate Chip Cookie','Baked fresh, soft and chewy.',2.25],
+  ['Apple Pie Slice','Warm apple pie with a flaky, golden crust.',4.25]]}
+];
+var TAX_RATE=0.07, DELIVERY_FEE=2.99;
+var NOTES={
+ tax:'Why they charge it: sales tax is added to most things you buy, which is why your total is more than the menu prices. MoyCheese charges 7 percent.',
+ delivery:'Why they ask: a delivery fee of $2.99 pays for bringing the food to you. It is separate from the tip, so delivery costs more than picking it up yourself.',
+ tip:'Why they ask: a tip is extra money for the people who make or bring your food. It is your choice for pickup. For delivery, 15 to 20 percent is common.',
+ phone:'Why they ask: the restaurant calls or texts this number when your order is ready or if something is wrong with it.',
+ email:'Why they ask: email is only used to send a receipt. It is optional, so you can skip it.'
+};
+
+function money(n){ return '$'+n.toFixed(2); }
+function esc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+function announce(msg){ var el=document.getElementById('live'); el.textContent=''; setTimeout(function(){ el.textContent=msg; },100); }
+function announcePolite(msg){ var el=document.getElementById('live-polite'); el.textContent=''; setTimeout(function(){ el.textContent=msg; },60); }
+
+// ---- build one copy of the order page. na = true adds the accessibility problems on purpose ----
+function buildForm(p, na){
+  var h='<div class="restaurant-intro"><p class="brand">MoyCheese</p><p>Burgers, sandwiches, and everything better with cheese.</p><p>100 Cheddar Street, Clearview, Utah. Open today 11:00 a.m. to 9:00 p.m.</p></div>';
+  h+='<div id="'+p+'-errors"></div><form id="'+p+'-form" novalidate>';
+  var n=0;
+  MENU.forEach(function(c){
+    // BUG (na): Desserts is styled like a heading but is only a paragraph.
+    h+=(na && c.cat==='Desserts') ? '<p class="fake-h2">'+c.cat+'</p>' : '<h2>'+c.cat+'</h2>';
+    h+='<div class="table-wrap"><table class="menu"><caption>'+c.cat+' menu items</caption><thead><tr><th scope="col">Select</th><th scope="col">Item</th><th scope="col">Description</th><th scope="col">Price</th><th scope="col">Quantity</th></tr></thead><tbody>';
+    c.items.forEach(function(it){
+      n++;
+      var id=p+'-item-'+n;
+      // BUG (na): Burgers and Sides checkboxes have no label, so they are announced only as "checkbox".
+      var noLabel = na && (c.cat==='Burgers'||c.cat==='Sides');
+      var cb='<input type="checkbox" class="menu-cb" id="'+id+'" data-name="'+esc(it[0])+'" data-price="'+it[2]+'">'+(noLabel?'':'<label class="visually-hidden" for="'+id+'">Select '+esc(it[0])+'</label>');
+      var qopts=''; for(var q=1;q<=5;q++){ qopts+='<option value="'+q+'">'+q+'</option>'; }
+      // BUG (na): the quantity combo box has no label.
+      var qty=(na?'':'<label class="visually-hidden" for="'+id+'-qty">Quantity of '+esc(it[0])+'</label>')+'<select class="qty" id="'+id+'-qty" hidden>'+qopts+'</select>';
+      var nameCell = na ? '<td>'+esc(it[0])+'</td>' : '<th scope="row">'+esc(it[0])+'</th>';
+      h+='<tr><td>'+cb+'</td>'+nameCell+'<td>'+esc(it[1])+'</td><td class="price">'+money(it[2])+'</td><td>'+qty+'</td></tr>';
+    });
+    h+='</tbody></table></div>';
+  });
+
+  h+='<h2>Your Order So Far</h2><div class="order-box"><ul id="'+p+'-list"><li class="empty">No items yet.</li></ul>';
+  h+='<ul class="totals" id="'+p+'-totals"></ul><p class="hint why" id="'+p+'-tax-why">'+NOTES.tax+'</p></div>';
+
+  h+='<h2>Pickup or Delivery</h2>';
+  h+='<fieldset><legend>How do you want to get your order?<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></legend><div class="radio-row">';
+  h+='<label><input type="radio" name="'+p+'-get" value="Pickup" required> Pickup</label><label><input type="radio" name="'+p+'-get" value="Delivery" aria-describedby="'+p+'-delivery-why"> Delivery ($2.99 fee)</label></div>';
+  h+='<p class="hint why" id="'+p+'-delivery-why">'+NOTES.delivery+'</p></fieldset>';
+  h+='<div class="field" id="'+p+'-address-wrap" hidden><label for="'+p+'-address">Delivery address<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required for delivery)</span></label><input type="text" id="'+p+'-address" name="address" autocomplete="street-address"></div>';
+  h+='<div class="field"><label for="'+p+'-when">When do you want it?</label><select id="'+p+'-when" name="when"><option>As soon as possible</option><option>In 30 minutes</option><option>In 45 minutes</option><option>In 1 hour</option></select></div>';
+
+  h+='<h2>Tip</h2>';
+  var tips='<label><input type="radio" name="'+p+'-tip" value="0" required> No tip</label><label><input type="radio" name="'+p+'-tip" value="0.10"> 10 percent</label><label><input type="radio" name="'+p+'-tip" value="0.15"> 15 percent</label><label><input type="radio" name="'+p+'-tip" value="0.20"> 20 percent</label>';
+  if(na){
+    // BUG (na): no fieldset or legend, so the radio buttons have no group name.
+    h+='<p><strong>Add a tip</strong> <span class="req-mark" aria-hidden="true">*</span></p><div class="radio-row" style="margin-bottom:.5rem;">'+tips+'</div><p class="hint why" style="margin-bottom:1.5rem;">'+NOTES.tip+'</p>';
+  } else {
+    h+='<fieldset aria-describedby="'+p+'-tip-why"><legend>Add a tip<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></legend><div class="radio-row">'+tips+'</div><p class="hint why" id="'+p+'-tip-why">'+NOTES.tip+'</p></fieldset>';
+  }
+
+  h+='<h2>Your Information</h2>';
+  h+='<div class="field"><label for="'+p+'-name">Your name<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label><input type="text" id="'+p+'-name" name="name" autocomplete="name" required></div>';
+  if(na){
+    // BUG (na): phone has a placeholder instead of a label.
+    h+='<div class="field"><span class="fake-label">Phone number <span class="req-mark" aria-hidden="true">*</span></span><input type="tel" id="'+p+'-phone" name="phone" placeholder="Phone number" required aria-describedby="'+p+'-phone-why"><p class="hint why" id="'+p+'-phone-why">'+NOTES.phone+'</p></div>';
+  } else {
+    h+='<div class="field"><label for="'+p+'-phone">Phone number<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label><input type="tel" id="'+p+'-phone" name="phone" autocomplete="tel" required aria-describedby="'+p+'-phone-why"><p class="hint why" id="'+p+'-phone-why">'+NOTES.phone+'</p></div>';
+  }
+  h+='<div class="field"><label for="'+p+'-email">Email for your receipt (optional)</label><input type="email" id="'+p+'-email" name="email" autocomplete="email" aria-describedby="'+p+'-email-why"><p class="hint why" id="'+p+'-email-why">'+NOTES.email+'</p></div>';
+  h+='<div class="field"><label for="'+p+'-notes">Special instructions (optional)</label><textarea id="'+p+'-notes" name="notes" placeholder="For example: no onions, or extra napkins"></textarea></div>';
+  h+='<div id="'+p+'-submit-wrap" style="margin-top:1.75rem;"><button type="button" class="btn primary" id="'+p+'-submit">Place Order</button></div>';
+  h+='</form>';
+  return h;
+}
+
+// ---- order math ----
+function getOrder(p){
+  var panel=document.getElementById(p==='acc'?'panel-accessible':'panel-notaccessible');
+  var items=[];
+  panel.querySelectorAll('.menu-cb:checked').forEach(function(cb){
+    var q=+document.getElementById(cb.id+'-qty').value;
+    items.push({name:cb.getAttribute('data-name'),price:+cb.getAttribute('data-price'),qty:q});
+  });
+  var count=0, sub=0; items.forEach(function(i){ count+=i.qty; sub+=i.price*i.qty; });
+  var get=panel.querySelector('input[name="'+p+'-get"]:checked');
+  var tipEl=panel.querySelector('input[name="'+p+'-tip"]:checked');
+  var tipRate=tipEl?+tipEl.value:0;
+  var tax=Math.round(sub*TAX_RATE*100)/100;
+  var tip=Math.round(sub*tipRate*100)/100;
+  var fee=(get&&get.value==='Delivery'&&items.length)?DELIVERY_FEE:0;
+  return {items:items,count:count,sub:sub,tax:tax,tip:tip,tipRate:tipRate,fee:fee,total:sub+tax+tip+fee,get:get?get.value:'',panel:panel};
+}
+function totalsSentence(o){
+  var s=o.count+' item'+(o.count===1?'':'s')+'. Subtotal '+money(o.sub)+', tax '+money(o.tax);
+  if(o.tip) s+=', tip '+money(o.tip);
+  if(o.fee) s+=', delivery fee '+money(o.fee);
+  return s+', total '+money(o.total)+'.';
+}
+function render(p){
+  var o=getOrder(p);
+  var list=document.getElementById(p+'-list');
+  list.innerHTML = o.items.length ? o.items.map(function(i){ return '<li><span>'+i.qty+' '+esc(i.name)+'</span><span>'+money(i.price*i.qty)+'</span></li>'; }).join('') : '<li class="empty">No items yet.</li>';
+  var t='<li><span>Subtotal</span><span>'+money(o.sub)+'</span></li><li><span>Tax (7 percent)</span><span>'+money(o.tax)+'</span></li>';
+  if(o.tip) t+='<li><span>Tip ('+Math.round(o.tipRate*100)+' percent)</span><span>'+money(o.tip)+'</span></li>';
+  if(o.fee) t+='<li><span>Delivery fee</span><span>'+money(o.fee)+'</span></li>';
+  t+='<li><span>Total</span><span>'+money(o.total)+'</span></li>';
+  document.getElementById(p+'-totals').innerHTML=t;
+  return o;
+}
+function wire(p, na){
+  var form=document.getElementById(p+'-form');
+  form.addEventListener('change', function(e){
+    var el=e.target, msg='';
+    if(el.classList.contains('menu-cb')){
+      var qty=document.getElementById(el.id+'-qty');
+      qty.hidden=!el.checked; if(!el.checked) qty.value='1';
+      el.closest('tr').classList.toggle('picked', el.checked);
+      msg=(el.checked?'Added ':'Removed ')+el.getAttribute('data-name')+'. ';
+    } else if(el.classList.contains('qty')){
+      var cb=document.getElementById(el.id.replace(/-qty$/,''));
+      msg=cb.getAttribute('data-name')+', quantity '+el.value+'. ';
+    } else if(el.name===p+'-get'){
+      document.getElementById(p+'-address-wrap').hidden = el.value!=='Delivery';
+      msg=el.value==='Delivery' ? 'Delivery chosen. A delivery address field was added after the time combo box. ' : 'Pickup chosen. ';
+    } else if(el.name===p+'-tip'){
+      msg=(el.value==='0'?'No tip. ':Math.round(el.value*100)+' percent tip. ');
+    } else { return; }
+    var o=render(p);
+    // BUG (na): changes are never announced, so the total updates silently.
+    if(!na) announcePolite(msg+totalsSentence(o));
+  });
+  document.getElementById(p+'-submit').addEventListener('click', function(){ attemptSubmit(p, na); });
+}
+
+// ---- validation ----
+function problems(p){
+  var o=getOrder(p), list=[];
+  var panel=o.panel;
+  if(!o.items.length) list.push({msg:'Choose at least one menu item.', el:panel.querySelector('.menu-cb')});
+  if(!o.get) list.push({msg:'Choose pickup or delivery.', el:panel.querySelector('input[name="'+p+'-get"]')});
+  if(o.get==='Delivery' && !document.getElementById(p+'-address').value.trim()) list.push({msg:'Enter your delivery address.', el:document.getElementById(p+'-address')});
+  if(!panel.querySelector('input[name="'+p+'-tip"]:checked')) list.push({msg:'Choose a tip, or choose No tip.', el:panel.querySelector('input[name="'+p+'-tip"]')});
+  if(!document.getElementById(p+'-name').value.trim()) list.push({msg:'Enter your name.', el:document.getElementById(p+'-name')});
+  if(!document.getElementById(p+'-phone').value.trim()) list.push({msg:'Enter your phone number.', el:document.getElementById(p+'-phone')});
+  return list;
+}
+var attemptCount=0;
+function attemptSubmit(p, na){
+  attemptCount++;
+  var list=problems(p), box=document.getElementById(p+'-errors');
+  box.innerHTML='';
+  if(list.length){
+    var div=document.createElement('div');
+    div.className='error-summary'+(na?' quiet':'');
+    var h=document.createElement('h3'); h.tabIndex=-1;
+    h.textContent=(list.length===1?'There is 1 problem':'There are '+list.length+' problems')+' with your order.';
+    div.appendChild(h);
+    if(!na){
+      var ul=document.createElement('ul');
+      list.forEach(function(item){
+        var li=document.createElement('li'), a=document.createElement('a');
+        a.href='#'+item.el.id; a.textContent=item.msg;
+        a.addEventListener('click', function(ev){ ev.preventDefault(); item.el.focus(); if(item.el.scrollIntoView) item.el.scrollIntoView({block:'center'}); });
+        li.appendChild(a); ul.appendChild(li);
+      });
+      div.appendChild(ul);
+      box.appendChild(div);
+      setTimeout(function(){ h.focus(); },30);
+      announce(h.textContent);
+    } else {
+      // BUG (na): errors show in red at the top of the page, with no focus move and no announcement.
+      box.appendChild(div);
+    }
+    return;
+  }
+  finish(p);
+}
+
+// ---- setup ----
+var chosenMode='accessible', chosenSR='', teacherEmail='';
+function skillFocus(mode, sr){
+  if(mode==='accessible') return '<strong>Skill focus.</strong> Move through the menu by heading, then use table commands to read each row. Check the box for anything you want and choose a quantity. Listen after each change: the page tells you what you added and your new total with tax.';
+  var t='<strong>Skill focus.</strong> You are on the Not Accessible tab. Some checkboxes have no names, the total changes without telling you, the tip choices are not grouped, and one section name is not a real heading. If a checkbox only says "checkbox," read across the table row to find out which item it belongs to.';
+  if(sr==='JAWS') t+=' In a table, use Control, Alt, and the arrow keys to move by cell and hear the column header.';
+  else if(sr==='NVDA') t+=' In a table, use Control, Alt, and the arrow keys to move by cell and hear the column header.';
+  else if(sr==='VoiceOver') t+=' In a table, use VO with the arrow keys to move by cell, and open the Rotor to check the headings list.';
+  return t;
+}
+document.getElementById('begin-btn').addEventListener('click', function(){
+  var srSel=document.getElementById('gate-screen-reader'), srErr=document.getElementById('sr-error');
+  if(!srSel.value){ srErr.hidden=false; srSel.setAttribute('aria-invalid','true'); srSel.closest('.field').classList.add('invalid'); srSel.focus(); announce('Choose your screen reader before you begin.'); return; }
+  srErr.hidden=true; srSel.removeAttribute('aria-invalid'); srSel.closest('.field').classList.remove('invalid');
+  chosenSR=srSel.value;
+  chosenMode=document.querySelector('input[name="setup-mode"]:checked').value;
+  teacherEmail=document.getElementById('setup-teacher-email').value.trim();
+
+  var panelAcc=document.getElementById('panel-accessible'), panelNA=document.getElementById('panel-notaccessible');
+  panelAcc.innerHTML=buildForm('acc', false); wire('acc', false); render('acc');
+
+  document.getElementById('setup-section').hidden=true;
+  document.getElementById('practice-section').hidden=false;
+  document.getElementById('status-sr').textContent=chosenSR;
+  document.getElementById('status-mode').textContent=chosenMode==='accessible'?'Accessible':'Not Accessible';
+  document.getElementById('skill-focus-text').innerHTML=skillFocus(chosenMode, chosenSR);
+
+  var tablist=document.querySelector('.tablist');
+  if(chosenMode==='accessible'){
+    tablist.hidden=true; panelNA.hidden=true; panelAcc.hidden=false;
+    panelAcc.removeAttribute('role'); panelAcc.removeAttribute('aria-labelledby'); panelAcc.removeAttribute('tabindex');
+  } else {
+    panelNA.innerHTML=buildForm('na', true); wire('na', true); render('na');
+    var banner=document.createElement('div'); banner.className='ref-banner';
+    banner.innerHTML='<strong>Reference copy.</strong> This tab shows the same order page built correctly. Orders are not placed from here. Use it to check something, then switch back to the Not Accessible tab to finish.';
+    panelAcc.insertBefore(banner, panelAcc.firstChild);
+    document.getElementById('acc-submit-wrap').hidden=true;
+    tablist.hidden=false; activateTab('tab-notaccessible');
+  }
+  startTimer();
+  announce(chosenMode==='accessible'?'Practice started on the accessible order page.':'Practice started. You are on the Not Accessible tab. Switch to the Accessible tab anytime to check something.');
+  var h=document.getElementById('practice-title'); h.setAttribute('tabindex','-1'); h.focus();
+});
+
+// ---- tabs ----
+var hintViews=0, hintMsTotal=0, hintEnteredAt=null;
+function activateTab(tabId){
+  document.querySelectorAll('.tab').forEach(function(t){
+    var sel=t.id===tabId; t.setAttribute('aria-selected',sel?'true':'false'); t.tabIndex=sel?0:-1;
+    document.getElementById(t.getAttribute('aria-controls')).hidden=!sel;
+  });
+  if(tabId==='tab-accessible'){ hintViews++; hintEnteredAt=Date.now(); }
+  else if(hintEnteredAt){ hintMsTotal+=Date.now()-hintEnteredAt; hintEnteredAt=null; }
+}
+document.querySelectorAll('.tab').forEach(function(tab){
+  tab.addEventListener('click', function(){ activateTab(tab.id); tab.focus(); });
+  tab.addEventListener('keydown', function(e){
+    var tabs=Array.prototype.slice.call(document.querySelectorAll('.tab')), i=tabs.indexOf(tab), next=null;
+    if(e.key==='ArrowRight') next=tabs[(i+1)%tabs.length];
+    else if(e.key==='ArrowLeft') next=tabs[(i-1+tabs.length)%tabs.length];
+    else if(e.key==='Home') next=tabs[0];
+    else if(e.key==='End') next=tabs[tabs.length-1];
+    if(next){ e.preventDefault(); activateTab(next.id); next.focus(); }
+  });
+});
+
+// ---- timer ----
+var startTime=null, timerInterval=null;
+function startTimer(){ startTime=Date.now(); timerInterval=setInterval(function(){ var s=Math.floor((Date.now()-startTime)/1000); document.getElementById('status-timer').textContent=Math.floor(s/60)+':'+(s%60<10?'0':'')+(s%60); },1000); }
+function stopTimer(){ clearInterval(timerInterval); return Date.now()-startTime; }
+
+// ---- finish ----
+function finish(p){
+  var o=getOrder(p);
+  var seconds=Math.round(stopTimer()/1000);
+  if(hintEnteredAt){ hintMsTotal+=Date.now()-hintEnteredAt; hintEnteredAt=null; }
+  var hintSeconds=Math.round(hintMsTotal/1000);
+  var timeStr=Math.floor(seconds/60)+' min '+(seconds%60<10?'0':'')+(seconds%60)+' sec';
+  var modeLabel=chosenMode==='accessible'?'Accessible':'Not Accessible';
+  var orderNo='MC'+Math.floor(100000+Math.random()*900000);
+  var name=document.getElementById(p+'-name').value.trim();
+  var when=document.getElementById(p+'-when').value;
+
+  document.getElementById('order-line').textContent='Thank you, '+name+'. Your order number is '+orderNo+'. '+o.get+': '+when.charAt(0).toLowerCase()+when.slice(1)+'.';
+  var r='<caption>Your order</caption><thead><tr><th scope="col">Item</th><th scope="col" class="num">Quantity</th><th scope="col" class="num">Price</th></tr></thead><tbody>';
+  o.items.forEach(function(i){ r+='<tr><td>'+esc(i.name)+'</td><td class="num">'+i.qty+'</td><td class="num">'+money(i.price*i.qty)+'</td></tr>'; });
+  function row(label,val){ r+='<tr><th scope="row" colspan="2">'+label+'</th><td class="num">'+money(val)+'</td></tr>'; }
+  row('Subtotal',o.sub); row('Tax (7 percent)',o.tax);
+  if(o.tip) row('Tip ('+Math.round(o.tipRate*100)+' percent)',o.tip);
+  if(o.fee) row('Delivery fee',o.fee);
+  row('Total',o.total);
+  document.getElementById('receipt').innerHTML=r+'</tbody>';
+
+  var stats=[['Version practiced',modeLabel],['Time to complete',timeStr],['Order attempts',String(attemptCount)],['Items ordered',String(o.count)],['Order total',money(o.total)]];
+  if(chosenMode!=='accessible') stats.splice(2,0,['Accessible tab checked',hintViews+' time'+(hintViews===1?'':'s')]);
+  var sl=document.getElementById('stat-list'); sl.innerHTML='';
+  stats.forEach(function(s){ var li=document.createElement('li'); li.innerHTML='<span>'+s[0]+'</span><strong>'+esc(s[1])+'</strong>'; sl.appendChild(li); });
+
+  var lines=['ScreenPath Form Lab Practice','Form: MoyCheese Online Order','Screen reader used: '+chosenSR,'Version practiced: '+modeLabel];
+  if(chosenMode!=='accessible') lines.push('Accessible tab checked: '+hintViews+' time'+(hintViews===1?'':'s')+(hintViews?' ('+hintSeconds+' sec total)':''));
+  lines.push('Order attempts: '+attemptCount,'Time to complete: '+timeStr,'Order: '+o.items.map(function(i){ return i.qty+' '+i.name; }).join(', '),'Pickup or delivery: '+o.get,'Tip: '+Math.round(o.tipRate*100)+' percent','Total: '+money(o.total)+' (subtotal '+money(o.sub)+', tax '+money(o.tax)+(o.tip?', tip '+money(o.tip):'')+(o.fee?', delivery '+money(o.fee):'')+')','Date: '+new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}));
+  document.getElementById('summary-text').value=lines.join('\n');
+
+  var compact=['ScreenPath Form Lab: MoyCheese Online Order','SR: '+chosenSR+' | Mode: '+modeLabel+' | Time: '+Math.floor(seconds/60)+':'+(seconds%60<10?'0':'')+(seconds%60)+' | Attempts: '+attemptCount+(chosenMode!=='accessible'?' | Hint tab: '+hintViews+'x':''),'Items: '+o.count+' | '+o.get+' | Tip '+Math.round(o.tipRate*100)+'% | Total '+money(o.total),'Date: '+new Date().toLocaleDateString('en-US'),'','Talk it over answers:'].join('\n');
+  document.getElementById('email-btn').href='mailto:'+encodeURIComponent(teacherEmail)+'?subject='+encodeURIComponent('ScreenPath Practice Summary: MoyCheese Online Order')+'&body='+encodeURIComponent(compact);
+
+  try{
+    var sessions=JSON.parse(localStorage.getItem('sp_formskills_sessions')||'[]');
+    sessions.push({category:'MoyCheese Online Order',format:'web',screenReader:chosenSR,mode:modeLabel,hintViews:hintViews,hintSeconds:hintSeconds,attempts:attemptCount,elapsedSeconds:seconds,itemCount:o.count,orderTotal:Math.round(o.total*100)/100,fulfillment:o.get,tipPercent:Math.round(o.tipRate*100),date:new Date().toISOString()});
+    localStorage.setItem('sp_formskills_sessions', JSON.stringify(sessions));
+  }catch(e){}
+
+  document.getElementById('completion-overlay').classList.add('open');
+  setTimeout(function(){ document.getElementById('completion-heading').focus(); },80);
+  announce('Order placed. Your receipt and summary are ready.');
+}
+
+document.getElementById('copy-btn').addEventListener('click', function(){
+  var text=document.getElementById('summary-text').value;
+  try{ navigator.clipboard.writeText(text).then(function(){ announce('Copied to clipboard.'); }); }
+  catch(e){ document.getElementById('summary-text').select(); announce('Could not copy automatically. The summary is selected for you to copy.'); }
+});
+function closeModal(){ document.getElementById('completion-overlay').classList.remove('open'); document.getElementById('practice-title').focus(); }
+document.getElementById('skip-btn').addEventListener('click', closeModal);
+document.addEventListener('keydown', function(e){
+  var ov=document.getElementById('completion-overlay');
+  if(!ov.classList.contains('open')) return;
+  if(e.key==='Escape'){ closeModal(); return; }
+  if(e.key!=='Tab') return;
+  var f=ov.querySelectorAll('button,a[href],textarea'), first=f[0], last=f[f.length-1];
+  if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+  else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+});
+</script>
+</body></html>
