@@ -137,16 +137,12 @@
     .dept h3 { font-family:var(--mono); font-size:.82rem; letter-spacing:.08em; text-transform:uppercase; color:var(--green); margin-bottom:.35rem; font-weight:600; }
     .dept-desc { font-size:.85rem; color:var(--text-muted); margin-bottom:1.1rem; font-style:italic; }
 
-    /* Staff table */
-    .staff-table { width:100%; border-collapse:collapse; font-size:.95rem; }
-    .staff-table caption { font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--text-muted); text-align:left; padding-bottom:.75rem; caption-side:top; }
-    .staff-table th { text-align:left; padding:.6rem .75rem; font-size:.8rem; font-weight:600; color:var(--text-muted); font-family:var(--mono); letter-spacing:.06em; text-transform:uppercase; border-bottom:2px solid var(--border); background:var(--surface-2); }
-    .staff-table td { padding:.7rem .75rem; border-bottom:1px solid var(--border); vertical-align:top; }
-    .staff-table tr:last-child td { border-bottom:none; }
-    .staff-table tr:hover td { background:rgba(57,217,138,.04); }
-    .staff-name { font-weight:600; color:var(--text); }
-    .staff-title { color:var(--text-muted); font-size:.9rem; }
-    .staff-code { font-family:var(--mono); font-size:.88rem; color:var(--amber); font-weight:600; letter-spacing:.04em; }
+    /* Staff entries: one level 4 heading per title */
+    .staff { padding:.85rem 0; border-top:1px solid var(--border); }
+    .staff h4 { font-size:1rem; font-weight:600; color:var(--text); margin-bottom:.3rem; }
+    .staff p { font-size:.95rem; color:var(--text-muted); margin-bottom:.15rem; }
+    .staff .staff-name { font-weight:600; color:var(--text); }
+    .staff .staff-code { font-family:var(--mono); font-size:.9rem; color:var(--amber); font-weight:600; letter-spacing:.04em; }
 
     /* Bridge message */
     .bridge-msg { background:var(--green-dim); border:1px solid rgba(57,217,138,.3); border-radius:var(--radius); padding:1.5rem; margin-top:1.5rem; display:none; }
@@ -239,7 +235,6 @@
       main { padding:2rem 1.25rem 4rem; }
       .directory { padding:1.5rem; }
       #timer-display { font-size:2.5rem; }
-      .staff-table th, .staff-table td { padding:.5rem; font-size:.85rem; }
     }
     a:focus-visible, button:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:3px; }
     /* ── Results overlay ── */
@@ -333,7 +328,7 @@
 
   <main id="main-content" tabindex="-1">
 
-    <a href="index.html" class="back-link" aria-label="Back to all rooms">← All Rooms</a>
+    <a href="the-school.html" class="back-link">Back to The School</a>
 
     <div id="landing-gate">
       <span class="section-eyebrow">The School — Locked In — 3 Rooms</span>
@@ -474,90 +469,42 @@
 
         <div class="directory-header-bar" aria-hidden="true">// WESTLAKE MIDDLE SCHOOL — STAFF DIRECTORY — EMERGENCY ACCESS CODES</div>
 
-        <p class="directory-intro">You are reading the official staff directory. Each department is listed under its own section heading. Navigate by heading to find the right department, then read the table to find the staff member shown on the exit keypad. Their emergency exit access code is in the third column.</p>
+        <p class="directory-intro">You are reading the official staff directory. Each department has its own level 3 heading, and each staff member's job title inside that department is a level 4 heading. Navigate by heading to the department shown on the exit keypad, then to the level 4 heading with the job title. The staff member's full name and emergency exit access code are right below that heading.</p>
 
         <!-- Administration -->
         <div class="dept">
           <h3>Administration</h3>
           <p class="dept-desc">Manages school-wide operations, scheduling, and emergency procedures.</p>
-          <table class="staff-table" aria-label="Administration department staff">
-            <caption>Administration Staff</caption>
-            <thead>
-              <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Title</th>
-                <th scope="col">Access Code</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td class="staff-name">Patricia Mendez</td><td class="staff-title">Principal</td><td class="staff-code">A-1147</td></tr>
-              <tr><td class="staff-name">Gerald Huang</td><td class="staff-title">Assistant Principal</td><td class="staff-code">A-2253</td></tr>
-              <tr><td class="staff-name">Vanessa Okoye</td><td class="staff-title">Office Manager</td><td class="staff-code">A-3389</td></tr>
-            </tbody>
-          </table>
+                    <div class="staff"><h4>Principal</h4><p>Name: <span class="staff-name">Patricia Mendez</span></p><p>Access code: <span class="staff-code">A-1147</span></p></div>
+          <div class="staff"><h4>Assistant Principal</h4><p>Name: <span class="staff-name">Gerald Huang</span></p><p>Access code: <span class="staff-code">A-2253</span></p></div>
+          <div class="staff"><h4>Office Manager</h4><p>Name: <span class="staff-name">Vanessa Okoye</span></p><p>Access code: <span class="staff-code">A-3389</span></p></div>
         </div>
 
         <!-- Student Services -->
         <div class="dept">
           <h3>Student Services</h3>
           <p class="dept-desc">Supports student wellbeing, counseling, and academic guidance.</p>
-          <table class="staff-table" aria-label="Student Services department staff">
-            <caption>Student Services Staff</caption>
-            <thead>
-              <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Title</th>
-                <th scope="col">Access Code</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td class="staff-name">Tomás Rivera</td><td class="staff-title">Head Counselor</td><td class="staff-code">S-4412</td></tr>
-              <tr><td class="staff-name">Amelia Thornton</td><td class="staff-title">School Psychologist</td><td class="staff-code">S-5538</td></tr>
-              <tr><td class="staff-name">Kwesi Boateng</td><td class="staff-title">Attendance Coordinator</td><td class="staff-code">S-6671</td></tr>
-            </tbody>
-          </table>
+                    <div class="staff"><h4>Head Counselor</h4><p>Name: <span class="staff-name">Tomás Rivera</span></p><p>Access code: <span class="staff-code">S-4412</span></p></div>
+          <div class="staff"><h4>School Psychologist</h4><p>Name: <span class="staff-name">Amelia Thornton</span></p><p>Access code: <span class="staff-code">S-5538</span></p></div>
+          <div class="staff"><h4>Attendance Coordinator</h4><p>Name: <span class="staff-name">Kwesi Boateng</span></p><p>Access code: <span class="staff-code">S-6671</span></p></div>
         </div>
 
         <!-- Facilities -->
         <div class="dept">
           <h3>Facilities</h3>
           <p class="dept-desc">Maintains the building, equipment, and all physical operations of the school.</p>
-          <table class="staff-table" aria-label="Facilities department staff">
-            <caption>Facilities Staff</caption>
-            <thead>
-              <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Title</th>
-                <th scope="col">Access Code</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td class="staff-name">Darnell Washington</td><td class="staff-title">Head Custodian</td><td class="staff-code">F-7724</td></tr>
-              <tr><td class="staff-name">Ingrid Carlsson</td><td class="staff-title">Maintenance Supervisor</td><td class="staff-code">F-8856</td></tr>
-              <tr><td class="staff-name">Roderick Pham</td><td class="staff-title">Grounds Coordinator</td><td class="staff-code">F-9903</td></tr>
-            </tbody>
-          </table>
+                    <div class="staff"><h4>Head Custodian</h4><p>Name: <span class="staff-name">Darnell Washington</span></p><p>Access code: <span class="staff-code">F-7724</span></p></div>
+          <div class="staff"><h4>Maintenance Supervisor</h4><p>Name: <span class="staff-name">Ingrid Carlsson</span></p><p>Access code: <span class="staff-code">F-8856</span></p></div>
+          <div class="staff"><h4>Grounds Coordinator</h4><p>Name: <span class="staff-name">Roderick Pham</span></p><p>Access code: <span class="staff-code">F-9903</span></p></div>
         </div>
 
         <!-- Security -->
         <div class="dept">
           <h3>Security</h3>
           <p class="dept-desc">Handles building access, safety protocols, and emergency response coordination.</p>
-          <table class="staff-table" aria-label="Security department staff">
-            <caption>Security Staff</caption>
-            <thead>
-              <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Title</th>
-                <th scope="col">Access Code</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td class="staff-name">Marcus Bell</td><td class="staff-title">Security Director</td><td class="staff-code">SC-1023</td></tr>
-              <tr><td class="staff-name">Yolanda Ferreira</td><td class="staff-title">Safety Coordinator</td><td class="staff-code">SC-2149</td></tr>
-              <tr><td class="staff-name">Nathaniel Cross</td><td class="staff-title">Campus Monitor</td><td class="staff-code">SC-3267</td></tr>
-            </tbody>
-          </table>
+                    <div class="staff"><h4>Security Director</h4><p>Name: <span class="staff-name">Marcus Bell</span></p><p>Access code: <span class="staff-code">SC-1023</span></p></div>
+          <div class="staff"><h4>Safety Coordinator</h4><p>Name: <span class="staff-name">Yolanda Ferreira</span></p><p>Access code: <span class="staff-code">SC-2149</span></p></div>
+          <div class="staff"><h4>Campus Monitor</h4><p>Name: <span class="staff-name">Nathaniel Cross</span></p><p>Access code: <span class="staff-code">SC-3267</span></p></div>
         </div>
 
       </div>
@@ -575,7 +522,7 @@
           </div>
           <div class="form-group">
             <label for="access-code">Emergency Exit Access Code <span aria-hidden="true" style="color:var(--red)">*</span></label>
-            <span class="field-hint" id="hint-code">Enter the access code listed next to that person's name in the directory.</span>
+            <span class="field-hint" id="hint-code">Enter the access code listed below that person's job title in the directory.</span>
             <input type="text" id="access-code" name="access_code" required aria-required="true" aria-describedby="hint-code" placeholder="Access code" autocomplete="off">
           </div>
           <button type="submit" class="btn btn-primary">Submit Answer</button>
@@ -806,11 +753,11 @@
         const d=document.getElementById('timer-display');
         d.textContent='No limit';
         d.setAttribute('aria-label','Practice mode: no time limit');
-        document.getElementById('timer-instructions').textContent='Directory is open. Practice mode: no deadline. Navigate to the '+currentTarget.dept+' section and find the '+currentTarget.title+'. Enter their name and access code in the answer form below the directory.';
-        announce('Directory unlocked. Practice mode: no deadline. Navigate the staff directory to the '+currentTarget.dept+' section and find the '+currentTarget.title+'. The answer form is below the directory.');
+        document.getElementById('timer-instructions').textContent='Directory is open. Practice mode: no deadline. Navigate to the '+currentTarget.dept+' heading, then to the '+currentTarget.title+' heading. Enter their name and access code in the answer form below the directory.';
+        announce('Directory unlocked. Practice mode: no deadline. Navigate the staff directory to the '+currentTarget.dept+' heading, then to the '+currentTarget.title+' heading. The answer form is below the directory.');
       } else {
-        document.getElementById('timer-instructions').textContent='Directory is open. Navigate to the '+currentTarget.dept+' section and find the '+currentTarget.title+'. Enter their name and access code in the answer form below the directory.';
-        announce('Timer started. Four minutes. Navigate the staff directory to the '+currentTarget.dept+' section and find the '+currentTarget.title+'. The answer form is below the directory.');
+        document.getElementById('timer-instructions').textContent='Directory is open. Navigate to the '+currentTarget.dept+' heading, then to the '+currentTarget.title+' heading. Enter their name and access code in the answer form below the directory.';
+        announce('Timer started. Four minutes. Navigate the staff directory to the '+currentTarget.dept+' heading, then to the '+currentTarget.title+' heading. The answer form is below the directory.');
       }
       interval=setInterval(tick,1000);
     }
@@ -903,7 +850,7 @@
         let msg='That is not right. ';
         if(!nameMatch&&!codeMatch)msg+='Both the name and the access code are incorrect.';
         else if(!nameMatch)msg+='The name does not match. Check the directory again.';
-        else msg+='The access code is incorrect. Check the code next to the name.';
+        else msg+='The access code is incorrect. Check the code below that person\'s job title.';
         status.textContent=msg+' Try again.';
         if(!nameMatch)document.getElementById('staff-name').focus();
         else document.getElementById('access-code').focus();

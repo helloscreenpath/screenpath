@@ -1,147 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Feedback — ScreenPath</title>
-  <script>
-    (function(){
-      try { if(localStorage.getItem('sp_theme')==='light') document.documentElement.classList.add('light'); } catch(e){}
-    })();
-  </script>
-  <style>
-    :root {
-      --bg:#080808; --surface:#111111; --surface-2:#1c1c1c; --border:#2a2a2a;
-      --text:#f0f0f0; --text-muted:#888888; --text-dim:#444444;
-      --green:#39d98a;
-      --nav-bg:rgba(8,8,8,0.94);
-      --radius:14px;
-      --font:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-      --mono:'SF Mono','Fira Code','Consolas',monospace;
-      --ease:0.24s cubic-bezier(.4,0,.2,1);
-    }
-    html.light {
-      --bg:#f5f5f7; --surface:#ffffff; --surface-2:#ebebed; --border:#d2d2d4;
-      --text:#1d1d1f; --text-muted:#6e6e73; --text-dim:#b0b0b5;
-      --nav-bg:rgba(245,245,247,0.94);
-    }
-    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
-    html { scroll-behavior:smooth; }
-    body { background:var(--bg); color:var(--text); font-family:var(--font); font-size:18px; line-height:1.7; min-height:100vh; transition:background var(--ease),color var(--ease); }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feedback on ScreenPath</title>
+<script>(function(){try{if(localStorage.getItem('sp_theme')==='light')document.documentElement.classList.add('light');}catch(e){}})();</script>
+<style>
+:root{--bg:#080808;--surface:#111111;--surface-2:#1c1c1c;--border:#2a2a2a;--text:#f0f0f0;--text-muted:#8f8f8f;--green:#39d98a;--green-dim:#0d2e1c;--nav-bg:rgba(8,8,8,0.94);--radius:14px;--font:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--mono:'SF Mono','Fira Code','Consolas',monospace;--ease:0.24s cubic-bezier(.4,0,.2,1);}
+html.light{--bg:#f5f5f7;--surface:#ffffff;--surface-2:#ebebed;--border:#d2d2d4;--text:#1d1d1f;--text-muted:#6e6e73;--nav-bg:rgba(245,245,247,0.94);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:18px;line-height:1.7;min-height:100vh;overflow-x:hidden;transition:background var(--ease),color var(--ease);}
+.skip-link{position:absolute;top:-120px;left:1rem;background:var(--green);color:#000;padding:.75rem 1.5rem;border-radius:100px;font-weight:700;font-size:.95rem;text-decoration:none;z-index:9999;transition:top .2s;}
+.skip-link:focus{top:1rem;}
+#live{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+a{color:var(--green);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;}
+a:hover{color:var(--text);}
+a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:3px;}
+nav[role="navigation"]{position:fixed;top:0;left:0;right:0;z-index:500;background:var(--nav-bg);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1400px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;}
+.sp-wordmark{display:flex;align-items:center;text-decoration:none;font-size:1.05rem;font-weight:700;color:var(--text);letter-spacing:-.01em;}.sp-wordmark span{color:var(--green);}
+.nav-links{display:flex;align-items:center;gap:.15rem;list-style:none;}
+.nav-links a{color:var(--text-muted);text-decoration:none;font-size:.86rem;font-weight:500;padding:.45rem .8rem;border-radius:100px;white-space:nowrap;}
+.nav-links a:hover{color:var(--text);background:var(--surface-2);}
+.nav-links a[aria-current="page"]{color:var(--green);}
+.menu-btn{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--border);border-radius:8px;padding:.42rem .55rem;cursor:pointer;color:var(--text-muted);font-size:1.15rem;line-height:1;}
+.nav-drawer{display:flex;flex-direction:column;background:var(--nav-bg);border-top:1px solid var(--border);padding:1rem 1.5rem 1.5rem;}
+.nav-drawer[hidden]{display:none;}
+.nav-drawer a{color:var(--text-muted);text-decoration:none;font-size:1rem;font-weight:500;padding:.65rem 0;border-bottom:1px solid var(--border);}
+.nav-drawer a:last-child{border-bottom:none;}
+.nav-drawer a[aria-current="page"]{color:var(--green);}
+.page-hero{background:#050505;padding:130px 2rem 50px;text-align:center;}
+.page-hero-eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--green);display:block;margin-bottom:1rem;}
+.page-hero h1{font-size:clamp(2.2rem,6vw,4.2rem);font-weight:800;letter-spacing:-.04em;line-height:1.05;color:#fff;margin-bottom:1rem;}
+.page-hero p{font-size:clamp(.95rem,2vw,1.1rem);color:rgba(255,255,255,.62);max-width:560px;margin:0 auto .5rem;line-height:1.65;}
+.main-wrap{max-width:1400px;margin:0 auto;padding:3.5rem 2rem 5rem;}
+.lead{color:var(--text-muted);font-size:1rem;max-width:680px;margin-bottom:1.75rem;line-height:1.7;}
+.card-grid{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;max-width:1100px;}
+.card{position:relative;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:border-color var(--ease),transform var(--ease);}
+.card:hover{border-color:var(--green);transform:translateY(-3px);}
+.card-img{order:-1;display:block;width:100%;height:auto;aspect-ratio:400/220;}
+.card-body{padding:1.25rem 1.4rem 1.5rem;display:flex;flex-direction:column;gap:.5rem;}
+.card h2{font-size:1.25rem;font-weight:700;letter-spacing:-.01em;line-height:1.3;}
+.card-link{color:var(--text);font-size:1.2rem;font-weight:700;line-height:1.3;text-decoration:underline;text-decoration-color:var(--green);text-underline-offset:4px;}
+.card-link:hover{color:var(--green);}
+.card-link::after{content:"";position:absolute;inset:0;z-index:1;}
+.card p{color:var(--text-muted);font-size:.95rem;line-height:1.6;}
+@supports selector(:has(a)){.card-link:focus-visible{outline:none;}.card:has(.card-link:focus-visible){outline:3px solid var(--green);outline-offset:3px;}}
+.note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--green);border-radius:0;padding:1.25rem 1.5rem;margin-bottom:2rem;max-width:760px;display:flex;flex-direction:column;gap:.6rem;}
+.note p{font-size:.95rem;color:var(--text-muted);}
+.note strong{color:var(--text);}
+.sp-button{display:inline-flex;align-items:center;gap:.5rem;background:var(--surface-2);color:var(--text);font-family:var(--font);font-size:.95rem;font-weight:600;padding:.8rem 1.6rem;border-radius:100px;border:1px solid var(--border);cursor:pointer;text-decoration:none;}
+.sp-button:hover{border-color:var(--green);color:var(--text);}
+.sp-button.primary{background:var(--green);color:#000;border-color:var(--green);}
+.sp-actions{display:flex;gap:.9rem;flex-wrap:wrap;margin:0 0 2rem;}
+.back-link{display:inline-block;margin-top:2.5rem;font-size:.95rem;}
+footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem 2rem 2rem;}
+.sp-footer{max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:.75rem;text-align:center;}
+.sp-footer p{color:var(--text-muted);font-size:.88rem;}
+.sp-footer strong{color:var(--text);}
+.sp-footer .sp-actions{justify-content:center;margin:0;}
+.sp-footer .sp-actions a{color:var(--text-muted);text-decoration:none;font-size:.85rem;padding:.3rem .5rem;}
+.sp-footer .sp-actions a:hover{color:var(--green);}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
+@media (max-width:1024px){.nav-links{display:none;}.menu-btn{display:flex;}}
+@media (max-width:768px){.nav-inner{padding:0 1rem;}.page-hero{padding:110px 1rem 50px;}.main-wrap{padding:2.5rem 1rem 4rem;}.card-grid{grid-template-columns:1fr;}}
 
-    .skip-link { position:absolute; top:-120px; left:1rem; background:var(--green); color:#000; padding:.75rem 1.5rem; border-radius:100px; font-weight:700; font-size:.95rem; text-decoration:none; z-index:9999; transition:top .2s; }
-    .skip-link:focus { top:1rem; }
-
-    /* NAV */
-    nav[role="navigation"] { position:fixed; top:0; left:0; right:0; z-index:500; background:var(--nav-bg); backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px); border-bottom:1px solid var(--border); transition:background var(--ease),border-color var(--ease); }
-    .nav-inner { max-width:1400px; margin:0 auto; padding:0 2rem; height:64px; display:flex; align-items:center; justify-content:space-between; gap:1.5rem; }
-    .nav-logo { display:flex; align-items:center; gap:.65rem; text-decoration:none; flex-shrink:0; }
-    .nav-logo-mark { display:flex; align-items:center; flex-shrink:0; }
-    .nav-logo-text { font-size:1.05rem; font-weight:700; color:var(--text); letter-spacing:-.01em; }
-    .nav-logo-text em { font-style:normal; color:var(--green); }
-    .nav-links { display:flex; align-items:center; gap:.15rem; list-style:none; }
-    .nav-links a { color:var(--text-muted); text-decoration:none; font-size:.86rem; font-weight:500; padding:.45rem .8rem; border-radius:100px; transition:color var(--ease),background var(--ease); white-space:nowrap; }
-    .nav-links a:hover { color:var(--text); background:var(--surface-2); }
-    .nav-links a[aria-current="page"] { color:var(--green); }
-    .nav-links a:focus-visible { outline:2px solid var(--green); outline-offset:2px; border-radius:100px; }
-    .menu-btn { display:none; align-items:center; justify-content:center; background:none; border:1px solid var(--border); border-radius:8px; padding:.42rem .55rem; cursor:pointer; color:var(--text-muted); font-size:1.15rem; line-height:1; transition:border-color var(--ease),color var(--ease); }
-    .menu-btn:hover { border-color:var(--green); color:var(--text); }
-    .menu-btn:focus-visible { outline:2px solid var(--green); outline-offset:2px; border-radius:8px; }
-    .nav-drawer { display:none; flex-direction:column; background:var(--nav-bg); backdrop-filter:blur(22px); border-top:1px solid var(--border); padding:1rem 1.5rem 1.5rem; }
-    .nav-drawer.open { display:flex; }
-    .nav-drawer a { color:var(--text-muted); text-decoration:none; font-size:1rem; font-weight:500; padding:.65rem 0; border-bottom:1px solid var(--border); transition:color var(--ease); }
-    .nav-drawer a:last-child { border-bottom:none; }
-    .nav-drawer a:hover { color:var(--green); }
-
-    /* PAGE HERO */
-    .page-hero { background:#050505; padding:140px 2rem 80px; text-align:center; }
-    .page-hero-eyebrow { font-family:var(--mono); font-size:.7rem; letter-spacing:.22em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:1rem; }
-    .page-hero-title { font-size:clamp(2.2rem,6vw,4.5rem); font-weight:800; letter-spacing:-.04em; line-height:1.05; color:#fff; margin-bottom:1rem; }
-    .page-hero-sub { font-size:clamp(.9rem,2vw,1.1rem); color:var(--text-muted); max-width:480px; margin:0 auto; line-height:1.65; }
-
-    /* MAIN CONTENT */
-    .feedback-wrap { max-width:600px; margin:0 auto; padding:5rem 2rem 6rem; }
-    .feedback-p { font-size:1rem; color:var(--text-muted); line-height:1.85; margin-bottom:1.25rem; }
-    .feedback-p strong { color:var(--text); font-weight:600; }
-
-    /* Template preview */
-    .template-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:1.75rem; margin:2rem 0; transition:background var(--ease),border-color var(--ease); }
-    .template-box-label { font-family:var(--mono); font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:1rem; }
-    .template-text { font-size:.88rem; color:var(--text-muted); line-height:2; white-space:pre-wrap; font-family:var(--font); }
-    .template-text .ex { color:var(--green); font-style:italic; }
-
-    .feedback-divider { border:none; border-top:1px solid var(--border); margin:2.5rem 0; }
-
-    /* Send button */
-    .send-btn { display:inline-flex; align-items:center; gap:.65rem; background:var(--green); color:#000; font-family:var(--font); font-size:1rem; font-weight:700; padding:1rem 2rem; border-radius:100px; text-decoration:none; letter-spacing:.01em; transition:transform var(--ease),box-shadow var(--ease); }
-    .send-btn:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(57,217,138,.35); }
-    .send-btn:focus-visible { outline:3px solid var(--green); outline-offset:4px; border-radius:100px; }
-
-    /* FOOTER — minimal, feedback-page specific */
-    footer { background:var(--surface); border-top:1px solid var(--border); padding:2.5rem 2rem; transition:background var(--ease),border-color var(--ease); }
-    .footer-minimal { max-width:1400px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1.5rem; }
-    .f-logo { display:flex; align-items:center; gap:.55rem; text-decoration:none; }
-    .f-logo-mark { width:26px; height:26px; background:var(--green); border-radius:6px; display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:.62rem; font-weight:800; color:#000; }
-    .f-logo-name { font-size:.9rem; font-weight:700; color:var(--text); }
-    .f-nav { display:flex; gap:1.5rem; list-style:none; }
-    .f-nav a { font-size:.84rem; color:var(--text-muted); text-decoration:none; transition:color var(--ease); }
-    .f-nav a:hover { color:var(--green); }
-    .f-nav a:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:2px; }
-    .f-copy { font-size:.76rem; color:var(--text-muted); width:100%; }
-    .f-copy strong { color:var(--green); font-weight:600; }
-
-    @media (max-width:1024px) { .nav-links { display:none; } .menu-btn { display:flex; } }
-    @media (max-width:768px) {
-      .nav-inner { padding:0 1.25rem; }
-      .page-hero { padding:120px 1.25rem 60px; }
-      .feedback-wrap { padding:3rem 1.25rem 4rem; }
-      .footer-minimal { flex-direction:column; align-items:flex-start; gap:1rem; }
-    }
-    a:focus-visible, button:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:3px; }
-  </style>
+.feedback-wrap{max-width:640px;margin:0 auto;padding:4rem 2rem 6rem;}
+.feedback-p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.25rem;}
+.feedback-p strong{color:var(--text);}
+.template-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem;margin:2rem 0;}
+.template-box-label{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--green);display:block;margin-bottom:1rem;}
+.template-text{font-size:.9rem;color:var(--text-muted);line-height:2;white-space:pre-wrap;}
+.template-text .ex{color:var(--green);font-style:italic;}
+.field{margin:2rem 0 1rem;}
+.field label{display:block;font-weight:600;margin-bottom:.5rem;}
+.field select{background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.65rem .85rem;font-family:var(--font);font-size:1rem;min-width:16rem;max-width:100%;}
+.field .hint{color:var(--text-muted);font-size:.9rem;margin-top:.4rem;}
+.details{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.5rem;margin:1.5rem 0 2rem;}
+.details p{color:var(--text-muted);font-size:.95rem;margin-bottom:.5rem;}
+.details ul{list-style:none;color:var(--text);font-size:.95rem;}
+.details li{padding:.2rem 0;}
+.send-btn{display:inline-flex;align-items:center;gap:.65rem;background:var(--green);color:#000;font-family:var(--font);font-size:1rem;font-weight:700;padding:1rem 2rem;border-radius:100px;border:none;cursor:pointer;}
+.send-btn:focus-visible{outline:3px solid var(--green);outline-offset:4px;border-radius:100px;}
+</style>
 </head>
 <body>
-
-  <a class="skip-link" href="#main">Skip to main content</a>
-
-  <nav role="navigation" aria-label="Main navigation">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo" aria-label="SP, ScreenPath home page">
-        <div class="nav-logo-mark" style="display:flex;align-items:center;"><img src="data:image/png;base64,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JwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAgX4/8DjRibO2u3EBcAAAAASUVORK5CYII=" alt="ScreenPath — Navigating Technology" style="height:46px;width:auto;mix-blend-mode:multiply;filter:brightness(1.1);"></div>
-
-      </a>
-      <ul class="nav-links" role="list">
-        <li><a href="about.html">About</a></li>
-        <li><a href="progress.html">Progress</a></li>
-        <li><a href="feedback.html" aria-current="page">Feedback</a></li>
-      </ul>
-      <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu" onclick="toggleMenu()">☰</button>
-    </div>
-    <div class="nav-drawer" id="nav-drawer" aria-label="Mobile navigation">
-      <a href="about.html">About</a>
-      <a href="feedback.html" aria-current="page">Feedback</a>
-    </div>
-  </nav>
-
-  <main id="main" tabindex="-1">
-  <div class="page-hero">
-    <span class="page-hero-eyebrow" aria-hidden="true">Feedback</span>
-    <h1 class="page-hero-title">I want to hear from you.</h1>
-    <p class="page-hero-sub">Every message comes directly to me. I read each one personally and I take every word seriously.</p>
-  </div>
-
-    <div class="feedback-wrap">
-
-      <p class="feedback-p">Whether you found something that was not working, noticed something that felt off, have an idea for a new activity, or just want to say hello, I want to know. Every message helps me make ScreenPath better for everyone who uses it.</p>
-
-      <p class="feedback-p">When you press the button below your email app will open with everything already set up. My email address, the subject line, and a short example message will all be there. The example is just to help you think through what to share. Replace it with your own words, skip the parts that do not apply, or delete the whole thing and just write whatever feels right.</p>
-
-      <p class="feedback-p"><strong>There are no wrong answers. Just tell me what you noticed.</strong></p>
-
-      <!-- Template preview -->
-      <div class="template-box" aria-label="Example of what the email will look like when it opens">
-        <span class="template-box-label">Here is what the email will look like</span>
-        <p class="template-text">Hi Moises,
+<a class="skip-link" href="#main">Skip to main content</a>
+<div id="live" aria-live="assertive" aria-atomic="true"></div>
+<nav role="navigation" aria-label="Main navigation"><div class="nav-inner"><a class="sp-wordmark" href="index.html" aria-label="ScreenPath home">Screen<span>Path</span></a><ul class="nav-links"><li><a href="index.html">Activities</a></li><li><a href="progress.html">My Progress</a></li><li><a href="teachers.html">For Teachers</a></li><li><a href="about.html">About</a></li><li><a href="feedback.html" aria-current="page">Feedback</a></li></ul><button id="menu-btn" class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu">&#9776;</button></div><div class="nav-drawer" id="nav-drawer" hidden><a href="index.html">Activities</a><a href="progress.html">My Progress</a><a href="teachers.html">For Teachers</a><a href="about.html">About</a><a href="feedback.html" aria-current="page">Feedback</a></div></nav>
+<main id="main" tabindex="-1">
+<div class="page-hero"><span class="page-hero-eyebrow" aria-hidden="true">Feedback</span><h1>I want to hear from you.</h1><p>Every message comes directly to me. I read each one personally and I take every word seriously.</p></div><div class="feedback-wrap">
+<p class="feedback-p">Whether you found something that was not working, noticed something that felt off, have an idea for a new activity, or just want to say hello, I want to know. Every message helps me make ScreenPath better for everyone who uses it.</p>
+<p class="feedback-p">When you press the button below, your email app will open with everything already set up. My email address, the subject line, and a short example message will all be there. The example is just to help you think through what to share. Replace it with your own words, skip the parts that do not apply, or delete the whole thing and write whatever feels right.</p>
+<p class="feedback-p"><strong>There are no wrong answers. Just tell me what you noticed.</strong></p>
+<div class="template-box">
+<span class="template-box-label">Here is what the email will look like</span>
+<p class="template-text">Hi Moises,
 
 I am a <span class="ex">student</span> reaching out about ScreenPath.
 
@@ -149,67 +104,43 @@ I was on <span class="ex">Room 2, The Library</span> when <span class="ex">the p
 
 This happened <span class="ex">more than once</span>.
 
-I use <span class="ex">JAWS 2024</span> on <span class="ex">Chrome</span> on <span class="ex">a Windows laptop</span>.
-
 <span class="ex">I also noticed the timer sound kept playing even after I submitted. Not sure if that is related.</span></p>
-      </div>
+</div>
+<div class="field">
+<label for="fb-sr">Which screen reader do you use?</label>
+<select id="fb-sr"><option value="">Choose one (optional)</option><option>JAWS</option><option>NVDA</option><option>VoiceOver on Mac</option><option>VoiceOver on iPhone or iPad</option><option>TalkBack</option><option>Narrator</option><option>ChromeVox</option><option>I do not use a screen reader</option><option>Other</option></select>
+<p class="hint">This helps me find and fix problems faster, since the same page can behave differently in each screen reader.</p>
+</div>
+<div class="details">
+<p>These details will also be added to the end of your email. You can read or change them before you send it.</p>
+<ul id="auto-details"></ul>
+</div>
+<button type="button" class="send-btn" id="send-btn">Send feedback <span aria-hidden="true">&rarr;</span></button>
+<p class="feedback-p" style="margin-top:1rem;">This opens your email app. Nothing is sent until you press send there.</p>
+</div>
+</main>
+<footer><div class="sp-footer"><p><strong>ScreenPath</strong>: free screen reader practice.</p><p>Built by Moises Betancourt for screen reader learners everywhere.</p><div class="sp-actions"><a href="teachers.html">Teacher guide</a><a href="feedback.html">Feedback and accessibility help</a><a href="about.html#privacy">How your results are saved</a></div></div></footer>
+<script>
+(function(){var b=document.getElementById('menu-btn'),d=document.getElementById('nav-drawer');if(!b||!d)return;
+b.addEventListener('click',function(){var open=d.hasAttribute('hidden');if(open){d.removeAttribute('hidden');}else{d.setAttribute('hidden','');}
+b.setAttribute('aria-expanded',open?'true':'false');b.setAttribute('aria-label',open?'Close navigation menu':'Open navigation menu');b.innerHTML=open?'&#10005;':'&#9776;';});})();
+function announce(msg){var el=document.getElementById('live');if(!el)return;el.textContent='';setTimeout(function(){el.textContent=msg;},100);}
 
-      <hr class="feedback-divider" aria-hidden="true">
-
-      <p class="feedback-p">Press the button below and your email app will open with my address, the subject, and the example already filled in. Just replace the example with your own message and press send.</p>
-
-      <button type="button" class="send-btn" id="send-btn" aria-label="Send Feedback — opens your email app with everything ready to go">
-        Send Feedback →
-      </button>
-
-    </div>
-  </main>
-
-  <!-- Footer — minimal on this page, no escape room links -->
-  <footer role="contentinfo">
-    <div class="footer-minimal">
-      <a href="index.html" class="f-logo" aria-label="SP, ScreenPath home page">
-        <div class="f-logo-mark" style="display:flex;align-items:center;"><img src="data:image/png;base64,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JwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAjCBSFxJwiCcEFI3AmCIFwQEneCIAgXhMSdIAgX4/8DjRibO2u3EBcAAAAASUVORK5CYII=" alt="" style="height:28px;width:auto;mix-blend-mode:multiply;filter:brightness(1.1);"></div>
-
-      </a>
-      <ul class="f-nav" role="list">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-      </ul>
-      <p class="f-copy">Built by <strong>Moises Betancourt</strong> for screen reader learners everywhere. Free always.</p>
-    </div>
-  </footer>
-
-  <script>
-    var subject = 'ScreenPath Feedback';
-    var body = [
-      'Hi Moises,',
-      '',
-      'I am a student reaching out about ScreenPath.',
-      '',
-      'I was on Room 2, The Library when the page stopped responding after I submitted my answer. I expected the next room to unlock but instead nothing happened and the page went quiet.',
-      '',
-      'This happened more than once.',
-      '',
-      'I use JAWS 2024 on Chrome on a Windows laptop.',
-      '',
-      'I also noticed the timer sound kept playing even after I submitted. Not sure if that is related.'
-    ].join('\n');
-
-    var mailto = 'mailto:screenpathedu@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-    document.getElementById('send-btn').addEventListener('click', function(){
-      window.location.href = mailto;
-    });
-
-    function toggleMenu(){
-      var drawer = document.getElementById('nav-drawer');
-      var btn    = document.getElementById('menu-btn');
-      var open   = drawer.classList.toggle('open');
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      btn.textContent = open ? '✕' : '☰';
-      btn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
-    }
-  </script>
-
+function detectBrowser(ua){if(/Edg\//.test(ua))return 'Microsoft Edge';if(/OPR\//.test(ua))return 'Opera';if(/Firefox\//.test(ua))return 'Firefox';if(/CriOS|Chrome\//.test(ua))return 'Chrome';if(/Safari\//.test(ua))return 'Safari';return 'Not detected';}
+function detectDevice(ua){if(/iPad/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1))return 'iPad';if(/iPhone/.test(ua))return 'iPhone';if(/Android/.test(ua))return /Mobile/.test(ua)?'Android phone':'Android tablet';if(/CrOS/.test(ua))return 'Chromebook';if(/Windows/.test(ua))return 'Windows computer';if(/Macintosh/.test(ua))return 'Mac';if(/Linux/.test(ua))return 'Linux computer';return 'Not detected';}
+function detectPage(){try{if(document.referrer){var r=new URL(document.referrer);if(r.origin===location.origin){var f=r.pathname.split('/').pop()||'index.html';if(f!=='feedback.html')return f;}}}catch(e){}return 'Not detected';}
+var ua=navigator.userAgent;
+var D={page:detectPage(),browser:detectBrowser(ua),device:detectDevice(ua),date:new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})};
+(function(){var ul=document.getElementById('auto-details');[['Page you came from',D.page],['Browser',D.browser],['Device',D.device],['Date',D.date]].forEach(function(p){var li=document.createElement('li');li.textContent=p[0]+': '+p[1];ul.appendChild(li);});})();
+document.getElementById('send-btn').addEventListener('click',function(){
+  var sr=document.getElementById('fb-sr').value||'Not given';
+  var body=['Hi Moises,','','I am a student reaching out about ScreenPath.','',
+    'I was on Room 2, The Library when the page stopped responding after I submitted my answer. I expected the next room to unlock but instead nothing happened and the page went quiet.','',
+    'This happened more than once.','',
+    'I also noticed the timer sound kept playing even after I submitted. Not sure if that is related.','',
+    'Details for Moises:','Screen reader: '+sr,'Page: '+D.page,'Browser: '+D.browser,'Device: '+D.device,'Date: '+D.date].join('\n');
+  window.location.href='mailto:screenpathedu@gmail.com?subject='+encodeURIComponent('ScreenPath Feedback')+'&body='+encodeURIComponent(body);
+});
+</script>
 </body>
 </html>

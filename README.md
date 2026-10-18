@@ -4,7 +4,7 @@ A free screen-reader fluency practice resource created by Moises Betancourt for 
 
 ## Pilot scope
 
-The School contains three rooms: The School Office (headings and tables), The Library (links and tables), and The Computer Lab (form navigation). Learners can choose untimed Practice or a timed Challenge with a 1–60 minute allowance.
+The School contains three rooms: The School Office (headings, including level 3 and level 4), The Library (links and tables), and The Computer Lab (form navigation). Learners can choose untimed Practice or a timed Challenge with a 1–60 minute allowance.
 
 This repository contains the featured website only. Additional activities remain development drafts.
 

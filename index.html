@@ -1,294 +1,136 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ScreenPath — Accessible Digital Learning for Screen Reader Users</title>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScreenPath: Accessible Digital Learning for Screen Reader Users</title>
+<script>(function(){try{if(localStorage.getItem('sp_theme')==='light')document.documentElement.classList.add('light');}catch(e){}})();</script>
+<style>
+:root{--bg:#080808;--surface:#111111;--surface-2:#1c1c1c;--border:#2a2a2a;--text:#f0f0f0;--text-muted:#8f8f8f;--green:#39d98a;--green-dim:#0d2e1c;--nav-bg:rgba(8,8,8,0.94);--radius:14px;--font:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--mono:'SF Mono','Fira Code','Consolas',monospace;--ease:0.24s cubic-bezier(.4,0,.2,1);}
+html.light{--bg:#f5f5f7;--surface:#ffffff;--surface-2:#ebebed;--border:#d2d2d4;--text:#1d1d1f;--text-muted:#6e6e73;--nav-bg:rgba(245,245,247,0.94);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:18px;line-height:1.7;min-height:100vh;overflow-x:hidden;transition:background var(--ease),color var(--ease);}
+.skip-link{position:absolute;top:-120px;left:1rem;background:var(--green);color:#000;padding:.75rem 1.5rem;border-radius:100px;font-weight:700;font-size:.95rem;text-decoration:none;z-index:9999;transition:top .2s;}
+.skip-link:focus{top:1rem;}
+#live{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+a{color:var(--green);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;}
+a:hover{color:var(--text);}
+a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:3px;}
+nav[role="navigation"]{position:fixed;top:0;left:0;right:0;z-index:500;background:var(--nav-bg);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1400px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;}
+.sp-wordmark{display:flex;align-items:center;text-decoration:none;font-size:1.05rem;font-weight:700;color:var(--text);letter-spacing:-.01em;}.sp-wordmark span{color:var(--green);}
+.nav-links{display:flex;align-items:center;gap:.15rem;list-style:none;}
+.nav-links a{color:var(--text-muted);text-decoration:none;font-size:.86rem;font-weight:500;padding:.45rem .8rem;border-radius:100px;white-space:nowrap;}
+.nav-links a:hover{color:var(--text);background:var(--surface-2);}
+.nav-links a[aria-current="page"]{color:var(--green);}
+.menu-btn{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--border);border-radius:8px;padding:.42rem .55rem;cursor:pointer;color:var(--text-muted);font-size:1.15rem;line-height:1;}
+.nav-drawer{display:flex;flex-direction:column;background:var(--nav-bg);border-top:1px solid var(--border);padding:1rem 1.5rem 1.5rem;}
+.nav-drawer[hidden]{display:none;}
+.nav-drawer a{color:var(--text-muted);text-decoration:none;font-size:1rem;font-weight:500;padding:.65rem 0;border-bottom:1px solid var(--border);}
+.nav-drawer a:last-child{border-bottom:none;}
+.nav-drawer a[aria-current="page"]{color:var(--green);}
+.page-hero{background:#050505;padding:130px 2rem 50px;text-align:center;}
+.page-hero-eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--green);display:block;margin-bottom:1rem;}
+.page-hero h1{font-size:clamp(2.2rem,6vw,4.2rem);font-weight:800;letter-spacing:-.04em;line-height:1.05;color:#fff;margin-bottom:1rem;}
+.page-hero p{font-size:clamp(.95rem,2vw,1.1rem);color:rgba(255,255,255,.62);max-width:560px;margin:0 auto .5rem;line-height:1.65;}
+.main-wrap{max-width:1400px;margin:0 auto;padding:3.5rem 2rem 5rem;}
+.lead{color:var(--text-muted);font-size:1rem;max-width:680px;margin-bottom:1.75rem;line-height:1.7;}
+.card-grid{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;max-width:1100px;}
+.card{position:relative;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:border-color var(--ease),transform var(--ease);}
+.card:hover{border-color:var(--green);transform:translateY(-3px);}
+.card-img{order:-1;display:block;width:100%;height:auto;aspect-ratio:400/220;}
+.card-body{padding:1.25rem 1.4rem 1.5rem;display:flex;flex-direction:column;gap:.5rem;}
+.card h2{font-size:1.25rem;font-weight:700;letter-spacing:-.01em;line-height:1.3;}
+.card-link{color:var(--text);font-size:1.2rem;font-weight:700;line-height:1.3;text-decoration:underline;text-decoration-color:var(--green);text-underline-offset:4px;}
+.card-link:hover{color:var(--green);}
+.card-link::after{content:"";position:absolute;inset:0;z-index:1;}
+.card p{color:var(--text-muted);font-size:.95rem;line-height:1.6;}
+@supports selector(:has(a)){.card-link:focus-visible{outline:none;}.card:has(.card-link:focus-visible){outline:3px solid var(--green);outline-offset:3px;}}
+.note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--green);border-radius:0;padding:1.25rem 1.5rem;margin-bottom:2rem;max-width:760px;display:flex;flex-direction:column;gap:.6rem;}
+.note p{font-size:.95rem;color:var(--text-muted);}
+.note strong{color:var(--text);}
+.sp-button{display:inline-flex;align-items:center;gap:.5rem;background:var(--surface-2);color:var(--text);font-family:var(--font);font-size:.95rem;font-weight:600;padding:.8rem 1.6rem;border-radius:100px;border:1px solid var(--border);cursor:pointer;text-decoration:none;}
+.sp-button:hover{border-color:var(--green);color:var(--text);}
+.sp-button.primary{background:var(--green);color:#000;border-color:var(--green);}
+.sp-actions{display:flex;gap:.9rem;flex-wrap:wrap;margin:0 0 2rem;}
+.back-link{display:inline-block;margin-top:2.5rem;font-size:.95rem;}
+footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem 2rem 2rem;}
+.sp-footer{max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:.75rem;text-align:center;}
+.sp-footer p{color:var(--text-muted);font-size:.88rem;}
+.sp-footer strong{color:var(--text);}
+.sp-footer .sp-actions{justify-content:center;margin:0;}
+.sp-footer .sp-actions a{color:var(--text-muted);text-decoration:none;font-size:.85rem;padding:.3rem .5rem;}
+.sp-footer .sp-actions a:hover{color:var(--green);}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
+@media (max-width:1024px){.nav-links{display:none;}.menu-btn{display:flex;}}
+@media (max-width:768px){.nav-inner{padding:0 1rem;}.page-hero{padding:110px 1rem 50px;}.main-wrap{padding:2.5rem 1rem 4rem;}.card-grid{grid-template-columns:1fr;}}
 
-  <style>
-    :root {
-      --bg:#080808; --surface:#111111; --surface-2:#1c1c1c; --border:#2a2a2a;
-      --text:#f0f0f0; --text-muted:#888888; --text-dim:#444444;
-      --green:#39d98a; --green-dim:#0d2e1c;
-      --amber:#f5a623; --amber-dim:#2e1f00;
-      --nav-bg:rgba(8,8,8,0.94);
-      --radius:14px;
-      --font:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-      --mono:'SF Mono','Fira Code','Consolas',monospace;
-      --ease:0.24s cubic-bezier(.4,0,.2,1);
-    }
-    html.light {
-      --bg:#f5f5f7; --surface:#ffffff; --surface-2:#ebebed; --border:#d2d2d4;
-      --text:#1d1d1f; --text-muted:#6e6e73; --text-dim:#b0b0b5;
-      --nav-bg:rgba(245,245,247,0.94);
-    }
-    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
-    html { scroll-behavior:smooth; }
-    body { background:var(--bg); color:var(--text); font-family:var(--font); font-size:18px; line-height:1.7; min-height:100vh; overflow-x:hidden; transition:background var(--ease),color var(--ease); }
-
-    .skip-link { position:absolute; top:-120px; left:1rem; background:var(--green); color:#000; padding:.75rem 1.5rem; border-radius:100px; font-weight:700; font-size:.95rem; text-decoration:none; z-index:9999; transition:top .2s; }
-    .skip-link:focus { top:1rem; }
-
-    /* NAV */
-    nav[role="navigation"] { position:fixed; top:0; left:0; right:0; z-index:500; background:var(--nav-bg); backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px); border-bottom:1px solid var(--border); transition:background var(--ease),border-color var(--ease); }
-    .nav-inner { max-width:1400px; margin:0 auto; padding:0 2rem; height:64px; display:flex; align-items:center; justify-content:space-between; gap:1.5rem; }
-    .nav-links { display:flex; align-items:center; gap:.15rem; list-style:none; }
-    .nav-links a { color:var(--text-muted); text-decoration:none; font-size:.86rem; font-weight:500; padding:.45rem .8rem; border-radius:100px; transition:color var(--ease),background var(--ease); white-space:nowrap; }
-    .nav-links a:hover { color:var(--text); background:var(--surface-2); }
-    .nav-links a:focus-visible { outline:2px solid var(--green); outline-offset:2px; border-radius:100px; }
-    .menu-btn { display:none; align-items:center; justify-content:center; background:none; border:1px solid var(--border); border-radius:8px; padding:.42rem .55rem; cursor:pointer; color:var(--text-muted); font-size:1.15rem; line-height:1; transition:border-color var(--ease),color var(--ease); }
-    .menu-btn:hover { border-color:var(--green); color:var(--text); }
-    .menu-btn:focus-visible { outline:2px solid var(--green); outline-offset:2px; border-radius:8px; }
-    .nav-drawer { display:flex; flex-direction:column; background:var(--nav-bg); backdrop-filter:blur(22px); border-top:1px solid var(--border); padding:1rem 1.5rem 1.5rem; transition:background var(--ease); }
-    .nav-drawer[hidden] { display:none; }
-    .nav-drawer a { color:var(--text-muted); text-decoration:none; font-size:1rem; font-weight:500; padding:.65rem 0; border-bottom:1px solid var(--border); transition:color var(--ease); }
-    .nav-drawer a:last-child { border-bottom:none; }
-    .nav-drawer a:hover { color:var(--green); }
-
-    /* HERO */
-    .hero { position:relative; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:120px 2rem 100px; background:#050505; overflow:hidden; }
-    .hero-eyebrow { font-family:var(--mono); font-size:.7rem; letter-spacing:.22em; text-transform:uppercase; color:var(--green); margin-bottom:1.5rem; display:flex; align-items:center; gap:.8rem; justify-content:center; animation:fadeUp .5s ease .1s both; }
-    .hero-eyebrow::before,.hero-eyebrow::after { content:''; display:block; width:28px; height:1px; background:var(--green); opacity:.45; }
-    .hero-title { font-size:clamp(2.8rem,8vw,7rem); font-weight:800; letter-spacing:-.04em; line-height:1; color:#fff; margin-bottom:1.5rem; animation:fadeUp .5s ease .2s both; }
-    .hero-title .accent { color:var(--green); }
-    .hero-subtitle { font-size:clamp(.95rem,2.2vw,1.25rem); color:rgba(255,255,255,.55); max-width:540px; margin:0 auto 2.5rem; line-height:1.65; font-weight:400; animation:fadeUp .5s ease .3s both; }
-    @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
-
-    /* MAIN */
-    .main-wrap { max-width:1400px; margin:0 auto; padding:4rem 2rem 6rem; }
-
-    /* FOOTER */
-    footer { background:var(--surface); border-top:1px solid var(--border); padding:3.5rem 2rem 2rem; transition:background var(--ease),border-color var(--ease); }
-
-    #live { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
-
-    @media (prefers-reduced-motion:reduce) {
-      *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
-    }
-    @media (max-width:1024px) { .nav-links { display:none; } .menu-btn { display:flex; } }
-    @media (max-width:768px) {
-      .nav-inner { padding:0 1.25rem; }
-      .hero { padding:100px 1.25rem 80px; min-height:100svh; }
-      .main-wrap { padding:2.5rem 1.25rem 4rem; }
-    }
-    a:focus-visible,button:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:3px; }
-
-    /* Base typography for unstyled elements */
-    h2 { font-size: 1.5rem; font-weight: 700; letter-spacing: -.01em; color: var(--text); margin-bottom: .75rem; }
-    h3 { font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: .5rem; }
-    h4 { font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: .5rem; }
-    .sp-series { margin-top: 3rem; }
-    .sp-card-link { margin-top: auto; align-self: flex-start; text-align: center; }
-    .sp-series > h3 { font-size: 1.3rem; margin-bottom: .75rem; }
-    p { margin-bottom: .75rem; }
-    p:last-child { margin-bottom: 0; }
-
-    /* Default link color for any plain content link (buttons, nav links, and footer links
-       override this with their own more specific rules below). Fixes low-contrast default
-       browser blue against the dark background. */
-    a { color: var(--green); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
-    a:hover { color: var(--text); }
-
-    /* sp-* — current homepage layout (hero, series cards, footer) */
-    .sp-wordmark { display: flex; align-items: center; text-decoration: none; font-size: 1.05rem; font-weight: 700; color: var(--text); letter-spacing: -.01em; }
-    .sp-wordmark span { color: var(--green); }
-
-    .sp-hero-note { font-size: .95rem; color: var(--text-muted); margin-top: 1rem; }
-    .sp-actions { display: flex; gap: .9rem; flex-wrap: wrap; justify-content: center; margin-top: .5rem; }
-    .sp-button { display: inline-flex; align-items: center; gap: .5rem; background: var(--surface-2); color: var(--text); font-family: var(--font); font-size: .92rem; font-weight: 600; padding: .8rem 1.6rem; border-radius: 100px; border: 1px solid var(--border); cursor: pointer; text-decoration: none; transition: transform var(--ease), border-color var(--ease), background var(--ease), box-shadow var(--ease); }
-    .sp-button:hover { border-color: var(--green); background: var(--surface); }
-    .sp-button:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
-    .sp-button.primary { background: var(--green); color: #000; border-color: var(--green); }
-    .sp-button.primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(57,217,138,.35); }
-
-    .sp-section { margin-bottom: 4.5rem; }
-    .sp-section:last-of-type { margin-bottom: 0; }
-    .sp-lead { color: var(--text-muted); font-size: 1rem; max-width: 640px; margin-bottom: 1.75rem; line-height: 1.7; }
-
-    .sp-room-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.1rem; margin-bottom: 1.75rem; list-style: none; }
-    .sp-room-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; display: flex; flex-direction: column; gap: .5rem; }
-    .sp-number { font-family: var(--mono); font-size: .78rem; font-weight: 700; color: var(--green); letter-spacing: .05em; }
-    .sp-room-card p { color: var(--text-muted); font-size: .92rem; line-height: 1.6; margin-bottom: 0; }
-    .sp-room-card p strong { color: var(--text); }
-    section[aria-labelledby="doctor-heading"] .sp-number { color: var(--amber); }
-
-    .sp-note { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--green); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-bottom: 1.75rem; display: flex; flex-direction: column; gap: .6rem; }
-    .sp-note p { font-size: .9rem; color: var(--text-muted); margin-bottom: 0; line-height: 1.65; }
-    .sp-note p strong { color: var(--text); }
-    section[aria-labelledby="doctor-heading"] .sp-note { border-left-color: var(--amber); }
-
-    .sp-steps { list-style: none; counter-reset: steps; display: flex; flex-direction: column; gap: 1rem; padding: 0; }
-    .sp-steps li { position: relative; padding-left: 2.75rem; color: var(--text-muted); font-size: .95rem; line-height: 1.6; counter-increment: steps; }
-    .sp-steps li::before { content: counter(steps); position: absolute; left: 0; top: 0; width: 1.9rem; height: 1.9rem; display: flex; align-items: center; justify-content: center; background: var(--green-dim); color: var(--green); border-radius: 50%; font-family: var(--mono); font-weight: 700; font-size: .82rem; }
-    .sp-steps li strong { color: var(--text); }
-
-    .sp-footer { max-width: 1400px; margin: 0 auto; display: flex; flex-direction: column; gap: .75rem; text-align: center; }
-    .sp-footer p { color: var(--text-muted); font-size: .88rem; margin-bottom: 0; }
-    .sp-footer p strong { color: var(--text); }
-    .sp-footer .sp-actions { margin-top: .5rem; justify-content: center; }
-    .sp-footer .sp-actions a { color: var(--text-muted); text-decoration: none; font-size: .85rem; padding: .3rem .5rem; }
-    .sp-footer .sp-actions a:hover { color: var(--green); }
-    .sp-footer .sp-actions a:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; border-radius: 3px; }
-
-    @media (max-width: 600px) {
-      .sp-room-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+.hero{min-height:88vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 2rem 90px;background:#050505;}
+.hero-eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--green);margin-bottom:1.5rem;}
+.hero-title{font-size:clamp(2.8rem,8vw,7rem);font-weight:800;letter-spacing:-.04em;line-height:1;color:#fff;margin-bottom:1.5rem;}
+.hero-title .accent{color:var(--green);}
+.hero-subtitle{font-size:clamp(.95rem,2.2vw,1.25rem);color:rgba(255,255,255,.62);max-width:540px;margin:0 auto 1rem;line-height:1.65;}
+.hero-note{font-size:.95rem;color:rgba(255,255,255,.55);margin:0 0 1.5rem;}
+.hero .sp-actions{justify-content:center;}
+.hero #home-progress{margin-top:.5rem;}
+</style>
 </head>
 <body>
-
-  <a class="skip-link" href="#main">Skip to main content</a>
-  <div id="live" aria-live="assertive" aria-atomic="true"></div>
-
-  <!-- Navigation -->
-  <nav role="navigation" aria-label="Main navigation"><div class="nav-inner"><a class="sp-wordmark" href="index.html" aria-label="ScreenPath home">Screen<span>Path</span></a><ul class="nav-links"><li><a href="index.html" aria-current="page">Activities</a></li><li><a href="progress.html">My Progress</a></li><li><a href="teachers.html">For Teachers</a></li><li><a href="about.html">About</a></li><li><a href="feedback.html">Feedback</a></li></ul><button id="menu-btn" class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu" onclick="toggleMenu()">☰</button></div><div class="nav-drawer" id="nav-drawer" hidden><a href="index.html" aria-current="page">Activities</a><a href="progress.html">My Progress</a><a href="teachers.html">For Teachers</a><a href="about.html">About</a><a href="feedback.html">Feedback</a></div></nav>
-
-  <!-- Main content — single region, headings provide structure -->
-  <main id="main" tabindex="-1"><noscript>&lt;p class="sp-note"&gt;JavaScript is needed for the activities and saved progress. Please enable it, or contact screenpathedu@gmail.com for help.&lt;/p&gt;</noscript><section class="hero sp-hero" aria-labelledby="home-title"><p class="hero-eyebrow">Free • No account needed</p><h1 id="home-title" class="hero-title">Build confidence.<br><span class="accent">Find your own way.</span></h1><p class="hero-subtitle">Practice headings, links, tables, and forms through story-based challenges made for screen reader users.</p><p class="sp-hero-note">For learners who already know the basics and want to become more independent.</p><div class="sp-actions"><a href="mission-1a.html" class="sp-button primary" id="home-continue">Start The School — Room 1</a><a href="teachers.html" class="sp-button">For teachers</a></div><p id="home-progress" class="sp-hero-note">Three rooms. Practice at your own pace.</p></section><div class="main-wrap"><section class="sp-section" aria-labelledby="escape-heading"><h2 id="escape-heading">Escape Rooms</h2><p class="sp-lead">Story-based challenges told across several rooms. Each room practices one screen reader skill.</p><section class="sp-series" aria-labelledby="available-heading"><h3 id="available-heading">The School</h3><p class="sp-lead">The doors have locked after school. Find the codes, follow the clues, and use the computer lab to unlock the exit.</p><ol class="sp-room-grid" role="list" aria-label="The School rooms"><li class="sp-room-card"><span class="sp-number">01</span><h4>The School Office</h4><p>Find a staff member and access code using headings and a directory table.</p><p><strong>Skills:</strong> headings and tables</p></li><li class="sp-room-card"><span class="sp-number">02</span><h4>The Library</h4><p>Follow a book trail across three shelves and uncover the terminal code.</p><p><strong>Skills:</strong> links and tables</p></li><li class="sp-room-card"><span class="sp-number">03</span><h4>The Computer Lab</h4><p>Complete an identity form using a fictional student profile.</p><p><strong>Skills:</strong> form navigation and text entry</p></li></ol><div class="sp-note"><p><strong>Your pace, your choice.</strong> Practice has no deadline. Challenge starts with 4, 5, and 4 minutes for the three rooms; you can choose 1–60 minutes per room.</p><p><strong>Before you start:</strong> know how to move by heading, follow links, read tables, and enter text with your screen reader.</p></div><div class="sp-actions"><a href="mission-1a.html" class="sp-button primary" id="catalog-continue">Start The School</a><a href="progress.html" class="sp-button">My Progress</a></div></section><section class="sp-series" aria-labelledby="doctor-heading"><h3 id="doctor-heading">The Doctor's Visit</h3><p class="sp-lead">Check in, get seen, and check out — a school health office visit told across four rooms.</p><ol class="sp-room-grid" role="list" aria-label="The Doctor's Visit rooms"><li class="sp-room-card"><span class="sp-number">01</span><h4>The Check-In Desk</h4><p>Update a patient's contact and history details in a check-in form before the appointment.</p><p><strong>Skills:</strong> edit fields and combo boxes</p></li><li class="sp-room-card"><span class="sp-number">02</span><h4>The Exam Room</h4><p>Listen closely to the doctor's exam notes to catch the details that matter.</p><p><strong>Skills:</strong> auditory attention and listening</p></li><li class="sp-room-card"><span class="sp-number">03</span><h4>Growth and Vitals History</h4><p>Read a table of vitals recorded over past visits to find the answer the doctor needs.</p><p><strong>Skills:</strong> table navigation</p></li><li class="sp-room-card"><span class="sp-number">04</span><h4>The Front Desk</h4><p>Book a follow-up appointment using an interactive scheduling table.</p><p><strong>Skills:</strong> interactive tables and booking</p></li></ol><div class="sp-note"><p><strong>Your pace, your choice.</strong> Practice has no deadline. Challenge gives you 5, 3, 5, and 5 minutes for the four rooms.</p><p><strong>Before you start:</strong> know how to move by heading, follow links, read tables, and enter text with your screen reader.</p></div><div class="sp-actions"><a href="mission-2a.html" class="sp-button primary">Start The Doctor's Visit</a><a href="progress.html" class="sp-button">My Progress</a></div></section><section class="sp-series" aria-labelledby="grocery-heading"><h3 id="grocery-heading">The Grocery Store</h3><p class="sp-lead">Dinner at Seven. Your grandparents arrive at 7:00 and your brother can only pick you up at 6:15. Sort Mom's list, shop the aisles, beat the scanner, and get out the door.</p><ol class="sp-room-grid" role="list" aria-label="The Grocery Store rooms"><li class="sp-room-card"><span class="sp-number">01</span><h4>The Entrance</h4><p>Match every item on a jumbled grocery list to its store department, the same way a Canvas matching question works.</p><p><strong>Skills:</strong> matching questions and dropdowns</p></li><li class="sp-room-card"><span class="sp-number">02</span><h4>The Aisles</h4><p>Read each shelf table and add exactly what is on the list, not the look alike sitting next to it.</p><p><strong>Skills:</strong> tables and checkboxes</p></li><li class="sp-room-card"><span class="sp-number">03</span><h4>The Express Checkout</h4><p>Check three scanner flags against a price table, then decide whether to keep, swap, or ask for a price check.</p><p><strong>Skills:</strong> links and verification</p></li><li class="sp-room-card"><span class="sp-number">04</span><h4>Out the Door</h4><p>Answer three quick checks about your bags, your total, and your brother's texts before he pulls away.</p><p><strong>Skills:</strong> radio buttons</p></li></ol><div class="sp-note"><p><strong>Your pace, your choice.</strong> Practice has no deadline. Challenge gives you 6, 5, 4, and 3 minutes for the four rooms.</p><p><strong>Before you start:</strong> know how to move by heading, follow links, read tables, and use dropdowns, checkboxes, and radio buttons with your screen reader.</p></div><div class="sp-actions"><a href="mission-3a.html" class="sp-button primary">Start The Grocery Store</a><a href="progress.html" class="sp-button">My Progress</a></div></section></section><section class="sp-section" aria-labelledby="arcade-heading"><h2 id="arcade-heading">Arcade</h2><p class="sp-lead">Quick games you can replay anytime — no story, just practice.</p><ul class="sp-room-grid" role="list" aria-label="Arcade games"><li class="sp-room-card"><h3>Word Guess</h3><p>Guess a secret word letter by letter. Choose a grade level, then listen for spoken feedback after every guess.</p><p><strong>Skills:</strong> spelling and listening</p><a href="word-guess.html" class="sp-button primary sp-card-link">Play Word Guess</a></li><li class="sp-room-card"><h3>Are You Smarter Than a 5th Grader?</h3><p>Climb from 1st grade to 6th, answering questions on math, reading, science, and screen reader commands.</p><p><strong>Skills:</strong> recall and assistive technology commands</p><a href="are-you-smarter-than-a-5th-grader.html" class="sp-button primary sp-card-link">Play Are You Smarter Than a 5th Grader?</a></li></ul><div class="sp-actions"><a href="progress.html" class="sp-button">My Progress</a></div></section><section class="sp-section" aria-labelledby="drills-heading"><h2 id="drills-heading">Skill Drills</h2><p class="sp-lead">Focused practice for one skill at a time.</p><ul class="sp-room-grid" role="list" aria-label="Skill Drills activities"><li class="sp-room-card"><h3>Writing Lab</h3><p>Free Write for open-ended typing practice, or Dictation Practice to type back exactly what you hear.</p><p><strong>Skills:</strong> typing accuracy and listening</p><a href="writing-lab.html" class="sp-button primary sp-card-link">Open Writing Lab</a></li></ul><div class="sp-actions"><a href="progress.html" class="sp-button">My Progress</a></div></section><section class="sp-section" aria-labelledby="how-heading"><h2 id="how-heading">How it works</h2><ol class="sp-steps"><li><strong>Read the scene and task.</strong> Take time to understand what you need to find.</li><li><strong>Choose Practice or Challenge.</strong> Start when you are ready. Sound and scene narration are optional.</li><li><strong>Review what you accomplished.</strong> Your results stay in this browser. Share them with your teacher only if you choose.</li></ol></section></div></main>
-
-  <!-- Footer -->
-  <footer><div class="sp-footer"><p><strong>ScreenPath</strong> — Free screen-reader practice.</p><p>Built by Moises Betancourt for screen reader learners everywhere.</p><div class="sp-actions"><a href="teachers.html">Teacher guide</a><a href="feedback.html">Feedback and accessibility help</a><a href="about.html#privacy">How your results are saved</a></div></div></footer>
-
-
-
-
+<a class="skip-link" href="#main">Skip to main content</a>
+<div id="live" aria-live="assertive" aria-atomic="true"></div>
+<nav role="navigation" aria-label="Main navigation"><div class="nav-inner"><a class="sp-wordmark" href="index.html" aria-label="ScreenPath home">Screen<span>Path</span></a><ul class="nav-links"><li><a href="index.html" aria-current="page">Activities</a></li><li><a href="progress.html">My Progress</a></li><li><a href="teachers.html">For Teachers</a></li><li><a href="about.html">About</a></li><li><a href="feedback.html">Feedback</a></li></ul><button id="menu-btn" class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu">&#9776;</button></div><div class="nav-drawer" id="nav-drawer" hidden><a href="index.html" aria-current="page">Activities</a><a href="progress.html">My Progress</a><a href="teachers.html">For Teachers</a><a href="about.html">About</a><a href="feedback.html">Feedback</a></div></nav>
+<main id="main" tabindex="-1">
+<noscript><p class="note">JavaScript is needed for the activities and saved progress. Please enable it, or contact screenpathedu@gmail.com for help.</p></noscript>
+<div class="hero">
+<p class="hero-eyebrow">Free, no account needed</p>
+<h1 class="hero-title">Build confidence.<br><span class="accent">Find your own way.</span></h1>
+<p class="hero-subtitle">Practice headings, links, tables, and forms through story based challenges made for screen reader users.</p>
+<p class="hero-note">For learners who already know the basics and want to become more independent.</p>
+<div class="sp-actions"><a href="mission-1a.html" class="sp-button primary" id="home-continue">Start The School: Room 1</a><a href="teachers.html" class="sp-button">For teachers</a></div>
+<p id="home-progress" class="hero-note">Three rooms. Practice at your own pace.</p>
+</div>
+<div class="main-wrap">
+<ul class="card-grid"><li class="card"><div class="card-body"><h2><a class="card-link" href="escape-rooms.html">Escape Rooms</a></h2><p>Step into a story where your screen reader is the key. Each escape room is set somewhere you know, with clues to find and puzzles to solve before time runs out.</p><p>Skills practiced: moving through web pages, reading tables, and completing forms, with each room focused on one skill.</p></div><img class="card-img" src="images/escape-rooms.svg" alt=""></li><li class="card"><div class="card-body"><h2><a class="card-link" href="arcade.html">Arcade</a></h2><p>Quick games you can replay anytime to stay sharp between lessons.</p><p>Skills practiced: listening, recall, and screen reader commands.</p></div><img class="card-img" src="images/arcade.svg" alt=""></li><li class="card"><div class="card-body"><h2><a class="card-link" href="skill-drills.html">Skill Drills</a></h2><p>Focused practice on one skill at a time, built around tasks you will meet in everyday life.</p><p>Skills practiced: typing, listening, and other everyday screen reader tasks.</p></div><img class="card-img" src="images/skill-drills.svg" alt=""></li></ul>
+</div>
+</main>
+<footer><div class="sp-footer"><p><strong>ScreenPath</strong>: free screen reader practice.</p><p>Built by Moises Betancourt for screen reader learners everywhere.</p><div class="sp-actions"><a href="teachers.html">Teacher guide</a><a href="feedback.html">Feedback and accessibility help</a><a href="about.html#privacy">How your results are saved</a></div></div></footer>
 <script>
-  function toggleMenu(){
-    var d = document.getElementById('nav-drawer');
-    var b = document.getElementById('menu-btn');
-    var isHidden = d.hasAttribute('hidden');
-    if (isHidden) { d.removeAttribute('hidden'); } else { d.setAttribute('hidden',''); }
-    b.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
-    b.textContent = isHidden ? '✕' : '☰';
-  }
+(function(){var b=document.getElementById('menu-btn'),d=document.getElementById('nav-drawer');if(!b||!d)return;
+b.addEventListener('click',function(){var open=d.hasAttribute('hidden');if(open){d.removeAttribute('hidden');}else{d.setAttribute('hidden','');}
+b.setAttribute('aria-expanded',open?'true':'false');b.setAttribute('aria-label',open?'Close navigation menu':'Open navigation menu');b.innerHTML=open?'&#10005;':'&#9776;';});})();
+function announce(msg){var el=document.getElementById('live');if(!el)return;el.textContent='';setTimeout(function(){el.textContent=msg;},100);}
 
-  // ── Announcer (shared convention across ScreenPath) ──────────────
-  function announce(msg){
-    var el = document.getElementById('live');
-    if (!el) return;
-    el.textContent = '';
-    setTimeout(function(){ el.textContent = msg; }, 100);
-  }
-
-  // ── "Continue where you left off" — checks all five games ────────
-  function formatRelativeDate(iso){
-    try {
-      var then = new Date(iso);
-      var days = Math.floor((Date.now() - then.getTime()) / 86400000);
-      if (days <= 0) return 'today';
-      if (days === 1) return 'yesterday';
-      if (days < 7) return days + ' days ago';
-      return then.toLocaleDateString('en-US', { month:'short', day:'numeric' });
-    } catch(e){ return ''; }
-  }
-
-  function getMostRecentActivity(){
-    var candidates = [];
-
-    var seriesConfigs = [
-      { label: 'The School', currentKey: 'sp_school_current_session', sessionsKey: 'sp_school_sessions', totalRooms: 3,
-        roomFiles: ['mission-1a.html','mission-1b.html','mission-1c.html'],
-        roomNames: ['The School Office','The Library','The Computer Lab'],
-        startFile: 'mission-1a.html' },
-      { label: "The Doctor's Visit", currentKey: 'sp_doctor_current_session', sessionsKey: 'sp_doctor_sessions', totalRooms: 4,
-        roomFiles: ['mission-2a.html','mission-2b.html','mission-2c.html','mission-2d.html'],
-        roomNames: ['The Check-In Desk','The Exam Room','Growth and Vitals History','The Front Desk'],
-        startFile: 'mission-2a.html' },
-      { label: 'The Grocery Store', currentKey: 'sp_grocery_current_session', sessionsKey: 'sp_grocery_sessions', totalRooms: 4,
-        roomFiles: ['mission-3a.html','mission-3b.html','mission-3c.html','mission-3d.html'],
-        roomNames: ['The Entrance','The Aisles','The Express Checkout','Out the Door'],
-        startFile: 'mission-3a.html' }
-    ];
-
-    seriesConfigs.forEach(function(cfg){
-      try {
-        var cur = JSON.parse(localStorage.getItem(cfg.currentKey) || 'null');
-        if (cur && cur.rooms && cur.rooms.length > 0 && cur.rooms.length < cfg.totalRooms) {
-          var lastDate = (cur.workDates && cur.workDates.length) ? cur.workDates[cur.workDates.length - 1] : cur.startDate;
-          var nextIndex = cur.rooms.length;
-          candidates.push({
-            date: lastDate,
-            label: 'Continue Room ' + (nextIndex + 1) + ': ' + cfg.roomNames[nextIndex],
-            sub: cfg.label + ' — ' + cur.rooms.length + ' of ' + cfg.totalRooms + ' rooms complete',
-            href: cfg.roomFiles[nextIndex]
-          });
-          return;
-        }
-        var sessions = JSON.parse(localStorage.getItem(cfg.sessionsKey) || '[]');
-        if (sessions.length > 0) {
-          var last = sessions[sessions.length - 1];
-          var d = last.endDate || last.seriesCompleteDate || last.startDate;
-          candidates.push({
-            date: d,
-            label: 'Continue Practicing: ' + cfg.label,
-            sub: cfg.label + ' — completed, play again anytime',
-            href: cfg.startFile
-          });
-        }
-      } catch(e) {}
-    });
-
-    var gameConfigs = [
-      { label: 'Word Guess', sessionsKeys: ['sp_word_guess_sessions'], href: 'word-guess.html' },
-      { label: 'Are You Smarter Than a 5th Grader?', sessionsKeys: ['sp_arcade_5th_grader_sessions'], href: 'are-you-smarter-than-a-5th-grader.html' },
-      { label: 'Writing Lab', sessionsKeys: ['sp_writing_lab_sessions','sp_writing_lab_dictation_sessions'], href: 'writing-lab.html' }
-    ];
-
-    gameConfigs.forEach(function(cfg){
-      try {
-        var mostRecent = null;
-        cfg.sessionsKeys.forEach(function(k){
-          var arr = JSON.parse(localStorage.getItem(k) || '[]');
-          if (arr.length > 0) {
-            var last = arr[arr.length - 1];
-            if (!mostRecent || new Date(last.date) > new Date(mostRecent)) mostRecent = last.date;
-          }
-        });
-        if (mostRecent) {
-          candidates.push({
-            date: mostRecent,
-            label: 'Continue Practicing: ' + cfg.label,
-            sub: cfg.label + ' — last played ' + formatRelativeDate(mostRecent),
-            href: cfg.href
-          });
-        }
-      } catch(e) {}
-    });
-
-    if (candidates.length === 0) return null;
-    candidates.sort(function(a,b){ return new Date(b.date) - new Date(a.date); });
-    return candidates[0];
-  }
-
-  function getSchoolContinueState(){
-    try {
-      var cur = JSON.parse(localStorage.getItem('sp_school_current_session') || 'null');
-      if (cur && cur.rooms && cur.rooms.length > 0 && cur.rooms.length < 3) {
-        var names = ['The School Office','The Library','The Computer Lab'];
-        var files = ['mission-1a.html','mission-1b.html','mission-1c.html'];
-        var nextIndex = cur.rooms.length;
-        return { label: 'Continue Room ' + (nextIndex + 1) + ': ' + names[nextIndex], href: files[nextIndex] };
-      }
-      var sessions = JSON.parse(localStorage.getItem('sp_school_sessions') || '[]');
-      if (sessions.length > 0) return { label: 'Play The School Again', href: 'mission-1a.html' };
-    } catch(e) {}
-    return null;
-  }
-
-  window.addEventListener('DOMContentLoaded', function(){
-    var winner = getMostRecentActivity();
-    var heroBtn = document.getElementById('home-continue');
-    var progressNote = document.getElementById('home-progress');
-    if (winner) {
-      if (heroBtn) { heroBtn.textContent = winner.label; heroBtn.href = winner.href; }
-      if (progressNote) progressNote.textContent = winner.sub;
-    }
-
-    var schoolBtn = document.getElementById('catalog-continue');
-    var schoolState = getSchoolContinueState();
-    if (schoolBtn && schoolState) {
-      schoolBtn.textContent = schoolState.label;
-      schoolBtn.href = schoolState.href;
-    }
-  });
+function formatRelativeDate(iso){try{var then=new Date(iso);var days=Math.floor((Date.now()-then.getTime())/86400000);if(days<=0)return 'today';if(days===1)return 'yesterday';if(days<7)return days+' days ago';return then.toLocaleDateString('en-US',{month:'short',day:'numeric'});}catch(e){return '';}}
+function getMostRecentActivity(){
+  var candidates=[];
+  var seriesConfigs=[
+    {label:'The School',currentKey:'sp_school_current_session',sessionsKey:'sp_school_sessions',totalRooms:3,roomFiles:['mission-1a.html','mission-1b.html','mission-1c.html'],roomNames:['The School Office','The Library','The Computer Lab'],startFile:'mission-1a.html'},
+    {label:"The Doctor's Visit",currentKey:'sp_doctor_current_session',sessionsKey:'sp_doctor_sessions',totalRooms:4,roomFiles:['mission-2a.html','mission-2b.html','mission-2c.html','mission-2d.html'],roomNames:['The Check-In Desk','The Exam Room','Growth and Vitals History','The Front Desk'],startFile:'mission-2a.html'},
+    {label:'The Grocery Store',currentKey:'sp_grocery_current_session',sessionsKey:'sp_grocery_sessions',totalRooms:4,roomFiles:['mission-3a.html','mission-3b.html','mission-3c.html','mission-3d.html'],roomNames:['The Entrance','The Aisles','The Express Checkout','Out the Door'],startFile:'mission-3a.html'}
+  ];
+  seriesConfigs.forEach(function(cfg){try{
+    var cur=JSON.parse(localStorage.getItem(cfg.currentKey)||'null');
+    if(cur&&cur.rooms&&cur.rooms.length>0&&cur.rooms.length<cfg.totalRooms){
+      var lastDate=(cur.workDates&&cur.workDates.length)?cur.workDates[cur.workDates.length-1]:cur.startDate;var n=cur.rooms.length;
+      candidates.push({date:lastDate,label:'Continue Room '+(n+1)+': '+cfg.roomNames[n],sub:cfg.label+': '+n+' of '+cfg.totalRooms+' rooms complete.',href:cfg.roomFiles[n]});return;}
+    var sessions=JSON.parse(localStorage.getItem(cfg.sessionsKey)||'[]');
+    if(sessions.length>0){var last=sessions[sessions.length-1];candidates.push({date:last.endDate||last.seriesCompleteDate||last.startDate,label:'Continue Practicing: '+cfg.label,sub:cfg.label+': completed. Play again anytime.',href:cfg.startFile});}
+  }catch(e){}});
+  var gameConfigs=[
+    {label:'Word Guess',sessionsKeys:['sp_word_guess_sessions'],href:'word-guess.html'},
+    {label:'Are You Smarter Than a 5th Grader?',sessionsKeys:['sp_arcade_5th_grader_sessions'],href:'are-you-smarter-than-a-5th-grader.html'},
+    {label:'Writing Lab',sessionsKeys:['sp_writing_lab_sessions','sp_writing_lab_dictation_sessions'],href:'writing-lab.html'},
+    {label:'Form Lab',sessionsKeys:['sp_formskills_sessions'],href:'form-lab.html'}
+  ];
+  gameConfigs.forEach(function(cfg){try{var mostRecent=null;
+    cfg.sessionsKeys.forEach(function(k){var arr=JSON.parse(localStorage.getItem(k)||'[]');if(arr.length>0){var last=arr[arr.length-1];if(!mostRecent||new Date(last.date)>new Date(mostRecent))mostRecent=last.date;}});
+    if(mostRecent){candidates.push({date:mostRecent,label:'Continue Practicing: '+cfg.label,sub:cfg.label+': last played '+formatRelativeDate(mostRecent)+'.',href:cfg.href});}
+  }catch(e){}});
+  if(candidates.length===0)return null;
+  candidates.sort(function(a,b){return new Date(b.date)-new Date(a.date);});return candidates[0];
+}
+(function(){var w=getMostRecentActivity();if(!w)return;var b=document.getElementById('home-continue'),p=document.getElementById('home-progress');if(b){b.textContent=w.label;b.href=w.href;}if(p)p.textContent=w.sub;})();
 </script>
-</body></html>
+</body>
+</html>
