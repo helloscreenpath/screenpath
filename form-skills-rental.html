@@ -141,14 +141,19 @@ textarea.summary-box{width:100%;min-height:9rem;background:var(--surface-2);bord
     </div>
 
     <div class="card">
-      <div class="setup-group">
-        <span class="fake-label" id="sr-label">Which screen reader are you using?</span>
-        <div class="radio-row" role="radiogroup" aria-labelledby="sr-label">
-          <label><input type="radio" name="setup-sr" value="JAWS" checked> JAWS</label>
-          <label><input type="radio" name="setup-sr" value="NVDA"> NVDA</label>
-          <label><input type="radio" name="setup-sr" value="VoiceOver"> VoiceOver</label>
-          <label><input type="radio" name="setup-sr" value="Other"> Other</label>
-        </div>
+      <div class="field" style="max-width:22rem;margin-bottom:1.75rem;">
+        <label for="gate-screen-reader">Screen reader <span class="req-text">(required)</span></label>
+        <select id="gate-screen-reader" required aria-required="true" aria-describedby="sr-error">
+          <option value="">Choose one&hellip;</option>
+          <option value="JAWS">JAWS</option>
+          <option value="NVDA">NVDA</option>
+          <option value="VoiceOver">VoiceOver</option>
+          <option value="Narrator">Narrator</option>
+          <option value="ChromeVox">ChromeVox</option>
+          <option value="TalkBack">TalkBack</option>
+          <option value="Prefer not to say">Prefer not to say</option>
+        </select>
+        <p class="field-error" id="sr-error" hidden>Choose your screen reader before you begin.</p>
       </div>
 
       <div class="setup-group">
@@ -476,7 +481,13 @@ function buildSkillFocusHTML(mode, sr){
 var chosenMode='accessible', chosenSR='JAWS', teacherEmail='';
 
 document.getElementById('begin-btn').addEventListener('click', function(){
-  chosenSR = document.querySelector('input[name="setup-sr"]:checked').value;
+  var srSel=document.getElementById('gate-screen-reader'), srErr=document.getElementById('sr-error');
+  if(!srSel.value){
+    srErr.hidden=false; srSel.setAttribute('aria-invalid','true'); srSel.closest('.field').classList.add('invalid');
+    srSel.focus(); announce('Choose your screen reader before you begin.'); return;
+  }
+  srErr.hidden=true; srSel.removeAttribute('aria-invalid'); srSel.closest('.field').classList.remove('invalid');
+  chosenSR = srSel.value;
   chosenMode = document.querySelector('input[name="setup-mode"]:checked').value;
   teacherEmail = document.getElementById('setup-teacher-email').value.trim();
 
