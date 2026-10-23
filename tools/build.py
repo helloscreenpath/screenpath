@@ -467,7 +467,7 @@ ab_body = hero('About ScreenPath','Built for every student<br>who ever felt left
 <blockquote class="pull-quote"><p>You are not alone. I am on your side, and I am here to help you get there.</p></blockquote>
 
 <h2>What comes next</h2>
-<p>ScreenPath keeps growing, and much of what gets built next comes from the students and teachers who use it. If you have an idea, found something that is not working, or just want to share how it is going, <a href="feedback.html">I would love to hear from you</a>.</p>
+<p>ScreenPath keeps growing, and much of what gets built next comes from the students and teachers who use it. If you have an idea, found something that is not working, or just want to share how it is going, I would love to hear from you. <a href="feedback.html">Send me feedback</a></p>
 
 </div></div>"""
 page('about.html','About ScreenPath','about.html',ab_body,tw_css+ab_css)
