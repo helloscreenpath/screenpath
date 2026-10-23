@@ -438,6 +438,8 @@ ab_css = """
 .about-person img{width:100%;max-width:260px;height:auto;border-radius:var(--radius);border:1px solid var(--border);}
 .about-person p{margin:0;}
 @media (min-width:640px){.about-person{flex-direction:row;align-items:center;gap:1.75rem;}.about-person img{width:200px;flex-shrink:0;}}
+.guide .pull-quote{margin:2.25rem 0 0;padding:1.5rem 1.75rem;border-left:4px solid var(--green);background:var(--surface);border-radius:0 var(--radius) var(--radius) 0;}
+.guide .pull-quote p{font-size:clamp(1.2rem,2.4vw,1.5rem);font-weight:700;line-height:1.45;color:var(--text);margin:0;}
 .guide hr{border:none;border-top:1px solid var(--border);margin:3rem 0 0;}
 .guide ul.plain{padding-left:1.4rem;color:var(--text-muted);display:flex;flex-direction:column;gap:.6rem;line-height:1.7;margin-bottom:1rem;}
 .guide ul.plain strong{color:var(--text);}
@@ -448,21 +450,21 @@ ab_body = hero('About ScreenPath','Built for every student<br>who ever felt left
 <p class="about-opening">I built this for my students. And for every student who has ever felt like the technology was the obstacle.</p>
 
 <h2>How it started</h2>
-<p>There was a moment in my life when I had to learn to navigate the world in a completely different way than I had planned. Gradually. Quietly. And mostly on my own.</p>
+<p>There was a moment in my life when I lost my vision and had to learn to navigate the world in a completely different way than I had planned. Gradually. Quietly. And mostly on my own.</p>
 <p>Nobody had been through it before me, at least not anyone I knew. There was no roadmap. I found programs that taught me the basics but not enough to get me where I needed to go. Most of what I know today I taught myself. Podcasts at night. YouTube on weekends. User guides until things finally clicked. Hundreds of hours learning by doing until one day navigating the web independently felt not just possible but natural.</p>
 <p>That feeling changed everything for me.</p>
 
 <h2>Why I built it</h2>
 <p>I did not want my students to have to find their way the same way I did. Alone. By trial and error. Without something designed specifically for them. That is why ScreenPath exists.</p>
 <p>ScreenPath is not here to teach screen reader navigation from scratch. Your teacher does that. ScreenPath is here for what comes after. After you have the foundation. After you know the skills but they do not feel like yours yet. After you want to get faster, more confident, more natural.</p>
-<p>Every activity is designed so the technology disappears into the experience. You stop thinking about the screen reader and start thinking about what you are actually doing with it.</p>
 
 <h2>About the project</h2>
 <div class="about-person"><img src="images/moises.jpg" width="480" height="720" alt="Moises Betancourt smiling, wearing a white knit sweater in front of a mint green wall."><p>ScreenPath is built and maintained by me, Moises Betancourt, a Teacher of the Visually Impaired. Every activity is designed for screen reader users first, then tested with a screen reader before it goes live.</p></div>
 <p>I am blind, and I use a screen reader every day, just like you. I know what it feels like when a page will not cooperate, when it feels like you and your screen reader are on two different teams, or when it seems like your homework is going to take forever. That frustration is real, and I have felt it more times than I can count.</p>
-<p>But today, let me tell you something: my screen reader and I are on the same team. It has helped me accomplish so many things I thought were no longer possible when I lost my vision. It is how I answer email, write lesson plans, build online courses for my students, create add-ons that make my screen reader work even better, book rides to get around town, and work on this site. None of that happened overnight. I learned it one small step at a time, and I still learn something new almost every week. That is why I teach it now, so you do not have to figure it out alone, and so you can reach the goals that matter to you.</p>
-<p>The activities are set in places students already know, like a school, a doctor's office, a grocery store, and a restaurant, because the goal is not just to finish a game. It is to walk into the real version of that moment and feel ready.</p>
+<p>But today, my screen reader and I are on the same team. It is how I answer email, write lesson plans, build online courses for my students, create add-ons for my screen reader, book rides around town, and work on this site. It took time, and I still learn something new almost every week.</p>
+<p>Every ScreenPath activity is designed to help you connect with your screen reader and learn to work together as a team. My goal is for you to forget you are even using a screen reader, and get your tasks done quickly and efficiently, together.</p>
 <p>ScreenPath is free. No cost, no login, and no barriers, for any student or teacher who wants to use it.</p>
+<blockquote class="pull-quote"><p>You are not alone. I am on your side, and I am here to help you get there.</p></blockquote>
 
 <h2>What comes next</h2>
 <p>ScreenPath keeps growing, and much of what gets built next comes from the students and teachers who use it. If you have an idea, found something that is not working, or just want to share how it is going, <a href="feedback.html">I would love to hear from you</a>.</p>
