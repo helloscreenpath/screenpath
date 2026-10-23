@@ -434,6 +434,10 @@ page('teachers.html','For Teachers on ScreenPath','teachers.html',tw_body,tw_css
 # ---------------- ABOUT ----------------
 ab_css = """
 .guide .about-opening{font-size:clamp(1.3rem,2.6vw,1.75rem);font-weight:700;line-height:1.45;color:var(--text);margin-bottom:1.75rem;}
+.about-person{display:flex;flex-direction:column;gap:1.25rem;margin-bottom:1rem;}
+.about-person img{width:100%;max-width:260px;height:auto;border-radius:var(--radius);border:1px solid var(--border);}
+.about-person p{margin:0;}
+@media (min-width:640px){.about-person{flex-direction:row;align-items:center;gap:1.75rem;}.about-person img{width:200px;flex-shrink:0;}}
 .guide hr{border:none;border-top:1px solid var(--border);margin:3rem 0 0;}
 .guide ul.plain{padding-left:1.4rem;color:var(--text-muted);display:flex;flex-direction:column;gap:.6rem;line-height:1.7;margin-bottom:1rem;}
 .guide ul.plain strong{color:var(--text);}
@@ -454,7 +458,7 @@ ab_body = hero('About ScreenPath','Built for every student<br>who ever felt left
 <p>Every activity is designed so the technology disappears into the experience. You stop thinking about the screen reader and start thinking about what you are actually doing with it.</p>
 
 <h2>About the project</h2>
-<p>ScreenPath is built and maintained by me, Moises Betancourt, a Teacher of the Visually Impaired. Every activity is designed for screen reader users first, then tested with a screen reader before it goes live.</p>
+<div class="about-person"><img src="images/moises.jpg" width="480" height="720" alt="Moises Betancourt smiling, wearing a white knit sweater in front of a mint green wall."><p>ScreenPath is built and maintained by me, Moises Betancourt, a Teacher of the Visually Impaired. Every activity is designed for screen reader users first, then tested with a screen reader before it goes live.</p></div>
 <p>The activities are set in places students already know, like a school, a doctor's office, a grocery store, and a restaurant, because the goal is not just to finish a game. It is to walk into the real version of that moment and feel ready.</p>
 <p>ScreenPath is free. No cost, no login, and no barriers, for any student or teacher who wants to use it.</p>
 
