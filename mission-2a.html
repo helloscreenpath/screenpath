@@ -50,6 +50,7 @@ main{max-width:860px;margin:0 auto;padding:3rem 2rem 6rem;}
 
 .room-header{margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--border);}
 .room-meta{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:1rem;}
+.room-meta p{margin:0;}
 .room-badge{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);padding:.3rem .85rem;border-radius:100px;}
 .room-level{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);border:1px solid var(--border);padding:.3rem .85rem;border-radius:100px;}
 .room-skill-badge{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);border:1px solid rgba(57,217,138,.3);padding:.3rem .85rem;border-radius:100px;background:var(--green-dim);}
@@ -94,9 +95,9 @@ p:last-child{margin-bottom:0;}
 .profile-card{background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);border-radius:var(--radius);padding:1.75rem;margin:1.75rem 0;}
 .profile-card-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.9rem;}
 .intake-dl{display:grid;grid-template-columns:1fr;gap:1.25rem;margin:0;padding:0;}
-.intake-group{border-bottom:1px solid rgba(245,166,35,.15);padding-bottom:.75rem;}
+.intake-group{margin:0;border-bottom:1px solid rgba(245,166,35,.15);padding-bottom:.75rem;}
 .intake-group:last-child{border-bottom:none;padding-bottom:0;}
-.intake-dt{color:var(--amber);font-family:var(--mono);font-size:.9rem;font-weight:700;margin-bottom:.2rem;}
+.intake-dt{color:var(--amber);font-family:var(--mono);font-size:.9rem;font-weight:700;margin-right:.5rem;}
 .intake-dd{color:var(--text);font-family:var(--mono);font-size:1.05rem;font-weight:600;}
 
 /* Narration */
@@ -293,9 +294,9 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
   <div id="room-content" hidden>
   <div class="room-header">
     <div class="room-meta">
-      <span class="room-badge">Room 1 of 4 — The Doctor's Visit</span>
-      <span class="room-level">Clinic Visit</span>
-      <span class="room-skill-badge">Focus: Edit Fields & Combo Boxes</span>
+      <p class="room-badge">Room 1 of 4 — The Doctor's Visit</p>
+      <p class="room-level">Clinic Visit</p>
+      <p class="room-skill-badge">Focus: Edit Fields & Combo Boxes</p>
     </div>
     <h1>Room 1: The Check-In Desk</h1>
   </div>
@@ -325,13 +326,13 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
     <div class="profile-card">
       <span class="profile-card-label" id="profile-file-num">Patient Record File</span>
       <h3>Official Registration Details</h3>
-      <dl class="intake-dl">
-        <div class="intake-group"><dt class="intake-dt">1. Full Patient Name:</dt><dd class="intake-dd" id="disp-name">—</dd></div>
-        <div class="intake-group"><dt class="intake-dt">2. Date of Birth:</dt><dd class="intake-dd" id="disp-dob">—</dd></div>
-        <div class="intake-group"><dt class="intake-dt">3. Reason for Visit:</dt><dd class="intake-dd" id="disp-reason">—</dd></div>
-        <div class="intake-group"><dt class="intake-dt">4. Primary Doctor:</dt><dd class="intake-dd" id="disp-doctor">—</dd></div>
-        <div class="intake-group"><dt class="intake-dt">5. Check-In Status:</dt><dd class="intake-dd" id="disp-status">—</dd></div>
-      </dl>
+      <div class="intake-dl">
+        <p class="intake-group"><span class="intake-dt">1. Full Patient Name:</span> <span class="intake-dd" id="disp-name">Loading...</span></p>
+        <p class="intake-group"><span class="intake-dt">2. Date of Birth:</span> <span class="intake-dd" id="disp-dob">Loading...</span></p>
+        <p class="intake-group"><span class="intake-dt">3. Reason for Visit:</span> <span class="intake-dd" id="disp-reason">Loading...</span></p>
+        <p class="intake-group"><span class="intake-dt">4. Primary Doctor:</span> <span class="intake-dd" id="disp-doctor">Loading...</span></p>
+        <p class="intake-group"><span class="intake-dt">5. Check-In Status:</span> <span class="intake-dd" id="disp-status">Loading...</span></p>
+      </div>
     </div>
   </section>
 

@@ -49,7 +49,7 @@
     .profile-box { background:var(--green-dim); border:1px solid rgba(57,217,138,.3); border-radius:var(--radius); padding:1.75rem; margin:1.75rem 0; }
     .profile-box-label { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.9rem; }
     .profile-box h3 { color:var(--green); font-size:1rem; margin-bottom:.75rem; }
-    .profile-line { display:flex; align-items:baseline; gap:.75rem; padding:.5rem 0; border-bottom:1px solid rgba(57,217,138,.12); flex-wrap:wrap; }
+    .profile-line { display:flex; align-items:baseline; gap:.75rem; margin:0; padding:.5rem 0; border-bottom:1px solid rgba(57,217,138,.12); flex-wrap:wrap; }
     .profile-line:last-child { border-bottom:none; padding-bottom:0; }
     .profile-num { font-family:var(--mono); font-size:.72rem; color:var(--green); min-width:20px; flex-shrink:0; }
     .profile-key { color:var(--green); font-family:var(--mono); font-size:.85rem; min-width:180px; flex-shrink:0; }
@@ -313,11 +313,11 @@
       <h2 class="res-room-name" id="res-heading" tabindex="-1"></h2>
       <p class="res-room-sub" id="res-room-sub"></p>
       <div class="res-stats" role="list" aria-label="Your results">
-        <div class="res-row" role="listitem"><span class="res-key">Time Used</span><span class="res-val green" id="res-time-used"></span></div>
-        <div class="res-row" role="listitem"><span class="res-key">Time Remaining</span><span class="res-val" id="res-time-left"></span></div>
-        <div class="res-row" role="listitem"><span class="res-key">Attempts</span><span class="res-val" id="res-attempts"></span></div>
-        <div class="res-row" role="listitem"><span class="res-key">Skill</span><span class="res-val" id="res-skill"></span></div>
-        <div class="res-row" role="listitem"><span class="res-key" id="res-skill-label"></span><span class="res-val" id="res-skill-value"></span></div>
+        <div class="res-row" role="listitem"><span class="res-key">Time Used:</span> <span class="res-val green" id="res-time-used"></span></div>
+        <div class="res-row" role="listitem"><span class="res-key">Time Remaining:</span> <span class="res-val" id="res-time-left"></span></div>
+        <div class="res-row" role="listitem"><span class="res-key">Attempts:</span> <span class="res-val" id="res-attempts"></span></div>
+        <div class="res-row" role="listitem"><span class="res-key">Skill:</span> <span class="res-val" id="res-skill"></span></div>
+        <div class="res-row" role="listitem"><span class="res-key" id="res-skill-label"></span> <span class="res-val" id="res-skill-value"></span></div>
       </div>
       <p class="res-pct-line" id="res-pct" aria-hidden="true"></p>
       <hr class="res-divider" aria-hidden="true">
@@ -376,11 +376,11 @@
         <span class="profile-box-label" aria-hidden="true">// Your Student Information</span>
         <h3 id="profile-heading">Enter This Information Into the Form</h3>
         <p style="font-size:.88rem;color:#b5b5b5;margin-bottom:1.25rem;">Each numbered item below matches a field in the form. Read through all five before starting the timer.</p>
-        <div class="profile-line"><span class="profile-num">1.</span><span class="profile-key">First Name:</span><span class="profile-val" id="p-firstname"></span></div>
-        <div class="profile-line"><span class="profile-num">2.</span><span class="profile-key">Last Name:</span><span class="profile-val" id="p-lastname"></span></div>
-        <div class="profile-line"><span class="profile-num">3.</span><span class="profile-key">Student ID Number:</span><span class="profile-val" id="p-studentid"></span></div>
-        <div class="profile-line"><span class="profile-num">4.</span><span class="profile-key">Grade Level:</span><span class="profile-val" id="p-grade"></span></div>
-        <div class="profile-line"><span class="profile-num">5.</span><span class="profile-key">Homeroom Teacher:</span><span class="profile-val" id="p-teacher"></span></div>
+        <p class="profile-line"><span class="profile-num">1.</span> <span class="profile-key">First Name:</span> <span class="profile-val" id="p-firstname"></span></p>
+        <p class="profile-line"><span class="profile-num">2.</span> <span class="profile-key">Last Name:</span> <span class="profile-val" id="p-lastname"></span></p>
+        <p class="profile-line"><span class="profile-num">3.</span> <span class="profile-key">Student ID Number:</span> <span class="profile-val" id="p-studentid"></span></p>
+        <p class="profile-line"><span class="profile-num">4.</span> <span class="profile-key">Grade Level:</span> <span class="profile-val" id="p-grade"></span></p>
+        <p class="profile-line"><span class="profile-num">5.</span> <span class="profile-key">Homeroom Teacher:</span> <span class="profile-val" id="p-teacher"></span></p>
       </div>
     </div>
 
@@ -764,7 +764,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElement
       document.getElementById('res-time-left').textContent    = left;
       document.getElementById('res-attempts').textContent     = cfg.attempts;
       document.getElementById('res-skill').textContent        = cfg.skill;
-      document.getElementById('res-skill-label').textContent  = cfg.skillDetail;
+      document.getElementById('res-skill-label').textContent  = cfg.skillDetail + ':';
       document.getElementById('res-skill-value').textContent  = cfg.skillValue;
       document.getElementById('res-pct').textContent          = pct + '% of allotted time used';
 

@@ -300,11 +300,11 @@
       <h2 class="res-room-name" id="res-heading" tabindex="-1"></h2>
       <p class="res-room-sub" id="res-room-sub"></p>
       <div class="res-stats" role="list" aria-label="Your results">
-        <div class="res-row" role="listitem"><span class="res-key">Time Used</span><span class="res-val green" id="res-time-used"></span></div>
-        <div class="res-row" role="listitem"><span class="res-key">Time Remaining</span><span class="res-val" id="res-time-left"></span></div>
-        <div class="res-row" role="listitem"><span class="res-key">Attempts</span><span class="res-val" id="res-attempts"></span></div>
-        <div class="res-row" role="listitem"><span class="res-key">Skill</span><span class="res-val" id="res-skill"></span></div>
-        <div class="res-row" role="listitem"><span class="res-key" id="res-skill-label"></span><span class="res-val" id="res-skill-value"></span></div>
+        <div class="res-row" role="listitem"><span class="res-key">Time Used:</span> <span class="res-val green" id="res-time-used"></span></div>
+        <div class="res-row" role="listitem"><span class="res-key">Time Remaining:</span> <span class="res-val" id="res-time-left"></span></div>
+        <div class="res-row" role="listitem"><span class="res-key">Attempts:</span> <span class="res-val" id="res-attempts"></span></div>
+        <div class="res-row" role="listitem"><span class="res-key">Skill:</span> <span class="res-val" id="res-skill"></span></div>
+        <div class="res-row" role="listitem"><span class="res-key" id="res-skill-label"></span> <span class="res-val" id="res-skill-value"></span></div>
       </div>
       <p class="res-pct-line" id="res-pct" aria-hidden="true"></p>
       <hr class="res-divider" aria-hidden="true">
@@ -882,7 +882,7 @@
       document.getElementById('res-time-left').textContent   = left;
       document.getElementById('res-attempts').textContent    = cfg.attempts;
       document.getElementById('res-skill').textContent       = cfg.skill;
-      document.getElementById('res-skill-label').textContent = cfg.skillDetail;
+      document.getElementById('res-skill-label').textContent = cfg.skillDetail + ':';
       document.getElementById('res-skill-value').textContent = cfg.skillValue;
       document.getElementById('res-pct').textContent         = pct + '% of allotted time used';
 
