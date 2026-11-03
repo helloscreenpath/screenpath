@@ -12,20 +12,11 @@
     ];
 
     function loadSchoolSessions() {
-      // Finished sessions, plus the session in progress so rooms and debriefs show right away
+      // Finished sessions, plus the session in progress so finished rooms show right away
       var list = recall('sp_school_sessions', []);
       var cur = recall('sp_school_current_session', null);
       if (cur && cur.rooms && cur.rooms.length) list = list.concat([cur]);
       return list;
-    }
-
-    // Debrief answers saved by each School room: one line per answer
-    function debriefLines(d) {
-      var lines = [];
-      if (d.strategy)   lines.push('Strategy: ' + d.strategy);
-      if (d.confidence) lines.push('Confidence: ' + d.confidence);
-      if (d.notes)      lines.push('Notes: ' + d.notes);
-      return lines;
     }
 
     function fmtTime(s) {
@@ -110,14 +101,6 @@
           block.appendChild(srLine);
         }
 
-        // Student display name from the debrief
-        if (session.displayName) {
-          var nameLine = document.createElement('p');
-          nameLine.className = 'session-sr';
-          nameLine.textContent = 'Student: ' + session.displayName;
-          block.appendChild(nameLine);
-        }
-
         // Working dates
         if (session.workDates && session.workDates.length > 1) {
           var wdLine = document.createElement('p');
@@ -173,28 +156,6 @@
           block.appendChild(totalLine);
         }
 
-        // Debrief answers, one line each, under a heading for the session
-        var withDebrief = ROOM_META.filter(function(rm){ var r = rooms.find(function(x){ return x.roomKey===rm.key; }); return r && r.debrief; });
-        if (withDebrief.length) {
-          var dh = document.createElement('h5');
-          dh.className = 'debrief-heading';
-          dh.textContent = 'Session ' + sNum + ' Debrief Answers';
-          block.appendChild(dh);
-          withDebrief.forEach(function(rm) {
-            var r = rooms.find(function(x){ return x.roomKey===rm.key; });
-            var roomLine = document.createElement('p');
-            roomLine.className = 'debrief-room';
-            roomLine.textContent = 'Room ' + rm.key + ': ' + rm.name;
-            block.appendChild(roomLine);
-            debriefLines(r.debrief).forEach(function(t) {
-              var line = document.createElement('p');
-              line.className = 'debrief-line';
-              line.textContent = t;
-              block.appendChild(line);
-            });
-          });
-        }
-
         // Session buttons
         var btns = document.createElement('div');
         btns.className = 'session-btns';
@@ -238,7 +199,6 @@
       lines.push('Escape Rooms: The School');
       lines.push('Session ' + sNum + ': ' + startFmt + ' to ' + endFmt);
       if (session.screenReader) lines.push('Screen reader: ' + session.screenReader);
-      if (session.displayName) lines.push('Student: ' + session.displayName);
       lines.push('');
 
       var rooms = session.rooms || [];
@@ -247,7 +207,6 @@
         if (r) {
           lines.push('Room ' + rm.key + ', ' + rm.name + ', ' + rm.skill);
           lines.push('Completed: ' + fmtDate(r.dateCompleted) + ', Attempts: ' + r.attempts + ', Time: ' + fmtTime(r.timeUsed) + ' of ' + fmtTime(rm.timeAllowed) + ', ' + r.pct + '%');
-          if (r.debrief) debriefLines(r.debrief).forEach(function(t){ lines.push(t); });
           lines.push('');
         }
       });

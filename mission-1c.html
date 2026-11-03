@@ -147,6 +147,7 @@
     .next-room-box.visible { display:block; animation:fadeUp .4s ease; }
     .next-room-label { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.5rem; }
     .next-room-box h3 { color:var(--green); margin-bottom:.5rem; font-size:1.1rem; }
+    .next-room-msg { font-style:italic; color:var(--text)!important; text-align:left; }
     .next-room-box p { font-size:.9rem; color:var(--text-muted); margin-bottom:1.5rem; }
 
     /* Debrief section */
@@ -479,62 +480,17 @@
         </form>
       </div>
 
-      <!-- Bridge message -->
-      <div class="bridge-msg" id="bridge-msg" role="note">
-        <span class="bridge-msg-label">// After-Hours Emergency Alert System Confirmation</span>
-        <p>"Identity verified. Emergency alert sent to principal and district security. Exit sequence fully authorized. The main corridor emergency exit will release in approximately two minutes."</p>
-      </div>
-
-      <!-- Debrief report -->
-      <div class="debrief-report" id="debrief-report" >
-        <span class="debrief-report-label">// Debrief Report</span>
-        <h3 id="report-heading">How Did It Go?</h3>
-        <p style="font-size:.92rem;color:var(--text-muted);margin-bottom:1.5rem;">Alert sent. Tell us how it went before you move on.</p>
-        <form id="report-form" novalidate>
-          <div class="form-group">
-            <label for="r-name">Your Display Name <span class="required-mark" aria-hidden="true">*</span></label>
-            <span class="field-hint">First name and first letter of your last name. Example: Jordan T</span>
-            <input type="text" id="r-name" name="display_name" required aria-required="true" placeholder="First name and last initial">
-          </div>
-          <div class="form-group">
-            <label>How did navigating between the edit fields feel? <span class="required-mark" aria-hidden="true">*</span></label>
-            <span class="field-hint" id="hr-strategy">Be honest. This helps your instructor understand how comfortable you are with form fields.</span>
-            <div class="radio-group" role="radiogroup" aria-required="true" aria-describedby="hr-strategy">
-              <label class="radio-option"><input type="radio" name="strategy" value="smooth" required> Smooth, I moved between fields without any trouble</label>
-              <label class="radio-option"><input type="radio" name="strategy" value="some-difficulty"> I had some difficulty entering or exiting certain fields</label>
-              <label class="radio-option"><input type="radio" name="strategy" value="struggled"> I struggled with most of the fields</label>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Confidence Rating <span class="required-mark" aria-hidden="true">*</span></label>
-            <span class="field-hint" id="hr-conf">How confident do you feel navigating and completing edit fields after this room?</span>
-            <div class="radio-group" role="radiogroup" aria-required="true" aria-describedby="hr-conf">
-              <label class="radio-option"><input type="radio" name="confidence" value="Not confident" required> Not confident yet</label>
-              <label class="radio-option"><input type="radio" name="confidence" value="Somewhat confident"> Somewhat confident</label>
-              <label class="radio-option"><input type="radio" name="confidence" value="Very confident"> Very confident</label>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="r-notes">Notes <span style="font-weight:400;color:var(--text-muted)">(optional)</span></label>
-            <span class="field-hint">Was anything confusing? Did you have trouble entering or exiting any of the fields?</span>
-            <textarea id="r-notes" name="notes" placeholder="Share anything that was difficult or anything that helped..."></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Submit Debrief</button>
-          <div id="report-status" class="form-status" role="alert" aria-live="assertive"></div>
-        </form>
-      </div>
-
-      <!-- Next room box -->
+      <!-- Escape room complete: the story message and the escape scene -->
       <div class="next-room-box" id="next-room-box">
-        <span class="next-room-label">// Series Complete</span>
+        <span class="next-room-label" aria-hidden="true">// The School Complete</span>
         <h3 id="next-room-heading">You Escaped.</h3>
-        <div class="escape-scene" id="escape-scene" aria-live="polite">
+        <p class="next-room-msg">The alert system reads: "Identity verified. Emergency alert sent to principal and district security. Exit sequence fully authorized. The main corridor emergency exit will release in approximately two minutes."</p>
+        <div class="escape-scene" id="escape-scene">
           <p id="escape-p1">The alarm went through. The door is open. You did it.</p>
           <p id="escape-p2">You walk out of Westlake Middle School and breathe in the evening air. Nobody knew you were in there. But you found your way out.</p>
           <p id="escape-p3">That took real skill under real pressure. Remember that feeling. You are going to need it.</p>
           <p id="escape-p4">There is more waiting for you.</p>
         </div>
-        <a href="index.html" class="btn btn-primary" style="margin-top:1.5rem;" aria-label="Return to ScreenPath home page">Return to ScreenPath</a>
       </div>
 
     </div>
@@ -724,37 +680,16 @@
         sfxWin();
         try { localStorage.setItem('sp_room3_complete','1'); } catch(e) {}
         saveCompletedSession();
-        document.getElementById('bridge-msg').classList.add('visible');
-        document.getElementById('debrief-report').classList.add('visible');
-        setTimeout(function(){
-          showResults({roomName:document.querySelector('main h1').textContent.trim(),roomNum:'3 of 3',skill:'Forms',skillDetail:'Fields Completed',skillValue:'5 of 5',elapsed:elapsed,totalTime:TOTAL,attempts:attempts});
-        }, 200);
+        document.getElementById('next-room-box').classList.add('visible');
+        setTimeout(function(){ focusEl(document.getElementById('next-room-heading')); }, 100);
+        playEscapeScene();
       }
       status.removeAttribute('role');status.removeAttribute('aria-live');
       status.className='form-status success';
-      status.textContent='Identity verified. Emergency alert sent. Read the confirmation message below and complete your debrief.';
+      status.textContent='Identity verified. Emergency alert sent.';
       this.querySelectorAll('input,button[type="submit"]').forEach(el=>el.disabled=true);
     });
 
-    // ── Debrief form ───────────────────────────────
-    document.getElementById('report-form').addEventListener('submit',function(e){
-      e.preventDefault();
-      const name=document.getElementById('r-name').value.trim();
-      const strategy=document.querySelector('#report-form input[name="strategy"]:checked');
-      const conf=document.querySelector('#report-form input[name="confidence"]:checked');
-      const status=document.getElementById('report-status');
-      if(!name){status.className='form-status error';status.textContent='Please enter your display name.';document.getElementById('r-name').focus();return;}
-      if(!strategy){status.className='form-status error';status.textContent='Please choose how navigating the fields felt.';document.querySelector('#report-form input[name="strategy"]').focus();return;}
-      if(!conf){status.className='form-status error';status.textContent='Please select a confidence rating.';document.querySelector('#report-form input[name="confidence"]').focus();return;}
-      var saved=saveDebrief('3',{displayName:name,strategy:labelText(strategy),confidence:labelText(conf),notes:document.getElementById('r-notes').value.trim()});
-      status.removeAttribute('role');status.removeAttribute('aria-live');
-      status.className='form-status success';
-      status.textContent='Debrief submitted. Form completed in '+fmtElapsed(elapsed)+' with '+attempts+' attempt'+(attempts!==1?'s':'')+'.'+(saved?' Your answers are saved on My Progress.':' Your answers could not be saved on this device.');
-      this.querySelectorAll('input,textarea,button[type="submit"]').forEach(el=>el.disabled=true);
-      document.getElementById('next-room-box').classList.add('visible');
-      focusEl(document.getElementById('next-room-heading'));
-      playEscapeScene();
-    });
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('fail-overlay').classList.contains('active'))switchToPractice();});
 
     // ── Results overlay ───────────────────────────────────────────
@@ -822,10 +757,8 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElement
       ov.classList.remove('active');
       ov.setAttribute('aria-hidden','true');
       ov.removeEventListener('keydown', resKeyHandler);
-      // Continue the story: the system message comes next, then the debrief
-      var b=document.getElementById('bridge-msg');
-      if(b&&b.classList.contains('visible')) focusEl(b);
-      else focusEl(document.querySelector('#room-content h1')||document.querySelector('main h1'));
+      // Results dismissed: finish with the You escaped screen
+      showSeriesComplete();
     }
 
     function resKeyHandler(e){
@@ -896,7 +829,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElement
       // Step 3: After all narration is done fade to series complete
       var totalDuration = narrationDelay + paraDelays[paraDelays.length - 1] + 4500;
       setTimeout(function() {
-        showSeriesComplete();
+        showSchoolResults();
       }, totalDuration);
     }
 
@@ -984,24 +917,51 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElement
     // Move focus to an element that is not normally focusable
     function focusEl(el){ if(!el)return; el.setAttribute('tabindex','-1'); el.focus(); }
 
-    // ── Debrief answers: saved with this room's result so My Progress can show and send them ──
-    function labelText(input){ var l=input&&input.closest('label'); return l?l.textContent.replace(/\s+/g,' ').trim():''; }
-    function saveDebrief(roomKey, d){
-      try{
-        var cur=JSON.parse(localStorage.getItem('sp_school_current_session')||'null');
-        var list=null, target=null;
-        if(cur&&cur.rooms&&cur.rooms.some(function(r){return r.roomKey===roomKey;})) target=cur;
-        else{
-          list=JSON.parse(localStorage.getItem('sp_school_sessions')||'[]');
-          for(var i=list.length-1;i>=0;i--){ if(list[i].rooms&&list[i].rooms.some(function(r){return r.roomKey===roomKey;})){ target=list[i]; break; } }
-        }
-        if(!target) return false;
-        target.rooms.find(function(r){return r.roomKey===roomKey;}).debrief=d;
-        if(d.displayName) target.displayName=d.displayName;
-        if(list) localStorage.setItem('sp_school_sessions',JSON.stringify(list));
-        else localStorage.setItem('sp_school_current_session',JSON.stringify(target));
-        return true;
-      }catch(e){ return false; }
+
+    // ── Results for the whole escape room, shown after the escape scene ──
+    function showSchoolResults(){
+      var sess=null;
+      try{ var list=JSON.parse(localStorage.getItem('sp_school_sessions')||'[]'); sess=list[list.length-1]||null; }catch(e){}
+      var meta=[['1','The School Office'],['2','The Library'],['3','The Computer Lab']];
+      var lines=[], total=0;
+      meta.forEach(function(m){
+        var r=sess&&sess.rooms?sess.rooms.find(function(x){return x.roomKey===m[0];}):null;
+        if(r){ total+=r.timeUsed||0; lines.push({key:'Room '+m[0]+', '+m[1], val:fmtElapsed(r.timeUsed||0)+', '+r.attempts+' attempt'+(r.attempts!==1?'s':'')}); }
+        else lines.push({key:'Room '+m[0]+', '+m[1], val:'Not recorded'});
+      });
+      lines.push({key:'Total time', val:fmtElapsed(total)});
+      try{ lines.push({key:'Mode', val:localStorage.getItem('sp_school_mode')==='practice'?'Practice':'Challenge'}); }catch(e){}
+      if(sess&&sess.screenReader) lines.push({key:'Screen reader', val:sess.screenReader});
+
+      document.querySelector('#results-overlay .res-label').textContent='Escape Room Complete';
+      document.getElementById('res-heading').textContent='The School Complete';
+      document.getElementById('res-room-sub').textContent='Your results for all three rooms';
+      var stats=document.querySelector('#results-overlay .res-stats'); stats.innerHTML='';
+      lines.forEach(function(l){
+        var row=document.createElement('div'); row.className='res-row'; row.setAttribute('role','listitem');
+        var k=document.createElement('span'); k.className='res-key'; k.textContent=l.key+':';
+        var v=document.createElement('span'); v.className='res-val'; v.textContent=l.val;
+        row.appendChild(k); row.appendChild(document.createTextNode(' ')); row.appendChild(v); stats.appendChild(row);
+      });
+      document.getElementById('res-pct').textContent='';
+
+      var ds=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+      var body=['ScreenPath: The School', ds, ''].concat(lines.map(function(l){return l.key+': '+l.val;})).join('\n');
+      var mailto='mailto:?subject='+encodeURIComponent('ScreenPath Results: The School')+'&body='+encodeURIComponent(body);
+      document.getElementById('res-email-btn').onclick=function(){ window.location.href=mailto; };
+      document.getElementById('res-copy-btn').onclick=function(){
+        var btn=document.getElementById('res-copy-btn');
+        function done(){ btn.textContent='Copied'; setTimeout(function(){ btn.textContent='Copy Results'; },2500); announce('Results copied to clipboard.'); }
+        if(navigator.clipboard){ navigator.clipboard.writeText(body).then(done); }
+        else { var ta=document.createElement('textarea'); ta.value=body; ta.style.cssText='position:fixed;left:-9999px'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); done(); }
+      };
+      document.getElementById('res-skip-btn').onclick=function(){ closeResults(); };
+
+      var ov=document.getElementById('results-overlay');
+      ov.removeAttribute('aria-hidden'); ov.classList.add('active');
+      createResParticles();
+      setTimeout(function(){ var h=document.getElementById('res-heading'); if(h)h.focus(); },350);
+      ov.addEventListener('keydown', resKeyHandler);
     }
   </script>
 

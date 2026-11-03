@@ -190,6 +190,7 @@
     .next-room-box.visible { display:block; animation:fadeUp .4s ease; }
     .next-room-label { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.5rem; }
     .next-room-box h3 { color:var(--green); margin-bottom:.5rem; font-size:1.1rem; }
+    .next-room-msg { font-style:italic; color:var(--text)!important; text-align:left; }
     .next-room-box p { font-size:.9rem; color:var(--text-muted); margin-bottom:1.5rem; }
 
     /* Debrief */
@@ -313,29 +314,6 @@
   </div>
 
 
-  <!-- Results overlay -->
-  <div id="results-overlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="res-heading" aria-hidden="true">
-    <div class="res-particles" id="res-particles" aria-hidden="true"></div>
-    <div class="res-inner">
-      <p class="res-label" aria-hidden="true">Room Complete</p>
-      <h2 class="res-room-name" id="res-heading" tabindex="-1"></h2>
-      <p class="res-room-sub" id="res-room-sub"></p>
-      <div class="res-stats" role="list" aria-label="Your results">
-        <div class="res-row" role="listitem"><span class="res-key">Time Used:</span> <span class="res-val green" id="res-time-used"></span></div>
-        <div class="res-row" role="listitem"><span class="res-key">Time Remaining:</span> <span class="res-val" id="res-time-left"></span></div>
-        <div class="res-row" role="listitem"><span class="res-key">Attempts:</span> <span class="res-val" id="res-attempts"></span></div>
-        <div class="res-row" role="listitem"><span class="res-key">Skill:</span> <span class="res-val" id="res-skill"></span></div>
-        <div class="res-row" role="listitem"><span class="res-key" id="res-skill-label"></span> <span class="res-val" id="res-skill-value"></span></div>
-      </div>
-      <p class="res-pct-line" id="res-pct" aria-hidden="true"></p>
-      <hr class="res-divider" aria-hidden="true">
-      <div class="res-btns">
-        <button type="button" class="res-btn res-btn-email" id="res-email-btn" aria-label="Email results to your teacher">Email Results</button>
-        <button type="button" class="res-btn res-btn-copy" id="res-copy-btn" aria-label="Copy results to clipboard">Copy Results</button>
-        <button type="button" class="res-btn res-btn-skip" id="res-skip-btn" aria-label="Skip, dismiss results">Skip</button>
-      </div>
-    </div>
-  </div>
 
   <nav role="navigation" aria-label="Main navigation"><div class="nav-inner"><a class="sp-wordmark" href="index.html" aria-label="ScreenPath home">Screen<span>Path</span></a><ul class="nav-links"><li><a href="index.html">Activities</a></li><li><a href="progress.html">My Progress</a></li><li><a href="teachers.html">For Teachers</a></li><li><a href="about.html">About</a></li><li><a href="feedback.html">Feedback</a></li></ul><button id="menu-btn" class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu">&#9776;</button></div><div class="nav-drawer" id="nav-drawer" hidden><a href="index.html">Activities</a><a href="progress.html">My Progress</a><a href="teachers.html">For Teachers</a><a href="about.html">About</a><a href="feedback.html">Feedback</a></div></nav>
 
@@ -516,58 +494,11 @@
         </form>
       </div>
 
-      <!-- Bridge message -->
-      <div class="bridge-msg" id="bridge-msg" role="note">
-        <span class="bridge-msg-label">// After-Hours Check-In Terminal System Message</span>
-        <p>"Both codes accepted. Student verification in progress. To complete identity confirmation proceed to the computer lab at the end of the main corridor. The after-hours emergency alert system terminal is active. Submit the student identity form to authorize the exit sequence."</p>
-      </div>
-
-      <!-- Answer Section B: Debrief -->
-      <div class="answer-section" id="answer-section-2">
-        <hr class="section-divider">
-        <span class="answer-label">Section B: Debrief</span>
-        <h3 id="answer2-heading">How Did It Go?</h3>
-        <p class="answer-intro">Trail complete. Tell us how you navigated the library tables.</p>
-        <form id="answer-form-2" novalidate>
-          <div class="form-group">
-            <label for="agent-name">Your Display Name <span aria-hidden="true" style="color:var(--red)">*</span></label>
-            <span class="field-hint">First name and first letter of your last name. Example: Jordan T</span>
-            <input type="text" id="agent-name" name="agent_name" required aria-required="true" placeholder="First name and last initial">
-          </div>
-          <div class="form-group">
-            <label>How did you identify the correct book in each table? <span aria-hidden="true" style="color:var(--red)">*</span></label>
-            <span class="field-hint" id="hint-strategy">Be honest. This helps your instructor understand how you used table navigation.</span>
-            <div class="radio-group" role="radiogroup" aria-required="true" aria-describedby="hint-strategy">
-              <label class="radio-option"><input type="radio" name="strategy" value="read-title-first" required> I read the Title column in each row and matched it to the series reminder</label>
-              <label class="radio-option"><input type="radio" name="strategy" value="read-all-columns"> I read all columns across each row before deciding</label>
-              <label class="radio-option"><input type="radio" name="strategy" value="tried-links"> I activated links to see what happened and worked from there</label>
-              <label class="radio-option"><input type="radio" name="strategy" value="search"> I used my screen reader search function to find the series name</label>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Confidence Rating <span aria-hidden="true" style="color:var(--red)">*</span></label>
-            <span class="field-hint" id="hint-conf">How confident do you feel navigating tables and activating links after this room?</span>
-            <div class="radio-group" role="radiogroup" aria-required="true" aria-describedby="hint-conf">
-              <label class="radio-option"><input type="radio" name="confidence" value="Not confident" required> Not confident yet</label>
-              <label class="radio-option"><input type="radio" name="confidence" value="Somewhat confident"> Somewhat confident</label>
-              <label class="radio-option"><input type="radio" name="confidence" value="Very confident"> Very confident</label>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="notes">Notes <span style="font-weight:400;color:var(--text-muted)">(optional)</span></label>
-            <span class="field-hint">Did you open any wrong books? What helped you identify the right one?</span>
-            <textarea id="notes" name="notes" placeholder="Share anything that helped or anything that was difficult..."></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Submit Debrief</button>
-          <div id="form-status-2" class="form-status" role="alert" aria-live="assertive"></div>
-        </form>
-      </div>
-
-      <!-- Next room box -->
+      <!-- Room complete: the story message and the way to Room 3 -->
       <div class="next-room-box" id="next-room-box">
-        <span class="next-room-label">// Room 2 Complete</span>
+        <span class="next-room-label" aria-hidden="true">// Room 2 Complete</span>
         <h3 id="next-room-heading">Room 3 is Now Unlocked</h3>
-        <p>You have the terminal access code. The computer lab is at the end of the main corridor. Head there to complete the student identity form and trigger the emergency alert.</p>
+        <p class="next-room-msg">The check-in terminal reads: "Both codes accepted. Student verification in progress. To complete identity confirmation, proceed to the computer lab at the end of the main corridor. The after-hours emergency alert system terminal is active. Submit the student identity form to authorize the exit sequence."</p>
         <a href="mission-1c.html" class="btn btn-primary">Enter Room 3: The Computer Lab</a>
       </div>
 
@@ -880,10 +811,7 @@
       focusEl(document.getElementById('timer-instructions'));
     }
     function createSparks(){const c=document.getElementById('fail-sparks');c.innerHTML='';const cx=window.innerWidth/2,cy=window.innerHeight/2;for(let i=0;i<55;i++){const s=document.createElement('div');s.className='spark';s.style.left=cx+'px';s.style.top=cy+'px';const a=Math.random()*Math.PI*2,d=80+Math.random()*360;s.style.setProperty('--dx',Math.cos(a)*d+'px');s.style.setProperty('--dy',Math.sin(a)*d+'px');s.style.animationDelay=Math.random()*.4+'s';s.style.background=Math.random()>.5?'#ff4d4d':'#ff9900';c.appendChild(s);}}
-    function showSuccess(secs){ /* replaced */ }
-    function createParticles(){var c=document.getElementById('res-particles');if(!c)return;c.innerHTML='';var cx=window.innerWidth/2,cy=window.innerHeight/2;var cols=['#39d98a','#00ff88','#ffffff','#a8ffd4','#f5a623'];for(var i=0;i<65;i++){var p=document.createElement('div');p.className='res-particle';p.style.left=cx+'px';p.style.top=cy+'px';var a=Math.random()*Math.PI*2,d=60+Math.random()*440;p.style.setProperty('--dx',Math.cos(a)*d+'px');p.style.setProperty('--dy',Math.sin(a)*d+'px');p.style.animationDelay=Math.random()*.5+'s';p.style.background=cols[Math.floor(Math.random()*cols.length)];c.appendChild(p);}}
 
-    function closeSuccess(){ closeResults(); }
 
     // ── Announcer ──────────────────────────────────
     function announce(msg){const el=document.createElement('div');el.setAttribute('aria-live','assertive');el.setAttribute('aria-atomic','true');el.style.cssText='position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;';document.body.appendChild(el);setTimeout(()=>{el.textContent=msg;setTimeout(()=>el.remove(),4500);},100);}
@@ -899,7 +827,6 @@
         complete=true;
         clearInterval(interval);
         sfxWin();
-        createParticles();
         try {
         localStorage.setItem('sp_room2_complete','1');
         var today2 = new Date().toISOString().split('T')[0];
@@ -911,15 +838,12 @@
         sess2.rooms.push({roomKey:'2',dateCompleted:today2,attempts:attempts,timeUsed:elapsed,timeAllowed:TOTAL,pct:pct2});
         localStorage.setItem('sp_school_current_session', JSON.stringify(sess2));
       } catch(e) {}
-        document.getElementById('bridge-msg').classList.add('visible');
-        document.getElementById('answer-section-2').classList.add('visible');
-        setTimeout(function(){
-          showResults({roomName:document.querySelector('h1').textContent.trim(),roomNum:'2 of 3',skill:'Links and Tables',skillDetail:'Target Found',skillValue:'Yes',elapsed:elapsed,totalTime:TOTAL,attempts:attempts});
-        }, 200);
+        document.getElementById('next-room-box').classList.add('visible');
+        setTimeout(function(){ focusEl(document.getElementById('next-room-heading')); }, 100);
       }
         status.removeAttribute('role');status.removeAttribute('aria-live');
         status.className='form-status success';
-        status.textContent='Correct. Terminal access code accepted. Read the system message below and then complete your debrief.';
+        status.textContent='Correct. Terminal access code accepted.';
         this.querySelectorAll('input,button[type="submit"]').forEach(el=>el.disabled=true);
       } else {
         sfxWrong();
@@ -929,157 +853,10 @@
       }
     });
 
-    // ── Form 2 ─────────────────────────────────────
-    document.getElementById('answer-form-2').addEventListener('submit',function(e){
-      e.preventDefault();
-      const name=document.getElementById('agent-name').value.trim();
-      const strategy=document.querySelector('input[name="strategy"]:checked');
-      const conf=document.querySelector('input[name="confidence"]:checked');
-      const status=document.getElementById('form-status-2');
-      if(!name){status.className='form-status error';status.textContent='Please enter your display name.';document.getElementById('agent-name').focus();return;}
-      if(!strategy){status.className='form-status error';status.textContent='Please select the strategy you used.';return;}
-      if(!conf){status.className='form-status error';status.textContent='Please select a confidence rating.';return;}
-      var saved=saveDebrief('2',{displayName:name,strategy:labelText(strategy),confidence:labelText(conf),notes:document.getElementById('notes').value.trim()});
-      status.removeAttribute('role');status.removeAttribute('aria-live');
-      status.className='form-status success';
-      status.textContent='Debrief submitted. Trail completed in '+fmtElapsed(elapsed)+' with '+wrongCount+' wrong book'+(wrongCount!==1?'s':'')+' opened.'+(saved?' Your answers are saved on My Progress.':' Your answers could not be saved on this device.');
-      this.querySelectorAll('input,textarea,button[type="submit"]').forEach(el=>el.disabled=true);
-      const nr=document.getElementById('next-room-box');nr.classList.add('visible');
-      focusEl(document.getElementById('next-room-heading'));
-    });
 
     // Initialize: preselect series so note placeholder shows correctly
     selectSeries(true);
     document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('fail-overlay').classList.contains('active'))switchToPractice();});
-
-    // ── Results overlay ───────────────────────────────────────────
-
-    function buildMailto(cfg) {
-      var ds   = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-      var subj = 'ScreenPath Activity Results';
-      var body = [
-        'Room ' + cfg.roomNum + ': ' + cfg.roomName,
-        ds,
-        '',
-        'Time Used: '      + cfg.used,
-        'Time Remaining: ' + cfg.left,
-        'Time Used: '      + cfg.pct + '%',
-        'Attempts: '       + cfg.attempts,
-        'Skill: '          + cfg.skill,
-        cfg.skillDetail + ': ' + cfg.skillValue
-      ].join('\n');
-      return {
-        mailto: 'mailto:?' + 'subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body),
-        plain:  body
-      };
-    }
-
-    function showResults(cfg) {
-      var rem  = Math.max(0, cfg.totalTime - cfg.elapsed);
-      var pct  = Math.min(100, Math.round((cfg.elapsed / cfg.totalTime) * 100));
-      var used = fmtResTime(cfg.elapsed);
-      var left = fmtResTime(rem);
-
-      document.getElementById('res-heading').textContent     = cfg.roomName;
-      document.getElementById('res-room-sub').textContent    = 'The School, Room ' + cfg.roomNum;
-      document.getElementById('res-time-used').textContent   = used;
-      document.getElementById('res-time-left').textContent   = left;
-      document.getElementById('res-attempts').textContent    = cfg.attempts;
-      document.getElementById('res-skill').textContent       = cfg.skill;
-      document.getElementById('res-skill-label').textContent = cfg.skillDetail + ':';
-      document.getElementById('res-skill-value').textContent = cfg.skillValue;
-      document.getElementById('res-pct').textContent         = pct + '% of allotted time used';
-
-      var mail = buildMailto({
-        roomNum: cfg.roomNum, roomName: cfg.roomName,
-        used: used, left: left, pct: pct,
-        attempts: cfg.attempts,
-        skill: cfg.skill,
-        skillDetail: cfg.skillDetail,
-        skillValue: cfg.skillValue
-      });
-
-      document.getElementById('res-email-btn').onclick = function() {
-        window.location.href = mail.mailto;
-      };
-      document.getElementById('res-copy-btn').onclick = function() {
-        var btn = document.getElementById('res-copy-btn');
-        if (navigator.clipboard) {
-          navigator.clipboard.writeText(mail.plain).then(function() {
-            btn.textContent = 'Copied';
-            setTimeout(function() { btn.textContent = 'Copy Results'; }, 2500);
-          });
-        } else {
-          var ta = document.createElement('textarea');
-          ta.value = mail.plain;
-          ta.style.cssText = 'position:fixed;left:-9999px';
-          document.body.appendChild(ta); ta.select();
-          document.execCommand('copy'); document.body.removeChild(ta);
-          btn.textContent = 'Copied';
-          setTimeout(function() { btn.textContent = 'Copy Results'; }, 2500);
-        }
-        announce('Results copied to clipboard.');
-      };
-      document.getElementById('res-skip-btn').onclick = function() { closeResults(); };
-
-      var ov = document.getElementById('results-overlay');
-      ov.removeAttribute('aria-hidden');
-      ov.classList.add('active');
-      createResParticles();
-      setTimeout(function() {
-        var h = document.getElementById('res-heading'); if (h) h.focus();
-      }, 350);
-      ov.addEventListener('keydown', resKeyHandler);
-      announce('Room complete. Your results are ready. Press Escape to dismiss or use the buttons below to share with your teacher.');
-    }
-
-
-    function closeResults(){
-      var ov = document.getElementById('results-overlay');
-      ov.classList.remove('active');
-      ov.setAttribute('aria-hidden','true');
-      ov.removeEventListener('keydown', resKeyHandler);
-      // Continue the story: the system message comes next, then the debrief
-      var b=document.getElementById('bridge-msg');
-      if(b&&b.classList.contains('visible')) focusEl(b);
-      else focusEl(document.querySelector('#room-content h1')||document.querySelector('main h1'));
-    }
-
-    function resKeyHandler(e){
-      if(e.key==='Escape'){ closeResults(); return; }
-      if(e.key!=='Tab') return;
-      var ov=document.getElementById('results-overlay');
-      var els=Array.from(ov.querySelectorAll('button:not([disabled])'));
-      if(!els.length) return;
-      var first=els[0],last=els[els.length-1];
-      if(e.shiftKey){ if(document.activeElement===first){ e.preventDefault(); last.focus(); } }
-      else { if(document.activeElement===last){ e.preventDefault(); first.focus(); } }
-    }
-
-    function fmtResTime(s){
-      var m=Math.floor(s/60),sec=s%60;
-      if(m===0) return sec+'s';
-      if(sec===0) return m+'m';
-      return m+'m '+sec+'s';
-    }
-
-    function createResParticles(){
-      var c=document.getElementById('res-particles'); if(!c)return; c.innerHTML='';
-      var cx=window.innerWidth/2,cy=window.innerHeight/2;
-      var cols=['#39d98a','#00ff88','#ffffff','#a8ffd4','#f5a623'];
-      for(var i=0;i<55;i++){
-        var p=document.createElement('div'); p.className='res-particle';
-        p.style.left=cx+'px'; p.style.top=cy+'px';
-        var a=Math.random()*Math.PI*2,d=60+Math.random()*380;
-        p.style.setProperty('--dx',Math.cos(a)*d+'px');
-        p.style.setProperty('--dy',Math.sin(a)*d+'px');
-        p.style.animationDelay=Math.random()*.5+'s';
-        p.style.background=cols[Math.floor(Math.random()*cols.length)];
-        c.appendChild(p);
-      }
-    }
-
-
 
     // ── Time up: try again in Challenge mode ─────────────────────
     // Starts the room over with a new target and a fresh clock.
@@ -1109,25 +886,6 @@
     // Move focus to an element that is not normally focusable
     function focusEl(el){ if(!el)return; el.setAttribute('tabindex','-1'); el.focus(); }
 
-    // ── Debrief answers: saved with this room's result so My Progress can show and send them ──
-    function labelText(input){ var l=input&&input.closest('label'); return l?l.textContent.replace(/\s+/g,' ').trim():''; }
-    function saveDebrief(roomKey, d){
-      try{
-        var cur=JSON.parse(localStorage.getItem('sp_school_current_session')||'null');
-        var list=null, target=null;
-        if(cur&&cur.rooms&&cur.rooms.some(function(r){return r.roomKey===roomKey;})) target=cur;
-        else{
-          list=JSON.parse(localStorage.getItem('sp_school_sessions')||'[]');
-          for(var i=list.length-1;i>=0;i--){ if(list[i].rooms&&list[i].rooms.some(function(r){return r.roomKey===roomKey;})){ target=list[i]; break; } }
-        }
-        if(!target) return false;
-        target.rooms.find(function(r){return r.roomKey===roomKey;}).debrief=d;
-        if(d.displayName) target.displayName=d.displayName;
-        if(list) localStorage.setItem('sp_school_sessions',JSON.stringify(list));
-        else localStorage.setItem('sp_school_current_session',JSON.stringify(target));
-        return true;
-      }catch(e){ return false; }
-    }
   </script>
 
 </body>
