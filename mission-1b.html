@@ -81,6 +81,7 @@
     /* Buttons */
     .btn { display:inline-block; font-family:var(--font); font-size:1rem; font-weight:600; padding:.9rem 2.5rem; border-radius:100px; border:none; cursor:pointer; letter-spacing:.02em; transition:transform .15s,box-shadow .15s,background .2s; text-decoration:none; text-align:center; }
     .btn:focus-visible { outline:3px solid var(--green); outline-offset:4px; }
+    .btn[aria-disabled="true"] { opacity:.55; cursor:default; transform:none; box-shadow:none; }
     .btn-primary { background:var(--green); color:#000; }
     .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(57,217,138,.3); }
     .btn-secondary { background:var(--surface-2); color:var(--text); border:1px solid var(--border); }
@@ -144,6 +145,13 @@
     .note-reveal-text { font-size:.98rem; color:var(--text); line-height:1.7; margin-bottom:0; }
 
     /* Code reveal */
+    .code-dialog { margin:auto; background:var(--surface); color:var(--text); border:2px solid rgba(57,217,138,.5); border-radius:var(--radius); padding:2rem; max-width:480px; width:calc(100% - 2rem); text-align:center; }
+    .code-dialog::backdrop { background:rgba(0,0,0,.8); }
+    .code-dialog h2 { margin-bottom:1rem; }
+    .code-dialog p { color:var(--text-muted); }
+    .code-dialog .code-dialog-code { color:var(--text); font-family:var(--mono); font-size:1.1rem; margin:1rem 0; }
+    .code-dialog #code-dialog-value { display:block; color:var(--green); font-size:2.6rem; font-weight:700; letter-spacing:.3em; margin-top:.4rem; }
+    .code-dialog .btn { margin-top:1rem; }
     .code-reveal { background:var(--green-dim); border:2px solid rgba(57,217,138,.5); border-radius:var(--radius); padding:2rem; text-align:center; margin-top:1.5rem; display:none; animation:noteIn .4s cubic-bezier(.34,1.56,.64,1); }
     .code-reveal.visible { display:block; }
     .code-reveal-label { font-family:var(--mono); font-size:.7rem; letter-spacing:.15em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.75rem; }
@@ -298,6 +306,17 @@
 <body>
 
   <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- Code found: pop-up with the terminal access code -->
+  <dialog id="code-dialog" class="code-dialog" aria-labelledby="code-dialog-heading" aria-describedby="code-dialog-desc">
+    <h2 id="code-dialog-heading">Inside the Back Cover</h2>
+    <div id="code-dialog-desc">
+      <p>Ms. Rivera wrote the terminal access code inside the back cover.</p>
+      <p class="code-dialog-code">Terminal access code: <span id="code-dialog-value"></span></p>
+      <p>Enter this code in the answer form to unlock the terminal.</p>
+    </div>
+    <button type="button" class="btn btn-primary" id="code-dialog-close">Close and Enter the Code</button>
+  </dialog>
 
   <!-- Fail Overlay -->
   <div id="fail-overlay" class="overlay" role="alertdialog" aria-labelledby="fail-heading" aria-describedby="fail-desc" aria-modal="true">
@@ -468,7 +487,7 @@
             <thead><tr><th scope="col">Title</th><th scope="col">Author</th><th scope="col">Genre</th><th scope="col">Status</th></tr></thead>
             <tbody id="page3-tbody"></tbody>
           </table>
-          <div class="code-reveal" id="code-reveal" role="status" aria-live="polite" aria-atomic="true">
+          <div class="code-reveal" id="code-reveal">
             <span class="code-reveal-label">Inside the Back Cover: Terminal Access Code</span>
             <span class="code-value" id="code-value"></span>
             <p class="code-note">Enter this code in the answer form below.</p>
@@ -483,11 +502,12 @@
         <span class="answer-label">Section A: Submit the Code</span>
         <h3 id="answer1-heading">What Is the Terminal Access Code?</h3>
         <p class="answer-intro">Found the code in the final book? Enter it below. The timer is still running.</p>
+        <p><button type="button" class="btn btn-secondary" id="show-code-btn">Show the Code Again</button></p>
         <form id="answer-form-1" novalidate>
           <div class="form-group">
             <label for="door-code">Terminal Access Code <span aria-hidden="true" style="color:var(--red)">*</span></label>
             <span class="field-hint" id="hint-code">Enter the four digit code written inside the back cover of the third book.</span>
-            <input type="text" id="door-code" name="door_code" required aria-required="true" aria-describedby="hint-code" placeholder="Four digit code" maxlength="6" autocomplete="off">
+            <input type="text" id="door-code" name="door_code" required aria-required="true" aria-describedby="hint-code" placeholder="Four digit code" maxlength="10" autocomplete="off">
           </div>
           <button type="submit" class="btn btn-primary">Submit Code</button>
           <div id="form-status-1" class="form-status" role="alert" aria-live="assertive"></div>
@@ -667,7 +687,8 @@
     function handleCorrect(pageNum,btn,fb){
       sfxFound();
       btn.classList.add('correct-link');btn.disabled=true;
-      fb.className='book-feedback correct-fb';fb.textContent='You found it. A note falls out from between the pages.';
+      if(pageNum===3)fb.removeAttribute('role');
+      fb.className='book-feedback correct-fb';fb.textContent=pageNum===3?'You found it. The code is inside the back cover.':'You found it. A note falls out from between the pages.';
       const chain=currentSeries;
       if(pageNum===1){
         document.getElementById('note-text-1').textContent=chain.targets[0].note;
@@ -683,9 +704,8 @@
         document.getElementById('code-value').textContent=chain.code;
         document.getElementById('code-reveal').classList.add('visible');
         currentStep=4; updateTracker();
-        announce('Terminal access code found: '+chain.code.split('').join(', ')+'. Scroll down to the answer form and enter this code.');
         document.getElementById('answer-section-1').classList.add('visible');
-        setTimeout(()=>document.getElementById('answer-section-1').scrollIntoView({behavior:'smooth'}),500);
+        setTimeout(openCodeDialog,600);
       }
     }
 
@@ -765,7 +785,7 @@
       buildTable('page1-tbody',currentSeries.targets[0],1);
       const lz=document.getElementById('library-zone');
       lz.classList.remove('library-locked');lz.removeAttribute('aria-hidden');lz.removeAttribute('inert');
-      document.getElementById('start-btn').style.display='none';
+      const sb=document.getElementById('start-btn');sb.setAttribute('aria-disabled','true');sb.textContent=practiceMode?'Started: No Time Limit':'Started: Clock Running';
       const tog=document.getElementById('sound-toggle');tog.disabled=true;tog.setAttribute('aria-disabled','true');
       sfxStart();
       if(practiceMode){
@@ -819,7 +839,7 @@
     // ── Form 1 ─────────────────────────────────────
     document.getElementById('answer-form-1').addEventListener('submit',function(e){
       e.preventDefault();if(!started||complete)return;attempts++;
-      const code=document.getElementById('door-code').value.trim();
+      const code=document.getElementById('door-code').value.replace(/\s+/g,'');
       const status=document.getElementById('form-status-1');
       if(!code){status.className='form-status error';status.textContent='Please enter the four digit code.';document.getElementById('door-code').focus();return;}
       if(code.trim()===currentSeries.code.trim()||code.trim().toUpperCase()===currentSeries.code.trim().toUpperCase()){
@@ -839,18 +859,9 @@
         localStorage.setItem('sp_school_current_session', JSON.stringify(sess2));
       } catch(e) {}
         document.getElementById('next-room-box').classList.add('visible');
-        // The narrator tells the next part of the story, then focus moves to the link for the next room
-        var submitBtn=this.querySelector('button[type="submit"]');
-        setTimeout(function(){
-          speakStory(document.getElementById('next-room-msg').textContent,function(){
-            var a=document.activeElement;
-            if(a===submitBtn||a===document.body||!a) document.querySelector('#next-room-box a').focus();
-          });
-        }, 1200);
       }
-        status.removeAttribute('role');status.removeAttribute('aria-live');
         status.className='form-status success';
-        status.textContent='Correct. Terminal access code accepted.';
+        status.textContent='Correct. Terminal code accepted. Room 3: The Computer Lab is open. The link to enter it is just below.';
         this.querySelectorAll('input').forEach(el=>el.readOnly=true);
       } else {
         sfxWrong();
@@ -895,30 +906,23 @@
 
 
 
-    // ── Narrator voice: the same voice the Play Scene button uses ──
-    function pickNarratorVoice(){
-      var vv=window.speechSynthesis?window.speechSynthesis.getVoices():[];
-      return vv.find(function(v){return v.lang.startsWith('en')&&/natural|enhanced|premium/i.test(v.name);})
-        ||vv.find(function(v){return v.lang.startsWith('en')&&/daniel|samantha|karen|google|microsoft/i.test(v.name);})
-        ||vv.find(function(v){return v.lang==='en-US';})||vv.find(function(v){return v.lang.startsWith('en');})||null;
+    // ── Code pop-up: opens when the last book is found; Show the Code Again reopens it ──
+    function openCodeDialog(){
+      var d=document.getElementById('code-dialog'); if(!d||d.open) return;
+      document.getElementById('code-dialog-value').textContent=currentSeries.code.split('').join(' ');
+      d.showModal();
+      document.getElementById('code-dialog-close').focus();
     }
-    // Ask the browser to load its voices early, so the natural voice is ready when a room is solved
-    try{ if(window.speechSynthesis) window.speechSynthesis.getVoices(); }catch(e){}
-
-    // ── Room complete: the narrator tells the next part of the story ──
-    function speakStory(text, onend){
-      var done=false; function finish(){ if(done)return; done=true; if(onend)onend(); }
-      if(!window.speechSynthesis){ finish(); return; }
-      var synth=window.speechSynthesis;
-      synth.onvoiceschanged=null; synth.cancel();
-      var u=new SpeechSynthesisUtterance(text); u.rate=0.82; u.pitch=0.88; u.volume=1.0;
-      u.onend=finish; u.onerror=finish;
-      function go(){ var v=pickNarratorVoice(); if(v)u.voice=v; synth.speak(u); }
-      if(synth.getVoices().length){ go(); return; }
-      var started=false;
-      function once(){ if(started)return; started=true; synth.removeEventListener('voiceschanged',once); go(); }
-      synth.addEventListener('voiceschanged',once); setTimeout(once,800);
+    function closeCodeDialog(){
+      var d=document.getElementById('code-dialog'); if(d.open) d.close();
     }
+    document.getElementById('code-dialog-close').addEventListener('click',closeCodeDialog);
+    // Closing by button or Escape: go straight to the code field
+    document.getElementById('code-dialog').addEventListener('close',function(){
+      var c=document.getElementById('door-code'); if(c&&!c.readOnly) c.focus();
+      else document.getElementById('show-code-btn').focus();
+    });
+    document.getElementById('show-code-btn').addEventListener('click',openCodeDialog);
   </script>
 
 </body>

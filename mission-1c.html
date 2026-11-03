@@ -82,6 +82,7 @@
     /* Buttons */
     .btn { display:inline-block; font-family:var(--font); font-size:1rem; font-weight:600; padding:.9rem 2.5rem; border-radius:100px; border:none; cursor:pointer; letter-spacing:.02em; transition:transform .15s,box-shadow .15s,background .2s; text-decoration:none; text-align:center; }
     .btn:focus-visible { outline:3px solid var(--green); outline-offset:4px; }
+    .btn[aria-disabled="true"] { opacity:.55; cursor:default; transform:none; box-shadow:none; }
     .btn-primary { background:var(--green); color:#000; }
     .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(57,217,138,.3); }
     .fail-buttons { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
@@ -586,7 +587,7 @@
       started=true;
       const ct=document.getElementById('computer-terminal');
       ct.classList.remove('terminal-locked');ct.removeAttribute('aria-hidden');ct.removeAttribute('inert');
-      document.getElementById('start-btn').style.display='none';
+      const sb=document.getElementById('start-btn');sb.setAttribute('aria-disabled','true');sb.textContent=practiceMode?'Started: No Time Limit':'Started: Clock Running';
       const tog=document.getElementById('sound-toggle');tog.disabled=true;tog.setAttribute('aria-disabled','true');
       sfxStart();
       if(practiceMode){

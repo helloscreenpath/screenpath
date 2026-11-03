@@ -103,6 +103,7 @@
     /* Buttons */
     .btn { display:inline-block; font-family:var(--font); font-size:1rem; font-weight:600; padding:.9rem 2.5rem; border-radius:100px; border:none; cursor:pointer; letter-spacing:.02em; transition:transform .15s,box-shadow .15s,background .2s; text-decoration:none; text-align:center; }
     .btn:focus-visible { outline:3px solid var(--green); outline-offset:4px; }
+    .btn[aria-disabled="true"] { opacity:.55; cursor:default; transform:none; box-shadow:none; }
     .btn-primary { background:var(--green); color:#000; }
     .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(57,217,138,.3); }
     .btn-secondary { background:var(--surface-2); color:var(--text); border:1px solid var(--border); }
@@ -647,7 +648,7 @@
       dc.removeAttribute('aria-hidden');
       dc.removeAttribute('inert');
       document.getElementById('answer-section-1').classList.add('visible');
-      document.getElementById('start-btn').style.display='none';
+      const sb=document.getElementById('start-btn');sb.setAttribute('aria-disabled','true');sb.textContent=practiceMode?'Started: No Time Limit':'Started: Clock Running';
       const tog=document.getElementById('sound-toggle');tog.disabled=true;tog.setAttribute('aria-disabled','true');
       sfxStart();
       if(practiceMode){
@@ -735,18 +736,9 @@
         localStorage.setItem('sp_school_current_session', JSON.stringify(sess1));
       } catch(e) {}
         document.getElementById('next-room-box').classList.add('visible');
-        // The narrator tells the next part of the story, then focus moves to the link for the next room
-        var submitBtn=this.querySelector('button[type="submit"]');
-        setTimeout(function(){
-          speakStory(document.getElementById('next-room-msg').textContent,function(){
-            var a=document.activeElement;
-            if(a===submitBtn||a===document.body||!a) document.querySelector('#next-room-box a').focus();
-          });
-        }, 1200);
       }
-        status.removeAttribute('role');status.removeAttribute('aria-live');
         status.className='form-status success';
-        status.textContent='Correct. Name and access code confirmed.';
+        status.textContent='Correct. Access code accepted, and the corridor door is unlocked. Room 2: The Library is open. The link to enter it is just below.';
         this.querySelectorAll('input').forEach(el=>el.readOnly=true);
       } else {
         sfxError();
@@ -819,31 +811,6 @@
     function focusEl(el){ if(!el)return; el.setAttribute('tabindex','-1'); el.focus(); }
 
 
-
-    // ── Narrator voice: the same voice the Play Scene button uses ──
-    function pickNarratorVoice(){
-      var vv=window.speechSynthesis?window.speechSynthesis.getVoices():[];
-      return vv.find(function(v){return v.lang.startsWith('en')&&/natural|enhanced|premium/i.test(v.name);})
-        ||vv.find(function(v){return v.lang.startsWith('en')&&/daniel|samantha|karen|google|microsoft/i.test(v.name);})
-        ||vv.find(function(v){return v.lang==='en-US';})||vv.find(function(v){return v.lang.startsWith('en');})||null;
-    }
-    // Ask the browser to load its voices early, so the natural voice is ready when a room is solved
-    try{ if(window.speechSynthesis) window.speechSynthesis.getVoices(); }catch(e){}
-
-    // ── Room complete: the narrator tells the next part of the story ──
-    function speakStory(text, onend){
-      var done=false; function finish(){ if(done)return; done=true; if(onend)onend(); }
-      if(!window.speechSynthesis){ finish(); return; }
-      var synth=window.speechSynthesis;
-      synth.onvoiceschanged=null; synth.cancel();
-      var u=new SpeechSynthesisUtterance(text); u.rate=0.82; u.pitch=0.88; u.volume=1.0;
-      u.onend=finish; u.onerror=finish;
-      function go(){ var v=pickNarratorVoice(); if(v)u.voice=v; synth.speak(u); }
-      if(synth.getVoices().length){ go(); return; }
-      var started=false;
-      function once(){ if(started)return; started=true; synth.removeEventListener('voiceschanged',once); go(); }
-      synth.addEventListener('voiceschanged',once); setTimeout(once,800);
-    }
   </script>
 
 </body>
