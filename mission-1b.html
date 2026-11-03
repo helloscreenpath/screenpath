@@ -498,7 +498,7 @@
       <div class="next-room-box" id="next-room-box">
         <span class="next-room-label" aria-hidden="true">// Room 2 Complete</span>
         <h3 id="next-room-heading">Room 3 is Now Unlocked</h3>
-        <p class="next-room-msg">The check-in terminal reads: "Both codes accepted. Student verification in progress. To complete identity confirmation, proceed to the computer lab at the end of the main corridor. The after-hours emergency alert system terminal is active. Submit the student identity form to authorize the exit sequence."</p>
+        <p class="next-room-msg" id="next-room-msg">Code accepted. The check-in terminal flashes green and prints one last instruction: verify your identity at the computer lab at the end of the main corridor, and the exit will be authorized. Choose Enter Room 3: The Computer Lab to keep going.</p>
         <a href="mission-1c.html" class="btn btn-primary">Enter Room 3: The Computer Lab</a>
       </div>
 
@@ -840,6 +840,8 @@
       } catch(e) {}
         document.getElementById('next-room-box').classList.add('visible');
         setTimeout(function(){ focusEl(document.getElementById('next-room-heading')); }, 100);
+        // After the screen reader reads the heading, the narrator tells the story and points to the next room
+        setTimeout(function(){ speakStory(document.getElementById('next-room-msg').textContent); }, 1500);
       }
         status.removeAttribute('role');status.removeAttribute('aria-live');
         status.className='form-status success';
@@ -886,6 +888,19 @@
     // Move focus to an element that is not normally focusable
     function focusEl(el){ if(!el)return; el.setAttribute('tabindex','-1'); el.focus(); }
 
+
+    // ── Room complete: the narrator tells the next part of the story ──
+    function speakStory(text){
+      if(!window.speechSynthesis) return;
+      try{
+        window.speechSynthesis.cancel();
+        var u=new SpeechSynthesisUtterance(text); u.rate=0.82; u.pitch=0.88; u.volume=1.0;
+        var vv=window.speechSynthesis.getVoices();
+        var v=vv.find(function(v){return v.lang.startsWith('en')&&/natural|enhanced|premium/i.test(v.name);})||vv.find(function(v){return v.lang==='en-US';})||null;
+        if(v) u.voice=v;
+        window.speechSynthesis.speak(u);
+      }catch(e){}
+    }
   </script>
 
 </body>
