@@ -730,7 +730,7 @@
       function applyVoice(){const vv=window.speechSynthesis.getVoices();const v=vv.find(v=>v.lang.startsWith('en')&&/natural|enhanced|premium/i.test(v.name))||vv.find(v=>v.lang.startsWith('en')&&/daniel|samantha|karen|google|microsoft/i.test(v.name))||vv.find(v=>v.lang==='en-US')||vv.find(v=>v.lang.startsWith('en'))||null;if(v)narUtterance.voice=v;}
       const vv=window.speechSynthesis.getVoices();
       if(vv.length>0){applyVoice();window.speechSynthesis.speak(narUtterance);}
-      else{window.speechSynthesis.onvoiceschanged=()=>{applyVoice();window.speechSynthesis.speak(narUtterance);window.speechSynthesis.onvoiceschanged=null;};setTimeout(()=>{if(!narSpeaking){applyVoice();window.speechSynthesis.speak(narUtterance);}},500);}
+      else{let spoke=false;const go=()=>{if(spoke)return;spoke=true;window.speechSynthesis.onvoiceschanged=null;applyVoice();window.speechSynthesis.speak(narUtterance);};window.speechSynthesis.onvoiceschanged=go;setTimeout(go,500);}
       narUtterance.onstart=()=>{narSpeaking=true;setNarBtn(true);updateNarStatus('Playing...');};
       narUtterance.onend=()=>{narSpeaking=false;setNarBtn(false);updateNarStatus('Done.');setTimeout(()=>updateNarStatus(''),3000);};
       narUtterance.onerror=()=>{narSpeaking=false;setNarBtn(false);updateNarStatus('');};
@@ -818,7 +818,7 @@
 
     // ── Form 1 ─────────────────────────────────────
     document.getElementById('answer-form-1').addEventListener('submit',function(e){
-      e.preventDefault();if(!started)return;attempts++;
+      e.preventDefault();if(!started||complete)return;attempts++;
       const code=document.getElementById('door-code').value.trim();
       const status=document.getElementById('form-status-1');
       if(!code){status.className='form-status error';status.textContent='Please enter the four digit code.';document.getElementById('door-code').focus();return;}
@@ -839,14 +839,19 @@
         localStorage.setItem('sp_school_current_session', JSON.stringify(sess2));
       } catch(e) {}
         document.getElementById('next-room-box').classList.add('visible');
-        setTimeout(function(){ focusEl(document.getElementById('next-room-heading')); }, 100);
-        // After the screen reader reads the heading, the narrator tells the story and points to the next room
-        setTimeout(function(){ speakStory(document.getElementById('next-room-msg').textContent); }, 1500);
+        // The narrator tells the next part of the story, then focus moves to the link for the next room
+        var submitBtn=this.querySelector('button[type="submit"]');
+        setTimeout(function(){
+          speakStory(document.getElementById('next-room-msg').textContent,function(){
+            var a=document.activeElement;
+            if(a===submitBtn||a===document.body||!a) document.querySelector('#next-room-box a').focus();
+          });
+        }, 1200);
       }
         status.removeAttribute('role');status.removeAttribute('aria-live');
         status.className='form-status success';
         status.textContent='Correct. Terminal access code accepted.';
-        this.querySelectorAll('input,button[type="submit"]').forEach(el=>el.disabled=true);
+        this.querySelectorAll('input').forEach(el=>el.readOnly=true);
       } else {
         sfxWrong();
         status.className='form-status error';
@@ -889,17 +894,30 @@
     function focusEl(el){ if(!el)return; el.setAttribute('tabindex','-1'); el.focus(); }
 
 
+
+    // ── Narrator voice: the same voice the Play Scene button uses ──
+    function pickNarratorVoice(){
+      var vv=window.speechSynthesis?window.speechSynthesis.getVoices():[];
+      return vv.find(function(v){return v.lang.startsWith('en')&&/natural|enhanced|premium/i.test(v.name);})
+        ||vv.find(function(v){return v.lang.startsWith('en')&&/daniel|samantha|karen|google|microsoft/i.test(v.name);})
+        ||vv.find(function(v){return v.lang==='en-US';})||vv.find(function(v){return v.lang.startsWith('en');})||null;
+    }
+    // Ask the browser to load its voices early, so the natural voice is ready when a room is solved
+    try{ if(window.speechSynthesis) window.speechSynthesis.getVoices(); }catch(e){}
+
     // ── Room complete: the narrator tells the next part of the story ──
-    function speakStory(text){
-      if(!window.speechSynthesis) return;
-      try{
-        window.speechSynthesis.cancel();
-        var u=new SpeechSynthesisUtterance(text); u.rate=0.82; u.pitch=0.88; u.volume=1.0;
-        var vv=window.speechSynthesis.getVoices();
-        var v=vv.find(function(v){return v.lang.startsWith('en')&&/natural|enhanced|premium/i.test(v.name);})||vv.find(function(v){return v.lang==='en-US';})||null;
-        if(v) u.voice=v;
-        window.speechSynthesis.speak(u);
-      }catch(e){}
+    function speakStory(text, onend){
+      var done=false; function finish(){ if(done)return; done=true; if(onend)onend(); }
+      if(!window.speechSynthesis){ finish(); return; }
+      var synth=window.speechSynthesis;
+      synth.onvoiceschanged=null; synth.cancel();
+      var u=new SpeechSynthesisUtterance(text); u.rate=0.82; u.pitch=0.88; u.volume=1.0;
+      u.onend=finish; u.onerror=finish;
+      function go(){ var v=pickNarratorVoice(); if(v)u.voice=v; synth.speak(u); }
+      if(synth.getVoices().length){ go(); return; }
+      var started=false;
+      function once(){ if(started)return; started=true; synth.removeEventListener('voiceschanged',once); go(); }
+      synth.addEventListener('voiceschanged',once); setTimeout(once,800);
     }
   </script>
 

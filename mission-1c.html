@@ -547,7 +547,7 @@
       function applyVoice(){const vv=window.speechSynthesis.getVoices();const v=vv.find(v=>v.lang.startsWith('en')&&/natural|enhanced|premium/i.test(v.name))||vv.find(v=>v.lang.startsWith('en')&&/daniel|samantha|karen|google|microsoft/i.test(v.name))||vv.find(v=>v.lang==='en-US')||vv.find(v=>v.lang.startsWith('en'))||null;if(v)narUtterance.voice=v;}
       const vv=window.speechSynthesis.getVoices();
       if(vv.length>0){applyVoice();window.speechSynthesis.speak(narUtterance);}
-      else{window.speechSynthesis.onvoiceschanged=()=>{applyVoice();window.speechSynthesis.speak(narUtterance);window.speechSynthesis.onvoiceschanged=null;};setTimeout(()=>{if(!narSpeaking){applyVoice();window.speechSynthesis.speak(narUtterance);}},500);}
+      else{let spoke=false;const go=()=>{if(spoke)return;spoke=true;window.speechSynthesis.onvoiceschanged=null;applyVoice();window.speechSynthesis.speak(narUtterance);};window.speechSynthesis.onvoiceschanged=go;setTimeout(go,500);}
       narUtterance.onstart=()=>{narSpeaking=true;setNarBtn(true);updateNarStatus('Playing...');};
       narUtterance.onend=()=>{narSpeaking=false;setNarBtn(false);updateNarStatus('Done.');setTimeout(()=>updateNarStatus(''),3000);};
       narUtterance.onerror=()=>{narSpeaking=false;setNarBtn(false);updateNarStatus('');};
@@ -646,7 +646,7 @@
 
     // ── Form submission ────────────────────────────
     document.getElementById('help-form').addEventListener('submit',function(e){
-      e.preventDefault();if(!started)return;attempts++;clrAll();
+      e.preventDefault();if(!started||complete)return;attempts++;clrAll();
       const p=currentProfile;
       const status=document.getElementById('form-status');
       let errors=[],firstId=null;
@@ -681,13 +681,12 @@
         try { localStorage.setItem('sp_room3_complete','1'); } catch(e) {}
         saveCompletedSession();
         document.getElementById('next-room-box').classList.add('visible');
-        setTimeout(function(){ focusEl(document.getElementById('next-room-heading')); }, 100);
         playEscapeScene();
       }
       status.removeAttribute('role');status.removeAttribute('aria-live');
       status.className='form-status success';
       status.textContent='Identity verified. Emergency alert sent.';
-      this.querySelectorAll('input,button[type="submit"]').forEach(el=>el.disabled=true);
+      this.querySelectorAll('input').forEach(el=>el.readOnly=true);
     });
 
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('fail-overlay').classList.contains('active'))switchToPractice();});
@@ -817,9 +816,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElement
           if (window.speechSynthesis) {
             var u = new SpeechSynthesisUtterance(p.textContent);
             u.rate = 0.78; u.pitch = 0.88;
-            var vv = window.speechSynthesis.getVoices();
-            var v  = vv.find(function(v){ return v.lang.startsWith('en') && /natural|enhanced|premium/i.test(v.name); })
-                  || vv.find(function(v){ return v.lang === 'en-US'; }) || null;
+            var v = pickNarratorVoice();
             if (v) u.voice = v;
             window.speechSynthesis.speak(u);
           }
@@ -963,6 +960,17 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElement
       setTimeout(function(){ var h=document.getElementById('res-heading'); if(h)h.focus(); },350);
       ov.addEventListener('keydown', resKeyHandler);
     }
+
+    // ── Narrator voice: the same voice the Play Scene button uses ──
+    function pickNarratorVoice(){
+      var vv=window.speechSynthesis?window.speechSynthesis.getVoices():[];
+      return vv.find(function(v){return v.lang.startsWith('en')&&/natural|enhanced|premium/i.test(v.name);})
+        ||vv.find(function(v){return v.lang.startsWith('en')&&/daniel|samantha|karen|google|microsoft/i.test(v.name);})
+        ||vv.find(function(v){return v.lang==='en-US';})||vv.find(function(v){return v.lang.startsWith('en');})||null;
+    }
+    // Ask the browser to load its voices early, so the natural voice is ready when a room is solved
+    try{ if(window.speechSynthesis) window.speechSynthesis.getVoices(); }catch(e){}
+
   </script>
 
 </body>
