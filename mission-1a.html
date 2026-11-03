@@ -840,9 +840,10 @@
       if(!name){status.className='form-status error';status.textContent='Please enter your display name.';document.getElementById('agent-name').focus();return;}
       if(!strategy){status.className='form-status error';status.textContent='Please select the strategy you used.';return;}
       if(!conf){status.className='form-status error';status.textContent='Please select a confidence rating.';return;}
+      var saved=saveDebrief('1',{displayName:name,strategy:labelText(strategy),confidence:labelText(conf),notes:document.getElementById('notes').value.trim()});
       status.removeAttribute('role');status.removeAttribute('aria-live');
       status.className='form-status success';
-      status.textContent='Debrief submitted. Found in '+fmtElapsed(elapsed)+' with '+attempts+' attempt'+(attempts!==1?'s':'')+'.';
+      status.textContent='Debrief submitted. Found in '+fmtElapsed(elapsed)+' with '+attempts+' attempt'+(attempts!==1?'s':'')+'.'+(saved?' Your answers are saved on My Progress.':' Your answers could not be saved on this device.');
       this.querySelectorAll('input,textarea,button[type="submit"]').forEach(el=>el.disabled=true);
       // Unlock debrief section and next room box
       const nr=document.getElementById('next-room-box');nr.classList.add('visible');
@@ -1033,6 +1034,26 @@
     })();
     // Move focus to an element that is not normally focusable
     function focusEl(el){ if(!el)return; el.setAttribute('tabindex','-1'); el.focus(); }
+
+    // ── Debrief answers: saved with this room's result so My Progress can show and send them ──
+    function labelText(input){ var l=input&&input.closest('label'); return l?l.textContent.replace(/\s+/g,' ').trim():''; }
+    function saveDebrief(roomKey, d){
+      try{
+        var cur=JSON.parse(localStorage.getItem('sp_school_current_session')||'null');
+        var list=null, target=null;
+        if(cur&&cur.rooms&&cur.rooms.some(function(r){return r.roomKey===roomKey;})) target=cur;
+        else{
+          list=JSON.parse(localStorage.getItem('sp_school_sessions')||'[]');
+          for(var i=list.length-1;i>=0;i--){ if(list[i].rooms&&list[i].rooms.some(function(r){return r.roomKey===roomKey;})){ target=list[i]; break; } }
+        }
+        if(!target) return false;
+        target.rooms.find(function(r){return r.roomKey===roomKey;}).debrief=d;
+        if(d.displayName) target.displayName=d.displayName;
+        if(list) localStorage.setItem('sp_school_sessions',JSON.stringify(list));
+        else localStorage.setItem('sp_school_current_session',JSON.stringify(target));
+        return true;
+      }catch(e){ return false; }
+    }
   </script>
 
 </body>
