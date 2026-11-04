@@ -82,6 +82,9 @@
     .btn { display:inline-block; font-family:var(--font); font-size:1rem; font-weight:600; padding:.9rem 2.5rem; border-radius:100px; border:none; cursor:pointer; letter-spacing:.02em; transition:transform .15s,box-shadow .15s,background .2s; text-decoration:none; text-align:center; }
     .btn:focus-visible { outline:3px solid var(--green); outline-offset:4px; }
     .btn[aria-disabled="true"] { opacity:.55; cursor:default; transform:none; box-shadow:none; }
+    .hint-area { margin-top:1.25rem; }
+    .hint-area[hidden] { display:none; }
+    .hint-text p { background:var(--surface-2); border:1px solid var(--border); border-left:3px solid var(--amber); border-radius:8px; padding:.9rem 1.1rem; margin:.75rem 0 0; font-size:.95rem; color:var(--text); text-align:left; }
     .btn-primary { background:var(--green); color:#000; }
     .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(57,217,138,.3); }
     .btn-secondary { background:var(--surface-2); color:var(--text); border:1px solid var(--border); }
@@ -376,6 +379,11 @@
         <span class="narrate-status" id="narrate-status" role="status" aria-live="polite" aria-atomic="true"></span>
       </div>
 
+      <div class="skill-focus">
+        <span class="skill-focus-label">Screen Reader Skill Focus</span>
+        <p>Links and tables. Each shelf is a table with columns for title, author, genre, and status. Reading a whole row before you act tells you which book you are on. Some rows have a link to open a display copy, but only one book on each shelf belongs to Ms. Rivera's series.</p>
+      </div>
+
       <!-- Librarian note, revealed when the timer starts -->
       <div class="librarian-note" id="librarian-note-box">
         <span class="librarian-note-label" aria-hidden="true">// Note on the Circulation Desk</span>
@@ -419,6 +427,11 @@
           <div class="step-pip" id="pip-3" aria-hidden="true">3</div>
           <span class="step-label" id="step-label">Step 1 of 3: Fiction Shelf</span>
         </div>
+
+        <div class="hint-area" id="hint-area" hidden>
+            <button type="button" class="btn btn-secondary" id="hint-btn">Get a Hint</button>
+            <div class="hint-text" id="hint-text" role="status" aria-live="polite"></div>
+          </div>
 
         <!-- Page 1: Fiction Shelf -->
         <div id="library-page-1" class="library-page active">
@@ -712,8 +725,9 @@
     function handleWrong(btn,fb){
       wrongCount++;sfxWrong();
       btn.classList.add('wrong-link');btn.disabled=true;
-      fb.className='book-feedback wrong';fb.textContent='That is not the right book. Check the series reminder at the top of the page and read the Title column carefully before trying again.';
-      announce('Wrong book. That is not part of Ms. Rivera\'s series. Check the series reminder and read the Title column carefully.');
+      var hintNote=noteMiss();
+      fb.className='book-feedback wrong';fb.textContent='That is not the right book. Check the series reminder at the top of the page and read the Title column carefully before trying again.'+hintNote;
+      announce('Wrong book. That is not part of Ms. Rivera\'s series. Check the series reminder and read the Title column carefully.'+hintNote);
     }
 
     function showPage(num){
@@ -855,7 +869,7 @@
         if (!sess2.workDates) sess2.workDates = [];
         if (sess2.workDates.indexOf(today2)===-1) sess2.workDates.push(today2);
         sess2.rooms = (sess2.rooms||[]).filter(function(r){return r.roomKey!=='2';});
-        sess2.rooms.push({roomKey:'2',dateCompleted:today2,attempts:attempts,timeUsed:elapsed,timeAllowed:TOTAL,pct:pct2});
+        sess2.rooms.push({roomKey:'2',dateCompleted:today2,attempts:attempts,timeUsed:elapsed,timeAllowed:TOTAL,pct:pct2,hints:hintsUsed});
         localStorage.setItem('sp_school_current_session', JSON.stringify(sess2));
       } catch(e) {}
         document.getElementById('next-room-box').classList.add('visible');
@@ -866,7 +880,7 @@
       } else {
         sfxWrong();
         status.className='form-status error';
-        status.textContent='That code did not work. Go back to the final book and check the number again.';
+        status.textContent='That code did not work. Go back to the final book and check the number again.'+noteMiss();
         document.getElementById('door-code').focus();
       }
     });
@@ -923,6 +937,29 @@
       else document.getElementById('show-code-btn').focus();
     });
     document.getElementById('show-code-btn').addEventListener('click',openCodeDialog);
+
+    // ── Graduated hints: offered after two misses, they teach the strategy, not the answer ──
+    var HINTS=[
+        'Use your screen reader\'s table commands to move down the Title column one row at a time. Listen for the series name or the author before you open anything.',
+        'When you hear a book from the series, move across that row to the Status column. Activate the display copy link in that row to open the book.'
+    ];
+    var hintsUsed=0, misses=0;
+    // Counts a miss. Returns the sentence to add to the message once a hint is available.
+    function noteMiss(){
+      misses++;
+      if(misses<2||hintsUsed>=HINTS.length) return '';
+      document.getElementById('hint-area').hidden=false;
+      return ' A hint is available just above the shelf table.';
+    }
+    document.getElementById('hint-btn').addEventListener('click',function(){
+      if(hintsUsed>=HINTS.length) return;
+      var p=document.createElement('p');
+      p.textContent='Hint '+(hintsUsed+1)+': '+HINTS[hintsUsed];
+      document.getElementById('hint-text').appendChild(p);
+      hintsUsed++;
+      if(hintsUsed<HINTS.length) this.textContent='Get Another Hint';
+      else { this.textContent='No More Hints'; this.setAttribute('aria-disabled','true'); }
+    });
   </script>
 
 </body>

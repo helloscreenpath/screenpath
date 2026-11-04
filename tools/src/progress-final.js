@@ -122,6 +122,7 @@
           '<th scope="col">Skill</th>' +
           '<th scope="col">Date Completed</th>' +
           '<th scope="col">Attempts</th>' +
+          '<th scope="col">Hints</th>' +
           '<th scope="col">Time Used</th>' +
           '<th scope="col">Time Allowed</th>' +
           '<th scope="col">Used</th>' +
@@ -137,6 +138,7 @@
             '<td class="td-skill">' + rm.skill + '</td>' +
             '<td>' + (roomData ? fmtDate(roomData.dateCompleted) : 'Not yet') + '</td>' +
             '<td class="td-attempts">' + (roomData ? roomData.attempts : 'Not yet') + '</td>' +
+            '<td class="td-attempts">' + (roomData ? (roomData.hints != null ? roomData.hints : 'Not recorded') : 'Not yet') + '</td>' +
             '<td class="td-time">' + (roomData ? fmtTime(roomData.timeUsed) : 'Not yet') + '</td>' +
             '<td class="td-time">' + fmtTime(rm.timeAllowed) + '</td>' +
             '<td class="td-pct">' + (roomData ? roomData.pct + '%' : 'Not yet') + '</td>';
@@ -206,7 +208,7 @@
         var r = rooms.find(function(x){ return x.roomKey===rm.key; });
         if (r) {
           lines.push('Room ' + rm.key + ', ' + rm.name + ', ' + rm.skill);
-          lines.push('Completed: ' + fmtDate(r.dateCompleted) + ', Attempts: ' + r.attempts + ', Time: ' + fmtTime(r.timeUsed) + ' of ' + fmtTime(rm.timeAllowed) + ', ' + r.pct + '%');
+          lines.push('Completed: ' + fmtDate(r.dateCompleted) + ', Attempts: ' + r.attempts + (r.hints != null ? ', Hints: ' + r.hints : '') + ', Time: ' + fmtTime(r.timeUsed) + ' of ' + fmtTime(rm.timeAllowed) + ', ' + r.pct + '%');
           lines.push('');
         }
       });

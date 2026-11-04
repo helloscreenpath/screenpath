@@ -83,6 +83,9 @@
     .btn { display:inline-block; font-family:var(--font); font-size:1rem; font-weight:600; padding:.9rem 2.5rem; border-radius:100px; border:none; cursor:pointer; letter-spacing:.02em; transition:transform .15s,box-shadow .15s,background .2s; text-decoration:none; text-align:center; }
     .btn:focus-visible { outline:3px solid var(--green); outline-offset:4px; }
     .btn[aria-disabled="true"] { opacity:.55; cursor:default; transform:none; box-shadow:none; }
+    .hint-area { margin-top:1.25rem; }
+    .hint-area[hidden] { display:none; }
+    .hint-text p { background:var(--surface-2); border:1px solid var(--border); border-left:3px solid var(--amber); border-radius:8px; padding:.9rem 1.1rem; margin:.75rem 0 0; font-size:.95rem; color:var(--text); text-align:left; }
     .btn-primary { background:var(--green); color:#000; }
     .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(57,217,138,.3); }
     .fail-buttons { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
@@ -377,6 +380,11 @@
         <span class="narrate-status" id="narrate-status" role="status" aria-live="polite" aria-atomic="true"></span>
       </div>
 
+      <div class="skill-focus">
+        <span class="skill-focus-label">Screen Reader Skill Focus</span>
+        <p>Forms. A form is a set of edit fields, and each one has a label. Moving from field to field and listening to each label before you type keeps every answer in the right place.</p>
+      </div>
+
       <!-- Student profile box -->
       <div class="profile-box">
         <span class="profile-box-label" aria-hidden="true">// Your Student Information</span>
@@ -419,7 +427,7 @@
           <span aria-hidden="true">// WESTLAKE MIDDLE SCHOOL AFTER-HOURS EMERGENCY ALERT SYSTEM</span>
           <span class="terminal-status" aria-label="Session active">● Session Active</span>
         </div>
-        <p class="terminal-intro">You are connected to the after-hours emergency alert system. Fill out every field below using your student information. When you submit, an automated alert will go directly to the principal and district security. Navigate from field to field, enter each value carefully, and press Submit when all five fields are complete.</p>
+        <p class="terminal-intro">You are connected to the after-hours emergency alert system. Fill out every field below using your student information. When you submit, an automated alert will go directly to the principal and district security. Press Submit when all five fields are complete.</p>
 
         <!-- Progress indicator -->
         <div class="progress-row" role="status" aria-live="polite" aria-atomic="true" id="progress-indicator">
@@ -476,6 +484,10 @@
             <p style="font-size:.88rem;color:var(--text-muted);margin-bottom:1.25rem;">Make sure every field is filled in before you submit. Errors will be shown next to the field that needs correcting.</p>
             <button type="submit" class="btn btn-primary">Submit: Send Emergency Alert</button>
             <div id="form-status" class="form-status" role="alert" aria-live="assertive"></div>
+            <div class="hint-area" id="hint-area" hidden>
+            <button type="button" class="btn btn-secondary" id="hint-btn">Get a Hint</button>
+            <div class="hint-text" id="hint-text" role="status" aria-live="polite"></div>
+          </div>
           </div>
 
         </form>
@@ -670,7 +682,7 @@
       if(errors.length>0){
         sfxError();
         status.className='form-status error';
-        status.textContent=errors.length+' field'+(errors.length!==1?'s need':' needs')+' correcting: '+errors.join(', ')+'. Check each one against your student information and resubmit.';
+        status.textContent=errors.length+' field'+(errors.length!==1?'s need':' needs')+' correcting: '+errors.join(', ')+'. Check each one against your student information and resubmit.'+noteMiss();
         if(firstId)setTimeout(()=>{const el=document.getElementById(firstId);if(el)el.focus();},100);
         return;
       }
@@ -842,7 +854,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElement
         sess.endDate = today;
         var pct3 = Math.min(100, Math.round((elapsed / TOTAL) * 100));
         sess.rooms = (sess.rooms||[]).filter(function(r){ return r.roomKey !== '3'; });
-        sess.rooms.push({ roomKey:'3', dateCompleted:today, attempts:attempts, timeUsed:elapsed, timeAllowed:TOTAL, pct:pct3 });
+        sess.rooms.push({ roomKey:'3', dateCompleted:today, attempts:attempts, timeUsed:elapsed, timeAllowed:TOTAL, pct:pct3, hints:hintsUsed });
         // Save to sessions array
         var sessions = JSON.parse(localStorage.getItem('sp_school_sessions') || '[]');
         sessions.push(sess);
@@ -924,7 +936,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElement
       var lines=[], total=0;
       meta.forEach(function(m){
         var r=sess&&sess.rooms?sess.rooms.find(function(x){return x.roomKey===m[0];}):null;
-        if(r){ total+=r.timeUsed||0; lines.push({key:'Room '+m[0]+', '+m[1], val:fmtElapsed(r.timeUsed||0)+', '+r.attempts+' attempt'+(r.attempts!==1?'s':'')}); }
+        if(r){ total+=r.timeUsed||0; lines.push({key:'Room '+m[0]+', '+m[1], val:fmtElapsed(r.timeUsed||0)+', '+r.attempts+' attempt'+(r.attempts!==1?'s':'')+(r.hints!=null?', '+r.hints+' hint'+(r.hints!==1?'s':''):'')}); }
         else lines.push({key:'Room '+m[0]+', '+m[1], val:'Not recorded'});
       });
       lines.push({key:'Total time', val:fmtElapsed(total)});
@@ -972,6 +984,29 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElement
     // Ask the browser to load its voices early, so the natural voice is ready when a room is solved
     try{ if(window.speechSynthesis) window.speechSynthesis.getVoices(); }catch(e){}
 
+
+    // ── Graduated hints: offered after two misses, they teach the strategy, not the answer ──
+    var HINTS=[
+        'Use your screen reader\'s command to move to the next form field. Listen to each label and its number, then type the matching item from your student information.',
+        'Before you submit, move back through the fields one at a time and listen to what you typed in each one. Fix any field that does not match exactly, including any letters and dashes.'
+    ];
+    var hintsUsed=0, misses=0;
+    // Counts a miss. Returns the sentence to add to the message once a hint is available.
+    function noteMiss(){
+      misses++;
+      if(misses<2||hintsUsed>=HINTS.length) return '';
+      document.getElementById('hint-area').hidden=false;
+      return ' A hint is available below the Submit button.';
+    }
+    document.getElementById('hint-btn').addEventListener('click',function(){
+      if(hintsUsed>=HINTS.length) return;
+      var p=document.createElement('p');
+      p.textContent='Hint '+(hintsUsed+1)+': '+HINTS[hintsUsed];
+      document.getElementById('hint-text').appendChild(p);
+      hintsUsed++;
+      if(hintsUsed<HINTS.length) this.textContent='Get Another Hint';
+      else { this.textContent='No More Hints'; this.setAttribute('aria-disabled','true'); }
+    });
   </script>
 
 </body>

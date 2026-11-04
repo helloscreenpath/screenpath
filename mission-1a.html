@@ -104,6 +104,9 @@
     .btn { display:inline-block; font-family:var(--font); font-size:1rem; font-weight:600; padding:.9rem 2.5rem; border-radius:100px; border:none; cursor:pointer; letter-spacing:.02em; transition:transform .15s,box-shadow .15s,background .2s; text-decoration:none; text-align:center; }
     .btn:focus-visible { outline:3px solid var(--green); outline-offset:4px; }
     .btn[aria-disabled="true"] { opacity:.55; cursor:default; transform:none; box-shadow:none; }
+    .hint-area { margin-top:1.25rem; }
+    .hint-area[hidden] { display:none; }
+    .hint-text p { background:var(--surface-2); border:1px solid var(--border); border-left:3px solid var(--amber); border-radius:8px; padding:.9rem 1.1rem; margin:.75rem 0 0; font-size:.95rem; color:var(--text); text-align:left; }
     .btn-primary { background:var(--green); color:#000; }
     .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(57,217,138,.3); }
     .btn-secondary { background:var(--surface-2); color:var(--text); border:1px solid var(--border); }
@@ -380,6 +383,11 @@
         </button>
         <span class="narrate-status" id="narrate-status" role="status" aria-live="polite" aria-atomic="true"></span>
       </div>
+
+      <div class="skill-focus">
+        <span class="skill-focus-label">Screen Reader Skill Focus</span>
+        <p>Headings. Websites use heading levels like an outline. In this directory, each department is a level 3 heading, and each job title inside it is a level 4 heading. Moving by heading level lets you skip past everything in between instead of reading line by line.</p>
+      </div>
     </div>
 
     <!-- Section 2: The Directory -->
@@ -419,7 +427,7 @@
 
         <div class="directory-header-bar" aria-hidden="true">// WESTLAKE MIDDLE SCHOOL STAFF DIRECTORY: EMERGENCY ACCESS CODES</div>
 
-        <p class="directory-intro">You are reading the official staff directory. Each department has its own level 3 heading, and each staff member's job title inside that department is a level 4 heading. Navigate by heading to the department shown on the exit keypad, then to the level 4 heading with the job title. The staff member's full name and emergency exit access code are right below that heading.</p>
+        <p class="directory-intro">You are reading the official staff directory. Find the department shown on the exit keypad, then the job title. The staff member's full name and access code are right below the job title.</p>
 
         <!-- Administration -->
         <div class="dept">
@@ -477,6 +485,10 @@
           </div>
           <button type="submit" class="btn btn-primary">Submit Answer</button>
           <div id="form-status-1" class="form-status" role="alert" aria-live="assertive"></div>
+          <div class="hint-area" id="hint-area" hidden>
+            <button type="button" class="btn btn-secondary" id="hint-btn">Get a Hint</button>
+            <div class="hint-text" id="hint-text" role="status" aria-live="polite"></div>
+          </div>
         </form>
       </div>
 
@@ -732,7 +744,7 @@
         var sess1  = JSON.parse(localStorage.getItem('sp_school_current_session') || 'null') || {startDate:today1,workDates:[today1],screenReader:'',rooms:[]};
         var pct1   = Math.min(100, Math.round((elapsed / TOTAL) * 100));
         sess1.rooms = (sess1.rooms||[]).filter(function(r){return r.roomKey!=='1';});
-        sess1.rooms.push({roomKey:'1',dateCompleted:today1,attempts:attempts,timeUsed:elapsed,timeAllowed:TOTAL,pct:pct1});
+        sess1.rooms.push({roomKey:'1',dateCompleted:today1,attempts:attempts,timeUsed:elapsed,timeAllowed:TOTAL,pct:pct1,hints:hintsUsed});
         localStorage.setItem('sp_school_current_session', JSON.stringify(sess1));
       } catch(e) {}
         document.getElementById('next-room-box').classList.add('visible');
@@ -747,7 +759,7 @@
         if(!nameMatch&&!codeMatch)msg+='Both the name and the access code are incorrect.';
         else if(!nameMatch)msg+='The name does not match. Check the directory again.';
         else msg+='The access code is incorrect. Check the code below that person\'s job title.';
-        status.textContent=msg+' Try again.';
+        status.textContent=msg+' Try again.'+noteMiss();
         if(!nameMatch)document.getElementById('staff-name').focus();
         else document.getElementById('access-code').focus();
       }
@@ -811,6 +823,29 @@
     function focusEl(el){ if(!el)return; el.setAttribute('tabindex','-1'); el.focus(); }
 
 
+
+    // ── Graduated hints: offered after two misses, they teach the strategy, not the answer ──
+    var HINTS=[
+        'Departments are level 3 headings. Use your screen reader\'s command to move by level 3 heading until you hear the department shown on the keypad.',
+        'Now move by level 4 heading inside that department until you hear the job title. The next two lines have the name and the access code.'
+    ];
+    var hintsUsed=0, misses=0;
+    // Counts a miss. Returns the sentence to add to the message once a hint is available.
+    function noteMiss(){
+      misses++;
+      if(misses<2||hintsUsed>=HINTS.length) return '';
+      document.getElementById('hint-area').hidden=false;
+      return ' A hint is available below the Submit button.';
+    }
+    document.getElementById('hint-btn').addEventListener('click',function(){
+      if(hintsUsed>=HINTS.length) return;
+      var p=document.createElement('p');
+      p.textContent='Hint '+(hintsUsed+1)+': '+HINTS[hintsUsed];
+      document.getElementById('hint-text').appendChild(p);
+      hintsUsed++;
+      if(hintsUsed<HINTS.length) this.textContent='Get Another Hint';
+      else { this.textContent='No More Hints'; this.setAttribute('aria-disabled','true'); }
+    });
   </script>
 
 </body>
