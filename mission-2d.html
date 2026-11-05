@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Room 4: The Front Desk — The Doctor's Visit — ScreenPath</title>
+<title>Room 4: The Front Desk on ScreenPath</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 [hidden]{display:none !important;}
@@ -22,22 +22,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:18
 .skip-link{position:absolute;top:-100px;left:1rem;background:var(--amber);color:#000;padding:.75rem 1.5rem;border-radius:var(--radius);font-weight:600;font-size:1rem;text-decoration:none;z-index:9999;transition:top .2s;}
 .skip-link:focus{top:1rem;}
 
-nav[role="navigation"]{position:sticky;top:0;left:0;right:0;z-index:500;background:rgba(10,10,10,.95);backdrop-filter:blur(22px);border-bottom:1px solid var(--border);}
-.nav-inner{max-width:1100px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;}
-.nav-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0;}
-.nav-logo-mark{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:var(--amber);color:#000;font-family:var(--font);font-weight:800;font-size:.85rem;flex-shrink:0;}
-.nav-links{display:flex;align-items:center;gap:.15rem;list-style:none;}
-.nav-links a{color:var(--text-muted);text-decoration:none;font-size:.86rem;font-weight:500;padding:.45rem .8rem;border-radius:100px;transition:color .2s,background .2s;white-space:nowrap;}
-.nav-links a:hover{color:var(--text);background:var(--surface-2);}
-.nav-links a:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:100px;}
-.menu-btn{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--border);border-radius:8px;padding:.42rem .55rem;cursor:pointer;color:var(--text-muted);font-size:1.15rem;line-height:1;}
-.menu-btn:hover{border-color:var(--amber);color:var(--text);}
-.menu-btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:8px;}
-.nav-drawer{display:none;flex-direction:column;background:rgba(10,10,10,.97);border-top:1px solid var(--border);padding:1rem 1.5rem 1.5rem;}
-.nav-drawer.open{display:flex;}
-.nav-drawer a{color:var(--text-muted);text-decoration:none;font-size:1rem;font-weight:500;padding:.65rem 0;border-bottom:1px solid var(--border);}
-.nav-drawer a:last-child{border-bottom:none;}
-@media(max-width:860px){.nav-links{display:none;} .menu-btn{display:flex;}}
 
 main{max-width:960px;margin:0 auto;padding:3rem 2rem 6rem;}
 .back-link{display:inline-flex;align-items:center;gap:.5rem;color:var(--text-muted);text-decoration:none;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase;margin-bottom:2.5rem;}
@@ -94,6 +78,12 @@ p:last-child{margin-bottom:0;}
 .btn-primary{background:var(--amber);color:#000;}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,166,35,.3);}
 .btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none;}
+.btn[aria-disabled="true"]{opacity:.55;cursor:default;transform:none;box-shadow:none;}
+.time-up-actions{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;}
+.time-up-actions[hidden]{display:none;}
+.hint-area{margin-top:1.25rem;}
+.hint-area[hidden]{display:none;}
+.hint-text p{background:var(--surface-2);border:1px solid var(--border);border-left:3px solid var(--amber);border-radius:8px;padding:.9rem 1.1rem;margin:.75rem 0 0;font-size:.95rem;color:var(--text);text-align:left;}
 .btn-secondary{background:var(--surface-2);color:var(--text);border:1px solid var(--border);}
 .btn-secondary:hover{background:var(--surface);transform:translateY(-1px);}
 
@@ -121,6 +111,19 @@ tr:hover td{background:rgba(245,166,35,.05);}
 .status-open{color:var(--green);font-weight:700;background:var(--green-dim);padding:.2rem .6rem;border-radius:4px;border:1px solid rgba(57,217,138,.3);}
 .status-closed{color:var(--red);font-weight:600;background:var(--red-dim);padding:.2rem .6rem;border-radius:4px;border:1px solid rgba(255,77,77,.3);}
 
+.sp-dialog{margin:auto;max-height:calc(100vh - 2rem);overflow-y:auto;background:var(--surface);color:var(--text);border:2px solid rgba(57,217,138,.5);border-radius:var(--radius);padding:2rem;max-width:520px;width:calc(100% - 2rem);text-align:center;}
+.sp-dialog::backdrop{background:rgba(0,0,0,.85);}
+.sp-dialog h2{font-size:1.5rem;margin-bottom:1rem;outline:none;}
+.sp-dialog p{color:var(--text-muted);margin-bottom:.75rem;}
+.sp-dialog .dialog-code{color:var(--text);font-family:var(--mono);font-size:1.1rem;margin:1rem 0;}
+.sp-dialog #code-dialog-value{display:block;color:var(--green);font-size:2.2rem;font-weight:700;letter-spacing:.25em;margin-top:.4rem;}
+.sp-dialog .btn{margin-top:1rem;}
+.results-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--green)!important;}
+.results-rows{text-align:left;margin:1.25rem 0;}
+.results-rows p{color:var(--text);margin:0;padding:.65rem 0;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:.92rem;}
+.results-rows p:last-child{border-bottom:none;}
+.results-btns{display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;}
+#show-code-btn[hidden]{display:none;}
 .code-reveal-box{background:var(--green-dim);border:2px solid var(--green);border-radius:var(--radius);padding:1.25rem 1.5rem;margin:1.5rem 0;text-align:center;display:none;}
 .code-reveal-box.visible{display:block;}
 .code-reveal-label{font-size:.85rem;color:var(--text);margin-bottom:.5rem;}
@@ -166,6 +169,8 @@ tr:hover td{background:rgba(245,166,35,.05);}
 .sc-eyebrow{display:block;font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:1rem;}
 .sc-heading{font-size:clamp(2.4rem,7vw,4.5rem);font-weight:800;letter-spacing:-.02em;line-height:1.05;color:var(--text);margin-bottom:.5rem;outline:none;}
 .sc-subtitle{font-size:1.05rem;color:var(--text-muted);margin-bottom:1.75rem;}
+.sc-story p{font-size:1rem;color:var(--text);line-height:1.8;margin-bottom:.85rem;}
+.sc-story p:last-child{color:var(--green);font-style:italic;}
 .sc-divider{height:1px;background:var(--border);margin:1.75rem 0;}
 .sc-note p{font-size:.98rem;color:var(--text);line-height:1.75;margin-bottom:1rem;}
 .sc-note p:last-child{margin-bottom:0;}
@@ -177,46 +182,49 @@ tr:hover td{background:rgba(245,166,35,.05);}
 .sc-link-plain:hover,.sc-link-plain:focus{color:var(--text);}
 @media(prefers-reduced-motion: reduce){.escape-scene p{transition:none;} .sc-content{animation:none;} .sc-particle{display:none;}}
 
-footer[role="contentinfo"]{border-top:1px solid var(--border);padding:2.5rem 2rem;color:var(--text-muted);font-size:.85rem;}
-.footer-inner{max-width:960px;margin:0 auto;display:flex;flex-direction:column;gap:.5rem;}
-.footer-platform{font-weight:600;color:var(--text-muted);}
-.footer-a11y{font-size:.8rem;color:var(--text-muted);line-height:1.6;}
 
 @media(max-width:768px){main{padding:2rem 1.25rem 4rem;} #timer-display{font-size:2.5rem;} th,td{padding:.5rem .35rem;font-size:.82rem;}}
 a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:3px;}
+
+/* Site navigation bar and footer, the same as every other ScreenPath page */
+html{scroll-padding-top:84px;}
+body{padding-top:64px;}
+nav[role="navigation"]{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(8,8,8,0.94);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1400px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;}
+.sp-wordmark{display:flex;align-items:center;text-decoration:none;font-size:1.05rem;font-weight:700;color:var(--text);letter-spacing:-.01em;}
+.sp-wordmark span{color:var(--green);}
+.nav-links{display:flex;align-items:center;gap:.15rem;list-style:none;}
+.nav-links a{color:var(--text-muted);text-decoration:none;font-size:.86rem;font-weight:500;padding:.45rem .8rem;border-radius:100px;white-space:nowrap;}
+.nav-links a:hover{color:var(--text);background:var(--surface-2);}
+.menu-btn{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--border);border-radius:8px;padding:.42rem .55rem;cursor:pointer;color:var(--text-muted);font-size:1.15rem;line-height:1;}
+.nav-drawer{display:flex;flex-direction:column;background:rgba(8,8,8,0.94);border-top:1px solid var(--border);padding:1rem 1.5rem 1.5rem;}
+.nav-drawer[hidden]{display:none;}
+.nav-drawer a{color:var(--text-muted);text-decoration:none;font-size:1rem;font-weight:500;padding:.65rem 0;border-bottom:1px solid var(--border);}
+.nav-drawer a:last-child{border-bottom:none;}
+nav[role="navigation"] a:focus-visible,.menu-btn:focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:3px;}
+footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem 2rem 2rem;}
+.sp-footer{max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:.75rem;text-align:center;}
+.sp-footer p{color:var(--text-muted);font-size:.88rem;margin:0;}
+.sp-footer strong{color:var(--text);}
+.sp-footer .sp-actions{display:flex;gap:.9rem;flex-wrap:wrap;justify-content:center;margin:0;}
+.sp-footer .sp-actions a{color:var(--text-muted);text-decoration:none;font-size:.85rem;padding:.3rem .5rem;}
+.sp-footer .sp-actions a:hover{color:var(--green);}
+@media (max-width:1024px){.nav-links{display:none;}.menu-btn{display:flex;}}
+@media (max-width:768px){.nav-inner{padding:0 1rem;}}
 </style>
 </head>
 <body>
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<nav role="navigation" aria-label="Main navigation">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo" aria-label="SP, ScreenPath home page">
-      <span class="nav-logo-mark" aria-hidden="true">SP</span>
-    </a>
-    <ul class="nav-links" role="list">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="progress.html">Progress</a></li>
-      <li><a href="feedback.html">Feedback</a></li>
-    </ul>
-    <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu" onclick="toggleMenu()">☰</button>
-  </div>
-  <div class="nav-drawer" id="nav-drawer" aria-label="Mobile navigation">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="progress.html">Progress</a>
-    <a href="feedback.html">Feedback</a>
-  </div>
-</nav>
+<nav role="navigation" aria-label="Main navigation"><div class="nav-inner"><a class="sp-wordmark" href="index.html" aria-label="ScreenPath home">Screen<span>Path</span></a><ul class="nav-links"><li><a href="index.html">Activities</a></li><li><a href="progress.html">My Progress</a></li><li><a href="teachers.html">For Teachers</a></li><li><a href="about.html">About</a></li><li><a href="feedback.html">Feedback</a></li></ul><button id="menu-btn" class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu">&#9776;</button></div><div class="nav-drawer" id="nav-drawer" hidden><a href="index.html">Activities</a><a href="progress.html">My Progress</a><a href="teachers.html">For Teachers</a><a href="about.html">About</a><a href="feedback.html">Feedback</a></div></nav>
 
 <main id="main-content" tabindex="-1">
   <a href="doctors-visit.html" class="back-link">Back to The Doctor's Visit</a>
 
   <div class="room-header">
     <div class="room-meta">
-      <p class="room-badge">Room 4 of 4 — The Doctor's Visit</p>
+      <p class="room-badge">The Doctor's Visit, Room 4 of 4</p>
       <p class="room-level">Clinic Visit</p>
       <p class="room-skill-badge">Focus: Interactive Tables &amp; Booking</p>
     </div>
@@ -225,10 +233,10 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
 
   <figure style="margin-bottom:2.5rem;">
     <img src="https://images.unsplash.com/photo-1764727291644-5dcb0b1a0375?w=860&q=80" alt="A modern clinic reception desk with a sign overhead and a clean, organized front desk workstation." loading="lazy">
-    <figcaption style="font-size:.82rem;color:var(--text-muted);margin-top:.6rem;font-family:var(--mono);letter-spacing:.03em;">The Doctor's Visit — Front Desk — Friday, 4:05 PM</figcaption>
+    <figcaption style="font-size:.82rem;color:var(--text-muted);margin-top:.6rem;font-family:var(--mono);letter-spacing:.03em;">The Doctor's Visit, Front Desk, Friday, 4:05 PM</figcaption>
   </figure>
 
-  <section class="room-section">
+  <div class="room-section">
     <h2 id="situation-heading">Where You Are</h2>
     <p id="scene-p1">You take a deep breath. You are officially done seeing the doctor, and your friends are waiting. Just as you turn for the exit, the receptionist calls you back: "Hold on, we need to book your next appointment before you go." The lobby behind you is packed, the phone at the desk will not stop ringing, and your own phone keeps buzzing with texts asking where you are.</p>
     <p id="scene-p2">The receptionist tells you straight: there is exactly one opening left on the whole calendar, and once someone else grabs it, it is gone for months. Mom is ready to book it right now, but the clinic just switched to a brand new scheduling system and she has never touched it before, so she needs you to drive. This new system splits everything across two tables, one for the date and one for the times, so you will need to move between them to lock in the slot. Press the button below when you are ready. The moment you do, the clock starts and Mom will tell you the date to look for.</p>
@@ -240,9 +248,9 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
       </button>
       <span class="narrate-status" id="narrate-status" role="status" aria-live="polite" aria-atomic="true"></span>
     </div>
-  </section>
+  </div>
 
-  <section class="room-section">
+  <div class="room-section">
     <h2>Book the Next Appointment</h2>
 
     <div class="skill-focus">
@@ -262,12 +270,12 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
       <p class="timer-instructions" id="timer-instructions">Explore the calendar below first if you like. When you are ready, press the button to hear which date to look for and start the five minute clock.</p>
       <span id="timer-display" aria-live="off" aria-label="Time remaining: 5 minutes 0 seconds">5:00</span>
       <div>
-        <button class="btn btn-primary" id="start-timer-btn" onclick="startRoomTimer()">Start — Ask the Receptionist</button>
+        <button class="btn btn-primary" id="start-timer-btn" onclick="startRoomTimer()">Start: Ask the Receptionist</button>
       </div>
     </div>
 
     <h3 id="target-heading" style="font-size:1.15rem;font-weight:600;color:var(--amber);margin-bottom:1rem;">Your Assigned Date</h3>
-    <div class="target-prompt-card" id="target-prompt-card" aria-live="polite" aria-labelledby="target-heading">
+    <div class="target-prompt-card" id="target-prompt-card" aria-live="polite">
       <span class="target-prompt-label">Mom Says</span>
       <p class="target-prompt-text" id="target-question-text"></p>
     </div>
@@ -276,7 +284,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
 
     <div class="table-container">
       <table>
-        <caption>September Appointment Calendar — press a date to see its available times</caption>
+        <caption>September Appointment Calendar: press a date to see its available times</caption>
         <thead>
           <tr>
             <th scope="col">Sunday</th>
@@ -362,13 +370,14 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
       </div>
     </div>
 
-    <div class="code-reveal-box" id="code-reveal-box" aria-live="assertive">
+    <div class="code-reveal-box" id="code-reveal-box">
       <p class="code-reveal-label">Appointment held. Here is your confirmation code:</p>
       <div class="code-reveal-text" id="revealed-code-display">APT-000</div>
       <p class="code-reveal-hint">Copy this code, or type it, into the confirmation box below.</p>
     </div>
 
     <div class="challenge-form-card">
+      <p><button type="button" class="btn btn-secondary" id="show-code-btn" hidden>Show the Code Again</button></p>
       <form id="confirm-form" novalidate>
         <div class="form-field">
           <label for="code-input" id="input-label-text">Enter the confirmation code</label>
@@ -378,38 +387,40 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
         <button type="submit" class="submit-btn" id="submit-btn" disabled>Confirm Appointment</button>
       </form>
       <div id="feedback-msg" class="feedback-box" role="status" aria-live="assertive"></div>
-      <button type="button" id="switch-practice" class="btn btn-secondary" style="margin-top:1rem;" hidden>Switch to practice — remove deadline</button>
+      <div class="hint-area" id="hint-area" hidden>
+        <button type="button" class="btn btn-secondary" id="hint-btn">Get a Hint</button>
+        <div class="hint-text" id="hint-text" role="status" aria-live="polite"></div>
+      </div>
+      <div class="time-up-actions" id="time-up-actions" hidden><button type="button" id="switch-practice" class="btn btn-primary">Continue in Practice Mode</button> <button type="button" id="retry-challenge" class="btn btn-secondary">Try Again in Challenge Mode</button></div>
     </div>
 
-    <div class="next-room-box" id="completion-box" aria-labelledby="completion-heading" aria-live="polite">
-      <span class="next-room-label">// The Doctor's Visit — Complete</span>
+    <div class="next-room-box" id="completion-box">
+      <span class="next-room-label">// The Doctor's Visit Complete</span>
       <h3 id="completion-heading" tabindex="-1" style="outline:none;">Appointment Booked.</h3>
-      <div class="escape-scene" id="escape-scene">
-        <p id="escape-p1">The confirmation code goes through. Appointment booked.</p>
-        <p id="escape-p2">You walk out of the clinic and the afternoon sun hits you full in the face. Somehow, you are still on time.</p>
-        <p id="escape-p3">That took real focus under real pressure. Every table, every form, every clock you beat today, that was you.</p>
-        <p id="escape-p4">Go find your friends. You earned it.</p>
-      </div>
-      <a href="index.html" class="escape-return">Return to ScreenPath</a>
     </div>
-  </section>
+  </div>
 </main>
 
 <div class="series-complete" id="series-complete" role="dialog" aria-modal="true" aria-labelledby="sc-heading" aria-hidden="true">
   <div class="sc-particles" id="sc-particles" aria-hidden="true"></div>
   <div class="sc-content">
-    <span class="sc-eyebrow">The Doctor's Visit — Series Complete</span>
+    <span class="sc-eyebrow">The Doctor's Visit Complete</span>
     <h2 class="sc-heading" id="sc-heading" tabindex="-1">You made the appointment.</h2>
-    <p class="sc-subtitle">Riverside Pediatrics — Front Desk</p>
+    <p class="sc-subtitle">Riverside Pediatrics, Front Desk</p>
+    <div class="sc-story">
+      <p>The confirmation code goes through. Appointment booked.</p>
+      <p>You walk out of the clinic and the afternoon sun hits you full in the face. Somehow, you are still on time.</p>
+      <p>That took real focus under real pressure. Every table, every form, every clock you beat today, that was you.</p>
+      <p>Go find your friends. You earned it.</p>
+    </div>
     <div class="sc-divider" aria-hidden="true"></div>
     <div class="sc-note">
       <p class="sc-note-open"><strong>I am so proud of you.</strong></p>
       <p>You just booked an appointment while the phone kept ringing, the lobby stayed packed, and Mom was counting on you to move fast. You did not freeze up. You worked the calendar, found the right table, and got it done before that slot disappeared.</p>
       <p>That is the same skill you will use for the rest of your life: staying calm and organized when a system is confusing and the clock is not on your side. You have now proven you can do that in four different rooms, four different ways.</p>
-      <p class="sc-sig">— Moises</p>
+      <p class="sc-sig">Moises</p>
     </div>
     <div class="sc-divider" aria-hidden="true"></div>
-    <p class="sc-stats" id="sc-stats" aria-live="off"></p>
     <div class="sc-actions">
       <a href="progress.html" class="btn btn-primary">View My Progress</a>
       <a href="index.html" class="sc-link-plain">Return to ScreenPath</a>
@@ -417,20 +428,37 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
   </div>
 </div>
 
-<footer role="contentinfo">
-  <div class="footer-inner">
-    <p class="footer-platform">ScreenPath — The Doctor's Visit — Screen Reader Escape Room</p>
-    <p class="footer-a11y">ScreenPath is designed for screen reader users. Every page is fully navigable by keyboard and compatible with JAWS, NVDA, and VoiceOver. If you encounter any accessibility issue please contact your instructor.</p>
+<!-- Slot booked: pop-up with the confirmation code -->
+<dialog id="code-dialog" class="sp-dialog" aria-labelledby="code-dialog-heading" aria-describedby="code-dialog-desc">
+  <h2 id="code-dialog-heading">Appointment Held</h2>
+  <div id="code-dialog-desc">
+    <p>The receptionist is holding your time slot.</p>
+    <p class="dialog-code">Confirmation code: <span id="code-dialog-value"></span></p>
+    <p>Enter this code in the confirmation box to finish booking.</p>
   </div>
-</footer>
+  <button type="button" class="btn btn-primary" id="code-dialog-close">Close and Enter the Code</button>
+</dialog>
+
+<!-- End of the escape room: results for all four rooms -->
+<dialog id="results-dialog" class="sp-dialog results-dialog" aria-labelledby="results-heading">
+  <p class="results-label" aria-hidden="true">Escape Room Complete</p>
+  <h2 id="results-heading" tabindex="-1">The Doctor's Visit Complete</h2>
+  <p class="results-sub">Your results for all four rooms</p>
+  <div class="results-rows" id="results-rows"></div>
+  <div class="results-btns">
+    <button type="button" class="btn btn-primary" id="res-email-btn">Email Results</button>
+    <button type="button" class="btn btn-secondary" id="res-copy-btn">Copy Results</button>
+    <button type="button" class="btn btn-secondary" id="res-skip-btn">Skip</button>
+  </div>
+</dialog>
+
+<footer><div class="sp-footer"><p><strong>ScreenPath</strong>: free screen reader practice.</p><p>Built by Moises Betancourt for screen reader learners everywhere.</p><div class="sp-actions"><a href="progress.html#privacy">How your results are saved</a></div></div></footer>
 
 <script>
-  function toggleMenu(){
-    var d=document.getElementById('nav-drawer'), b=document.getElementById('menu-btn');
-    var open=d.classList.toggle('open');
-    b.setAttribute('aria-expanded',open?'true':'false');
-    b.textContent=open?'✕':'☰';
-  }
+  // Site navigation menu button, the same as every other ScreenPath page
+  (function(){var b=document.getElementById('menu-btn'),d=document.getElementById('nav-drawer');if(!b||!d)return;
+  b.addEventListener('click',function(){var open=d.hasAttribute('hidden');if(open){d.removeAttribute('hidden');}else{d.setAttribute('hidden','');}
+  b.setAttribute('aria-expanded',open?'true':'false');b.setAttribute('aria-label',open?'Close navigation menu':'Open navigation menu');b.innerHTML=open?'&#10005;':'&#9776;';});})();
   function announce(msg){
     var el=document.createElement('div');
     el.setAttribute('aria-live','assertive');el.setAttribute('aria-atomic','true');
@@ -438,18 +466,13 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
     document.body.appendChild(el);
     setTimeout(function(){el.textContent=msg;setTimeout(function(){el.remove();},4500);},100);
   }
-  function revealCompletion(boxId,headingId){
-    var box=document.getElementById(boxId);
-    box.classList.add('visible');
-    setTimeout(function(){
-      box.scrollIntoView({behavior:'smooth',block:'center'});
-      var h=document.getElementById(headingId);
-      if(h)h.focus({preventScroll:true});
-    },80);
+  function revealCompletion(boxId){
+    // Show the way to the next room. Focus stays where the student is.
+    document.getElementById(boxId).classList.add('visible');
   }
-  function todayStr(){return new Date().toISOString().split('T')[0];}
+  function todayStr(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 
-  // ── Practice vs Challenge — chosen back in Room 1's gate. If a student ──
+  // ── Practice vs Challenge: chosen back in Room 1's gate. If a student ──
   // ── links straight into this room, sp_doctor_mode is simply absent and ──
   // ── the room falls back to normal timed Challenge behavior. ─────────────
   let practiceMode=false;
@@ -496,7 +519,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
     tbody.innerHTML='';
     document.getElementById('code-reveal-box').classList.remove('visible');
     const feedback=document.getElementById('feedback-msg');
-    feedback.className='feedback-box';feedback.style.display='none';
+    feedback.className='feedback-box';feedback.style.display='';
 
     let slots;
     if(dayNum===currentTargetDateNum){
@@ -526,13 +549,13 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
     const feedback=document.getElementById('feedback-msg');
     if(isOpen){
       sfxPing();
-      feedback.className='feedback-box';feedback.style.display='none';
+      feedback.className='feedback-box';feedback.style.display='';
       revealCode(currentTargetCode);
     }else{
       sfxError();
       document.getElementById('code-reveal-box').classList.remove('visible');
       feedback.className='feedback-box error';
-      feedback.textContent='That '+timeStr+' slot is not available. Look for the slot marked Open.';
+      feedback.textContent='That '+timeStr+' slot is not available. Look for the slot marked Open.'+noteMiss();
       feedback.style.display='block';
     }
   }
@@ -541,7 +564,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
     const box=document.getElementById('code-reveal-box');
     box.classList.add('visible');
     document.getElementById('revealed-code-display').textContent=codeStr;
-    document.getElementById('code-input').focus();
+    document.getElementById('show-code-btn').hidden=false;
+    openCodeDialog();
   }
 
   let audioCtx=null,soundEnabled=true;
@@ -584,7 +608,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
     document.getElementById('target-question-text').textContent='Mom leans over and says, "September '+currentTargetDateNum+' is the only opening left. Let\'s get it locked in before it is gone."';
     document.getElementById('code-input').disabled=false;
     document.getElementById('submit-btn').disabled=false;
-    document.getElementById('start-timer-btn').style.display='none';
+    const sb=document.getElementById('start-timer-btn');sb.setAttribute('aria-disabled','true');sb.textContent=practiceMode?'Started: No Time Limit':'Started: Clock Running';
     const tog=document.getElementById('sound-toggle');tog.disabled=true;tog.setAttribute('aria-disabled','true');
     sfxStart();
     if(practiceMode){
@@ -619,23 +643,23 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
   function fmtElapsed(s){const m=Math.floor(s/60),sec=s%60;if(m===0)return sec+' second'+(sec!==1?'s':'');if(sec===0)return m+' minute'+(m!==1?'s':'');return m+' minute'+(m!==1?'s':'')+' and '+sec+' second'+(sec!==1?'s':'');}
 
   function handleTimeExpired(){
+    var cd=document.getElementById('code-dialog'); if(cd&&cd.open) cd.close();
     sfxFail();
     const feedback=document.getElementById('feedback-msg');
     feedback.className='feedback-box error';
-    feedback.textContent='Good effort. The five minutes ran out before you booked the appointment, but you know the calendar better now than when you started.';
+    feedback.textContent='Good effort. The five minutes ran out before you booked the appointment, but you know the calendar better now than when you started. Choose how to keep going: Continue in Practice Mode keeps your work and turns off the clock, or Try Again in Challenge Mode starts this room over with a new task and a fresh clock.';
     document.getElementById('confirm-form').querySelectorAll('input,button').forEach(function(el){el.disabled=true;});
     const sw=document.getElementById('switch-practice');
-    sw.hidden=false;
+    document.getElementById('time-up-actions').hidden=false;
     sw.focus();
-    announce('Time is up. You can switch to practice mode to keep working with no deadline.');
   }
 
   function switchToPractice(){
     try{localStorage.setItem('sp_doctor_mode','practice');}catch(e){}
     practiceMode=true;
     const feedback=document.getElementById('feedback-msg');
-    feedback.className='feedback-box';feedback.style.display='none';feedback.textContent='';
-    document.getElementById('switch-practice').hidden=true;
+    feedback.className='feedback-box';feedback.style.display='';feedback.textContent='';
+    document.getElementById('time-up-actions').hidden=true;
     document.getElementById('confirm-form').querySelectorAll('input,button').forEach(function(el){el.disabled=false;});
     const d=document.getElementById('timer-display');
     d.classList.remove('warning','critical');
@@ -643,7 +667,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
     d.setAttribute('aria-label','Practice mode: no time limit');
     document.getElementById('timer-instructions').textContent='Practice mode: no deadline. Take your time booking the appointment.';
     interval=setInterval(tick,1000);
-    announce('Deadline removed. Keep working, there is no rush.');
+    focusEl(document.getElementById('timer-instructions'));
   }
   document.getElementById('switch-practice').addEventListener('click',switchToPractice);
 
@@ -662,7 +686,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
     }
     const vv=window.speechSynthesis.getVoices();
     if(vv.length>0){applyVoice();window.speechSynthesis.speak(narUtterance);}
-    else{window.speechSynthesis.onvoiceschanged=function(){applyVoice();window.speechSynthesis.speak(narUtterance);window.speechSynthesis.onvoiceschanged=null;};setTimeout(function(){if(!narSpeaking){applyVoice();window.speechSynthesis.speak(narUtterance);}},500);}
+    else{var spoke=false;var go=function(){if(spoke)return;spoke=true;window.speechSynthesis.onvoiceschanged=null;applyVoice();window.speechSynthesis.speak(narUtterance);};window.speechSynthesis.onvoiceschanged=go;setTimeout(go,500);}
     narUtterance.onstart=function(){narSpeaking=true;setNarBtn(true);updateNarStatus('Playing...');};
     narUtterance.onend=function(){narSpeaking=false;setNarBtn(false);updateNarStatus('Done.');setTimeout(function(){updateNarStatus('');},3000);};
     narUtterance.onerror=function(){narSpeaking=false;setNarBtn(false);updateNarStatus('');};
@@ -689,47 +713,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
     tone(523.25,.7,'sine',.42,.95);
   }
 
-  function getBestVoice(){
-    if(!window.speechSynthesis)return null;
-    const vv=window.speechSynthesis.getVoices();
-    return vv.find(function(v){return v.lang.startsWith('en')&&/natural|enhanced|premium/i.test(v.name);})
-      ||vv.find(function(v){return v.lang.startsWith('en')&&/daniel|samantha|karen|google|microsoft/i.test(v.name);})
-      ||vv.find(function(v){return v.lang==='en-US';})
-      ||vv.find(function(v){return v.lang.startsWith('en');})
-      ||null;
-  }
-  function speakEscapeLine(text){
-    if(!window.speechSynthesis)return;
-    const u=new SpeechSynthesisUtterance(text);
-    u.rate=0.78;u.pitch=0.88;u.volume=1.0;
-    const v=getBestVoice();
-    if(v)u.voice=v;
-    window.speechSynthesis.speak(u);
-  }
 
   function playEscapeScene(){
-    if(window.speechSynthesis)window.speechSynthesis.cancel();
+    // The door sound, then the results screen for all four rooms. No computer voice.
     sfxDoorOpen();
-    const lines=[
-      "The confirmation code goes through. Appointment booked.",
-      "You walk out of the clinic and the afternoon sun hits you full in the face. Somehow, you are still on time.",
-      "That took real focus under real pressure. Every table, every form, every clock you beat today, that was you.",
-      "Go find your friends. You earned it."
-    ];
-    const stepDelays=[0,3500,7000,10500];
-    const base=150;
-    lines.forEach(function(text,i){
-      setTimeout(function(){
-        const p=document.getElementById('escape-p'+(i+1));
-        if(p)p.classList.add('revealed');
-        speakEscapeLine(text);
-      },base+stepDelays[i]);
-    });
-    const totalDuration=base+10500+4500;
-    setTimeout(function(){
-      const sess=saveDoctorCompletedSession();
-      showSeriesComplete(sess);
-    },totalDuration);
+    setTimeout(showDoctorResults,5000);
   }
 
   function saveDoctorCompletedSession(){
@@ -758,7 +746,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
     const totalAttempts=rooms.reduce(function(a,r){return a+(r.attempts||0);},0);
     let dateStr=sess.seriesCompleteDate||todayStr();
     try{dateStr=new Date(dateStr+'T00:00:00').toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});}catch(e){}
-    el.textContent='Completed '+dateStr+' — '+rooms.length+' of 4 rooms — '+fmtElapsed(totalTime)+' total time — '+totalAttempts+' attempt'+(totalAttempts!==1?'s':'')+' total.';
+    el.textContent='Completed '+dateStr+', '+rooms.length+' of 4 rooms, '+fmtElapsed(totalTime)+' total time, '+totalAttempts+' attempt'+(totalAttempts!==1?'s':'')+' total.';
   }
 
   function scKeyHandler(e){
@@ -796,18 +784,16 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
     modal.classList.add('open');
     modal.setAttribute('aria-hidden','false');
     createSeriesParticles();
-    renderStats(sess);
     setTimeout(function(){
       const h=document.getElementById('sc-heading');
       if(h)h.focus({preventScroll:true});
     },400);
     document.addEventListener('keydown',scKeyHandler);
-    announce('Series complete. You booked the appointment. Read your message and use the links below to view your progress or return home.');
   }
 
   document.getElementById('confirm-form').addEventListener('submit',function(e){
     e.preventDefault();
-    if(!started)return;
+    if(!started||complete)return;
     attempts++;
     const inputEl=document.getElementById('code-input');
     const feedback=document.getElementById('feedback-msg');
@@ -819,7 +805,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
     if(userNorm===''||userNorm!==targetNorm){
       inputEl.classList.add('field-error');
       feedback.className='feedback-box error';
-      feedback.textContent='That confirmation code does not match yet. Check the code shown after you book the open slot in the time table.';
+      feedback.textContent='That confirmation code does not match yet. Check the code shown after you book the open slot in the time table.'+noteMiss();
       inputEl.focus();sfxError();return;
     }
 
@@ -834,17 +820,103 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
         if(sess.workDates.indexOf(today)===-1)sess.workDates.push(today);
         var pct=Math.min(100,Math.round((elapsed/TOTAL)*100));
         sess.rooms=(sess.rooms||[]).filter(function(r){return r.roomKey!=='4';});
-        sess.rooms.push({roomKey:'4',dateCompleted:today,attempts:attempts,timeUsed:elapsed,timeAllowed:TOTAL,pct:pct});
+        sess.rooms.push({roomKey:'4',dateCompleted:today,attempts:attempts,timeUsed:elapsed,timeAllowed:TOTAL,pct:pct,hints:hintsUsed});
         localStorage.setItem('sp_doctor_current_session',JSON.stringify(sess));
       }catch(e){}
+      // Save the finished escape room now, so nothing is lost if the student leaves early
+      finishedSession=saveDoctorCompletedSession();
     }
 
-    this.querySelectorAll('input,button[type="submit"]').forEach(function(el){el.disabled=true;});
+    this.querySelectorAll('input').forEach(function(el){el.readOnly=true;});this.querySelectorAll('select').forEach(function(el){el.disabled=true;});
     feedback.className='feedback-box success';
-    feedback.textContent='Correct. Appointment confirmed in '+fmtElapsed(elapsed)+' with '+attempts+' attempt'+(attempts!==1?'s':'')+'.';
+    feedback.textContent='Correct. Appointment confirmed. The door to the parking lot is just ahead.';
     revealCompletion('completion-box','completion-heading');
-    announce('Correct. Appointment confirmed. The Doctor\'s Visit is complete.');
     playEscapeScene();
+  });
+
+  // ── Time up: try again in Challenge mode, starting the room over with a new task ──
+  function retryChallenge(){
+    try{ localStorage.setItem('sp_doctor_mode','challenge'); sessionStorage.setItem('sp_retry_room','1'); }catch(e){}
+    window.location.reload();
+  }
+  document.getElementById('retry-challenge').addEventListener('click',retryChallenge);
+  (function(){
+    var retry=false;try{retry=!!sessionStorage.getItem('sp_retry_room');sessionStorage.removeItem('sp_retry_room');}catch(e){}
+    if(!retry)return;
+    window.scrollTo(0,0);
+    setTimeout(function(){
+      var h=document.querySelector('#room-content h1')||document.querySelector('main h1');
+      if(h){h.setAttribute('tabindex','-1');h.focus();}
+      announce('New attempt in Challenge mode. Review your new task, then press Start when you are ready.');
+    },400);
+  })();
+  function focusEl(el){ if(!el)return; el.setAttribute('tabindex','-1'); el.focus(); }
+
+  // ── Code pop-up ──
+  function openCodeDialog(){
+    var d=document.getElementById('code-dialog'); if(!d||d.open) return;
+    document.getElementById('code-dialog-value').textContent=currentTargetCode.split('').join(' ');
+    d.showModal(); document.getElementById('code-dialog-close').focus();
+  }
+  document.getElementById('code-dialog-close').addEventListener('click',function(){ document.getElementById('code-dialog').close(); });
+  document.getElementById('code-dialog').addEventListener('close',function(){
+    if(!document.getElementById('time-up-actions').hidden) return; // time ran out: focus is on the choices
+    var c=document.getElementById('code-input'); if(c&&!c.readOnly&&!c.disabled) c.focus(); else document.getElementById('show-code-btn').focus();
+  });
+  document.getElementById('show-code-btn').addEventListener('click',openCodeDialog);
+
+  // ── Results for the whole escape room ──
+  var finishedSession=null;
+  function showDoctorResults(){
+    var sess=finishedSession;
+    var meta=[['1','The Check-In Desk'],['2','The Exam Room'],['3','Growth and Vitals History'],['4','The Front Desk']];
+    var lines=[], total=0;
+    meta.forEach(function(m){
+      var r=sess&&sess.rooms?sess.rooms.find(function(x){return x.roomKey===m[0];}):null;
+      if(r){ total+=r.timeUsed||0; lines.push('Room '+m[0]+', '+m[1]+': '+fmtElapsed(r.timeUsed||0)+', '+r.attempts+' attempt'+(r.attempts!==1?'s':'')+(r.hints!=null?', '+r.hints+' hint'+(r.hints!==1?'s':''):'')); }
+      else lines.push('Room '+m[0]+', '+m[1]+': Not recorded');
+    });
+    lines.push('Total time: '+fmtElapsed(total));
+    try{ lines.push('Mode: '+(localStorage.getItem('sp_doctor_mode')==='practice'?'Practice':'Challenge')); }catch(e){}
+    if(sess&&sess.screenReader) lines.push('Screen reader: '+sess.screenReader);
+    var rows=document.getElementById('results-rows'); rows.innerHTML='';
+    lines.forEach(function(t){ var p=document.createElement('p'); p.textContent=t; rows.appendChild(p); });
+    var ds=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+    var body=["ScreenPath: The Doctor's Visit", ds, ''].concat(lines).join('\n');
+    document.getElementById('res-email-btn').onclick=function(){ window.location.href='mailto:?subject='+encodeURIComponent("ScreenPath Results: The Doctor's Visit")+'&body='+encodeURIComponent(body); };
+    document.getElementById('res-copy-btn').onclick=function(){
+      var btn=this;
+      function done(){ btn.textContent='Copied'; setTimeout(function(){ btn.textContent='Copy Results'; },2500); announce('Results copied to clipboard.'); }
+      if(navigator.clipboard){ navigator.clipboard.writeText(body).then(done); }
+      else { var ta=document.createElement('textarea'); ta.value=body; ta.style.cssText='position:fixed;left:-9999px'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); done(); }
+    };
+    document.getElementById('res-skip-btn').onclick=function(){ document.getElementById('results-dialog').close(); };
+    var d=document.getElementById('results-dialog'); d.showModal();
+    document.getElementById('results-heading').focus();
+  }
+  // Results closed by Skip or Escape: the final screen
+  document.getElementById('results-dialog').addEventListener('close',function(){ showSeriesComplete(finishedSession); });
+
+  // ── Graduated hints: offered after two misses, they teach the strategy, not the answer ──
+  var HINTS=[
+    'Use your screen reader\'s table commands to move through the calendar until you hear your assigned date, then activate it to open that day\'s times.',
+    'In the times table, move down the Status column and listen for Open. Activate the button in that row to get your confirmation code.'
+  ];
+  var hintsUsed=0, misses=0;
+  function noteMiss(){
+    misses++;
+    if(misses<2||hintsUsed>=HINTS.length) return '';
+    document.getElementById('hint-area').hidden=false;
+    return ' A hint is available below the Confirm Appointment button.';
+  }
+  document.getElementById('hint-btn').addEventListener('click',function(){
+    if(hintsUsed>=HINTS.length) return;
+    var p=document.createElement('p');
+    p.textContent='Hint '+(hintsUsed+1)+': '+HINTS[hintsUsed];
+    document.getElementById('hint-text').appendChild(p);
+    hintsUsed++;
+    if(hintsUsed<HINTS.length) this.textContent='Get Another Hint';
+    else { this.textContent='No More Hints'; this.setAttribute('aria-disabled','true'); }
   });
 </script>
 </body>
