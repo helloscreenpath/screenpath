@@ -155,6 +155,8 @@
     .code-dialog .code-dialog-code { color:var(--text); font-family:var(--mono); font-size:1.1rem; margin:1rem 0; }
     .code-dialog #code-dialog-value { display:block; color:var(--green); font-size:2.6rem; font-weight:700; letter-spacing:.3em; margin-top:.4rem; }
     .code-dialog .btn { margin-top:1rem; }
+    .code-dialog .note-dialog-text { color:var(--text); font-style:italic; font-size:1.05rem; line-height:1.7; }
+    #show-note-btn[hidden] { display:none; }
     .code-reveal { background:var(--green-dim); border:2px solid rgba(57,217,138,.5); border-radius:var(--radius); padding:2rem; text-align:center; margin-top:1.5rem; display:none; animation:noteIn .4s cubic-bezier(.34,1.56,.64,1); }
     .code-reveal.visible { display:block; }
     .code-reveal-label { font-family:var(--mono); font-size:.7rem; letter-spacing:.15em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.75rem; }
@@ -180,21 +182,9 @@
     input[type="text"]:focus { outline:none; border-color:var(--green); box-shadow:0 0 0 3px rgba(57,217,138,.15); }
     textarea { width:100%; background:var(--surface-2); border:1px solid var(--border); border-radius:8px; color:var(--text); font-family:var(--font); font-size:1rem; padding:.85rem 1rem; resize:vertical; min-height:90px; line-height:1.6; transition:border-color .2s,box-shadow .2s; }
     textarea:focus { outline:none; border-color:var(--green); box-shadow:0 0 0 3px rgba(57,217,138,.15); }
-    .radio-group { display:flex; flex-direction:column; gap:.6rem; margin-top:.25rem; }
-    .radio-option { display:flex; align-items:center; gap:.75rem; cursor:pointer; font-size:.95rem; color:var(--text-muted); padding:.65rem 1rem; border:1px solid var(--border); border-radius:8px; transition:border-color .2s,color .2s; }
-    .radio-option:hover { border-color:var(--green); color:var(--text); }
-    .radio-option input[type="radio"] { width:18px; height:18px; accent-color:var(--green); flex-shrink:0; }
-    .radio-option input[type="radio"]:focus-visible { outline:2px solid var(--green); outline-offset:2px; }
     .form-status { display:none; padding:1rem 1.25rem; border-radius:8px; font-size:.95rem; margin-top:1rem; line-height:1.6; }
     .form-status.error { background:var(--red-dim); border:1px solid rgba(255,77,77,.3); color:var(--red); display:block; }
     .form-status.success { background:var(--green-dim); border:1px solid rgba(57,217,138,.3); color:var(--green); display:block; }
-    .section-divider { border:none; border-top:1px solid var(--border); margin:1.5rem 0; }
-
-    /* Bridge message */
-    .bridge-msg { background:var(--green-dim); border:1px solid rgba(57,217,138,.3); border-radius:var(--radius); padding:1.5rem; margin-top:1.5rem; display:none; }
-    .bridge-msg.visible { display:block; }
-    .bridge-msg-label { font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.5rem; }
-    .bridge-msg p { font-size:.95rem; color:var(--text); line-height:1.7; margin-bottom:0; font-style:italic; }
 
     /* Next room box */
     .next-room-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-top:1.5rem; display:none; text-align:center; }
@@ -203,15 +193,6 @@
     .next-room-box h3 { color:var(--green); margin-bottom:.5rem; font-size:1.1rem; }
     .next-room-msg { font-style:italic; color:var(--text)!important; text-align:left; }
     .next-room-box p { font-size:.9rem; color:var(--text-muted); margin-bottom:1.5rem; }
-
-    /* Debrief */
-    .debrief-note { background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--green); border-radius:var(--radius); padding:1.5rem; margin-bottom:2rem; font-size:.95rem; color:var(--text-muted); line-height:1.7; }
-    .debrief-note strong { color:var(--text); }
-    .strategy-tip { background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius); padding:1.5rem; margin-bottom:2rem; }
-    .strategy-tip-label { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--amber); display:block; margin-bottom:.5rem; }
-    .strategy-tip p { font-size:.95rem; color:var(--text-muted); margin-bottom:0; line-height:1.7; }
-    .debrief-locked-notice { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:1.5rem; color:var(--text-muted); font-size:.9rem; text-align:center; font-family:var(--mono); letter-spacing:.04em; margin-bottom:1.5rem; }
-    .debrief-content-locked { opacity:.35; pointer-events:none; filter:blur(3px); transition:opacity .5s,filter .5s; }
 
     /* Overlays */
     .overlay { display:none; position:fixed; inset:0; z-index:1000; align-items:center; justify-content:center; flex-direction:column; text-align:center; padding:2rem; }
@@ -228,17 +209,6 @@
     .fail-message { font-size:1rem; color:var(--text-muted); margin-bottom:.5rem; max-width:480px; line-height:1.7; }
     .fail-sub { font-family:var(--mono); font-size:.8rem; color:var(--red); margin-bottom:2rem; letter-spacing:.06em; }
     .fail-buttons { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
-    #success-overlay { background:rgba(0,8,4,.97); animation:successIn .45s cubic-bezier(.34,1.56,.64,1); }
-    @keyframes successIn { from{opacity:0;transform:scale(.92)} to{opacity:1;transform:scale(1)} }
-    .success-particles { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
-    .particle { position:absolute; width:6px; height:6px; border-radius:50%; animation:particleFly 1.3s ease-out forwards; }
-    @keyframes particleFly { 0%{transform:translate(0,0) scale(1);opacity:1} 100%{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0} }
-    .success-icon { font-size:3.5rem; margin-bottom:.75rem; animation:successPop .5s cubic-bezier(.34,1.56,.64,1) .15s both; }
-    @keyframes successPop { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
-    .success-title { font-size:clamp(1.8rem,5vw,3rem); font-weight:700; color:var(--green); letter-spacing:-.02em; margin-bottom:.5rem; animation:fadeUp .4s ease .25s both; }
-    .success-sub { font-family:var(--mono); font-size:.8rem; color:var(--green); letter-spacing:.1em; text-transform:uppercase; margin-bottom:.75rem; animation:fadeUp .4s ease .35s both; }
-    .success-time { font-family:var(--mono); font-size:1.05rem; color:var(--text); background:var(--green-dim); border:1px solid rgba(57,217,138,.3); border-radius:100px; padding:.5rem 1.5rem; margin-bottom:1.25rem; animation:fadeUp .4s ease .4s both; display:inline-block; }
-    .success-message { font-size:.95rem; color:var(--text-muted); max-width:420px; margin-bottom:2rem; animation:fadeUp .4s ease .45s both; line-height:1.7; }
 
 
     @media (max-width:768px) {
@@ -248,37 +218,6 @@
       .book-table th, .book-table td { padding:.5rem .4rem; font-size:.82rem; }
     }
     a:focus-visible, button:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:3px; }
-    /* ── Results overlay ── */
-    #results-overlay { display:none; position:fixed; inset:0; z-index:2000; background:rgba(0,8,4,.97); align-items:center; justify-content:center; flex-direction:column; padding:2rem; }
-    #results-overlay.active { display:flex; animation:resIn .45s cubic-bezier(.34,1.56,.64,1); }
-    @keyframes resIn { from{opacity:0;transform:scale(.93)} to{opacity:1;transform:scale(1)} }
-    .res-particles { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
-    .res-particle { position:absolute; width:6px; height:6px; border-radius:50%; animation:resPFly 1.3s ease-out forwards; }
-    @keyframes resPFly { 0%{transform:translate(0,0) scale(1);opacity:1} 100%{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0} }
-    .res-inner { position:relative; z-index:1; max-width:480px; width:100%; display:flex; flex-direction:column; align-items:center; text-align:center; }
-    .res-label { font-family:var(--mono); font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; color:var(--green); margin-bottom:1.25rem; animation:fadeUp .4s ease .1s both; }
-    .res-room-name { font-size:clamp(1.8rem,5vw,2.8rem); font-weight:800; color:#fff; letter-spacing:-.03em; line-height:1.05; margin-bottom:.35rem; animation:fadeUp .4s ease .2s both; }
-    .res-room-sub { font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.35); margin-bottom:2.5rem; animation:fadeUp .4s ease .25s both; }
-    .res-stats { width:100%; display:flex; flex-direction:column; gap:0; margin-bottom:1.5rem; animation:fadeUp .4s ease .3s both; }
-    .res-row { display:flex; align-items:baseline; justify-content:space-between; padding:.85rem 0; border-bottom:1px solid rgba(255,255,255,.08); }
-    .res-row:last-child { border-bottom:none; }
-    .res-key { font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.4); }
-    .res-val { font-family:var(--mono); font-size:.98rem; font-weight:700; color:#fff; }
-    .res-val.green { color:var(--green); }
-    .res-pct-line { font-family:var(--mono); font-size:.7rem; color:rgba(255,255,255,.28); margin-bottom:1.75rem; animation:fadeUp .4s ease .38s both; }
-    .res-divider { width:100%; border:none; border-top:1px solid rgba(255,255,255,.08); margin-bottom:1.75rem; animation:fadeUp .4s ease .4s both; }
-    .res-btns { display:flex; gap:.75rem; flex-wrap:wrap; justify-content:center; width:100%; animation:fadeUp .4s ease .45s both; }
-    .res-btn { font-family:var(--font); font-size:.88rem; font-weight:600; padding:.75rem 1.5rem; border-radius:100px; border:none; cursor:pointer; letter-spacing:.01em; transition:transform .2s,box-shadow .2s; }
-    .res-btn:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:100px; }
-    .res-btn-email { background:var(--green); color:#000; }
-    .res-btn-email:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(57,217,138,.4); }
-    .res-btn-copy { background:rgba(255,255,255,.1); color:#fff; border:1px solid rgba(255,255,255,.2); }
-    .res-btn-copy:hover { background:rgba(255,255,255,.18); }
-    .res-btn-skip { background:none; color:rgba(255,255,255,.35); border:1px solid rgba(255,255,255,.1); }
-    .res-btn-skip:hover { color:rgba(255,255,255,.6); }
-    @media (max-width:480px) { .res-btns { flex-direction:column; } .res-btn { width:100%; text-align:center; } }
-
-
     /* Site navigation bar and footer, the same as every other ScreenPath page */
     html { scroll-padding-top:84px; }
     body { padding-top:64px; }
@@ -319,6 +258,13 @@
       <p>Enter this code in the answer form to unlock the terminal.</p>
     </div>
     <button type="button" class="btn btn-primary" id="code-dialog-close">Close and Enter the Code</button>
+  </dialog>
+
+  <!-- Book found: pop-up with Ms. Rivera's note -->
+  <dialog id="note-dialog" class="code-dialog" aria-labelledby="note-dialog-heading" aria-describedby="note-dialog-desc">
+    <h2 id="note-dialog-heading">A Note from Ms. Rivera</h2>
+    <div id="note-dialog-desc"><p class="note-dialog-text" id="note-dialog-text"></p></div>
+    <button type="button" class="btn btn-primary" id="note-dialog-close">Close the Note</button>
   </dialog>
 
   <!-- Fail Overlay -->
@@ -428,6 +374,7 @@
           <span class="step-label" id="step-label">Step 1 of 3: Fiction Shelf</span>
         </div>
 
+        <p><button type="button" class="btn btn-secondary" id="show-note-btn" hidden>Show the Last Note Again</button></p>
         <div class="hint-area" id="hint-area" hidden>
             <button type="button" class="btn btn-secondary" id="hint-btn">Get a Hint</button>
             <div class="hint-text" id="hint-text" role="status" aria-live="polite"></div>
@@ -451,7 +398,7 @@
             <thead><tr><th scope="col">Title</th><th scope="col">Author</th><th scope="col">Genre</th><th scope="col">Status</th></tr></thead>
             <tbody id="page1-tbody"></tbody>
           </table>
-          <div class="note-reveal" id="note-reveal-1" role="status" aria-live="polite" aria-atomic="true">
+          <div class="note-reveal" id="note-reveal-1">
             <span class="note-reveal-label">Inside the Book: Ms. Rivera's Handwriting</span>
             <p class="note-reveal-text" id="note-text-1"></p>
           </div>
@@ -475,7 +422,7 @@
             <thead><tr><th scope="col">Title</th><th scope="col">Author</th><th scope="col">Genre</th><th scope="col">Status</th></tr></thead>
             <tbody id="page2-tbody"></tbody>
           </table>
-          <div class="note-reveal" id="note-reveal-2" role="status" aria-live="polite" aria-atomic="true">
+          <div class="note-reveal" id="note-reveal-2">
             <span class="note-reveal-label">Inside the Book: Ms. Rivera's Handwriting</span>
             <p class="note-reveal-text" id="note-text-2"></p>
           </div>
@@ -700,19 +647,17 @@
     function handleCorrect(pageNum,btn,fb){
       sfxFound();
       btn.classList.add('correct-link');btn.disabled=true;
-      if(pageNum===3)fb.removeAttribute('role');
+      fb.removeAttribute('role');
       fb.className='book-feedback correct-fb';fb.textContent=pageNum===3?'You found it. The code is inside the back cover.':'You found it. A note falls out from between the pages.';
       const chain=currentSeries;
       if(pageNum===1){
         document.getElementById('note-text-1').textContent=chain.targets[0].note;
         document.getElementById('note-reveal-1').classList.add('visible');
-        announce('Correct book found. Note says: '+chain.targets[0].note);
-        setTimeout(()=>{ currentStep=2; updateTracker(); setReminders(); buildTable('page2-tbody',chain.targets[1],2); showPage(2); },2000);
+        openNoteDialog(chain.targets[0].note,'Close and Go to the Reference Section',2);
       } else if(pageNum===2){
         document.getElementById('note-text-2').textContent=chain.targets[1].note;
         document.getElementById('note-reveal-2').classList.add('visible');
-        announce('Correct book found. Note says: '+chain.targets[1].note);
-        setTimeout(()=>{ currentStep=3; updateTracker(); setReminders(); buildTable('page3-tbody',chain.targets[2],3); showPage(3); },2000);
+        openNoteDialog(chain.targets[1].note,'Close and Go to the Checkout Desk',3);
       } else if(pageNum===3){
         document.getElementById('code-value').textContent=chain.code;
         document.getElementById('code-reveal').classList.add('visible');
@@ -730,12 +675,12 @@
       announce('Wrong book. That is not part of Ms. Rivera\'s series. Check the series reminder and read the Title column carefully.'+hintNote);
     }
 
-    function showPage(num){
+    function showPage(num,quiet){
       document.querySelectorAll('.library-page').forEach(p=>p.classList.remove('active'));
       document.getElementById('library-page-'+num).classList.add('active');
       sfxPage();
       document.getElementById('library-page-'+num).scrollIntoView({behavior:'smooth',block:'start'});
-      announce('Moved to page '+num+' of 3.');
+      if(!quiet) announce('Moved to page '+num+' of 3.');
     }
 
     function goBack(toPage){showPage(toPage);}
@@ -831,7 +776,7 @@
     function fmtElapsed(s){const m=Math.floor(s/60),sec=s%60;if(m===0)return sec+' second'+(sec!==1?'s':'');if(sec===0)return m+' minute'+(m!==1?'s':'');return m+' minute'+(m!==1?'s':'')+' and '+sec+' second'+(sec!==1?'s':'');}
 
     // ── Fail / Success ─────────────────────────────
-    function showFail(){sfxFail();document.getElementById('fail-overlay').classList.add('active');createSparks();setTimeout(()=>document.getElementById('switch-practice').focus(),150);}
+    function showFail(){['note-dialog','code-dialog'].forEach(function(id){var d=document.getElementById(id);if(d&&d.open)d.close();});sfxFail();document.getElementById('fail-overlay').classList.add('active');createSparks();setTimeout(()=>document.getElementById('switch-practice').focus(),150);}
     function switchToPractice(){
       try{localStorage.setItem('sp_school_mode','practice');}catch(e){}
       practiceMode=true;
@@ -863,7 +808,7 @@
         sfxWin();
         try {
         localStorage.setItem('sp_room2_complete','1');
-        var today2 = new Date().toISOString().split('T')[0];
+        var today2 = localDate();
         var sess2  = JSON.parse(localStorage.getItem('sp_school_current_session') || 'null') || {startDate:today2,workDates:[today2],screenReader:'',rooms:[]};
         var pct2   = Math.min(100, Math.round((elapsed / TOTAL) * 100));
         if (!sess2.workDates) sess2.workDates = [];
@@ -960,6 +905,32 @@
       if(hintsUsed<HINTS.length) this.textContent='Get Another Hint';
       else { this.textContent='No More Hints'; this.setAttribute('aria-disabled','true'); }
     });
+
+    // Today's date in the student's own time zone (toISOString gives UTC, which can be a day ahead)
+    function localDate(){ var d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+
+    // ── Note pop-up: opens when the right book is found; closing it moves on to the next shelf ──
+    var lastNote='', pendingPage=null;
+    function openNoteDialog(text,closeLabel,nextPage){
+      var d=document.getElementById('note-dialog'); if(!d||d.open) return;
+      lastNote=text; pendingPage=nextPage||null;
+      document.getElementById('note-dialog-text').textContent=text;
+      document.getElementById('note-dialog-close').textContent=closeLabel;
+      document.getElementById('show-note-btn').hidden=false;
+      d.showModal();
+      document.getElementById('note-dialog-close').focus();
+    }
+    document.getElementById('note-dialog-close').addEventListener('click',function(){ document.getElementById('note-dialog').close(); });
+    document.getElementById('note-dialog').addEventListener('close',function(){
+      if(!pendingPage) return;
+      var n=pendingPage; pendingPage=null;
+      currentStep=n; updateTracker(); setReminders();
+      buildTable('page'+n+'-tbody',currentSeries.targets[n-1],n);
+      showPage(n,true);
+      // The student chose to move on, so focus goes to the new shelf
+      focusEl(document.querySelector('#library-page-'+n+' .shelf-heading'));
+    });
+    document.getElementById('show-note-btn').addEventListener('click',function(){ openNoteDialog(lastNote,'Close the Note'); });
   </script>
 
 </body>

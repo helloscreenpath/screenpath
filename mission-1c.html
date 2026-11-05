@@ -126,26 +126,7 @@
     .form-status.error { background:var(--red-dim); border:1px solid rgba(255,77,77,.3); color:var(--red); display:block; }
     .form-status.success { background:var(--green-dim); border:1px solid rgba(57,217,138,.3); color:var(--green); display:block; }
 
-    /* Debrief report */
-    .debrief-report { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-top:1.5rem; display:none; }
-    .debrief-report.visible { display:block; animation:fadeUp .3s ease; }
     @keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
-    .debrief-report-label { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.5rem; }
-    .section-divider { border:none; border-top:1px solid var(--border); margin:1.5rem 0; }
-    textarea { width:100%; background:var(--surface-2); border:1px solid var(--border); border-radius:8px; color:var(--text); font-family:var(--font); font-size:1rem; padding:.85rem 1rem; resize:vertical; min-height:90px; line-height:1.6; transition:border-color .2s,box-shadow .2s; }
-    textarea:focus { outline:none; border-color:var(--green); box-shadow:0 0 0 3px rgba(57,217,138,.15); }
-    .radio-group { display:flex; flex-direction:column; gap:.6rem; margin-top:.25rem; }
-    .radio-option { display:flex; align-items:center; gap:.75rem; cursor:pointer; font-size:.95rem; color:var(--text-muted); padding:.65rem 1rem; border:1px solid var(--border); border-radius:8px; transition:border-color .2s,color .2s; }
-    .radio-option:hover { border-color:var(--green); color:var(--text); }
-    .radio-option input[type="radio"] { width:18px; height:18px; accent-color:var(--green); flex-shrink:0; }
-    .radio-option input[type="radio"]:focus-visible { outline:2px solid var(--green); outline-offset:2px; }
-
-    /* Bridge message */
-    .bridge-msg { background:var(--green-dim); border:1px solid rgba(57,217,138,.3); border-radius:var(--radius); padding:1.5rem; margin-top:1.5rem; display:none; }
-    .bridge-msg.visible { display:block; }
-    .bridge-msg-label { font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.5rem; }
-    .bridge-msg p { font-size:.95rem; color:var(--text); line-height:1.7; margin-bottom:0; font-style:italic; }
-
     /* Next room box */
     .next-room-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-top:1.5rem; display:none; text-align:center; }
     .next-room-box.visible { display:block; animation:fadeUp .4s ease; }
@@ -153,15 +134,6 @@
     .next-room-box h3 { color:var(--green); margin-bottom:.5rem; font-size:1.1rem; }
     .next-room-msg { font-style:italic; color:var(--text)!important; text-align:left; }
     .next-room-box p { font-size:.9rem; color:var(--text-muted); margin-bottom:1.5rem; }
-
-    /* Debrief section */
-    .debrief-note { background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--green); border-radius:var(--radius); padding:1.5rem; margin-bottom:2rem; font-size:.95rem; color:var(--text-muted); line-height:1.7; }
-    .debrief-note strong { color:var(--text); }
-    .strategy-tip { background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius); padding:1.5rem; margin-bottom:2rem; }
-    .strategy-tip-label { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--amber); display:block; margin-bottom:.5rem; }
-    .strategy-tip p { font-size:.95rem; color:var(--text-muted); margin-bottom:0; line-height:1.7; }
-    .debrief-locked-notice { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:1.5rem; color:var(--text-muted); font-size:.9rem; text-align:center; font-family:var(--mono); letter-spacing:.04em; margin-bottom:1.5rem; }
-    .debrief-content-locked { opacity:.35; pointer-events:none; filter:blur(3px); transition:opacity .5s,filter .5s; }
 
     /* Overlays */
     .overlay { display:none; position:fixed; inset:0; z-index:1000; align-items:center; justify-content:center; flex-direction:column; text-align:center; padding:2rem; }
@@ -177,17 +149,6 @@
     .fail-title { font-size:1.3rem; font-weight:700; color:var(--text); margin-bottom:.75rem; }
     .fail-message { font-size:1rem; color:var(--text-muted); margin-bottom:.5rem; max-width:480px; line-height:1.7; }
     .fail-sub { font-family:var(--mono); font-size:.8rem; color:var(--red); margin-bottom:2rem; letter-spacing:.06em; }
-    #success-overlay { background:rgba(0,8,4,.97); animation:successIn .45s cubic-bezier(.34,1.56,.64,1); }
-    @keyframes successIn { from{opacity:0;transform:scale(.92)} to{opacity:1;transform:scale(1)} }
-    .success-particles { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
-    .particle { position:absolute; width:6px; height:6px; border-radius:50%; animation:particleFly 1.3s ease-out forwards; }
-    @keyframes particleFly { 0%{transform:translate(0,0) scale(1);opacity:1} 100%{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0} }
-    .success-icon { font-size:3.5rem; margin-bottom:.75rem; animation:successPop .5s cubic-bezier(.34,1.56,.64,1) .15s both; }
-    @keyframes successPop { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
-    .success-title { font-size:clamp(1.8rem,5vw,3rem); font-weight:700; color:var(--green); letter-spacing:-.02em; margin-bottom:.5rem; animation:fadeUp .4s ease .25s both; }
-    .success-sub { font-family:var(--mono); font-size:.8rem; color:var(--green); letter-spacing:.1em; text-transform:uppercase; margin-bottom:.75rem; animation:fadeUp .4s ease .35s both; }
-    .success-time { font-family:var(--mono); font-size:1.05rem; color:var(--text); background:var(--green-dim); border:1px solid rgba(57,217,138,.3); border-radius:100px; padding:.5rem 1.5rem; margin-bottom:1.25rem; animation:fadeUp .4s ease .4s both; display:inline-block; }
-    .success-message { font-size:.95rem; color:var(--text-muted); max-width:420px; margin-bottom:2rem; animation:fadeUp .4s ease .45s both; line-height:1.7; }
 
 
     @media (max-width:768px) {
@@ -197,9 +158,6 @@
       .profile-key { min-width:130px; }
     }
     a:focus-visible, button:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:3px; }
-    .escape-scene p { font-size:.95rem; color:var(--text-muted); line-height:1.8; margin-bottom:.85rem; opacity:0; transform:translateY(8px); transition:opacity .6s ease, transform .6s ease; }
-    .escape-scene p.revealed { opacity:1; transform:translateY(0); }
-    .escape-scene p:last-child { color:var(--green); font-style:italic; }
 
     /* ── Results overlay ── */
     #results-overlay { display:none; position:fixed; inset:0; z-index:2000; background:rgba(0,8,4,.97); align-items:center; justify-content:center; flex-direction:column; padding:2rem; }
@@ -292,6 +250,14 @@
       <h2 id="sc-heading" tabindex="-1" style="font-size:clamp(3rem,8vw,6rem);font-weight:800;letter-spacing:-.04em;color:#fff;line-height:1;margin-bottom:.5rem;animation:fadeUp .5s ease .2s both;">You escaped.</h2>
 
       <p style="font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:3rem;animation:fadeUp .5s ease .25s both;">Westlake Middle School</p>
+
+      <div style="text-align:left;margin-bottom:2.5rem;animation:fadeUp .5s ease .3s both;">
+        <p style="font-size:1.02rem;color:rgba(255,255,255,.75);line-height:1.85;margin-bottom:1rem;">The alarm went through. The door is open. You did it.</p>
+        <p style="font-size:1.02rem;color:rgba(255,255,255,.75);line-height:1.85;margin-bottom:1rem;">You walk out of Westlake Middle School and breathe in the evening air. Nobody knew you were in there. But you found your way out.</p>
+        <p style="font-size:1.02rem;color:rgba(255,255,255,.75);line-height:1.85;margin-bottom:1rem;">That took real skill under real pressure. Remember that feeling. You are going to need it.</p>
+        <p style="font-size:1.02rem;color:var(--green);font-style:italic;line-height:1.85;">There is more waiting for you.</p>
+      </div>
+
 
       <hr style="border:none;border-top:1px solid rgba(255,255,255,.08);margin-bottom:3rem;animation:fadeUp .5s ease .3s both;">
 
@@ -498,12 +464,6 @@
         <span class="next-room-label" aria-hidden="true">// The School Complete</span>
         <h3 id="next-room-heading">You Escaped.</h3>
         <p class="next-room-msg">The alert system reads: "Identity verified. Emergency alert sent to principal and district security. Exit sequence fully authorized. The main corridor emergency exit will release in approximately two minutes."</p>
-        <div class="escape-scene" id="escape-scene">
-          <p id="escape-p1">The alarm went through. The door is open. You did it.</p>
-          <p id="escape-p2">You walk out of Westlake Middle School and breathe in the evening air. Nobody knew you were in there. But you found your way out.</p>
-          <p id="escape-p3">That took real skill under real pressure. Remember that feeling. You are going to need it.</p>
-          <p id="escape-p4">There is more waiting for you.</p>
-        </div>
       </div>
 
     </div>
@@ -696,9 +656,8 @@
         document.getElementById('next-room-box').classList.add('visible');
         playEscapeScene();
       }
-      status.removeAttribute('role');status.removeAttribute('aria-live');
       status.className='form-status success';
-      status.textContent='Identity verified. Emergency alert sent.';
+      status.textContent='Correct. Identity verified and the emergency alert is sent. The exit door is unlocking.';
       this.querySelectorAll('input').forEach(el=>el.readOnly=true);
     });
 
@@ -818,26 +777,8 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElement
         audio.play().catch(function(){});
       }
 
-      // Step 2: After 3 seconds narrate each paragraph as it reveals
-      var narrationDelay = 3000;
-      var paragraphs = document.querySelectorAll('.escape-scene p');
-      var paraDelays  = [0, 3500, 7000, 10500]; // relative to narration start
-
-      paragraphs.forEach(function(p, i) {
-        setTimeout(function() {
-          p.classList.add('revealed');
-          if (window.speechSynthesis) {
-            var u = new SpeechSynthesisUtterance(p.textContent);
-            u.rate = 0.78; u.pitch = 0.88;
-            var v = pickNarratorVoice();
-            if (v) u.voice = v;
-            window.speechSynthesis.speak(u);
-          }
-        }, narrationDelay + paraDelays[i]);
-      });
-
-      // Step 3: After all narration is done fade to series complete
-      var totalDuration = narrationDelay + paraDelays[paraDelays.length - 1] + 4500;
+      // Step 2: After the door sound, the results screen for the whole escape room
+      var totalDuration = 5000;
       setTimeout(function() {
         showSchoolResults();
       }, totalDuration);
@@ -846,7 +787,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElement
 
     function saveCompletedSession() {
       try {
-        var today = new Date().toISOString().split('T')[0];
+        var today = localDate();
         var sess  = JSON.parse(localStorage.getItem('sp_school_current_session') || 'null');
         if (!sess) sess = { startDate: today, workDates: [today], screenReader: localStorage.getItem('sp_school_screenreader')||'', rooms: [] };
         if (!sess.workDates) sess.workDates = [];
@@ -974,15 +915,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElement
       ov.addEventListener('keydown', resKeyHandler);
     }
 
-    // ── Narrator voice: the same voice the Play Scene button uses ──
-    function pickNarratorVoice(){
-      var vv=window.speechSynthesis?window.speechSynthesis.getVoices():[];
-      return vv.find(function(v){return v.lang.startsWith('en')&&/natural|enhanced|premium/i.test(v.name);})
-        ||vv.find(function(v){return v.lang.startsWith('en')&&/daniel|samantha|karen|google|microsoft/i.test(v.name);})
-        ||vv.find(function(v){return v.lang==='en-US';})||vv.find(function(v){return v.lang.startsWith('en');})||null;
-    }
-    // Ask the browser to load its voices early, so the natural voice is ready when a room is solved
-    try{ if(window.speechSynthesis) window.speechSynthesis.getVoices(); }catch(e){}
 
 
     // ── Graduated hints: offered after two misses, they teach the strategy, not the answer ──
@@ -1007,6 +939,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElement
       if(hintsUsed<HINTS.length) this.textContent='Get Another Hint';
       else { this.textContent='No More Hints'; this.setAttribute('aria-disabled','true'); }
     });
+
+    // Today's date in the student's own time zone (toISOString gives UTC, which can be a day ahead)
+    function localDate(){ var d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
   </script>
 
 </body>

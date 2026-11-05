@@ -42,3 +42,10 @@ It prints `built` when it finishes. Review the changed pages before publishing.
 4. Links come first in list items.
 5. Decorative images use empty alt text.
 6. Descriptions on the homepage and For Teachers page stay general, so adding an activity never requires editing them.
+7. Every label and its value go on one line as their own paragraph, for example "Department: Administration", so screen reader users can arrow through details one at a time.
+8. Focus never jumps on its own. It stays on Start after the clock starts and on Submit after an answer. Focus moves only into a pop-up, or when the student chooses to move on.
+9. No computer voice speaks on its own. The student's screen reader does the speaking. A narration button the student presses, such as Play Scene, is fine.
+10. Hints use screen reader terms and never name keys, so they work with any screen reader. Offer them after two misses, and save how many were used.
+11. Results appear once, at the end of an escape room, with Email Results, Copy Results, and Skip.
+12. When the clock runs out, offer both choices: continue in Practice mode, or try again in Challenge mode.
+13. Anything a student must remember to finish, such as a code or a clue, opens in a pop-up and can be opened again.
