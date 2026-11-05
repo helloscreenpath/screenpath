@@ -49,3 +49,7 @@ It prints `built` when it finishes. Review the changed pages before publishing.
 11. Results appear once, at the end of an escape room, with Email Results, Copy Results, and Skip.
 12. When the clock runs out, offer both choices: continue in Practice mode, or try again in Challenge mode.
 13. Anything a student must remember to finish, such as a code or a clue, opens in a pop-up and can be opened again.
+14. Every escape room room uses the shared files escape-room.css and escape-room.js for its look and its shared behavior: the navigation bar and footer, the two labels above the heading, the photo, Play Scene, the Skill Focus box, the timer and Start button, hints, the time up pop-up, the results screen, and the final screen. A room page keeps only its own story and task. Change shared behavior in the shared files, never by copying it into a room.
+15. One accent color everywhere: green. Amber is only for the timer warning, and red only for errors and time up.
+16. Every room shows two labels above its heading: the escape room and room number, such as "The Doctor's Visit, Room 2 of 4", and the skill, such as "Focus: Auditory Attention".
+17. Every room opens with a photo that has a full description in its alt text, for low vision students and teachers.

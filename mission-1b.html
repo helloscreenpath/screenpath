@@ -22,14 +22,6 @@
     .skip-link { position:absolute; top:-100px; left:1rem; background:var(--green); color:#000; padding:.75rem 1.5rem; border-radius:var(--radius); font-weight:600; font-size:1rem; text-decoration:none; z-index:9999; transition:top .2s; }
     .skip-link:focus { top:1rem; }
     main { max-width:860px; margin:0 auto; padding:3rem 2rem 6rem; }
-    .back-link { display:inline-flex; align-items:center; gap:.5rem; color:var(--text-muted); text-decoration:none; font-size:.9rem; letter-spacing:.04em; text-transform:uppercase; margin-bottom:2.5rem; transition:color .2s; }
-    .back-link:hover, .back-link:focus { color:var(--green); }
-    .back-link:focus-visible { outline:2px solid var(--green); outline-offset:4px; border-radius:3px; }
-    .room-header { margin-bottom:2.5rem; padding-bottom:2rem; border-bottom:1px solid var(--border); }
-    .room-meta { display:flex; align-items:center; gap:.75rem; flex-wrap:wrap; margin-bottom:1rem; }
-    .room-badge { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); background:var(--green-dim); border:1px solid rgba(57,217,138,.25); padding:.3rem .85rem; border-radius:100px; }
-    .room-level { font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--text-muted); border:1px solid var(--border); padding:.3rem .85rem; border-radius:100px; }
-    .room-skill-badge { font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--amber); border:1px solid rgba(245,166,35,.3); padding:.3rem .85rem; border-radius:100px; background:var(--amber-dim); }
     h1 { font-size:clamp(1.8rem,4vw,2.8rem); font-weight:700; letter-spacing:-.02em; line-height:1.15; color:var(--text); }
     .section-eyebrow { font-family:var(--mono); font-size:.72rem; letter-spacing:.15em; text-transform:uppercase; color:var(--green); margin-bottom:.6rem; display:block; }
     h2 { font-size:1.4rem; font-weight:600; letter-spacing:-.01em; margin-bottom:1.25rem; color:var(--text); }
@@ -40,11 +32,6 @@
     p:last-child { margin-bottom:0; }
 
     /* Skill focus */
-    .skill-focus { background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--green); border-radius:var(--radius); padding:1.5rem; margin:1.5rem 0; }
-    .skill-focus-label { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.6rem; }
-    .skill-focus p { font-size:.95rem; color:var(--text-muted); margin-bottom:.75rem; line-height:1.75; }
-    .skill-focus p:last-child { margin-bottom:0; }
-    .skill-focus strong { color:var(--text); }
 
     /* Librarian note */
     .librarian-note { background:var(--amber-dim); border:1px solid rgba(245,166,35,.4); border-radius:var(--radius); padding:1.75rem; margin:1.75rem 0; }
@@ -55,42 +42,10 @@
     .series-highlight { display:inline-block; background:rgba(245,166,35,.2); border:1px solid rgba(245,166,35,.4); border-radius:6px; padding:.15rem .5rem; font-weight:700; color:var(--amber); font-family:var(--mono); font-size:.92rem; }
 
     /* Narration */
-    .narration-row { display:flex; align-items:center; gap:1rem; margin:1.5rem 0; flex-wrap:wrap; }
-    .narrate-btn { display:inline-flex; align-items:center; gap:.6rem; background:var(--surface); border:1px solid var(--green); color:var(--green); font-family:var(--font); font-size:.88rem; font-weight:600; padding:.6rem 1.4rem; border-radius:100px; cursor:pointer; transition:background .2s,transform .15s; }
-    .narrate-btn:hover { background:var(--green-dim); transform:translateY(-1px); }
-    .narrate-btn:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:100px; }
-    .narrate-btn.playing { background:var(--green-dim); }
-    .narrate-status { font-family:var(--mono); font-size:.78rem; color:var(--text-muted); }
 
     /* Timer */
-    .timer-area { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin:2rem 0; text-align:center; }
-    .sound-row { display:flex; align-items:center; justify-content:center; gap:.75rem; margin-bottom:.75rem; flex-wrap:wrap; }
-    .sound-note { font-size:.82rem; color:var(--text-muted); font-style:italic; margin-bottom:1.25rem; line-height:1.5; }
-    .sound-label { font-size:.88rem; color:var(--text-muted); font-family:var(--mono); letter-spacing:.04em; }
-    .toggle-btn { display:inline-flex; align-items:center; gap:.5rem; background:var(--surface-2); border:1px solid var(--border); border-radius:100px; color:var(--text-muted); font-family:var(--mono); font-size:.78rem; letter-spacing:.06em; text-transform:uppercase; padding:.45rem 1.1rem; cursor:pointer; transition:border-color .2s,color .2s,background .2s; }
-    .toggle-btn[aria-checked="true"] { border-color:var(--green); color:var(--green); background:var(--green-dim); }
-    .toggle-btn:focus-visible { outline:2px solid var(--green); outline-offset:3px; }
-    .toggle-dot { width:7px; height:7px; border-radius:50%; background:var(--text-muted); transition:background .2s; flex-shrink:0; }
-    .toggle-btn[aria-checked="true"] .toggle-dot { background:var(--green); }
-    .timer-instructions { font-size:.95rem; color:var(--text-muted); margin-bottom:1.5rem; line-height:1.7; }
-    #timer-display { font-family:var(--mono); font-size:3.5rem; font-weight:700; color:var(--green); letter-spacing:.05em; display:block; margin-bottom:1.5rem; line-height:1; transition:color .3s; }
-    #timer-display.warning { color:var(--amber); }
-    #timer-display.critical { color:var(--red); animation:pulse .8s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
 
     /* Buttons */
-    .btn { display:inline-block; font-family:var(--font); font-size:1rem; font-weight:600; padding:.9rem 2.5rem; border-radius:100px; border:none; cursor:pointer; letter-spacing:.02em; transition:transform .15s,box-shadow .15s,background .2s; text-decoration:none; text-align:center; }
-    .btn:focus-visible { outline:3px solid var(--green); outline-offset:4px; }
-    .btn[aria-disabled="true"] { opacity:.55; cursor:default; transform:none; box-shadow:none; }
-    .hint-area { margin-top:1.25rem; }
-    .hint-area[hidden] { display:none; }
-    .hint-text p { background:var(--surface-2); border:1px solid var(--border); border-left:3px solid var(--amber); border-radius:8px; padding:.9rem 1.1rem; margin:.75rem 0 0; font-size:.95rem; color:var(--text); text-align:left; }
-    .btn-primary { background:var(--green); color:#000; }
-    .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(57,217,138,.3); }
-    .btn-secondary { background:var(--surface-2); color:var(--text); border:1px solid var(--border); }
-    .btn-secondary:hover { background:var(--surface); transform:translateY(-1px); }
-    .btn-danger { background:var(--red); color:#fff; }
-    .btn-danger:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(255,77,77,.3); }
 
     /* Step tracker */
     .step-tracker { display:flex; align-items:center; gap:.75rem; margin-bottom:1.5rem; flex-wrap:wrap; }
@@ -148,15 +103,6 @@
     .note-reveal-text { font-size:.98rem; color:var(--text); line-height:1.7; margin-bottom:0; }
 
     /* Code reveal */
-    .code-dialog { margin:auto; background:var(--surface); color:var(--text); border:2px solid rgba(57,217,138,.5); border-radius:var(--radius); padding:2rem; max-width:480px; width:calc(100% - 2rem); text-align:center; }
-    .code-dialog::backdrop { background:rgba(0,0,0,.8); }
-    .code-dialog h2 { margin-bottom:1rem; }
-    .code-dialog p { color:var(--text-muted); }
-    .code-dialog .code-dialog-code { color:var(--text); font-family:var(--mono); font-size:1.1rem; margin:1rem 0; }
-    .code-dialog #code-dialog-value { display:block; color:var(--green); font-size:2.6rem; font-weight:700; letter-spacing:.3em; margin-top:.4rem; }
-    .code-dialog .btn { margin-top:1rem; }
-    .code-dialog .note-dialog-text { color:var(--text); font-style:italic; font-size:1.05rem; line-height:1.7; }
-    #show-note-btn[hidden] { display:none; }
     .code-reveal { background:var(--green-dim); border:2px solid rgba(57,217,138,.5); border-radius:var(--radius); padding:2rem; text-align:center; margin-top:1.5rem; display:none; animation:noteIn .4s cubic-bezier(.34,1.56,.64,1); }
     .code-reveal.visible { display:block; }
     .code-reveal-label { font-family:var(--mono); font-size:.7rem; letter-spacing:.15em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.75rem; }
@@ -187,99 +133,39 @@
     .form-status.success { background:var(--green-dim); border:1px solid rgba(57,217,138,.3); color:var(--green); display:block; }
 
     /* Next room box */
-    .next-room-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-top:1.5rem; display:none; text-align:center; }
-    .next-room-box.visible { display:block; animation:fadeUp .4s ease; }
-    .next-room-label { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:.5rem; }
-    .next-room-box h3 { color:var(--green); margin-bottom:.5rem; font-size:1.1rem; }
-    .next-room-msg { font-style:italic; color:var(--text)!important; text-align:left; }
-    .next-room-box p { font-size:.9rem; color:var(--text-muted); margin-bottom:1.5rem; }
 
     /* Overlays */
-    .overlay { display:none; position:fixed; inset:0; z-index:1000; align-items:center; justify-content:center; flex-direction:column; text-align:center; padding:2rem; }
-    .overlay.active { display:flex; }
-    #fail-overlay { background:rgba(8,0,0,.97); animation:failIn .35s ease-out; }
-    @keyframes failIn { from{opacity:0;transform:scale(1.04)} to{opacity:1;transform:scale(1)} }
-    .fail-scanlines { position:absolute; inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,0,0,.04) 2px,rgba(255,0,0,.04) 4px); pointer-events:none; }
-    .fail-sparks { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
-    .spark { position:absolute; width:3px; height:3px; border-radius:50%; animation:sparkFly 1s ease-out forwards; }
-    @keyframes sparkFly { 0%{transform:translate(0,0) scale(1);opacity:1} 100%{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0} }
-    .fail-glitch { font-family:var(--mono); font-size:clamp(2rem,8vw,4rem); font-weight:900; color:var(--red); letter-spacing:.05em; text-transform:uppercase; animation:glitch .25s infinite; margin-bottom:1rem; }
-    @keyframes glitch { 0%{text-shadow:2px 0 #ff0000,-2px 0 #00ffff;transform:translate(0,0);} 25%{text-shadow:-2px 0 #ff0000,2px 0 #ff00ff;transform:translate(-2px,1px);} 50%{text-shadow:2px 0 #ff00ff,-2px 0 #ff0000;transform:translate(2px,-1px);} 75%{text-shadow:-2px 0 #00ffff,2px 0 #ff0000;transform:translate(0,0);} 100%{text-shadow:2px 0 #ff0000,-2px 0 #ff00ff;transform:translate(1px,1px);} }
-    .fail-title { font-size:1.3rem; font-weight:700; color:var(--text); margin-bottom:.75rem; }
-    .fail-message { font-size:1rem; color:var(--text-muted); margin-bottom:.5rem; max-width:480px; line-height:1.7; }
-    .fail-sub { font-family:var(--mono); font-size:.8rem; color:var(--red); margin-bottom:2rem; letter-spacing:.06em; }
-    .fail-buttons { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
-
-
+    a:focus-visible, button:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:3px; }
     @media (max-width:768px) {
       main { padding:2rem 1.25rem 4rem; }
       .library-zone { padding:1.5rem; }
-      #timer-display { font-size:2.5rem; }
       .book-table th, .book-table td { padding:.5rem .4rem; font-size:.82rem; }
     }
-    a:focus-visible, button:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-radius:3px; }
-    /* Site navigation bar and footer, the same as every other ScreenPath page */
-    html { scroll-padding-top:84px; }
-    body { padding-top:64px; }
-    nav[role="navigation"] { position:fixed; top:0; left:0; right:0; z-index:500; background:rgba(8,8,8,0.94); backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px); border-bottom:1px solid var(--border); }
-    .nav-inner { max-width:1400px; margin:0 auto; padding:0 2rem; height:64px; display:flex; align-items:center; justify-content:space-between; gap:1.5rem; }
-    .sp-wordmark { display:flex; align-items:center; text-decoration:none; font-size:1.05rem; font-weight:700; color:var(--text); letter-spacing:-.01em; }
-    .sp-wordmark span { color:var(--green); }
-    .nav-links { display:flex; align-items:center; gap:.15rem; list-style:none; }
-    .nav-links a { color:var(--text-muted); text-decoration:none; font-size:.86rem; font-weight:500; padding:.45rem .8rem; border-radius:100px; white-space:nowrap; }
-    .nav-links a:hover { color:var(--text); background:var(--surface-2); }
-    .menu-btn { display:none; align-items:center; justify-content:center; background:none; border:1px solid var(--border); border-radius:8px; padding:.42rem .55rem; cursor:pointer; color:var(--text-muted); font-size:1.15rem; line-height:1; }
-    .nav-drawer { display:flex; flex-direction:column; background:rgba(8,8,8,0.94); border-top:1px solid var(--border); padding:1rem 1.5rem 1.5rem; }
-    .nav-drawer[hidden] { display:none; }
-    .nav-drawer a { color:var(--text-muted); text-decoration:none; font-size:1rem; font-weight:500; padding:.65rem 0; border-bottom:1px solid var(--border); }
-    .nav-drawer a:last-child { border-bottom:none; }
-    nav[role="navigation"] a:focus-visible, .menu-btn:focus-visible { outline:3px solid var(--green); outline-offset:3px; border-radius:3px; }
-    footer { background:var(--surface); border-top:1px solid var(--border); padding:3rem 2rem 2rem; }
-    .sp-footer { max-width:1400px; margin:0 auto; display:flex; flex-direction:column; gap:.75rem; text-align:center; }
-    .sp-footer p { color:var(--text-muted); font-size:.88rem; margin:0; }
-    .sp-footer strong { color:var(--text); }
-    .sp-footer .sp-actions { display:flex; gap:.9rem; flex-wrap:wrap; justify-content:center; margin:0; }
-    .sp-footer .sp-actions a { color:var(--text-muted); text-decoration:none; font-size:.85rem; padding:.3rem .5rem; }
-    .sp-footer .sp-actions a:hover { color:var(--green); }
-    @media (max-width:1024px) { .nav-links { display:none; } .menu-btn { display:flex; } }
-    @media (max-width:768px) { .nav-inner { padding:0 1rem; } }
   </style>
+  <link rel="stylesheet" href="escape-room.css">
 </head>
 <body>
 
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
   <!-- Code found: pop-up with the terminal access code -->
-  <dialog id="code-dialog" class="code-dialog" aria-labelledby="code-dialog-heading" aria-describedby="code-dialog-desc">
+  <dialog id="code-dialog" class="sp-dialog" aria-labelledby="code-dialog-heading" aria-describedby="code-dialog-desc">
     <h2 id="code-dialog-heading">Inside the Back Cover</h2>
     <div id="code-dialog-desc">
       <p>Ms. Rivera wrote the terminal access code inside the back cover.</p>
-      <p class="code-dialog-code">Terminal access code: <span id="code-dialog-value"></span></p>
+      <p class="dialog-code">Terminal access code: <span class="dialog-code-value" id="code-dialog-value"></span></p>
       <p>Enter this code in the answer form to unlock the terminal.</p>
     </div>
     <button type="button" class="btn btn-primary" id="code-dialog-close">Close and Enter the Code</button>
   </dialog>
 
   <!-- Book found: pop-up with Ms. Rivera's note -->
-  <dialog id="note-dialog" class="code-dialog" aria-labelledby="note-dialog-heading" aria-describedby="note-dialog-desc">
+  <dialog id="note-dialog" class="sp-dialog" aria-labelledby="note-dialog-heading" aria-describedby="note-dialog-desc">
     <h2 id="note-dialog-heading">A Note from Ms. Rivera</h2>
-    <div id="note-dialog-desc"><p class="note-dialog-text" id="note-dialog-text"></p></div>
+    <div id="note-dialog-desc"><p class="dialog-note" id="note-dialog-text"></p></div>
     <button type="button" class="btn btn-primary" id="note-dialog-close">Close the Note</button>
   </dialog>
 
-  <!-- Fail Overlay -->
-  <div id="fail-overlay" class="overlay" role="alertdialog" aria-labelledby="fail-heading" aria-describedby="fail-desc" aria-modal="true">
-    <div class="fail-scanlines" aria-hidden="true"></div>
-    <div class="fail-sparks" id="fail-sparks" aria-hidden="true"></div>
-    <p class="fail-glitch" aria-hidden="true">TIME IS UP</p>
-    <h2 id="fail-heading" class="fail-title">Good Effort. The Clock Ran Out</h2>
-    <p id="fail-desc" class="fail-message">You found the library and you know Ms. Rivera's system. Choose how to keep going. Practice mode turns off the clock and keeps the books you have found. Try again starts this room over with a new book series and a fresh five minute clock.</p>
-    <p class="fail-sub">// Timer expired</p>
-    <div class="fail-buttons">
-      <button class="btn btn-primary" id="switch-practice" onclick="switchToPractice()">Continue in Practice Mode</button>
-      <button class="btn btn-secondary" id="retry-challenge" onclick="retryChallenge()">Try Again in Challenge Mode</button>
-    </div>
-  </div>
 
 
 
@@ -291,20 +177,20 @@
 
     <div class="room-header">
       <div class="room-meta">
-        <span class="room-badge">The School, Room 2 of 3</span>
+        <p class="room-badge">The School, Room 2 of 3</p>
+        <p class="room-skill-badge">Focus: Links and Tables</p>
       </div>
       <h1>The Library</h1>
     </div>
 
     <!-- Library image -->
-    <figure style="margin-bottom:2.5rem;">
+    <figure class="room-photo">
       <img
         src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=860&q=80"
         alt="A school library photographed in near darkness. Long rows of bookshelves stretch toward the back of the room. Emergency lights cast a faint green glow across the spines of hundreds of books. The checkout desk at the front is empty. Nobody is here."
-        style="width:100%;border-radius:12px;display:block;max-height:420px;object-fit:cover;"
         loading="lazy"
       >
-      <figcaption style="font-size:.82rem;color:var(--text-muted);margin-top:.6rem;font-family:var(--mono);letter-spacing:.03em;">
+      <figcaption>
         Westlake Middle School, Library, 4:53 PM
       </figcaption>
     </figure>
@@ -488,11 +374,8 @@
 
   <footer><div class="sp-footer"><p><strong>ScreenPath</strong>: free screen reader practice.</p><p>Built by Moises Betancourt for screen reader learners everywhere.</p><div class="sp-actions"><a href="progress.html#privacy">How your results are saved</a></div></div></footer>
 
+  <script src="escape-room.js"></script>
   <script>
-    // Site navigation menu button, the same as every other ScreenPath page
-    (function(){var b=document.getElementById('menu-btn'),d=document.getElementById('nav-drawer');if(!b||!d)return;
-    b.addEventListener('click',function(){var open=d.hasAttribute('hidden');if(open){d.removeAttribute('hidden');}else{d.setAttribute('hidden','');}
-    b.setAttribute('aria-expanded',open?'true':'false');b.setAttribute('aria-label',open?'Close navigation menu':'Open navigation menu');b.innerHTML=open?'&#10005;':'&#9776;';});})();
     // ── Series definitions ─────────────────────────
     const SERIES = [
       {
@@ -744,7 +627,7 @@
       buildTable('page1-tbody',currentSeries.targets[0],1);
       const lz=document.getElementById('library-zone');
       lz.classList.remove('library-locked');lz.removeAttribute('aria-hidden');lz.removeAttribute('inert');
-      const sb=document.getElementById('start-btn');sb.setAttribute('aria-disabled','true');sb.textContent=practiceMode?'Started: No Time Limit':'Started: Clock Running';
+      SPRoom.markStarted('start-btn',practiceMode);
       const tog=document.getElementById('sound-toggle');tog.disabled=true;tog.setAttribute('aria-disabled','true');
       sfxStart();
       if(practiceMode){
@@ -776,11 +659,10 @@
     function fmtElapsed(s){const m=Math.floor(s/60),sec=s%60;if(m===0)return sec+' second'+(sec!==1?'s':'');if(sec===0)return m+' minute'+(m!==1?'s':'');return m+' minute'+(m!==1?'s':'')+' and '+sec+' second'+(sec!==1?'s':'');}
 
     // ── Fail / Success ─────────────────────────────
-    function showFail(){['note-dialog','code-dialog'].forEach(function(id){var d=document.getElementById(id);if(d&&d.open)d.close();});sfxFail();document.getElementById('fail-overlay').classList.add('active');createSparks();setTimeout(()=>document.getElementById('switch-practice').focus(),150);}
+    function showFail(){sfxFail();SPRoom.timeUp({title:'Good Effort. The Clock Ran Out',message:"You found the library and you know Ms. Rivera's system. The clock ran out this time, and you are closer than you were before.",onPractice:switchToPractice});}
     function switchToPractice(){
       try{localStorage.setItem('sp_school_mode','practice');}catch(e){}
       practiceMode=true;
-      document.getElementById('fail-overlay').classList.remove('active');
       const d=document.getElementById('timer-display');
       d.classList.remove('warning','critical');
       d.textContent='No limit';
@@ -789,7 +671,6 @@
       interval=setInterval(tick,1000);
       focusEl(document.getElementById('timer-instructions'));
     }
-    function createSparks(){const c=document.getElementById('fail-sparks');c.innerHTML='';const cx=window.innerWidth/2,cy=window.innerHeight/2;for(let i=0;i<55;i++){const s=document.createElement('div');s.className='spark';s.style.left=cx+'px';s.style.top=cy+'px';const a=Math.random()*Math.PI*2,d=80+Math.random()*360;s.style.setProperty('--dx',Math.cos(a)*d+'px');s.style.setProperty('--dy',Math.sin(a)*d+'px');s.style.animationDelay=Math.random()*.4+'s';s.style.background=Math.random()>.5?'#ff4d4d':'#ff9900';c.appendChild(s);}}
 
 
     // ── Announcer ──────────────────────────────────
@@ -833,35 +714,7 @@
 
     // Initialize: preselect series so note placeholder shows correctly
     selectSeries(true);
-    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('fail-overlay').classList.contains('active'))switchToPractice();});
 
-    // ── Time up: try again in Challenge mode ─────────────────────
-    // Starts the room over with a new target and a fresh clock.
-    function retryChallenge(){
-      try{ localStorage.setItem('sp_school_mode','challenge'); sessionStorage.setItem('sp_retry_room','1'); }catch(e){}
-      window.location.reload();
-    }
-    // Keep Tab and Shift+Tab inside the time up screen while it is open
-    document.getElementById('fail-overlay').addEventListener('keydown',function(e){
-      if(e.key!=='Tab')return;
-      var els=Array.from(this.querySelectorAll('button:not([disabled])'));if(!els.length)return;
-      var first=els[0],last=els[els.length-1];
-      if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
-      else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
-    });
-    // After Try Again, land on the room heading so the student can review the new task
-    (function(){
-      var retry=false;try{retry=!!sessionStorage.getItem('sp_retry_room');sessionStorage.removeItem('sp_retry_room');}catch(e){}
-      if(!retry)return;
-      window.scrollTo(0,0);
-      setTimeout(function(){
-        var h=document.querySelector('#room-content h1')||document.querySelector('main h1');
-        if(h){h.setAttribute('tabindex','-1');h.focus();}
-        announce('New attempt in Challenge mode. Review your new task, then press Start when you are ready.');
-      },400);
-    })();
-    // Move focus to an element that is not normally focusable
-    function focusEl(el){ if(!el)return; el.setAttribute('tabindex','-1'); el.focus(); }
 
 
 
@@ -883,28 +736,11 @@
     });
     document.getElementById('show-code-btn').addEventListener('click',openCodeDialog);
 
-    // ── Graduated hints: offered after two misses, they teach the strategy, not the answer ──
-    var HINTS=[
+    // ── Room settings for the shared escape room script ──
+    SPRoom.init({modeKey:'sp_school_mode',hintWhere:'just above the shelf table',hints:[
         'Use your screen reader\'s table commands to move down the Title column one row at a time. Listen for the series name or the author before you open anything.',
         'When you hear a book from the series, move across that row to the Status column. Activate the display copy link in that row to open the book.'
-    ];
-    var hintsUsed=0, misses=0;
-    // Counts a miss. Returns the sentence to add to the message once a hint is available.
-    function noteMiss(){
-      misses++;
-      if(misses<2||hintsUsed>=HINTS.length) return '';
-      document.getElementById('hint-area').hidden=false;
-      return ' A hint is available just above the shelf table.';
-    }
-    document.getElementById('hint-btn').addEventListener('click',function(){
-      if(hintsUsed>=HINTS.length) return;
-      var p=document.createElement('p');
-      p.textContent='Hint '+(hintsUsed+1)+': '+HINTS[hintsUsed];
-      document.getElementById('hint-text').appendChild(p);
-      hintsUsed++;
-      if(hintsUsed<HINTS.length) this.textContent='Get Another Hint';
-      else { this.textContent='No More Hints'; this.setAttribute('aria-disabled','true'); }
-    });
+    ]});
 
     // Today's date in the student's own time zone (toISOString gives UTC, which can be a day ahead)
     function localDate(){ var d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }

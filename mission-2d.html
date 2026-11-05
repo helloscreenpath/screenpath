@@ -12,7 +12,7 @@
   --text:#f0f0f0; --text-muted:#8a8a8a;
   --green:#39d98a; --green-dim:#0d2e1c;
   --red:#ff4d4d; --red-dim:#2e0d0d;
-  --amber:#f5a623; --amber-dim:#2e1f00;
+  --amber:#39d98a; --amber-dim:#0d2e1c;
   --radius:12px;
   --font:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   --mono:'SF Mono','Fira Code','Consolas',monospace;
@@ -24,16 +24,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:18
 
 
 main{max-width:960px;margin:0 auto;padding:3rem 2rem 6rem;}
-.back-link{display:inline-flex;align-items:center;gap:.5rem;color:var(--text-muted);text-decoration:none;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase;margin-bottom:2.5rem;}
-.back-link:hover,.back-link:focus{color:var(--amber);}
-.back-link:focus-visible{outline:2px solid var(--amber);outline-offset:4px;border-radius:3px;}
 
-.room-header{margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--border);}
-.room-meta{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:1rem;}
-.room-meta p{margin:0;}
-.room-badge{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);padding:.3rem .85rem;border-radius:100px;}
-.room-level{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);border:1px solid var(--border);padding:.3rem .85rem;border-radius:100px;}
-.room-skill-badge{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);border:1px solid rgba(57,217,138,.3);padding:.3rem .85rem;border-radius:100px;background:var(--green-dim);}
 h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;letter-spacing:-.02em;line-height:1.15;color:var(--text);}
 h2{font-size:1.4rem;font-weight:600;letter-spacing:-.01em;margin-bottom:1rem;color:var(--text);}
 .room-image-wrap{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);margin:1.75rem 0 2.5rem;background:var(--surface-2);}
@@ -43,49 +34,14 @@ h2{font-size:1.4rem;font-weight:600;letter-spacing:-.01em;margin-bottom:1rem;col
 p{margin-bottom:1rem;}
 p:last-child{margin-bottom:0;}
 
-.skill-focus{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--green);border-radius:var(--radius);padding:1.5rem;margin:1.5rem 0;}
-.skill-focus-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green);display:block;margin-bottom:.6rem;}
-.skill-focus p{font-size:.95rem;color:var(--text-muted);margin-bottom:0;line-height:1.75;}
 
-.narration-row{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;flex-wrap:wrap;}
-.narrate-btn{display:inline-flex;align-items:center;gap:.6rem;background:var(--surface);border:1px solid var(--green);color:var(--green);font-family:var(--font);font-size:.88rem;font-weight:600;padding:.6rem 1.4rem;border-radius:100px;cursor:pointer;transition:background .2s,transform .15s;}
-.narrate-btn:hover{background:var(--green-dim);transform:translateY(-1px);}
-.narrate-btn:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:100px;}
-.narrate-status{font-family:var(--mono);font-size:.78rem;color:var(--text-muted);}
 
-.target-prompt-card{background:var(--amber-dim);border:1px solid rgba(245,166,35,.4);border-radius:var(--radius);padding:1.75rem;margin:1.75rem 0;display:none;}
+.target-prompt-card{background:var(--amber-dim);border:1px solid rgba(57,217,138,.4);border-radius:var(--radius);padding:1.75rem;margin:1.75rem 0;display:none;}
 .target-prompt-card.visible{display:block;}
 .target-prompt-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.5rem;}
 .target-prompt-text{font-size:1.1rem;font-weight:600;color:var(--text);margin-bottom:0;}
 
-.timer-area{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin:2rem 0;text-align:center;}
-.sound-row{display:flex;align-items:center;justify-content:center;gap:.75rem;margin-bottom:.75rem;flex-wrap:wrap;}
-.sound-note{font-size:.82rem;color:var(--text-muted);font-style:italic;margin-bottom:1.25rem;line-height:1.5;}
-.sound-label{font-size:.88rem;color:var(--text-muted);font-family:var(--mono);letter-spacing:.04em;}
-.toggle-btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--surface-2);border:1px solid var(--border);border-radius:100px;color:var(--text-muted);font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;padding:.45rem 1.1rem;cursor:pointer;transition:border-color .2s,color .2s,background .2s;}
-.toggle-btn[aria-checked="true"]{border-color:var(--amber);color:var(--amber);background:var(--amber-dim);}
-.toggle-btn:focus-visible{outline:2px solid var(--amber);outline-offset:3px;}
-.toggle-dot{width:7px;height:7px;border-radius:50%;background:var(--text-muted);transition:background .2s;flex-shrink:0;}
-.toggle-btn[aria-checked="true"] .toggle-dot{background:var(--amber);}
-.timer-instructions{font-size:.95rem;color:var(--text-muted);margin-bottom:1.5rem;line-height:1.7;}
-#timer-display{font-family:var(--mono);font-size:3.5rem;font-weight:700;color:var(--amber);letter-spacing:.05em;display:block;margin-bottom:1.5rem;line-height:1;transition:color .3s;}
-#timer-display.warning{color:#ffcf70;}
-#timer-display.critical{color:var(--red);animation:pulse .8s infinite;}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 
-.btn{display:inline-block;font-family:var(--font);font-size:1rem;font-weight:600;padding:.9rem 2.5rem;border-radius:100px;border:none;cursor:pointer;letter-spacing:.02em;transition:transform .15s,box-shadow .15s,background .2s;text-decoration:none;text-align:center;}
-.btn:focus-visible{outline:3px solid var(--amber);outline-offset:4px;}
-.btn-primary{background:var(--amber);color:#000;}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,166,35,.3);}
-.btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none;}
-.btn[aria-disabled="true"]{opacity:.55;cursor:default;transform:none;box-shadow:none;}
-.time-up-actions{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;}
-.time-up-actions[hidden]{display:none;}
-.hint-area{margin-top:1.25rem;}
-.hint-area[hidden]{display:none;}
-.hint-text p{background:var(--surface-2);border:1px solid var(--border);border-left:3px solid var(--amber);border-radius:8px;padding:.9rem 1.1rem;margin:.75rem 0 0;font-size:.95rem;color:var(--text);text-align:left;}
-.btn-secondary{background:var(--surface-2);color:var(--text);border:1px solid var(--border);}
-.btn-secondary:hover{background:var(--surface);transform:translateY(-1px);}
 
 .table-container{overflow-x:auto;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin:1.75rem 0;padding:1rem;}
 table{width:100%;border-collapse:collapse;text-align:center;font-size:.95rem;}
@@ -93,7 +49,7 @@ caption{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transfo
 th{background:var(--surface-2);color:var(--amber);font-family:var(--mono);font-size:.85rem;padding:.85rem .5rem;border-bottom:2px solid var(--border);text-transform:uppercase;letter-spacing:.04em;}
 td{padding:.7rem .5rem;border-bottom:1px solid var(--border);color:var(--text);}
 tr:last-child td{border-bottom:none;}
-tr:hover td{background:rgba(245,166,35,.05);}
+tr:hover td{background:rgba(57,217,138,.05);}
 .time-table{text-align:left;}
 .time-table th{text-align:left;}
 
@@ -111,19 +67,6 @@ tr:hover td{background:rgba(245,166,35,.05);}
 .status-open{color:var(--green);font-weight:700;background:var(--green-dim);padding:.2rem .6rem;border-radius:4px;border:1px solid rgba(57,217,138,.3);}
 .status-closed{color:var(--red);font-weight:600;background:var(--red-dim);padding:.2rem .6rem;border-radius:4px;border:1px solid rgba(255,77,77,.3);}
 
-.sp-dialog{margin:auto;max-height:calc(100vh - 2rem);overflow-y:auto;background:var(--surface);color:var(--text);border:2px solid rgba(57,217,138,.5);border-radius:var(--radius);padding:2rem;max-width:520px;width:calc(100% - 2rem);text-align:center;}
-.sp-dialog::backdrop{background:rgba(0,0,0,.85);}
-.sp-dialog h2{font-size:1.5rem;margin-bottom:1rem;outline:none;}
-.sp-dialog p{color:var(--text-muted);margin-bottom:.75rem;}
-.sp-dialog .dialog-code{color:var(--text);font-family:var(--mono);font-size:1.1rem;margin:1rem 0;}
-.sp-dialog #code-dialog-value{display:block;color:var(--green);font-size:2.2rem;font-weight:700;letter-spacing:.25em;margin-top:.4rem;}
-.sp-dialog .btn{margin-top:1rem;}
-.results-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--green)!important;}
-.results-rows{text-align:left;margin:1.25rem 0;}
-.results-rows p{color:var(--text);margin:0;padding:.65rem 0;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:.92rem;}
-.results-rows p:last-child{border-bottom:none;}
-.results-btns{display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;}
-#show-code-btn[hidden]{display:none;}
 .code-reveal-box{background:var(--green-dim);border:2px solid var(--green);border-radius:var(--radius);padding:1.25rem 1.5rem;margin:1.5rem 0;text-align:center;display:none;}
 .code-reveal-box.visible{display:block;}
 .code-reveal-label{font-size:.85rem;color:var(--text);margin-bottom:.5rem;}
@@ -146,72 +89,15 @@ tr:hover td{background:rgba(245,166,35,.05);}
 .feedback-box.success{background:var(--green-dim);border:1px solid rgba(57,217,138,.3);color:var(--green);display:block;}
 .feedback-box.error{background:var(--red-dim);border:1px solid rgba(255,77,77,.3);color:var(--red);display:block;}
 
-.next-room-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin-top:1.5rem;display:none;text-align:center;}
-.next-room-box.visible{display:block;}
-.next-room-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.5rem;}
-.next-room-box h3{color:var(--amber);margin-bottom:.5rem;font-size:1.1rem;}
-.next-room-box p{font-size:.9rem;color:var(--text-muted);margin-bottom:0;}
 
-.escape-scene{margin-top:1.5rem;text-align:left;}
-.escape-scene p{opacity:0;transform:translateY(8px);transition:opacity .6s ease,transform .6s ease;color:var(--text);font-size:1rem;line-height:1.75;margin-bottom:1rem;}
-.escape-scene p.revealed{opacity:1;transform:translateY(0);}
-.escape-scene p:last-child{margin-bottom:0;}
-.escape-return{display:inline-block;margin-top:1.25rem;font-size:.85rem;color:var(--text-muted);text-decoration:underline;}
-.escape-return:hover,.escape-return:focus{color:var(--text);}
 
-.series-complete{position:fixed;inset:0;z-index:4000;display:none;align-items:center;justify-content:center;background:rgba(5,4,2,.96);padding:3rem 1.5rem;overflow-y:auto;}
-.series-complete.open{display:flex;}
-.sc-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
-.sc-particle{position:absolute;top:50%;left:50%;width:8px;height:8px;border-radius:2px;animation-name:resPFly;animation-timing-function:ease-out;animation-fill-mode:forwards;}
-@keyframes resPFly{0%{transform:translate(-50%,-50%) rotate(0deg);opacity:1;}100%{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) rotate(360deg);opacity:0;}}
-.sc-content{position:relative;z-index:1;max-width:640px;width:100%;text-align:left;animation:scFadeUp .6s ease both;}
-@keyframes scFadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-.sc-eyebrow{display:block;font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:1rem;}
-.sc-heading{font-size:clamp(2.4rem,7vw,4.5rem);font-weight:800;letter-spacing:-.02em;line-height:1.05;color:var(--text);margin-bottom:.5rem;outline:none;}
-.sc-subtitle{font-size:1.05rem;color:var(--text-muted);margin-bottom:1.75rem;}
-.sc-story p{font-size:1rem;color:var(--text);line-height:1.8;margin-bottom:.85rem;}
-.sc-story p:last-child{color:var(--green);font-style:italic;}
-.sc-divider{height:1px;background:var(--border);margin:1.75rem 0;}
-.sc-note p{font-size:.98rem;color:var(--text);line-height:1.75;margin-bottom:1rem;}
-.sc-note p:last-child{margin-bottom:0;}
-.sc-note-open{font-size:1.15rem;}
-.sc-sig{font-style:italic;color:var(--text-muted);margin-top:1.25rem;}
-.sc-stats{font-family:var(--mono);font-size:.85rem;color:var(--amber);background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);border-radius:var(--radius);padding:1rem 1.25rem;margin-bottom:1.75rem;line-height:1.6;}
-.sc-actions{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}
-.sc-link-plain{color:var(--text-muted);text-decoration:underline;font-size:.95rem;}
-.sc-link-plain:hover,.sc-link-plain:focus{color:var(--text);}
-@media(prefers-reduced-motion: reduce){.escape-scene p{transition:none;} .sc-content{animation:none;} .sc-particle{display:none;}}
 
 
 @media(max-width:768px){main{padding:2rem 1.25rem 4rem;} #timer-display{font-size:2.5rem;} th,td{padding:.5rem .35rem;font-size:.82rem;}}
 a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:3px;}
 
-/* Site navigation bar and footer, the same as every other ScreenPath page */
-html{scroll-padding-top:84px;}
-body{padding-top:64px;}
-nav[role="navigation"]{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(8,8,8,0.94);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-bottom:1px solid var(--border);}
-.nav-inner{max-width:1400px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;}
-.sp-wordmark{display:flex;align-items:center;text-decoration:none;font-size:1.05rem;font-weight:700;color:var(--text);letter-spacing:-.01em;}
-.sp-wordmark span{color:var(--green);}
-.nav-links{display:flex;align-items:center;gap:.15rem;list-style:none;}
-.nav-links a{color:var(--text-muted);text-decoration:none;font-size:.86rem;font-weight:500;padding:.45rem .8rem;border-radius:100px;white-space:nowrap;}
-.nav-links a:hover{color:var(--text);background:var(--surface-2);}
-.menu-btn{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--border);border-radius:8px;padding:.42rem .55rem;cursor:pointer;color:var(--text-muted);font-size:1.15rem;line-height:1;}
-.nav-drawer{display:flex;flex-direction:column;background:rgba(8,8,8,0.94);border-top:1px solid var(--border);padding:1rem 1.5rem 1.5rem;}
-.nav-drawer[hidden]{display:none;}
-.nav-drawer a{color:var(--text-muted);text-decoration:none;font-size:1rem;font-weight:500;padding:.65rem 0;border-bottom:1px solid var(--border);}
-.nav-drawer a:last-child{border-bottom:none;}
-nav[role="navigation"] a:focus-visible,.menu-btn:focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:3px;}
-footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem 2rem 2rem;}
-.sp-footer{max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:.75rem;text-align:center;}
-.sp-footer p{color:var(--text-muted);font-size:.88rem;margin:0;}
-.sp-footer strong{color:var(--text);}
-.sp-footer .sp-actions{display:flex;gap:.9rem;flex-wrap:wrap;justify-content:center;margin:0;}
-.sp-footer .sp-actions a{color:var(--text-muted);text-decoration:none;font-size:.85rem;padding:.3rem .5rem;}
-.sp-footer .sp-actions a:hover{color:var(--green);}
-@media (max-width:1024px){.nav-links{display:none;}.menu-btn{display:flex;}}
-@media (max-width:768px){.nav-inner{padding:0 1rem;}}
 </style>
+<link rel="stylesheet" href="escape-room.css">
 </head>
 <body>
 
@@ -225,15 +111,14 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
   <div class="room-header">
     <div class="room-meta">
       <p class="room-badge">The Doctor's Visit, Room 4 of 4</p>
-      <p class="room-level">Clinic Visit</p>
       <p class="room-skill-badge">Focus: Interactive Tables &amp; Booking</p>
     </div>
     <h1>Room 4: The Front Desk</h1>
   </div>
 
-  <figure style="margin-bottom:2.5rem;">
+  <figure class="room-photo">
     <img src="https://images.unsplash.com/photo-1764727291644-5dcb0b1a0375?w=860&q=80" alt="A modern clinic reception desk with a sign overhead and a clean, organized front desk workstation." loading="lazy">
-    <figcaption style="font-size:.82rem;color:var(--text-muted);margin-top:.6rem;font-family:var(--mono);letter-spacing:.03em;">The Doctor's Visit, Front Desk, Friday, 4:05 PM</figcaption>
+    <figcaption>The Doctor's Visit, Front Desk, Friday, 4:05 PM</figcaption>
   </figure>
 
   <div class="room-section">
@@ -274,7 +159,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
       </div>
     </div>
 
-    <h3 id="target-heading" style="font-size:1.15rem;font-weight:600;color:var(--amber);margin-bottom:1rem;">Your Assigned Date</h3>
+    <h3 id="target-heading" style="font-size:1.15rem;font-weight:600;color:var(--green);margin-bottom:1rem;">Your Assigned Date</h3>
     <div class="target-prompt-card" id="target-prompt-card" aria-live="polite">
       <span class="target-prompt-label">Mom Says</span>
       <p class="target-prompt-text" id="target-question-text"></p>
@@ -347,7 +232,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
     </div>
 
     <div id="table-2-section">
-      <h3 id="table-2-heading" tabindex="-1" style="font-size:1.15rem;font-weight:600;color:var(--amber);margin:2rem 0 1rem;">Available Appointment Times</h3>
+      <h3 id="table-2-heading" tabindex="-1" style="font-size:1.15rem;font-weight:600;color:var(--green);margin:2rem 0 1rem;">Available Appointment Times</h3>
       <p id="selected-date-heading" style="color:var(--text-muted);font-size:.92rem;">Select a date button from the calendar above to view its time slots.</p>
 
       <div class="table-container">
@@ -391,12 +276,11 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
         <button type="button" class="btn btn-secondary" id="hint-btn">Get a Hint</button>
         <div class="hint-text" id="hint-text" role="status" aria-live="polite"></div>
       </div>
-      <div class="time-up-actions" id="time-up-actions" hidden><button type="button" id="switch-practice" class="btn btn-primary">Continue in Practice Mode</button> <button type="button" id="retry-challenge" class="btn btn-secondary">Try Again in Challenge Mode</button></div>
     </div>
 
     <div class="next-room-box" id="completion-box">
       <span class="next-room-label">// The Doctor's Visit Complete</span>
-      <h3 id="completion-heading" tabindex="-1" style="outline:none;">Appointment Booked.</h3>
+      <h3 id="completion-heading">Appointment Booked.</h3>
     </div>
   </div>
 </main>
@@ -433,32 +317,17 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
   <h2 id="code-dialog-heading">Appointment Held</h2>
   <div id="code-dialog-desc">
     <p>The receptionist is holding your time slot.</p>
-    <p class="dialog-code">Confirmation code: <span id="code-dialog-value"></span></p>
+    <p class="dialog-code">Confirmation code: <span class="dialog-code-value" id="code-dialog-value"></span></p>
     <p>Enter this code in the confirmation box to finish booking.</p>
   </div>
   <button type="button" class="btn btn-primary" id="code-dialog-close">Close and Enter the Code</button>
 </dialog>
 
-<!-- End of the escape room: results for all four rooms -->
-<dialog id="results-dialog" class="sp-dialog results-dialog" aria-labelledby="results-heading">
-  <p class="results-label" aria-hidden="true">Escape Room Complete</p>
-  <h2 id="results-heading" tabindex="-1">The Doctor's Visit Complete</h2>
-  <p class="results-sub">Your results for all four rooms</p>
-  <div class="results-rows" id="results-rows"></div>
-  <div class="results-btns">
-    <button type="button" class="btn btn-primary" id="res-email-btn">Email Results</button>
-    <button type="button" class="btn btn-secondary" id="res-copy-btn">Copy Results</button>
-    <button type="button" class="btn btn-secondary" id="res-skip-btn">Skip</button>
-  </div>
-</dialog>
 
 <footer><div class="sp-footer"><p><strong>ScreenPath</strong>: free screen reader practice.</p><p>Built by Moises Betancourt for screen reader learners everywhere.</p><div class="sp-actions"><a href="progress.html#privacy">How your results are saved</a></div></div></footer>
 
+<script src="escape-room.js"></script>
 <script>
-  // Site navigation menu button, the same as every other ScreenPath page
-  (function(){var b=document.getElementById('menu-btn'),d=document.getElementById('nav-drawer');if(!b||!d)return;
-  b.addEventListener('click',function(){var open=d.hasAttribute('hidden');if(open){d.removeAttribute('hidden');}else{d.setAttribute('hidden','');}
-  b.setAttribute('aria-expanded',open?'true':'false');b.setAttribute('aria-label',open?'Close navigation menu':'Open navigation menu');b.innerHTML=open?'&#10005;':'&#9776;';});})();
   function announce(msg){
     var el=document.createElement('div');
     el.setAttribute('aria-live','assertive');el.setAttribute('aria-atomic','true');
@@ -608,7 +477,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
     document.getElementById('target-question-text').textContent='Mom leans over and says, "September '+currentTargetDateNum+' is the only opening left. Let\'s get it locked in before it is gone."';
     document.getElementById('code-input').disabled=false;
     document.getElementById('submit-btn').disabled=false;
-    const sb=document.getElementById('start-timer-btn');sb.setAttribute('aria-disabled','true');sb.textContent=practiceMode?'Started: No Time Limit':'Started: Clock Running';
+    SPRoom.markStarted('start-timer-btn',practiceMode);
     const tog=document.getElementById('sound-toggle');tog.disabled=true;tog.setAttribute('aria-disabled','true');
     sfxStart();
     if(practiceMode){
@@ -645,13 +514,8 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
   function handleTimeExpired(){
     var cd=document.getElementById('code-dialog'); if(cd&&cd.open) cd.close();
     sfxFail();
-    const feedback=document.getElementById('feedback-msg');
-    feedback.className='feedback-box error';
-    feedback.textContent='Good effort. The five minutes ran out before you booked the appointment, but you know the calendar better now than when you started. Choose how to keep going: Continue in Practice Mode keeps your work and turns off the clock, or Try Again in Challenge Mode starts this room over with a new task and a fresh clock.';
     document.getElementById('confirm-form').querySelectorAll('input,button').forEach(function(el){el.disabled=true;});
-    const sw=document.getElementById('switch-practice');
-    document.getElementById('time-up-actions').hidden=false;
-    sw.focus();
+    SPRoom.timeUp({title:'Good Effort. The Clock Ran Out',message:'The five minutes ran out before you booked the appointment, but you know the calendar better now than when you started.',onPractice:switchToPractice});
   }
 
   function switchToPractice(){
@@ -659,7 +523,6 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
     practiceMode=true;
     const feedback=document.getElementById('feedback-msg');
     feedback.className='feedback-box';feedback.style.display='';feedback.textContent='';
-    document.getElementById('time-up-actions').hidden=true;
     document.getElementById('confirm-form').querySelectorAll('input,button').forEach(function(el){el.disabled=false;});
     const d=document.getElementById('timer-display');
     d.classList.remove('warning','critical');
@@ -669,7 +532,6 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
     interval=setInterval(tick,1000);
     focusEl(document.getElementById('timer-instructions'));
   }
-  document.getElementById('switch-practice').addEventListener('click',switchToPractice);
 
   let narSpeaking=false,narUtterance=null;
   function getNarText(){return ['scene-p1','scene-p2'].map(function(id){var el=document.getElementById(id);return el?el.innerText.replace(/\s+/g,' ').trim():'';}).filter(Boolean).join(' ... ');}
@@ -737,59 +599,10 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
     }catch(e){return null;}
   }
 
-  function renderStats(sess){
-    const el=document.getElementById('sc-stats');
-    if(!el)return;
-    if(!sess||!sess.rooms||!sess.rooms.length){el.textContent='';return;}
-    const rooms=sess.rooms;
-    const totalTime=rooms.reduce(function(a,r){return a+(r.timeUsed||0);},0);
-    const totalAttempts=rooms.reduce(function(a,r){return a+(r.attempts||0);},0);
-    let dateStr=sess.seriesCompleteDate||todayStr();
-    try{dateStr=new Date(dateStr+'T00:00:00').toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});}catch(e){}
-    el.textContent='Completed '+dateStr+', '+rooms.length+' of 4 rooms, '+fmtElapsed(totalTime)+' total time, '+totalAttempts+' attempt'+(totalAttempts!==1?'s':'')+' total.';
-  }
 
-  function scKeyHandler(e){
-    if(e.key!=='Tab')return;
-    const modal=document.getElementById('series-complete');
-    const focusable=modal.querySelectorAll('a[href]');
-    if(!focusable.length)return;
-    const first=focusable[0],last=focusable[focusable.length-1];
-    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
-    else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
-  }
 
-  function createSeriesParticles(){
-    const container=document.getElementById('sc-particles');
-    container.innerHTML='';
-    if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-    const colors=['#f5a623','#ffcc00','#ffffff','#ffe0a3','#39d98a','#4da6ff'];
-    for(let i=0;i<80;i++){
-      const p=document.createElement('div');
-      p.className='sc-particle';
-      const angle=Math.random()*Math.PI*2;
-      const dist=80+Math.random()*260;
-      const dx=Math.cos(angle)*dist,dy=Math.sin(angle)*dist;
-      p.style.setProperty('--dx',dx+'px');
-      p.style.setProperty('--dy',dy+'px');
-      p.style.background=colors[Math.floor(Math.random()*colors.length)];
-      p.style.animationDelay=(Math.random()*.3)+'s';
-      p.style.animationDuration=(1.1+Math.random()*.9)+'s';
-      container.appendChild(p);
-    }
-  }
 
-  function showSeriesComplete(sess){
-    const modal=document.getElementById('series-complete');
-    modal.classList.add('open');
-    modal.setAttribute('aria-hidden','false');
-    createSeriesParticles();
-    setTimeout(function(){
-      const h=document.getElementById('sc-heading');
-      if(h)h.focus({preventScroll:true});
-    },400);
-    document.addEventListener('keydown',scKeyHandler);
-  }
+  function showSeriesComplete(){ SPRoom.finale(); }
 
   document.getElementById('confirm-form').addEventListener('submit',function(e){
     e.preventDefault();
@@ -834,23 +647,6 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
     playEscapeScene();
   });
 
-  // ── Time up: try again in Challenge mode, starting the room over with a new task ──
-  function retryChallenge(){
-    try{ localStorage.setItem('sp_doctor_mode','challenge'); sessionStorage.setItem('sp_retry_room','1'); }catch(e){}
-    window.location.reload();
-  }
-  document.getElementById('retry-challenge').addEventListener('click',retryChallenge);
-  (function(){
-    var retry=false;try{retry=!!sessionStorage.getItem('sp_retry_room');sessionStorage.removeItem('sp_retry_room');}catch(e){}
-    if(!retry)return;
-    window.scrollTo(0,0);
-    setTimeout(function(){
-      var h=document.querySelector('#room-content h1')||document.querySelector('main h1');
-      if(h){h.setAttribute('tabindex','-1');h.focus();}
-      announce('New attempt in Challenge mode. Review your new task, then press Start when you are ready.');
-    },400);
-  })();
-  function focusEl(el){ if(!el)return; el.setAttribute('tabindex','-1'); el.focus(); }
 
   // ── Code pop-up ──
   function openCodeDialog(){
@@ -860,64 +656,24 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
   }
   document.getElementById('code-dialog-close').addEventListener('click',function(){ document.getElementById('code-dialog').close(); });
   document.getElementById('code-dialog').addEventListener('close',function(){
-    if(!document.getElementById('time-up-actions').hidden) return; // time ran out: focus is on the choices
+    if(SPRoom.timeUpOpen()) return; // time ran out: focus is on the choices
     var c=document.getElementById('code-input'); if(c&&!c.readOnly&&!c.disabled) c.focus(); else document.getElementById('show-code-btn').focus();
   });
   document.getElementById('show-code-btn').addEventListener('click',openCodeDialog);
 
-  // ── Results for the whole escape room ──
+  // ── Results for the whole escape room, then the final screen ──
   var finishedSession=null;
   function showDoctorResults(){
-    var sess=finishedSession;
-    var meta=[['1','The Check-In Desk'],['2','The Exam Room'],['3','Growth and Vitals History'],['4','The Front Desk']];
-    var lines=[], total=0;
-    meta.forEach(function(m){
-      var r=sess&&sess.rooms?sess.rooms.find(function(x){return x.roomKey===m[0];}):null;
-      if(r){ total+=r.timeUsed||0; lines.push('Room '+m[0]+', '+m[1]+': '+fmtElapsed(r.timeUsed||0)+', '+r.attempts+' attempt'+(r.attempts!==1?'s':'')+(r.hints!=null?', '+r.hints+' hint'+(r.hints!==1?'s':''):'')); }
-      else lines.push('Room '+m[0]+', '+m[1]+': Not recorded');
-    });
-    lines.push('Total time: '+fmtElapsed(total));
-    try{ lines.push('Mode: '+(localStorage.getItem('sp_doctor_mode')==='practice'?'Practice':'Challenge')); }catch(e){}
-    if(sess&&sess.screenReader) lines.push('Screen reader: '+sess.screenReader);
-    var rows=document.getElementById('results-rows'); rows.innerHTML='';
-    lines.forEach(function(t){ var p=document.createElement('p'); p.textContent=t; rows.appendChild(p); });
-    var ds=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-    var body=["ScreenPath: The Doctor's Visit", ds, ''].concat(lines).join('\n');
-    document.getElementById('res-email-btn').onclick=function(){ window.location.href='mailto:?subject='+encodeURIComponent("ScreenPath Results: The Doctor's Visit")+'&body='+encodeURIComponent(body); };
-    document.getElementById('res-copy-btn').onclick=function(){
-      var btn=this;
-      function done(){ btn.textContent='Copied'; setTimeout(function(){ btn.textContent='Copy Results'; },2500); announce('Results copied to clipboard.'); }
-      if(navigator.clipboard){ navigator.clipboard.writeText(body).then(done); }
-      else { var ta=document.createElement('textarea'); ta.value=body; ta.style.cssText='position:fixed;left:-9999px'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); done(); }
-    };
-    document.getElementById('res-skip-btn').onclick=function(){ document.getElementById('results-dialog').close(); };
-    var d=document.getElementById('results-dialog'); d.showModal();
-    document.getElementById('results-heading').focus();
+    SPRoom.results({heading:"The Doctor's Visit Complete",sub:'Your results for all four rooms',emailTitle:"The Doctor's Visit",
+      lines:SPRoom.resultLines(finishedSession,[['1','The Check-In Desk'],['2','The Exam Room'],['3','Growth and Vitals History'],['4','The Front Desk']],'sp_doctor_mode',fmtElapsed),
+      onClose:showSeriesComplete});
   }
-  // Results closed by Skip or Escape: the final screen
-  document.getElementById('results-dialog').addEventListener('close',function(){ showSeriesComplete(finishedSession); });
 
-  // ── Graduated hints: offered after two misses, they teach the strategy, not the answer ──
-  var HINTS=[
+  // ── Room settings for the shared escape room script ──
+  SPRoom.init({modeKey:'sp_doctor_mode',hintWhere:'below the Confirm Appointment button',hints:[
     'Use your screen reader\'s table commands to move through the calendar until you hear your assigned date, then activate it to open that day\'s times.',
     'In the times table, move down the Status column and listen for Open. Activate the button in that row to get your confirmation code.'
-  ];
-  var hintsUsed=0, misses=0;
-  function noteMiss(){
-    misses++;
-    if(misses<2||hintsUsed>=HINTS.length) return '';
-    document.getElementById('hint-area').hidden=false;
-    return ' A hint is available below the Confirm Appointment button.';
-  }
-  document.getElementById('hint-btn').addEventListener('click',function(){
-    if(hintsUsed>=HINTS.length) return;
-    var p=document.createElement('p');
-    p.textContent='Hint '+(hintsUsed+1)+': '+HINTS[hintsUsed];
-    document.getElementById('hint-text').appendChild(p);
-    hintsUsed++;
-    if(hintsUsed<HINTS.length) this.textContent='Get Another Hint';
-    else { this.textContent='No More Hints'; this.setAttribute('aria-disabled','true'); }
-  });
+  ]});
 </script>
 </body>
 </html>

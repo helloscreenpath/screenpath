@@ -12,7 +12,7 @@
   --text:#f0f0f0; --text-muted:#8a8a8a;
   --green:#39d98a; --green-dim:#0d2e1c;
   --red:#ff4d4d; --red-dim:#2e0d0d;
-  --amber:#f5a623; --amber-dim:#2e1f00;
+  --amber:#39d98a; --amber-dim:#0d2e1c;
   --radius:12px;
   --font:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   --mono:'SF Mono','Fira Code','Consolas',monospace;
@@ -24,16 +24,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:18
 
 
 main{max-width:860px;margin:0 auto;padding:3rem 2rem 6rem;}
-.back-link{display:inline-flex;align-items:center;gap:.5rem;color:var(--text-muted);text-decoration:none;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase;margin-bottom:2.5rem;}
-.back-link:hover,.back-link:focus{color:var(--amber);}
-.back-link:focus-visible{outline:2px solid var(--amber);outline-offset:4px;border-radius:3px;}
 
-.room-header{margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--border);}
-.room-meta{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:1rem;}
-.room-meta p{margin:0;}
-.room-badge{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);padding:.3rem .85rem;border-radius:100px;}
-.room-level{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);border:1px solid var(--border);padding:.3rem .85rem;border-radius:100px;}
-.room-skill-badge{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);border:1px solid rgba(57,217,138,.3);padding:.3rem .85rem;border-radius:100px;background:var(--green-dim);}
 h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;letter-spacing:-.02em;line-height:1.15;color:var(--text);}
 h2{font-size:1.4rem;font-weight:600;letter-spacing:-.01em;margin-bottom:1.25rem;color:var(--text);}
 .room-image-wrap{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);margin:1.75rem 0 2.5rem;background:var(--surface-2);}
@@ -44,49 +35,13 @@ h2{font-size:1.4rem;font-weight:600;letter-spacing:-.01em;margin-bottom:1.25rem;
 p{margin-bottom:1rem;}
 p:last-child{margin-bottom:0;}
 
-.skill-focus{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--green);border-radius:var(--radius);padding:1.5rem;margin:1.5rem 0;}
-.skill-focus-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green);display:block;margin-bottom:.6rem;}
-.skill-focus p{font-size:.95rem;color:var(--text-muted);margin-bottom:0;line-height:1.75;}
 
-.narration-row{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;flex-wrap:wrap;}
-.narrate-btn{display:inline-flex;align-items:center;gap:.6rem;background:var(--surface);border:1px solid var(--green);color:var(--green);font-family:var(--font);font-size:.88rem;font-weight:600;padding:.6rem 1.4rem;border-radius:100px;cursor:pointer;transition:background .2s,transform .15s;}
-.narrate-btn:hover{background:var(--green-dim);transform:translateY(-1px);}
-.narrate-btn:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:100px;}
-.narrate-btn.playing{background:var(--green-dim);}
-.narrate-status{font-family:var(--mono);font-size:.78rem;color:var(--text-muted);}
 
-.timer-area{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin:2rem 0;text-align:center;}
-.sound-row{display:flex;align-items:center;justify-content:center;gap:.75rem;margin-bottom:.75rem;flex-wrap:wrap;}
-.sound-note{font-size:.82rem;color:var(--text-muted);font-style:italic;margin-bottom:1.25rem;line-height:1.5;}
-.sound-label{font-size:.88rem;color:var(--text-muted);font-family:var(--mono);letter-spacing:.04em;}
-.toggle-btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--surface-2);border:1px solid var(--border);border-radius:100px;color:var(--text-muted);font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;padding:.45rem 1.1rem;cursor:pointer;transition:border-color .2s,color .2s,background .2s;}
-.toggle-btn[aria-checked="true"]{border-color:var(--amber);color:var(--amber);background:var(--amber-dim);}
-.toggle-btn:focus-visible{outline:2px solid var(--amber);outline-offset:3px;}
-.toggle-dot{width:7px;height:7px;border-radius:50%;background:var(--text-muted);transition:background .2s;flex-shrink:0;}
-.toggle-btn[aria-checked="true"] .toggle-dot{background:var(--amber);}
-.timer-instructions{font-size:.95rem;color:var(--text-muted);margin-bottom:1.5rem;line-height:1.7;}
-#timer-display{font-family:var(--mono);font-size:3.5rem;font-weight:700;color:var(--amber);letter-spacing:.05em;display:block;margin-bottom:1.5rem;line-height:1;transition:color .3s;}
-#timer-display.warning{color:#ffcf70;}
-#timer-display.critical{color:var(--red);animation:pulse .8s infinite;}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 
-.btn{display:inline-block;font-family:var(--font);font-size:1rem;font-weight:600;padding:.9rem 2.5rem;border-radius:100px;border:none;cursor:pointer;letter-spacing:.02em;transition:transform .15s,box-shadow .15s,background .2s;text-decoration:none;text-align:center;}
-.btn:focus-visible{outline:3px solid var(--amber);outline-offset:4px;}
-.btn-primary{background:var(--amber);color:#000;}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,166,35,.3);}
-.btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none;}
-.btn[aria-disabled="true"]{opacity:.55;cursor:default;transform:none;box-shadow:none;}
-.time-up-actions{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;}
-.time-up-actions[hidden]{display:none;}
-.hint-area{margin-top:1.25rem;}
-.hint-area[hidden]{display:none;}
-.hint-text p{background:var(--surface-2);border:1px solid var(--border);border-left:3px solid var(--amber);border-radius:8px;padding:.9rem 1.1rem;margin:.75rem 0 0;font-size:.95rem;color:var(--text);text-align:left;}
-.btn-secondary{background:var(--surface-2);color:var(--text);border:1px solid var(--border);}
-.btn-secondary:hover{background:var(--surface);transform:translateY(-1px);}
 
 .audio-challenge-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin:1.5rem 0;text-align:center;}
 .play-beats-btn{background:var(--amber);color:#000;font-family:var(--font);font-weight:700;font-size:1.02rem;border:none;padding:.95rem 2rem;border-radius:100px;cursor:pointer;display:inline-flex;align-items:center;gap:.65rem;transition:transform .15s,box-shadow .2s;}
-.play-beats-btn:hover{transform:scale(1.02);box-shadow:0 4px 20px rgba(245,166,35,.3);}
+.play-beats-btn:hover{transform:scale(1.02);box-shadow:0 4px 20px rgba(57,217,138,.3);}
 .play-beats-btn:focus-visible{outline:3px solid var(--amber);outline-offset:4px;}
 .play-beats-btn:disabled{opacity:.5;cursor:not-allowed;}
 .monitor-status{margin-top:1rem;font-family:var(--mono);font-size:.9rem;color:var(--amber);}
@@ -107,47 +62,14 @@ p:last-child{margin-bottom:0;}
 .feedback-box.success{background:var(--green-dim);border:1px solid rgba(57,217,138,.3);color:var(--green);display:block;}
 .feedback-box.error{background:var(--red-dim);border:1px solid rgba(255,77,77,.3);color:var(--red);display:block;}
 
-.bridge-msg{background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);border-radius:var(--radius);padding:1.5rem;margin-top:1.5rem;display:none;}
-.bridge-msg.visible{display:block;}
-.bridge-msg-label{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.5rem;}
-.bridge-msg p{font-size:.95rem;color:var(--text);line-height:1.7;margin-bottom:0;font-style:italic;}
 
-.next-room-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin-top:1.5rem;display:none;text-align:center;}
-.next-room-box.visible{display:block;}
-.next-room-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.5rem;}
-.next-room-box h3{color:var(--amber);margin-bottom:.5rem;font-size:1.1rem;outline:none;}
-.next-room-box p{font-size:.9rem;color:var(--text-muted);margin-bottom:1.5rem;}
 
 
 @media(max-width:768px){main{padding:2rem 1.25rem 4rem;} #timer-display{font-size:2.5rem;}}
 a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:3px;}
 
-/* Site navigation bar and footer, the same as every other ScreenPath page */
-html{scroll-padding-top:84px;}
-body{padding-top:64px;}
-nav[role="navigation"]{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(8,8,8,0.94);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-bottom:1px solid var(--border);}
-.nav-inner{max-width:1400px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;}
-.sp-wordmark{display:flex;align-items:center;text-decoration:none;font-size:1.05rem;font-weight:700;color:var(--text);letter-spacing:-.01em;}
-.sp-wordmark span{color:var(--green);}
-.nav-links{display:flex;align-items:center;gap:.15rem;list-style:none;}
-.nav-links a{color:var(--text-muted);text-decoration:none;font-size:.86rem;font-weight:500;padding:.45rem .8rem;border-radius:100px;white-space:nowrap;}
-.nav-links a:hover{color:var(--text);background:var(--surface-2);}
-.menu-btn{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--border);border-radius:8px;padding:.42rem .55rem;cursor:pointer;color:var(--text-muted);font-size:1.15rem;line-height:1;}
-.nav-drawer{display:flex;flex-direction:column;background:rgba(8,8,8,0.94);border-top:1px solid var(--border);padding:1rem 1.5rem 1.5rem;}
-.nav-drawer[hidden]{display:none;}
-.nav-drawer a{color:var(--text-muted);text-decoration:none;font-size:1rem;font-weight:500;padding:.65rem 0;border-bottom:1px solid var(--border);}
-.nav-drawer a:last-child{border-bottom:none;}
-nav[role="navigation"] a:focus-visible,.menu-btn:focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:3px;}
-footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem 2rem 2rem;}
-.sp-footer{max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:.75rem;text-align:center;}
-.sp-footer p{color:var(--text-muted);font-size:.88rem;margin:0;}
-.sp-footer strong{color:var(--text);}
-.sp-footer .sp-actions{display:flex;gap:.9rem;flex-wrap:wrap;justify-content:center;margin:0;}
-.sp-footer .sp-actions a{color:var(--text-muted);text-decoration:none;font-size:.85rem;padding:.3rem .5rem;}
-.sp-footer .sp-actions a:hover{color:var(--green);}
-@media (max-width:1024px){.nav-links{display:none;}.menu-btn{display:flex;}}
-@media (max-width:768px){.nav-inner{padding:0 1rem;}}
 </style>
+<link rel="stylesheet" href="escape-room.css">
 </head>
 <body>
 
@@ -161,15 +83,14 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
   <div class="room-header">
     <div class="room-meta">
       <p class="room-badge">The Doctor's Visit, Room 2 of 4</p>
-      <p class="room-level">Clinic Visit</p>
       <p class="room-skill-badge">Focus: Auditory Attention</p>
     </div>
     <h1>Room 2: The Exam Room</h1>
   </div>
 
-  <figure style="margin-bottom:2.5rem;">
+  <figure class="room-photo">
     <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=860&q=80" alt="A clean doctor's examination room with a padded chair, an exam table covered in paper, a stethoscope hanging on the wall, and a digital heart monitor screen." loading="lazy">
-    <figcaption style="font-size:.82rem;color:var(--text-muted);margin-top:.6rem;font-family:var(--mono);letter-spacing:.03em;" id="image-caption">The Doctor's Visit, Exam Room, Friday, 3:52 PM</figcaption>
+    <figcaption id="image-caption">The Doctor's Visit, Exam Room, Friday, 3:52 PM</figcaption>
   </figure>
 
   <div class="room-section">
@@ -230,17 +151,11 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
         <button type="button" class="btn btn-secondary" id="hint-btn">Get a Hint</button>
         <div class="hint-text" id="hint-text" role="status" aria-live="polite"></div>
       </div>
-    <div class="time-up-actions" id="time-up-actions" hidden><button type="button" id="switch-practice" class="btn btn-primary">Continue in Practice Mode</button> <button type="button" id="retry-challenge" class="btn btn-secondary">Try Again in Challenge Mode</button></div>
-
-    <div class="bridge-msg" id="bridge-msg" role="note">
-      <span class="bridge-msg-label">// Exam Room System Message</span>
-      <p id="bridge-msg-text"></p>
-    </div>
 
     <div class="next-room-box" id="next-room-box">
       <span class="next-room-label">// Room 2 Complete</span>
-      <h3 id="next-room-heading" tabindex="-1">Room 3 is Now Unlocked</h3>
-      <p>Your hearing screening is signed off and on file. Next you will review your growth and vitals history.</p>
+      <h3 id="next-room-heading">Room 3 is Now Unlocked</h3>
+      <p class="next-room-msg" id="bridge-msg-text"></p>
       <a href="mission-2c.html" class="btn btn-primary">Enter Room 3: Growth and Vitals History</a>
     </div>
   </div>
@@ -248,11 +163,8 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
 
 <footer><div class="sp-footer"><p><strong>ScreenPath</strong>: free screen reader practice.</p><p>Built by Moises Betancourt for screen reader learners everywhere.</p><div class="sp-actions"><a href="progress.html#privacy">How your results are saved</a></div></div></footer>
 
+<script src="escape-room.js"></script>
 <script>
-  // Site navigation menu button, the same as every other ScreenPath page
-  (function(){var b=document.getElementById('menu-btn'),d=document.getElementById('nav-drawer');if(!b||!d)return;
-  b.addEventListener('click',function(){var open=d.hasAttribute('hidden');if(open){d.removeAttribute('hidden');}else{d.setAttribute('hidden','');}
-  b.setAttribute('aria-expanded',open?'true':'false');b.setAttribute('aria-label',open?'Close navigation menu':'Open navigation menu');b.innerHTML=open?'&#10005;':'&#9776;';});})();
   function announce(msg){
     var el=document.createElement('div');
     el.setAttribute('aria-live','assertive');el.setAttribute('aria-atomic','true');
@@ -370,7 +282,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
   function startScreening(){
     if(started)return;
     started=true;
-    const sb=document.getElementById('start-timer-btn');sb.setAttribute('aria-disabled','true');sb.textContent=practiceMode?'Started: No Time Limit':'Started: Clock Running';
+    SPRoom.markStarted('start-timer-btn',practiceMode);
     const tog=document.getElementById('sound-toggle');tog.disabled=true;tog.setAttribute('aria-disabled','true');
     sfxStart();
     if(practiceMode){
@@ -409,14 +321,9 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
   function handleTimeExpired(){
     complete=true;
     sfxFail();
-    const feedback=document.getElementById('feedback-msg');
-    feedback.className='feedback-box error';
-    feedback.textContent='Good effort. The three minutes ran out before the screening finished, and the specialist has already moved on to her next stop. Choose how to keep going: Continue in Practice Mode keeps your work and turns off the clock, or Try Again in Challenge Mode starts this room over with a new task and a fresh clock.';
     document.getElementById('beat-form').querySelectorAll('input,button').forEach(function(el){el.disabled=true;});
     document.getElementById('replay-btn').disabled=true;
-    const sw=document.getElementById('switch-practice');
-    document.getElementById('time-up-actions').hidden=false;
-    sw.focus();
+    SPRoom.timeUp({title:'Good Effort. The Clock Ran Out',message:'The three minutes ran out before the screening finished, and the specialist has already moved on to her next stop.',onPractice:switchToPractice});
   }
 
   function switchToPractice(){
@@ -425,7 +332,6 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
     complete=false;
     const feedback=document.getElementById('feedback-msg');
     feedback.className='feedback-box';feedback.style.display='';feedback.textContent='';
-    document.getElementById('time-up-actions').hidden=true;
     document.getElementById('beat-form').querySelectorAll('input,button').forEach(function(el){el.disabled=false;});
     document.getElementById('replay-btn').disabled=!playbackDone;
     const d=document.getElementById('timer-display');
@@ -436,7 +342,6 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
     interval=setInterval(tick,1000);
     focusEl(document.getElementById('timer-instructions'));
   }
-  document.getElementById('switch-practice').addEventListener('click',switchToPractice);
 
   let narSpeaking=false,narUtterance=null;
   function getNarText(){return ['scene-p1','scene-p2'].map(function(id){var el=document.getElementById(id);return el?el.innerText.replace(/\s+/g,' ').trim():'';}).filter(Boolean).join(' ... ');}
@@ -507,8 +412,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
 
       var doctorName='The doctor';
       try{var s2=JSON.parse(localStorage.getItem('sp_doctor_current_session')||'null');if(s2&&s2.assignedDoctor)doctorName=s2.assignedDoctor;}catch(e){}
-      document.getElementById('bridge-msg-text').textContent='"Screening complete and signed off with time to spare. '+doctorName+' would like to review your growth history before finishing up. Head over to the vitals station when you are ready."';
-      document.getElementById('bridge-msg').classList.add('visible');
+      document.getElementById('bridge-msg-text').textContent='The screening tablet reads: '+'"Screening complete and signed off with time to spare. '+doctorName+' would like to review your growth history before finishing up. Head over to the vitals station when you are ready."';
       revealCompletion('next-room-box','next-room-heading');
     } else {
       sfxError();
@@ -519,45 +423,12 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
     }
   });
 
-  // ── Time up: try again in Challenge mode, starting the room over with a new task ──
-  function retryChallenge(){
-    try{ localStorage.setItem('sp_doctor_mode','challenge'); sessionStorage.setItem('sp_retry_room','1'); }catch(e){}
-    window.location.reload();
-  }
-  document.getElementById('retry-challenge').addEventListener('click',retryChallenge);
-  (function(){
-    var retry=false;try{retry=!!sessionStorage.getItem('sp_retry_room');sessionStorage.removeItem('sp_retry_room');}catch(e){}
-    if(!retry)return;
-    window.scrollTo(0,0);
-    setTimeout(function(){
-      var h=document.querySelector('#room-content h1')||document.querySelector('main h1');
-      if(h){h.setAttribute('tabindex','-1');h.focus();}
-      announce('New attempt in Challenge mode. Review your new task, then press Start when you are ready.');
-    },400);
-  })();
-  function focusEl(el){ if(!el)return; el.setAttribute('tabindex','-1'); el.focus(); }
 
-  // ── Graduated hints: offered after two misses, they teach the strategy, not the answer ──
-  var HINTS=[
+  // ── Room settings for the shared escape room script ──
+  SPRoom.init({modeKey:'sp_doctor_mode',hintWhere:'below the Confirm Your Count button',hints:[
     'Count each tone as it plays and ignore every other sound. Wait for the sequence to end before you type your answer.',
     'Replay the sequence and count again. If your two counts are different, replay once more and go with the number you heard twice.'
-  ];
-  var hintsUsed=0, misses=0;
-  function noteMiss(){
-    misses++;
-    if(misses<2||hintsUsed>=HINTS.length) return '';
-    document.getElementById('hint-area').hidden=false;
-    return ' A hint is available below the Confirm Your Count button.';
-  }
-  document.getElementById('hint-btn').addEventListener('click',function(){
-    if(hintsUsed>=HINTS.length) return;
-    var p=document.createElement('p');
-    p.textContent='Hint '+(hintsUsed+1)+': '+HINTS[hintsUsed];
-    document.getElementById('hint-text').appendChild(p);
-    hintsUsed++;
-    if(hintsUsed<HINTS.length) this.textContent='Get Another Hint';
-    else { this.textContent='No More Hints'; this.setAttribute('aria-disabled','true'); }
-  });
+  ]});
 </script>
 </body>
 </html>

@@ -12,7 +12,7 @@
   --text:#f0f0f0; --text-muted:#8a8a8a;
   --green:#39d98a; --green-dim:#0d2e1c;
   --red:#ff4d4d; --red-dim:#2e0d0d;
-  --amber:#f5a623; --amber-dim:#2e1f00;
+  --amber:#39d98a; --amber-dim:#0d2e1c;
   --radius:12px;
   --font:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   --mono:'SF Mono','Fira Code','Consolas',monospace;
@@ -27,16 +27,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:18
 
 /* Main */
 main{max-width:860px;margin:0 auto;padding:3rem 2rem 6rem;}
-.back-link{display:inline-flex;align-items:center;gap:.5rem;color:var(--text-muted);text-decoration:none;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase;margin-bottom:2.5rem;}
-.back-link:hover,.back-link:focus{color:var(--amber);}
-.back-link:focus-visible{outline:2px solid var(--amber);outline-offset:4px;border-radius:3px;}
 
-.room-header{margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--border);}
-.room-meta{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:1rem;}
-.room-meta p{margin:0;}
-.room-badge{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);padding:.3rem .85rem;border-radius:100px;}
-.room-level{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);border:1px solid var(--border);padding:.3rem .85rem;border-radius:100px;}
-.room-skill-badge{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);border:1px solid rgba(57,217,138,.3);padding:.3rem .85rem;border-radius:100px;background:var(--green-dim);}
 h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;letter-spacing:-.02em;line-height:1.15;color:var(--text);}
 h2{font-size:1.4rem;font-weight:600;letter-spacing:-.01em;margin-bottom:1.25rem;color:var(--text);}
 h3{font-size:1.1rem;font-weight:600;color:var(--amber);margin-bottom:1rem;}
@@ -64,60 +55,24 @@ p:last-child{margin-bottom:0;}
 .gate-note{color:var(--text-muted);font-size:.85rem;margin-top:1rem;}
 
 /* Skill focus */
-.skill-focus{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--green);border-radius:var(--radius);padding:1.5rem;margin:1.5rem 0;}
-.skill-focus-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green);display:block;margin-bottom:.6rem;}
-.skill-focus p{font-size:.95rem;color:var(--text-muted);margin-bottom:0;line-height:1.75;}
 
 /* Profile card */
-.profile-card{background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);border-radius:var(--radius);padding:1.75rem;margin:1.75rem 0;}
+.profile-card{background:var(--amber-dim);border:1px solid rgba(57,217,138,.3);border-radius:var(--radius);padding:1.75rem;margin:1.75rem 0;}
 .profile-card-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.9rem;}
 .intake-dl{display:grid;grid-template-columns:1fr;gap:1.25rem;margin:0;padding:0;}
-.intake-group{margin:0;border-bottom:1px solid rgba(245,166,35,.15);padding-bottom:.75rem;}
+.intake-group{margin:0;border-bottom:1px solid rgba(57,217,138,.15);padding-bottom:.75rem;}
 .intake-group:last-child{border-bottom:none;padding-bottom:0;}
 .intake-dt{color:var(--amber);font-family:var(--mono);font-size:.9rem;font-weight:700;margin-right:.5rem;}
 .intake-dd{color:var(--text);font-family:var(--mono);font-size:1.05rem;font-weight:600;}
 
 /* Narration */
-.narration-row{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;flex-wrap:wrap;}
-.narrate-btn{display:inline-flex;align-items:center;gap:.6rem;background:var(--surface);border:1px solid var(--green);color:var(--green);font-family:var(--font);font-size:.88rem;font-weight:600;padding:.6rem 1.4rem;border-radius:100px;cursor:pointer;transition:background .2s,transform .15s;}
-.narrate-btn:hover{background:var(--green-dim);transform:translateY(-1px);}
-.narrate-btn:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:100px;}
-.narrate-btn.playing{background:var(--green-dim);}
-.narrate-status{font-family:var(--mono);font-size:.78rem;color:var(--text-muted);}
 
 /* Timer */
-.timer-area{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin:2rem 0;text-align:center;}
-.sound-row{display:flex;align-items:center;justify-content:center;gap:.75rem;margin-bottom:.75rem;flex-wrap:wrap;}
-.sound-note{font-size:.82rem;color:var(--text-muted);font-style:italic;margin-bottom:1.25rem;line-height:1.5;}
-.sound-label{font-size:.88rem;color:var(--text-muted);font-family:var(--mono);letter-spacing:.04em;}
-.toggle-btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--surface-2);border:1px solid var(--border);border-radius:100px;color:var(--text-muted);font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;padding:.45rem 1.1rem;cursor:pointer;transition:border-color .2s,color .2s,background .2s;}
-.toggle-btn[aria-checked="true"]{border-color:var(--amber);color:var(--amber);background:var(--amber-dim);}
-.toggle-btn:focus-visible{outline:2px solid var(--amber);outline-offset:3px;}
-.toggle-dot{width:7px;height:7px;border-radius:50%;background:var(--text-muted);transition:background .2s;flex-shrink:0;}
-.toggle-btn[aria-checked="true"] .toggle-dot{background:var(--amber);}
-.timer-instructions{font-size:.95rem;color:var(--text-muted);margin-bottom:1.5rem;line-height:1.7;}
-#timer-display{font-family:var(--mono);font-size:3.5rem;font-weight:700;color:var(--amber);letter-spacing:.05em;display:block;margin-bottom:1.5rem;line-height:1;transition:color .3s;}
-#timer-display.warning{color:#ffcf70;}
-#timer-display.critical{color:var(--red);animation:pulse .8s infinite;}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 
 /* Buttons */
-.btn{display:inline-block;font-family:var(--font);font-size:1rem;font-weight:600;padding:.9rem 2.5rem;border-radius:100px;border:none;cursor:pointer;letter-spacing:.02em;transition:transform .15s,box-shadow .15s,background .2s;text-decoration:none;text-align:center;}
-.btn:focus-visible{outline:3px solid var(--amber);outline-offset:4px;}
-.btn-primary{background:var(--amber);color:#000;}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,166,35,.3);}
-.btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none;}
-.btn[aria-disabled="true"]{opacity:.55;cursor:default;transform:none;box-shadow:none;}
-.time-up-actions{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;}
-.time-up-actions[hidden]{display:none;}
-.hint-area{margin-top:1.25rem;}
-.hint-area[hidden]{display:none;}
-.hint-text p{background:var(--surface-2);border:1px solid var(--border);border-left:3px solid var(--amber);border-radius:8px;padding:.9rem 1.1rem;margin:.75rem 0 0;font-size:.95rem;color:var(--text);text-align:left;}
 /* Fieldsets size to their content by default, which pushed the doctor combo box past a phone screen */
 .form-fieldset{min-width:0;}
 .form-fieldset select,.form-fieldset input{max-width:100%;}
-.btn-secondary{background:var(--surface-2);color:var(--text);border:1px solid var(--border);}
-.btn-secondary:hover{background:var(--surface);transform:translateY(-1px);}
 
 /* Form */
 .registration-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin:1.5rem 0;}
@@ -141,10 +96,6 @@ p:last-child{margin-bottom:0;}
 .feedback-box.error{background:var(--red-dim);border:1px solid rgba(255,77,77,.3);color:var(--red);display:block;}
 
 /* Bridge message */
-.bridge-msg{background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);border-radius:var(--radius);padding:1.5rem;margin-top:1.5rem;display:none;}
-.bridge-msg.visible{display:block;}
-.bridge-msg-label{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.5rem;}
-.bridge-msg p{font-size:.95rem;color:var(--text);line-height:1.7;margin-bottom:0;font-style:italic;}
 
 /* Debrief / next room */
 .answer-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin-top:1.5rem;display:none;}
@@ -156,55 +107,25 @@ p:last-child{margin-bottom:0;}
 .form-group:last-child{margin-bottom:0;}
 label{display:block;font-size:.92rem;font-weight:600;color:var(--text);margin-bottom:.5rem;}
 input[type="text"]{width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font);font-size:1rem;padding:.85rem 1rem;}
-input[type="text"]:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(245,166,35,.15);}
+input[type="text"]:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(57,217,138,.15);}
 textarea{width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font);font-size:1rem;padding:.85rem 1rem;resize:vertical;min-height:90px;line-height:1.6;}
-textarea:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(245,166,35,.15);}
+textarea:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(57,217,138,.15);}
 .radio-group{display:flex;flex-direction:column;gap:.6rem;margin-top:.25rem;}
 .radio-option{display:flex;align-items:center;gap:.75rem;cursor:pointer;font-size:.95rem;color:var(--text-muted);padding:.65rem 1rem;border:1px solid var(--border);border-radius:8px;transition:border-color .2s,color .2s;}
 .radio-option:hover{border-color:var(--amber);color:var(--text);}
 .radio-option input[type="radio"]{width:18px;height:18px;accent-color:var(--amber);flex-shrink:0;}
 .radio-option input[type="radio"]:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
 .section-divider{border:none;border-top:1px solid var(--border);margin:1.5rem 0;}
-.next-room-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin-top:1.5rem;display:none;text-align:center;}
-.next-room-box.visible{display:block;animation:fadeUp .4s ease;}
-.next-room-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.5rem;}
-.next-room-box h3{color:var(--amber);margin-bottom:.5rem;font-size:1.1rem;}
-.next-room-box p{font-size:.9rem;color:var(--text-muted);margin-bottom:1.5rem;}
 
 
 @media(max-width:768px){
   main{padding:2rem 1.25rem 4rem;}
   .registration-card{padding:1.25rem;}
-  #timer-display{font-size:2.5rem;}
 }
 a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:3px;}
 
-/* Site navigation bar and footer, the same as every other ScreenPath page */
-html{scroll-padding-top:84px;}
-body{padding-top:64px;}
-nav[role="navigation"]{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(8,8,8,0.94);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-bottom:1px solid var(--border);}
-.nav-inner{max-width:1400px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;}
-.sp-wordmark{display:flex;align-items:center;text-decoration:none;font-size:1.05rem;font-weight:700;color:var(--text);letter-spacing:-.01em;}
-.sp-wordmark span{color:var(--green);}
-.nav-links{display:flex;align-items:center;gap:.15rem;list-style:none;}
-.nav-links a{color:var(--text-muted);text-decoration:none;font-size:.86rem;font-weight:500;padding:.45rem .8rem;border-radius:100px;white-space:nowrap;}
-.nav-links a:hover{color:var(--text);background:var(--surface-2);}
-.menu-btn{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--border);border-radius:8px;padding:.42rem .55rem;cursor:pointer;color:var(--text-muted);font-size:1.15rem;line-height:1;}
-.nav-drawer{display:flex;flex-direction:column;background:rgba(8,8,8,0.94);border-top:1px solid var(--border);padding:1rem 1.5rem 1.5rem;}
-.nav-drawer[hidden]{display:none;}
-.nav-drawer a{color:var(--text-muted);text-decoration:none;font-size:1rem;font-weight:500;padding:.65rem 0;border-bottom:1px solid var(--border);}
-.nav-drawer a:last-child{border-bottom:none;}
-nav[role="navigation"] a:focus-visible,.menu-btn:focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:3px;}
-footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem 2rem 2rem;}
-.sp-footer{max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:.75rem;text-align:center;}
-.sp-footer p{color:var(--text-muted);font-size:.88rem;margin:0;}
-.sp-footer strong{color:var(--text);}
-.sp-footer .sp-actions{display:flex;gap:.9rem;flex-wrap:wrap;justify-content:center;margin:0;}
-.sp-footer .sp-actions a{color:var(--text-muted);text-decoration:none;font-size:.85rem;padding:.3rem .5rem;}
-.sp-footer .sp-actions a:hover{color:var(--green);}
-@media (max-width:1024px){.nav-links{display:none;}.menu-btn{display:flex;}}
-@media (max-width:768px){.nav-inner{padding:0 1rem;}}
 </style>
+<link rel="stylesheet" href="escape-room.css">
 </head>
 <body>
 
@@ -257,15 +178,14 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
   <div class="room-header">
     <div class="room-meta">
       <p class="room-badge">The Doctor's Visit, Room 1 of 4</p>
-      <p class="room-level">Clinic Visit</p>
       <p class="room-skill-badge">Focus: Edit Fields & Combo Boxes</p>
     </div>
     <h1>Room 1: The Check-In Desk</h1>
   </div>
 
-  <figure style="margin-bottom:2.5rem;">
+  <figure class="room-photo">
     <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=860&q=80" alt="A doctor's office reception counter with a digital check-in terminal, glass dividers, and soft overhead lighting. The waiting area behind it is quiet." loading="lazy">
-    <figcaption style="font-size:.82rem;color:var(--text-muted);margin-top:.6rem;font-family:var(--mono);letter-spacing:.03em;">The Doctor's Visit, Check-In Desk, Friday, 3:40 PM</figcaption>
+    <figcaption>The Doctor's Visit, Check-In Desk, Friday, 3:40 PM</figcaption>
   </figure>
 
   <div class="room-section">
@@ -387,18 +307,12 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
         <button type="button" class="btn btn-secondary" id="hint-btn">Get a Hint</button>
         <div class="hint-text" id="hint-text" role="status" aria-live="polite"></div>
       </div>
-      <div class="time-up-actions" id="time-up-actions" hidden><button type="button" id="switch-practice" class="btn btn-primary">Continue in Practice Mode</button> <button type="button" id="retry-challenge" class="btn btn-secondary">Try Again in Challenge Mode</button></div>
-    </div>
-
-    <div class="bridge-msg" id="bridge-msg" role="note">
-      <span class="bridge-msg-label">// Front Desk System Message</span>
-      <p id="bridge-msg-text"></p>
     </div>
 
     <div class="next-room-box" id="next-room-box">
       <span class="next-room-label">// Room 1 Complete</span>
-      <h3 id="next-room-heading" tabindex="-1" style="outline:none;">Room 2 is Now Unlocked</h3>
-      <p>Your form is on file. A nurse will call you back to the exam room next.</p>
+      <h3 id="next-room-heading">Room 2 is Now Unlocked</h3>
+      <p class="next-room-msg" id="bridge-msg-text"></p>
       <a href="mission-2b.html" class="btn btn-primary">Enter Room 2: The Exam Room</a>
     </div>
   </div>
@@ -407,11 +321,8 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
 
 <footer><div class="sp-footer"><p><strong>ScreenPath</strong>: free screen reader practice.</p><p>Built by Moises Betancourt for screen reader learners everywhere.</p><div class="sp-actions"><a href="progress.html#privacy">How your results are saved</a></div></div></footer>
 
+<script src="escape-room.js"></script>
 <script>
-  // Site navigation menu button, the same as every other ScreenPath page
-  (function(){var b=document.getElementById('menu-btn'),d=document.getElementById('nav-drawer');if(!b||!d)return;
-  b.addEventListener('click',function(){var open=d.hasAttribute('hidden');if(open){d.removeAttribute('hidden');}else{d.setAttribute('hidden','');}
-  b.setAttribute('aria-expanded',open?'true':'false');b.setAttribute('aria-label',open?'Close navigation menu':'Open navigation menu');b.innerHTML=open?'&#10005;':'&#9776;';});})();
 
   // ── Announcer ──────────────────────────────────
   function announce(msg){
@@ -596,7 +507,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
     document.getElementById('personal-fieldset').disabled=false;
     document.getElementById('visit-fieldset').disabled=false;
     document.getElementById('submit-btn').disabled=false;
-    const sb=document.getElementById('start-timer-btn');sb.setAttribute('aria-disabled','true');sb.textContent=practiceMode?'Started: No Time Limit':'Started: Clock Running';
+    SPRoom.markStarted('start-timer-btn',practiceMode);
     const tog=document.getElementById('sound-toggle');tog.disabled=true;tog.setAttribute('aria-disabled','true');
     sfxStart();
     if(practiceMode){
@@ -633,13 +544,8 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
 
   function handleTimeExpired(){
     sfxFail();
-    const feedback=document.getElementById('feedback-msg');
-    feedback.className='feedback-box error';
-    feedback.textContent='Good effort. The five minutes ran out before the form was submitted, but you know the fields better now than when you started. Choose how to keep going: Continue in Practice Mode keeps your work and turns off the clock, or Try Again in Challenge Mode starts this room over with a new task and a fresh clock.';
     document.getElementById('clinic-form').querySelectorAll('input,select,button').forEach(function(el){el.disabled=true;});
-    const sw=document.getElementById('switch-practice');
-    document.getElementById('time-up-actions').hidden=false;
-    sw.focus();
+    SPRoom.timeUp({title:'Good Effort. The Clock Ran Out',message:'The five minutes ran out before the form was submitted, but you know the fields better now than when you started.',onPractice:switchToPractice});
   }
 
   function switchToPractice(){
@@ -647,7 +553,6 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
     practiceMode=true;
     const feedback=document.getElementById('feedback-msg');
     feedback.className='feedback-box';feedback.style.display='';feedback.textContent='';
-    document.getElementById('time-up-actions').hidden=true;
     document.getElementById('clinic-form').querySelectorAll('input,select,button').forEach(function(el){el.disabled=false;});
     const d=document.getElementById('timer-display');
     d.classList.remove('warning','critical');
@@ -657,7 +562,6 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
     interval=setInterval(tick,1000);
     focusEl(document.getElementById('timer-instructions'));
   }
-  document.getElementById('switch-practice').addEventListener('click',switchToPractice);
 
   function stripAccents(str){return str.normalize('NFD').replace(/[̀-ͯ]/g,'');}
   function normalizeDate(str){
@@ -740,8 +644,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
     feedback.textContent='Correct. Registration approved, and a nurse will call you back to the exam room next. Room 2: The Exam Room is open. The link to enter it is just below.';
 
     var bridgeText='"Registration confirmed for '+currentTarget.name+'. Please have a seat, a nurse will call you back to the exam room shortly to see '+currentTarget.doctor+'."';
-    document.getElementById('bridge-msg-text').textContent=bridgeText;
-    document.getElementById('bridge-msg').classList.add('visible');
+    document.getElementById('bridge-msg-text').textContent='The check-in screen reads: '+bridgeText;
     revealCompletion('next-room-box','next-room-heading');
   });
 
@@ -760,45 +663,12 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
     }catch(e){}
   })();
 
-  // ── Time up: try again in Challenge mode, starting the room over with a new task ──
-  function retryChallenge(){
-    try{ localStorage.setItem('sp_doctor_mode','challenge'); sessionStorage.setItem('sp_retry_room','1'); }catch(e){}
-    window.location.reload();
-  }
-  document.getElementById('retry-challenge').addEventListener('click',retryChallenge);
-  (function(){
-    var retry=false;try{retry=!!sessionStorage.getItem('sp_retry_room');sessionStorage.removeItem('sp_retry_room');}catch(e){}
-    if(!retry)return;
-    window.scrollTo(0,0);
-    setTimeout(function(){
-      var h=document.querySelector('#room-content h1')||document.querySelector('main h1');
-      if(h){h.setAttribute('tabindex','-1');h.focus();}
-      announce('New attempt in Challenge mode. Review your new task, then press Start when you are ready.');
-    },400);
-  })();
-  function focusEl(el){ if(!el)return; el.setAttribute('tabindex','-1'); el.focus(); }
 
-  // ── Graduated hints: offered after two misses, they teach the strategy, not the answer ──
-  var HINTS=[
+  // ── Room settings for the shared escape room script ──
+  SPRoom.init({modeKey:'sp_doctor_mode',hintWhere:'below the Submit Registration Form button',hints:[
     'Move through the form one field at a time and listen to each label and field type. For an edit field, type the value exactly as it appears in your registration details.',
     'For a combo box, move through its options with your screen reader until you hear the exact option from your registration details, then select it.'
-  ];
-  var hintsUsed=0, misses=0;
-  function noteMiss(){
-    misses++;
-    if(misses<2||hintsUsed>=HINTS.length) return '';
-    document.getElementById('hint-area').hidden=false;
-    return ' A hint is available below the Submit Registration Form button.';
-  }
-  document.getElementById('hint-btn').addEventListener('click',function(){
-    if(hintsUsed>=HINTS.length) return;
-    var p=document.createElement('p');
-    p.textContent='Hint '+(hintsUsed+1)+': '+HINTS[hintsUsed];
-    document.getElementById('hint-text').appendChild(p);
-    hintsUsed++;
-    if(hintsUsed<HINTS.length) this.textContent='Get Another Hint';
-    else { this.textContent='No More Hints'; this.setAttribute('aria-disabled','true'); }
-  });
+  ]});
 </script>
 </body>
 </html>
