@@ -369,7 +369,7 @@
     function toggleSound(){soundEnabled=!soundEnabled;const btn=document.getElementById('sound-toggle');btn.setAttribute('aria-checked',soundEnabled?'true':'false');document.getElementById('sound-text').textContent=soundEnabled?'On':'Off';announce('Sound effects '+(soundEnabled?'on':'off'));if(soundEnabled)sfxPing();}
 
     // ── State ──────────────────────────────────────
-    const TOTAL=4*60;
+    const TOTAL=SPRoom.seconds(4*60,'sp_school_mode');
     let secondsLeft=TOTAL,elapsed=0,interval=null,started=false,complete=false,attempts=0;
 
     // ── Practice vs Challenge: chosen back in Room 1's gate. If a student ──

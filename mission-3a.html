@@ -254,11 +254,12 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
           </select>
         </div>
         <div class="field">
-          <label for="gate-mode">Practice or Challenge <span class="req">(required)</span></label>
+          <label for="gate-mode">Mode <span class="req">(required)</span></label>
           <select id="gate-mode" required aria-required="true" aria-describedby="gate-mode-help">
             <option value="">Choose one&hellip;</option>
             <option value="practice">Practice: same four rooms, no timer, build confidence</option>
             <option value="challenge">Challenge: same four rooms, timed, the real test</option>
+            <option value="moy">Mr. Moy Mode: same four rooms, half the time, the hardest test</option>
           </select>
           <p class="help" id="gate-mode-help"></p>
         </div>
@@ -359,7 +360,7 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
 
   // ── Shared: The Grocery Store (Dinner at Seven) ─────────────────
   var ROOM_KEY='1';
-  var TOTAL=360;
+  var TOTAL=SPRoom.seconds(360,'sp_grocery_mode');
 
   function $(id){return document.getElementById(id);}
 
@@ -615,6 +616,7 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
       checkReady();
       if(modeSelect.value==='practice')modeHelp.textContent='Practice mode: the timer never starts. You can take as long as you need.';
       else if(modeSelect.value==='challenge')modeHelp.textContent='Challenge mode: Room 1 gives you 6 minutes, Room 2 gives you 5, Room 3 gives you 4, Room 4 gives you 3.';
+      else if(modeSelect.value==='moy')modeHelp.textContent='Mr. Moy Mode: half the Challenge time. Room 1 gives you 3 minutes, Room 2 gives you 2 and a half, Room 3 gives you 2, Room 4 gives you 1 and a half. Can you keep up with Mr. Moy?';
       else modeHelp.textContent='';
     });
     function revealRoomContent(focusHeading){
@@ -634,6 +636,7 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
         localStorage.setItem('sp_grocery_mode',mode);
         var s=ensureSess();s.screenReader=sr;saveSess(s);
       }catch(e){}
+      if(mode==='moy'){SPRoom.reloadAfterSetup('Settings saved. Room 1, The Entrance, is ready.');return;}
       practiceMode=(mode==='practice');
       initTimerArea();
       revealRoomContent(true);

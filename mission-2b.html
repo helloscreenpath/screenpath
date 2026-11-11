@@ -276,7 +276,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
     if(soundEnabled)sfxPing();
   }
 
-  const TOTAL=3*60;
+  const TOTAL=SPRoom.seconds(3*60,'sp_doctor_mode');
   let secondsLeft=TOTAL,elapsed=0,interval=null,started=false,complete=false;
 
   function startScreening(){

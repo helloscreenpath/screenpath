@@ -156,11 +156,12 @@
             </select>
           </div>
           <div class="field">
-            <label for="gate-mode">Practice or Challenge <span class="req">(required)</span></label>
+            <label for="gate-mode">Mode <span class="req">(required)</span></label>
             <select id="gate-mode" required aria-required="true">
               <option value="">Choose one&hellip;</option>
               <option value="practice">Practice: same three rooms, no timer, build confidence</option>
               <option value="challenge">Challenge: same three rooms, timed, the real test</option>
+              <option value="moy">Mr. Moy Mode: same three rooms, half the time, the hardest test</option>
             </select>
             <p class="help" id="gate-mode-help"></p>
           </div>
@@ -355,6 +356,8 @@
           modeHelp.textContent = 'Practice mode: the timer never starts. You can take as long as you need.';
         } else if(modeSelect.value === 'challenge'){
           modeHelp.textContent = 'Challenge mode: Room 1 gives you 4 minutes, Room 2 gives you 5, Room 3 gives you 4.';
+        } else if(modeSelect.value === 'moy'){
+          modeHelp.textContent = 'Mr. Moy Mode: half the Challenge time. Room 1 gives you 2 minutes, Room 2 gives you 2 and a half, Room 3 gives you 2. Can you keep up with Mr. Moy?';
         } else {
           modeHelp.textContent = '';
         }
@@ -382,6 +385,7 @@
           localStorage.setItem('sp_school_mode', mode);
           updateSessionSR(sr);
         }catch(e){}
+        if(mode === 'moy'){ SPRoom.reloadAfterSetup('Settings saved. Room 1, The School Office, is ready.'); return; }
         practiceMode = (mode === 'practice');
         revealRoomContent(true);
       });
@@ -469,7 +473,7 @@
     function toggleSound(){soundEnabled=!soundEnabled;const btn=document.getElementById('sound-toggle');btn.setAttribute('aria-checked',soundEnabled?'true':'false');document.getElementById('sound-text').textContent=soundEnabled?'On':'Off';announce('Sound effects '+(soundEnabled?'on':'off'));if(soundEnabled)sfxPing();}
 
     // ── State ──────────────────────────────────────
-    const TOTAL=4*60;
+    const TOTAL=SPRoom.seconds(4*60,'sp_school_mode');
     let secondsLeft=TOTAL,elapsed=0,interval=null,started=false,complete=false,attempts=0;
 
     // ── Timer ──────────────────────────────────────

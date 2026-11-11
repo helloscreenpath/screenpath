@@ -6,6 +6,8 @@
      hints      the room's two hints, in screen reader terms with no key names
      hintWhere  where the Get a Hint button is, such as 'below the Submit button'
 
+   Each room sets its clock with SPRoom.seconds(roomSeconds, modeKey), so Mr. Moy Mode gets half the time.
+
    House rules this file follows: focus never jumps on its own, no computer voice,
    both choices when time runs out, results once at the end of an escape room. */
 (function () {
@@ -32,12 +34,66 @@
   SP.localDate = function () { var d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
   function say(msg) { if (typeof window.announce === 'function') window.announce(msg); }
 
+  // ── Modes: Practice (no clock), Challenge (the room's time), Mr. Moy Mode (half the Challenge time) ──
+  var MODE_NAMES = { practice: 'Practice Mode', challenge: 'Challenge Mode', moy: 'Mr. Moy Mode' };
+  var MODE_LABELS = { practice: 'Practice', challenge: 'Challenge', moy: 'Mr. Moy Mode' };
+  function modeOf(key) { try { return localStorage.getItem(key || SP.cfg.modeKey) || 'challenge'; } catch (e) { return 'challenge'; } }
+  SP.modeName = function (key) { return MODE_NAMES[modeOf(key)] || 'Challenge Mode'; };
+  SP.modeLabel = function (key) { return MODE_LABELS[modeOf(key)] || 'Challenge'; };
+  // The room's time limit in seconds for the chosen mode. Call it where the room sets its clock.
+  SP.seconds = function (sec, key) {
+    SP.total = modeOf(key) === 'moy' ? Math.round(sec / 2) : sec;
+    SP.isMoy = modeOf(key) === 'moy';
+    return SP.total;
+  };
+  // In Mr. Moy Mode, the room's own words about its clock are halved: "five minute clock" becomes "two and a half minute clock"
+  var HALF = { three: 'one and a half', four: 'two', five: 'two and a half', six: 'three' };
+  SP.mins = function (text) {
+    if (!SP.isMoy || typeof text !== 'string') return text;
+    return text.replace(/\b(three|four|five|six)( minutes?)\b/gi, function (m, w, rest) {
+      var h = HALF[w.toLowerCase()];
+      return (w[0] === w[0].toUpperCase() ? h[0].toUpperCase() + h.slice(1) : h) + rest;
+    });
+  };
+  function applyMoy() {
+    if (!SP.isMoy) return;
+    // Announcements
+    var orig = window.announce;
+    if (typeof orig === 'function' && !orig._moy) { window.announce = function (msg, p) { return orig(SP.mins(msg), p); }; window.announce._moy = true; }
+    // The clock instructions, now and whenever the room changes them
+    var ins = document.getElementById('timer-instructions');
+    if (ins) {
+      // Halve each new text once: skip the text this function itself just wrote
+      var fix = function () { if (ins.textContent === ins._moyOut) return; var t = SP.mins(ins.textContent); ins._moyOut = t; if (t !== ins.textContent) ins.textContent = t; };
+      fix(); new MutationObserver(fix).observe(ins, { childList: true, characterData: true, subtree: true });
+    }
+    // The clock itself, before Start
+    var d = document.getElementById('timer-display');
+    if (d && /^\d+:\d\d$/.test(d.textContent.trim())) {
+      var m = Math.floor(SP.total / 60), s = SP.total % 60;
+      d.textContent = m + ':' + String(s).padStart(2, '0');
+      d.setAttribute('aria-label', 'Time remaining: ' + m + ' minutes and ' + s + ' seconds');
+    }
+  }
+  // Remember the mode on the escape room's session, so My Progress can show it
+  function recordMode() {
+    var key = SP.cfg.modeKey; if (!key) return;
+    var skey = key.replace(/_mode$/, '_current_session'), today = SP.localDate();
+    try {
+      var sess = JSON.parse(localStorage.getItem(skey) || 'null') ||
+        { startDate: today, workDates: [today], screenReader: localStorage.getItem(key.replace(/_mode$/, '_screenreader')) || '', rooms: [] };
+      sess.mode = modeOf(key);
+      localStorage.setItem(skey, JSON.stringify(sess));
+    } catch (e) {}
+  }
+
   // ── Start: the button stays where it is, so focus stays on it ──
   SP.markStarted = function (btn, practice) {
     if (typeof btn === 'string') btn = document.getElementById(btn);
     if (!btn) return;
     btn.setAttribute('aria-disabled', 'true');
     btn.textContent = practice ? 'Started: No Time Limit' : 'Started: Clock Running';
+    recordMode();
   };
 
   // ── Hints: offered after two misses; they teach the strategy, not the answer ──
@@ -77,7 +133,7 @@
     ov.innerHTML = '<p class="fail-glitch" aria-hidden="true">Time Is Up</p>' +
       '<h2 id="fail-heading" class="fail-title"></h2><p id="fail-desc" class="fail-message"></p>' +
       '<div class="fail-buttons"><button type="button" class="btn btn-primary" id="switch-practice">Continue in Practice Mode</button>' +
-      '<button type="button" class="btn btn-secondary" id="retry-challenge">Try Again in Challenge Mode</button></div>';
+      '<button type="button" class="btn btn-secondary" id="retry-challenge"></button></div>';
     document.body.appendChild(ov);
     document.getElementById('switch-practice').addEventListener('click', choosePractice);
     document.getElementById('retry-challenge').addEventListener('click', SP.retry);
@@ -102,14 +158,17 @@
     Array.prototype.forEach.call(document.querySelectorAll('dialog[open]'), function (d) { d.close(); });
     var ov = timeUpOverlay();
     document.getElementById('fail-heading').textContent = timeUpOpts.title || 'Good Effort. The Clock Ran Out';
-    document.getElementById('fail-desc').textContent = (timeUpOpts.message || '') +
-      ' Continue in Practice Mode keeps your work and turns off the clock. Try Again in Challenge Mode starts this room over with a new task and a fresh clock.';
+    var again = 'Try Again in ' + SP.modeName();
+    document.getElementById('retry-challenge').textContent = again;
+    document.getElementById('fail-desc').textContent = SP.mins(timeUpOpts.message || '') +
+      ' Continue in Practice Mode keeps your work and turns off the clock. ' + again + ' starts this room over with a new task and a fresh clock.';
     ov.classList.add('active');
     setTimeout(function () { document.getElementById('switch-practice').focus(); }, 150);
   };
   SP.timeUpOpen = function () { var ov = document.getElementById('fail-overlay'); return !!(ov && ov.classList.contains('active')); };
   SP.retry = function () {
-    try { if (SP.cfg.modeKey) localStorage.setItem(SP.cfg.modeKey, 'challenge'); sessionStorage.setItem('sp_retry_room', '1'); } catch (e) {}
+    // Same timed mode as before: Challenge stays Challenge, Mr. Moy Mode stays Mr. Moy Mode
+    try { if (SP.cfg.modeKey && modeOf() !== 'moy') localStorage.setItem(SP.cfg.modeKey, 'challenge'); sessionStorage.setItem('sp_retry_room', '1'); } catch (e) {}
     window.location.reload();
   };
   // After Try Again, land on the room heading so the student can review the new task
@@ -121,7 +180,7 @@
     setTimeout(function () {
       var h = document.querySelector('#room-content h1') || document.querySelector('main h1');
       window.focusEl(h);
-      say('New attempt in Challenge mode. Review your new task, then press Start when you are ready.');
+      say('New attempt in ' + SP.modeName() + '. Review your new task, then press Start when you are ready.');
     }, 400);
   }
 
@@ -173,7 +232,7 @@
       } else lines.push('Room ' + m[0] + ', ' + m[1] + ': Not recorded');
     });
     lines.push('Total time: ' + fmt(total));
-    try { lines.push('Mode: ' + (localStorage.getItem(modeKey) === 'practice' ? 'Practice' : 'Challenge')); } catch (e) {}
+    lines.push('Mode: ' + SP.modeLabel(modeKey));
     if (session && session.screenReader) lines.push('Screen reader: ' + session.screenReader);
     return lines;
   };
@@ -205,9 +264,25 @@
     });
   };
 
+  // Mr. Moy Mode chosen on the setup screen: reload so the room sets its shorter clock, then land on the room heading
+  SP.reloadAfterSetup = function (msg) {
+    try { sessionStorage.setItem('sp_setup_msg', msg); } catch (e) {}
+    window.location.reload();
+  };
+  function afterSetup() {
+    var msg = null;
+    try { msg = sessionStorage.getItem('sp_setup_msg'); sessionStorage.removeItem('sp_setup_msg'); } catch (e) {}
+    if (!msg) return;
+    window.scrollTo(0, 0);
+    setTimeout(function () { window.focusEl(document.querySelector('#room-content h1') || document.querySelector('main h1')); say(msg); }, 400);
+  }
+
   SP.init = function (cfg) {
     SP.cfg = cfg || {};
+    if (SP.total == null) SP.isMoy = false;
+    applyMoy();
     setupHints();
     afterRetry();
+    afterSetup();
   };
 })();

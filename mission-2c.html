@@ -100,7 +100,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
   <div class="room-section">
     <h2 id="situation-heading">Where You Are</h2>
     <p id="scene-p1">The hearing screening is behind you now, signed off and on file. <span id="doctor-name-slot">The doctor</span> flips open your chart, and you already know what is coming. Give this doctor one quiet moment and they will read through every year of your old charts out loud, height by height, appointment by appointment, until the whole visit stalls out. Once that starts, there is no cutting it short, you just have to sit through it.</p>
-    <p id="scene-p2">Your growth and vitals history table is already on the screen. Your best move is to speak up before the doctor gets going: offer to help pull up the exact number they are after, so you land on the right visit together instead of drifting through years of old charts. It costs a few seconds to ask, but it saves you the whole ramble, and a few seconds is worth it if it gets you out the door faster. Press the button below to hear which comparison the doctor needs, then find it in the table before the five minute clock runs out.</p>
+    <p id="scene-p2">Your growth and vitals history table is already on the screen. Your best move is to speak up before the doctor gets going: offer to help pull up the exact number they are after, so you land on the right visit together instead of drifting through years of old charts. It costs a few seconds to ask, but it saves you the whole ramble, and a few seconds is worth it if it gets you out the door faster. Press the button below to hear which comparison the doctor needs, then find it in the table before the clock runs out.</p>
 
     <div class="narration-row">
       <button class="narrate-btn" id="narrate-btn" onclick="toggleNarration()" aria-pressed="false" aria-label="Play Scene, hear the situation read aloud">
@@ -301,7 +301,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
     if(soundEnabled)sfxPing();
   }
 
-  const TOTAL=5*60;
+  const TOTAL=SPRoom.seconds(5*60,'sp_doctor_mode');
   let secondsLeft=TOTAL,elapsed=0,interval=null,started=false,complete=false;
 
   function startRoomTimer(){

@@ -190,7 +190,7 @@ page('index.html','ScreenPath: Accessible Digital Learning for Screen Reader Use
 
 # ---------------- ESCAPE ROOMS ----------------
 esc_body = hero('Activities','Escape Rooms',[]) + f"""<div class="main-wrap">
-<div class="note"><p><strong>Your pace, your choice.</strong> Practice has no deadline and lets you choose your own time limit. Challenge mode adds a timer to each room.</p>
+<div class="note"><p><strong>Your pace, your choice.</strong> Practice has no clock. Challenge mode adds a timer to each room, and Mr. Moy Mode cuts that time in half for an expert level test.</p>
 <p><strong>Before you start:</strong> each escape room lists the skills it uses, so check them before you open it.</p></div>
 <ul class="card-grid">
 {item('the-school.html','The School',['The doors have locked after school. Find the codes, follow the clues, and use the computer lab to unlock the exit.','Skills practiced: headings, links, tables, and forms.'],'the-school.svg')}
@@ -203,11 +203,11 @@ page('escape-rooms.html','Escape Rooms on ScreenPath','',esc_body)
 
 # ---------------- STORY PAGES ----------------
 STORIES = {
- 'the-school.html': dict(label='The School', img='the-school.svg', desc='The doors have locked after school. Find the codes, follow the clues, and use the computer lab to unlock the exit.', time='Challenge mode starts with 4, 5, and 4 minutes, and you can choose 1 to 60 minutes per room.', currentKey='sp_school_current_session', sessionsKey='sp_school_sessions',
+ 'the-school.html': dict(label='The School', img='the-school.svg', desc='The doors have locked after school. Find the codes, follow the clues, and use the computer lab to unlock the exit.', time='Challenge mode gives you 4, 5, and 4 minutes for the three rooms, and Mr. Moy Mode gives you half that.', currentKey='sp_school_current_session', sessionsKey='sp_school_sessions',
    rooms=[('The School Office','headings','mission-1a.html'),('The Library','links and tables','mission-1b.html'),('The Computer Lab','form navigation and text entry','mission-1c.html')]),
- 'grocery-store.html': dict(label='The Grocery Store', img='grocery-store.svg', desc='', time='Challenge mode gives you 6, 5, 4, and 3 minutes for the four rooms.', currentKey='sp_grocery_current_session', sessionsKey='sp_grocery_sessions',
+ 'grocery-store.html': dict(label='The Grocery Store', img='grocery-store.svg', desc='', time='Challenge mode gives you 6, 5, 4, and 3 minutes for the four rooms, and Mr. Moy Mode gives you half that.', currentKey='sp_grocery_current_session', sessionsKey='sp_grocery_sessions',
    rooms=[('The Entrance','matching questions and dropdowns','mission-3a.html'),('The Aisles','tables and checkboxes','mission-3b.html'),('The Express Checkout','links and verification','mission-3c.html'),('Out the Door','radio buttons','mission-3d.html')]),
- 'doctors-visit.html': dict(label="The Doctor's Visit", img='doctors-visit.svg', desc='Check in, get seen, and check out during a visit to the school health office.', time='Challenge mode gives you 5, 3, 5, and 5 minutes for the four rooms.', currentKey='sp_doctor_current_session', sessionsKey='sp_doctor_sessions',
+ 'doctors-visit.html': dict(label="The Doctor's Visit", img='doctors-visit.svg', desc='Check in, get seen, and check out during a visit to the school health office.', time='Challenge mode gives you 5, 3, 5, and 5 minutes for the four rooms, and Mr. Moy Mode gives you half that.', currentKey='sp_doctor_current_session', sessionsKey='sp_doctor_sessions',
    rooms=[('The Check-In Desk','edit fields and combo boxes','mission-2a.html'),('The Exam Room','listening and auditory attention','mission-2b.html'),('Growth and Vitals History','table navigation','mission-2c.html'),('The Front Desk','interactive tables and booking','mission-2d.html')]),
 }
 story_css = """
@@ -408,7 +408,7 @@ tw_body = hero('For Teachers','Bring ScreenPath into your classroom.',
 <h2>Three kinds of activities</h2>
 <p>Each category page lists every activity in it and the skills each one practices.</p>
 <ul class="cat-list">
-<li class="cat-item"><a class="card-link" href="escape-rooms.html">Escape Rooms</a><p>Story based series where each room focuses on one skill, with an untimed Practice mode and a timed Challenge mode.</p></li>
+<li class="cat-item"><a class="card-link" href="escape-rooms.html">Escape Rooms</a><p>Story based series where each room focuses on one skill, with an untimed Practice mode, a timed Challenge mode, and Mr. Moy Mode, which gives half the Challenge time.</p></li>
 <li class="cat-item"><a class="card-link" href="arcade.html">Arcade</a><p>Short games students can replay anytime, good for a warm up or a few spare minutes.</p></li>
 <li class="cat-item"><a class="card-link" href="skill-drills.html">Skill Drills</a><p>Focused practice on one skill at a time, including Form Lab, where students fill out real life forms.</p></li>
 </ul>
@@ -418,6 +418,7 @@ tw_body = hero('For Teachers','Bring ScreenPath into your classroom.',
 <li><strong>Share the link</strong> with students and colleagues. There is nothing to install, no login, and no permission needed.</li>
 <li><strong>Start with The School in Practice mode.</strong> Its rooms cover the fundamentals the rest of ScreenPath builds on.</li>
 <li><strong>Add Challenge mode when a student is ready</strong> for some time pressure.</li>
+<li><strong>Try Mr. Moy Mode</strong> when a student is ready to work at an expert pace, with half the Challenge time.</li>
 <li><strong>Review My Progress together</strong> on the student's own device.</li>
 </ol>
 

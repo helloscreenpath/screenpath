@@ -460,7 +460,7 @@
 
     // ── State ──────────────────────────────────────
     let currentSeries=null, currentStep=1, wrongCount=0;
-    const TOTAL=5*60;
+    const TOTAL=SPRoom.seconds(5*60,'sp_school_mode');
     let secondsLeft=TOTAL, elapsed=0, interval=null, started=false, complete=false, attempts=0;
 
     // ── Practice vs Challenge: chosen back in Room 1's gate. If a student ──

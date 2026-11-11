@@ -158,11 +158,12 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
           </select>
         </div>
         <div class="field">
-          <label for="gate-mode">Practice or Challenge <span class="req">(required)</span></label>
+          <label for="gate-mode">Mode <span class="req">(required)</span></label>
           <select id="gate-mode" required aria-required="true">
             <option value="">Choose one&hellip;</option>
             <option value="practice">Practice: same four rooms, no timer, build confidence</option>
             <option value="challenge">Challenge: same four rooms, timed, the real test</option>
+            <option value="moy">Mr. Moy Mode: same four rooms, half the time, the hardest test</option>
           </select>
           <p class="help" id="gate-mode-help"></p>
         </div>
@@ -361,6 +362,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
         modeHelp.textContent='Practice mode: the timer never starts. You can take as long as you need.';
       } else if(modeSelect.value==='challenge'){
         modeHelp.textContent='Challenge mode: Room 1 gives you 5 minutes, Room 2 gives you 3, Room 3 gives you 5, Room 4 gives you 5.';
+      } else if(modeSelect.value==='moy'){
+        modeHelp.textContent='Mr. Moy Mode: half the Challenge time. Room 1 gives you 2 and a half minutes, Room 2 gives you 1 and a half, Room 3 gives you 2 and a half, Room 4 gives you 2 and a half. Can you keep up with Mr. Moy?';
       } else {
         modeHelp.textContent='';
       }
@@ -393,6 +396,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
         if(sess.workDates.indexOf(today)===-1)sess.workDates.push(today);
         localStorage.setItem('sp_doctor_current_session',JSON.stringify(sess));
       }catch(e){}
+      if(mode==='moy'){SPRoom.reloadAfterSetup('Settings saved. Room 1, The Check-In Desk, is ready.');return;}
       practiceMode=(mode==='practice');
       revealRoomContent(true);
     });
@@ -498,7 +502,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offs
   }
 
   // ── Timer ──────────────────────────────────────
-  const TOTAL=5*60;
+  const TOTAL=SPRoom.seconds(5*60,'sp_doctor_mode');
   let secondsLeft=TOTAL,elapsed=0,interval=null,started=false,complete=false,attempts=0;
 
   function startRoomTimer(){

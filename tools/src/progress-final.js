@@ -11,6 +11,9 @@
       { key:'3', name:'The Computer Lab',        skill:'Forms',            timeAllowed:240 },
     ];
 
+    // Escape room modes, as saved by the rooms
+    function modeLabel(m) { return m === 'moy' ? 'Mr. Moy Mode (half the Challenge time)' : m === 'practice' ? 'Practice' : 'Challenge'; }
+
     function loadSchoolSessions() {
       // Finished sessions, plus the session in progress so finished rooms show right away
       var list = recall('sp_school_sessions', []);
@@ -102,6 +105,12 @@
           srLine.textContent = 'Screen reader: ' + session.screenReader;
           block.appendChild(srLine);
         }
+        if (session.mode) {
+          var modeLine = document.createElement('p');
+          modeLine.className = 'session-sr';
+          modeLine.textContent = 'Mode: ' + modeLabel(session.mode);
+          block.appendChild(modeLine);
+        }
 
         // Working dates
         if (session.workDates && session.workDates.length > 1) {
@@ -142,7 +151,7 @@
             '<td class="td-attempts">' + (roomData ? roomData.attempts : 'Not yet') + '</td>' +
             '<td class="td-attempts">' + (roomData ? (roomData.hints != null ? roomData.hints : 'Not recorded') : 'Not yet') + '</td>' +
             '<td class="td-time">' + (roomData ? fmtTime(roomData.timeUsed) : 'Not yet') + '</td>' +
-            '<td class="td-time">' + fmtTime(rm.timeAllowed) + '</td>' +
+            '<td class="td-time">' + fmtTime(roomData && roomData.timeAllowed ? roomData.timeAllowed : rm.timeAllowed) + '</td>' +
             '<td class="td-pct">' + (roomData ? roomData.pct + '%' : 'Not yet') + '</td>';
           tbody.appendChild(tr);
         });
@@ -203,6 +212,7 @@
       lines.push('Escape Rooms: The School');
       lines.push('Session ' + sNum + ': ' + startFmt + ' to ' + endFmt);
       if (session.screenReader) lines.push('Screen reader: ' + session.screenReader);
+      if (session.mode) lines.push('Mode: ' + modeLabel(session.mode));
       lines.push('');
 
       var rooms = session.rooms || [];
@@ -210,7 +220,7 @@
         var r = rooms.find(function(x){ return x.roomKey===rm.key; });
         if (r) {
           lines.push('Room ' + rm.key + ', ' + rm.name + ', ' + rm.skill);
-          lines.push('Completed: ' + fmtDate(r.dateCompleted) + ', Attempts: ' + r.attempts + (r.hints != null ? ', Hints: ' + r.hints : '') + ', Time: ' + fmtTime(r.timeUsed) + ' of ' + fmtTime(rm.timeAllowed) + ', ' + r.pct + '%');
+          lines.push('Completed: ' + fmtDate(r.dateCompleted) + ', Attempts: ' + r.attempts + (r.hints != null ? ', Hints: ' + r.hints : '') + ', Time: ' + fmtTime(r.timeUsed) + ' of ' + fmtTime(r.timeAllowed || rm.timeAllowed) + ', ' + r.pct + '%');
           lines.push('');
         }
       });
@@ -358,6 +368,12 @@
           srLine.textContent = 'Screen reader: ' + session.screenReader;
           block.appendChild(srLine);
         }
+        if (session.mode) {
+          var modeLine = document.createElement('p');
+          modeLine.className = 'session-sr';
+          modeLine.textContent = 'Mode: ' + modeLabel(session.mode);
+          block.appendChild(modeLine);
+        }
 
         if (session.assignedDoctor || session.patientName) {
           var charLine = document.createElement('p');
@@ -406,7 +422,7 @@
             '<td class="td-attempts">' + (roomData ? roomData.attempts : 'Not yet') + '</td>' +
             '<td class="td-attempts">' + (roomData ? (roomData.hints != null ? roomData.hints : 'Not recorded') : 'Not yet') + '</td>' +
             '<td class="td-time">' + (roomData ? fmtTime(roomData.timeUsed) : 'Not yet') + '</td>' +
-            '<td class="td-time">' + fmtTime(rm.timeAllowed) + '</td>' +
+            '<td class="td-time">' + fmtTime(roomData && roomData.timeAllowed ? roomData.timeAllowed : rm.timeAllowed) + '</td>' +
             '<td class="td-pct">' + (roomData ? roomData.pct + '%' : 'Not yet') + '</td>';
           tbody.appendChild(tr);
         });
@@ -463,6 +479,7 @@
       lines.push('Escape Rooms: The Doctor\'s Visit');
       lines.push('Session ' + sNum + ': ' + startFmt + ' to ' + endFmt);
       if (session.screenReader) lines.push('Screen reader: ' + session.screenReader);
+      if (session.mode) lines.push('Mode: ' + modeLabel(session.mode));
       if (session.assignedDoctor) lines.push('Doctor: ' + session.assignedDoctor);
       if (session.patientName) lines.push('Patient: ' + session.patientName);
       lines.push('');
@@ -472,7 +489,7 @@
         var r = rooms.find(function(x){ return x.roomKey===rm.key; });
         if (r) {
           lines.push('Room ' + rm.key + ', ' + rm.name + ', ' + rm.skill);
-          lines.push('Completed: ' + fmtDate(r.dateCompleted) + ', Attempts: ' + r.attempts + (r.hints != null ? ', Hints: ' + r.hints : '') + ', Time: ' + fmtTime(r.timeUsed) + ' of ' + fmtTime(rm.timeAllowed) + ', ' + r.pct + '%');
+          lines.push('Completed: ' + fmtDate(r.dateCompleted) + ', Attempts: ' + r.attempts + (r.hints != null ? ', Hints: ' + r.hints : '') + ', Time: ' + fmtTime(r.timeUsed) + ' of ' + fmtTime(r.timeAllowed || rm.timeAllowed) + ', ' + r.pct + '%');
           lines.push('');
         }
       });
@@ -604,6 +621,12 @@
           srLine.textContent = 'Screen reader: ' + session.screenReader;
           block.appendChild(srLine);
         }
+        if (session.mode) {
+          var modeLine = document.createElement('p');
+          modeLine.className = 'session-sr';
+          modeLine.textContent = 'Mode: ' + modeLabel(session.mode);
+          block.appendChild(modeLine);
+        }
 
         if (session.workDates && session.workDates.length > 1) {
           var wdLine = document.createElement('p');
@@ -642,7 +665,7 @@
             '<td class="td-attempts">' + (roomData ? roomData.attempts : 'Not yet') + '</td>' +
             '<td class="td-attempts">' + (roomData ? (roomData.hints != null ? roomData.hints : 'Not recorded') : 'Not yet') + '</td>' +
             '<td class="td-time">' + (roomData ? fmtTime(roomData.timeUsed) : 'Not yet') + '</td>' +
-            '<td class="td-time">' + fmtTime(rm.timeAllowed) + '</td>' +
+            '<td class="td-time">' + fmtTime(roomData && roomData.timeAllowed ? roomData.timeAllowed : rm.timeAllowed) + '</td>' +
             '<td class="td-pct">' + (roomData ? roomData.pct + '%' : 'Not yet') + '</td>';
           tbody.appendChild(tr);
         });
@@ -699,6 +722,7 @@
       lines.push('Escape Rooms: The Grocery Store, Dinner at Seven');
       lines.push('Session ' + sNum + ': ' + startFmt + ' to ' + endFmt);
       if (session.screenReader) lines.push('Screen reader: ' + session.screenReader);
+      if (session.mode) lines.push('Mode: ' + modeLabel(session.mode));
       lines.push('');
 
       var rooms = session.rooms || [];
@@ -706,7 +730,7 @@
         var r = rooms.find(function(x){ return x.roomKey===rm.key; });
         if (r) {
           lines.push('Room ' + rm.key + ', ' + rm.name + ', ' + rm.skill);
-          lines.push('Completed: ' + fmtDate(r.dateCompleted) + ', Attempts: ' + r.attempts + (r.hints != null ? ', Hints: ' + r.hints : '') + ', Time: ' + fmtTime(r.timeUsed) + ' of ' + fmtTime(rm.timeAllowed) + ', ' + r.pct + '%');
+          lines.push('Completed: ' + fmtDate(r.dateCompleted) + ', Attempts: ' + r.attempts + (r.hints != null ? ', Hints: ' + r.hints : '') + ', Time: ' + fmtTime(r.timeUsed) + ' of ' + fmtTime(r.timeAllowed || rm.timeAllowed) + ', ' + r.pct + '%');
           lines.push('');
         }
       });
