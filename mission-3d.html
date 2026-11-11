@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Room 4: Out the Door | The Grocery Store | ScreenPath</title>
+<title>Room 4: Out the Door on ScreenPath</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 [hidden]{display:none !important;}
@@ -12,7 +12,7 @@
   --text:#f0f0f0; --text-muted:#8a8a8a;
   --green:#39d98a; --green-dim:#0d2e1c;
   --red:#ff4d4d; --red-dim:#2e0d0d;
-  --amber:#f5a623; --amber-dim:#2e1f00;
+  --amber:#39d98a; --amber-dim:#0d2e1c;
   --radius:12px;
   --font:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   --mono:'SF Mono','Fira Code','Consolas',monospace;
@@ -23,43 +23,17 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:18
 .skip-link{position:absolute;top:-100px;left:1rem;background:var(--amber);color:#000;padding:.75rem 1.5rem;border-radius:var(--radius);font-weight:600;font-size:1rem;text-decoration:none;z-index:9999;transition:top .2s;}
 .skip-link:focus{top:1rem;}
 
-/* Nav */
-nav[role="navigation"]{position:sticky;top:0;left:0;right:0;z-index:500;background:rgba(10,10,10,.95);backdrop-filter:blur(22px);border-bottom:1px solid var(--border);}
-.nav-inner{max-width:1100px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;}
-.nav-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0;}
-.nav-logo-mark{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:var(--amber);color:#000;font-family:var(--font);font-weight:800;font-size:.85rem;flex-shrink:0;}
-.nav-links{display:flex;align-items:center;gap:.15rem;list-style:none;}
-.nav-links a{color:var(--text-muted);text-decoration:none;font-size:.86rem;font-weight:500;padding:.45rem .8rem;border-radius:100px;transition:color .2s,background .2s;white-space:nowrap;}
-.nav-links a:hover{color:var(--text);background:var(--surface-2);}
-.nav-links a[aria-current="page"]{color:var(--amber);}
-.nav-links a:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:100px;}
-.menu-btn{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--border);border-radius:8px;padding:.42rem .55rem;cursor:pointer;color:var(--text-muted);font-size:1.15rem;line-height:1;}
-.menu-btn:hover{border-color:var(--amber);color:var(--text);}
-.menu-btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:8px;}
-.nav-drawer{display:none;flex-direction:column;background:rgba(10,10,10,.97);border-top:1px solid var(--border);padding:1rem 1.5rem 1.5rem;}
-.nav-drawer.open{display:flex;}
-.nav-drawer a{color:var(--text-muted);text-decoration:none;font-size:1rem;font-weight:500;padding:.65rem 0;border-bottom:1px solid var(--border);}
-.nav-drawer a:last-child{border-bottom:none;}
-@media(max-width:860px){.nav-links{display:none;} .menu-btn{display:flex;}}
-
 /* Main */
 main{max-width:860px;margin:0 auto;padding:3rem 2rem 6rem;}
-.back-link{display:inline-flex;align-items:center;gap:.5rem;color:var(--text-muted);text-decoration:none;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase;margin-bottom:2.5rem;}
-.back-link:hover,.back-link:focus{color:var(--amber);}
-.back-link:focus-visible{outline:2px solid var(--amber);outline-offset:4px;border-radius:3px;}
 
 .room-header{margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--border);}
 .room-meta{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:1rem;}
 .room-meta p{margin:0;}
-.room-badge{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);padding:.3rem .85rem;border-radius:100px;}
-.room-level{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);border:1px solid var(--border);padding:.3rem .85rem;border-radius:100px;}
+.room-badge{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);background:var(--amber-dim);border:1px solid rgba(57,217,138,.3);padding:.3rem .85rem;border-radius:100px;}
 .room-skill-badge{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);border:1px solid rgba(57,217,138,.3);padding:.3rem .85rem;border-radius:100px;background:var(--green-dim);}
 h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;letter-spacing:-.02em;line-height:1.15;color:var(--text);}
 h2{font-size:1.4rem;font-weight:600;letter-spacing:-.01em;margin-bottom:1.25rem;color:var(--text);}
 h3{font-size:1.1rem;font-weight:600;color:var(--amber);margin-bottom:1rem;}
-.room-image-wrap{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);margin:1.75rem 0 2.5rem;background:var(--surface-2);}
-.room-image-wrap img{width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:cover;}
-.image-caption{font-size:.82rem;color:var(--text-muted);padding:.75rem 1rem;background:var(--surface);border-top:1px solid var(--border);}
 .room-section{margin-bottom:3.5rem;padding-bottom:3rem;border-bottom:1px solid var(--border);}
 .room-section:last-of-type{border-bottom:none;}
 p{margin-bottom:1rem;}
@@ -92,10 +66,10 @@ p:last-child{margin-bottom:0;}
 .skill-focus p{font-size:.95rem;color:var(--text-muted);margin-bottom:0;line-height:1.75;}
 
 /* Profile card */
-.profile-card{background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);border-radius:var(--radius);padding:1.75rem;margin:1.75rem 0;}
+.profile-card{background:var(--amber-dim);border:1px solid rgba(57,217,138,.3);border-radius:var(--radius);padding:1.75rem;margin:1.75rem 0;}
 .profile-card-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.9rem;}
 .intake-dl{display:grid;grid-template-columns:1fr;gap:1.25rem;margin:0;padding:0;}
-.intake-group{border-bottom:1px solid rgba(245,166,35,.15);padding-bottom:.75rem;}
+.intake-group{border-bottom:1px solid rgba(57,217,138,.15);padding-bottom:.75rem;}
 .intake-group:last-child{border-bottom:none;padding-bottom:0;}
 .intake-dt{color:var(--amber);font-family:var(--mono);font-size:.9rem;font-weight:700;margin-bottom:.2rem;}
 .intake-dd{color:var(--text);font-family:var(--mono);font-size:1.05rem;font-weight:600;}
@@ -128,7 +102,7 @@ p:last-child{margin-bottom:0;}
 .btn{display:inline-block;font-family:var(--font);font-size:1rem;font-weight:600;padding:.9rem 2.5rem;border-radius:100px;border:none;cursor:pointer;letter-spacing:.02em;transition:transform .15s,box-shadow .15s,background .2s;text-decoration:none;text-align:center;}
 .btn:focus-visible{outline:3px solid var(--amber);outline-offset:4px;}
 .btn-primary{background:var(--amber);color:#000;}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,166,35,.3);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(57,217,138,.3);}
 .btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none;}
 .btn-secondary{background:var(--surface-2);color:var(--text);border:1px solid var(--border);}
 .btn-secondary:hover{background:var(--surface);transform:translateY(-1px);}
@@ -154,11 +128,6 @@ p:last-child{margin-bottom:0;}
 .feedback-box.success{background:var(--green-dim);border:1px solid rgba(57,217,138,.3);color:var(--green);display:block;}
 .feedback-box.error{background:var(--red-dim);border:1px solid rgba(255,77,77,.3);color:var(--red);display:block;}
 
-/* Bridge message */
-.bridge-msg{background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);border-radius:var(--radius);padding:1.5rem;margin-top:1.5rem;display:none;}
-.bridge-msg.visible{display:block;}
-.bridge-msg-label{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.5rem;}
-.bridge-msg p{font-size:.95rem;color:var(--text);line-height:1.7;margin-bottom:0;font-style:italic;}
 
 /* Debrief / next room */
 .answer-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin-top:1.5rem;display:none;}
@@ -170,9 +139,9 @@ p:last-child{margin-bottom:0;}
 .form-group:last-child{margin-bottom:0;}
 label{display:block;font-size:.92rem;font-weight:600;color:var(--text);margin-bottom:.5rem;}
 input[type="text"]{width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font);font-size:1rem;padding:.85rem 1rem;}
-input[type="text"]:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(245,166,35,.15);}
+input[type="text"]:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(57,217,138,.15);}
 textarea{width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font);font-size:1rem;padding:.85rem 1rem;resize:vertical;min-height:90px;line-height:1.6;}
-textarea:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(245,166,35,.15);}
+textarea:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(57,217,138,.15);}
 .radio-group{display:flex;flex-direction:column;gap:.6rem;margin-top:.25rem;}
 .radio-option{display:flex;align-items:center;gap:.75rem;cursor:pointer;font-size:.95rem;color:var(--text-muted);padding:.65rem 1rem;border:1px solid var(--border);border-radius:8px;transition:border-color .2s,color .2s;}
 .radio-option:hover{border-color:var(--amber);color:var(--text);}
@@ -185,10 +154,6 @@ textarea:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(
 .next-room-box h3{color:var(--amber);margin-bottom:.5rem;font-size:1.1rem;}
 .next-room-box p{font-size:.9rem;color:var(--text-muted);margin-bottom:1.5rem;}
 
-footer[role="contentinfo"]{border-top:1px solid var(--border);padding:2.5rem 2rem;color:var(--text-muted);font-size:.85rem;}
-.footer-inner{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:.5rem;}
-.footer-platform{font-weight:600;color:var(--text-muted);}
-.footer-a11y{font-size:.8rem;color:var(--text-muted);line-height:1.6;}
 
 @media(max-width:768px){
   main{padding:2rem 1.25rem 4rem;}
@@ -253,60 +218,15 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
 .question-fieldset legend{font-weight:600;color:var(--text);padding:0 .5rem;font-size:1rem;}
 .question-fieldset .radio-group{margin-top:.75rem;}
 .question-fieldset .item-error{margin-top:.75rem;}
-.escape-scene{margin-top:1.5rem;text-align:left;}
-.escape-scene p{opacity:0;transform:translateY(8px);transition:opacity .6s ease,transform .6s ease;color:var(--text);font-size:1rem;line-height:1.75;margin-bottom:1rem;}
-.escape-scene p.revealed{opacity:1;transform:translateY(0);}
-.escape-scene p:last-child{margin-bottom:0;}
-.escape-return{display:inline-block;margin-top:1.25rem;font-size:.85rem;color:var(--text-muted);text-decoration:underline;}
-.escape-return:hover,.escape-return:focus{color:var(--text);}
-
-.series-complete{position:fixed;inset:0;z-index:4000;display:none;align-items:center;justify-content:center;background:rgba(5,4,2,.96);padding:3rem 1.5rem;overflow-y:auto;}
-.series-complete.open{display:flex;}
-.sc-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
-.sc-particle{position:absolute;top:50%;left:50%;width:8px;height:8px;border-radius:2px;animation-name:resPFly;animation-timing-function:ease-out;animation-fill-mode:forwards;}
-@keyframes resPFly{0%{transform:translate(-50%,-50%) rotate(0deg);opacity:1;}100%{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) rotate(360deg);opacity:0;}}
-.sc-content{position:relative;z-index:1;max-width:640px;width:100%;text-align:left;animation:scFadeUp .6s ease both;}
-@keyframes scFadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-.sc-eyebrow{display:block;font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:1rem;}
-.sc-heading{font-size:clamp(2.4rem,7vw,4.5rem);font-weight:800;letter-spacing:-.02em;line-height:1.05;color:var(--text);margin-bottom:.5rem;outline:none;}
-.sc-subtitle{font-size:1.05rem;color:var(--text-muted);margin-bottom:1.75rem;}
-.sc-divider{height:1px;background:var(--border);margin:1.75rem 0;}
-.sc-note p{font-size:.98rem;color:var(--text);line-height:1.75;margin-bottom:1rem;}
-.sc-note p:last-child{margin-bottom:0;}
-.sc-note-open{font-size:1.15rem;}
-.sc-sig{font-style:italic;color:var(--text-muted);margin-top:1.25rem;}
-.sc-stats{font-family:var(--mono);font-size:.85rem;color:var(--amber);background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);border-radius:var(--radius);padding:1rem 1.25rem;margin-bottom:1.75rem;line-height:1.6;}
-.sc-actions{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}
-.sc-link-plain{color:var(--text-muted);text-decoration:underline;font-size:.95rem;}
-.sc-link-plain:hover,.sc-link-plain:focus{color:var(--text);}
-@media(prefers-reduced-motion: reduce){.escape-scene p{transition:none;} .sc-content{animation:none;} .sc-particle{display:none;}}
 
 </style>
+<link rel="stylesheet" href="escape-room.css">
 </head>
 <body>
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<nav role="navigation" aria-label="Main navigation">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo" aria-label="SP, ScreenPath home page">
-      <span class="nav-logo-mark" aria-hidden="true">SP</span>
-    </a>
-    <ul class="nav-links" role="list">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="progress.html">Progress</a></li>
-      <li><a href="feedback.html">Feedback</a></li>
-    </ul>
-    <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu">☰</button>
-  </div>
-  <div class="nav-drawer" id="nav-drawer" aria-label="Mobile navigation">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="progress.html">Progress</a>
-    <a href="feedback.html">Feedback</a>
-  </div>
-</nav>
+<nav role="navigation" aria-label="Main navigation"><div class="nav-inner"><a class="sp-wordmark" href="index.html" aria-label="ScreenPath home">Screen<span>Path</span></a><ul class="nav-links"><li><a href="index.html">Activities</a></li><li><a href="progress.html">My Progress</a></li><li><a href="teachers.html">For Teachers</a></li><li><a href="about.html">About</a></li><li><a href="feedback.html">Feedback</a></li></ul><button id="menu-btn" class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu">&#9776;</button></div><div class="nav-drawer" id="nav-drawer" hidden><a href="index.html">Activities</a><a href="progress.html">My Progress</a><a href="teachers.html">For Teachers</a><a href="about.html">About</a><a href="feedback.html">Feedback</a></div></nav>
 
 <main id="main-content" tabindex="-1">
   <a href="grocery-store.html" class="back-link">Back to The Grocery Store</a>
@@ -314,15 +234,17 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
   <div id="room-content">
   <div class="room-header">
     <div class="room-meta">
-      <p class="room-badge">Room 4 of 4: The Grocery Store</p>
-      <p class="room-level">Grocery Run</p>
+      <p class="room-badge">The Grocery Store, Room 4 of 4</p>
       <p class="room-skill-badge">Focus: Radio Buttons</p>
     </div>
     <h1>Room 4: Out the Door</h1>
   </div>
-  <p class="story-time">Dinner at Seven, Out the Door, Friday, 6:12 PM</p>
+  <figure class="room-photo">
+    <img src="images/grocery-out-the-door.jpg" alt="A shopping cart on the sidewalk outside a supermarket at night. It holds four full reusable bags in tan, navy, olive green, and red, with bananas, a gallon of milk, leafy greens, and a yellow pepper poking out the top. Behind the cart, the store's glass doors glow with warm light. At the curb on the right, a dark van waits with its headlights on, and tall lamps light the parking lot beyond." loading="lazy">
+    <figcaption>The Grocery Store, Out the Door, Friday, 6:12 PM</figcaption>
+  </figure>
 
-  <section class="room-section" aria-labelledby="situation-heading">
+  <div class="room-section">
     <h2 id="situation-heading">Where You Are</h2>
     <p id="scene-p1">It's 6:12. All three flags are cleared, and your total is on the screen. You bagged everything as fast as you could while you scanned. Then your phone buzzes. It's your brother.</p>
     <p id="scene-p2">Priya leans over. "Three quick checks and you're out the door. Check your bags, finish paying, and check your phone."</p>
@@ -335,9 +257,9 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
       </button>
       <span class="narrate-status" id="narrate-status" role="status" aria-live="polite" aria-atomic="true"></span>
     </div>
-  </section>
+  </div>
 
-  <section class="room-section" aria-labelledby="mission-heading">
+  <div class="room-section">
     <h2 id="mission-heading" tabindex="-1">Ready to Roll</h2>
 
     <div class="skill-focus">
@@ -448,29 +370,31 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
     </div>
 
     <div id="feedback-msg" class="feedback-box" tabindex="-1"></div>
-    <button type="button" id="switch-practice" class="btn btn-secondary" style="margin-top:1rem;" hidden>Switch to practice, remove deadline</button>
-
-    <div class="next-room-box" id="completion-box" aria-labelledby="completion-heading">
-      <span class="next-room-label">// The Grocery Store, Complete</span>
-      <h3 id="completion-heading" tabindex="-1" style="outline:none;">Dinner Is Saved.</h3>
-      <div class="escape-scene" id="escape-scene">
-        <p id="escape-p1">You tap Pay, and the receipt prints. Priya moves the raw chicken into its own sealed bag, then slips cold liners into that bag and the bag with the milk, ice cream, and mozzarella. "Raw meat always rides alone," she says.</p>
-        <p id="escape-p2">At 6:15, you push through the north doors just as your brother's car rolls up. The ice cream is still cold, all 12 items are packed safely, and nothing is missing.</p>
-        <p id="escape-p3">At 7:00, your grandparents walk into a kitchen that smells like chicken parmesan. Grandpa takes one look at the table and grins.</p>
-        <p id="escape-p4">You did this.</p>
-      </div>
-      <a href="index.html" class="escape-return">Return to ScreenPath</a>
+    <div class="hint-area" id="hint-area" hidden>
+      <button type="button" class="btn btn-secondary" id="hint-btn">Get a Hint</button>
+      <div class="hint-text" id="hint-text" role="status" aria-live="polite"></div>
     </div>
-  </section>
+
+    <div class="next-room-box" id="completion-box">
+      <span class="next-room-label">// The Grocery Store Complete</span>
+      <h3 id="completion-heading">Dinner Is Saved.</h3>
+    </div>
+  </div>
   </div>
 </main>
 
 <div class="series-complete" id="series-complete" role="dialog" aria-modal="true" aria-labelledby="sc-heading" aria-hidden="true">
   <div class="sc-particles" id="sc-particles" aria-hidden="true"></div>
   <div class="sc-content">
-    <span class="sc-eyebrow">The Grocery Store, Series Complete</span>
+    <span class="sc-eyebrow">The Grocery Store Complete</span>
     <h2 class="sc-heading" id="sc-heading" tabindex="-1">Dinner is saved.</h2>
     <p class="sc-subtitle">Friday, 7:00 PM, around the family table</p>
+    <div class="sc-story">
+      <p>You tap Pay, and the receipt prints. Priya moves the raw chicken into its own sealed bag, then slips cold liners into that bag and the bag with the milk, ice cream, and mozzarella. "Raw meat always rides alone," she says.</p>
+      <p>At 6:15, you push through the north doors just as your brother's car rolls up. The ice cream is still cold, all 12 items are packed safely, and nothing is missing.</p>
+      <p>At 7:00, your grandparents walk into a kitchen that smells like chicken parmesan. Grandpa takes one look at the table and grins.</p>
+      <p>You did this.</p>
+    </div>
     <div class="sc-divider" aria-hidden="true"></div>
     <div class="sc-note">
       <p class="sc-note-open"><strong>I am so proud of you.</strong></p>
@@ -479,7 +403,6 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
       <p class="sc-sig">Moises</p>
     </div>
     <div class="sc-divider" aria-hidden="true"></div>
-    <p class="sc-stats" id="sc-stats"></p>
     <div class="sc-actions">
       <a href="progress.html" class="btn btn-primary">View My Progress</a>
       <a href="index.html" class="sc-link-plain">Return to ScreenPath</a>
@@ -487,13 +410,9 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
   </div>
 </div>
 
-<footer role="contentinfo">
-  <div class="footer-inner">
-    <p class="footer-platform">ScreenPath: The Grocery Store, Dinner at Seven. A screen reader escape room.</p>
-    <p class="footer-a11y">ScreenPath is designed for screen reader users. Every page is fully navigable by keyboard and compatible with JAWS, NVDA, and VoiceOver. If you encounter any accessibility issue please contact your instructor.</p>
-  </div>
-</footer>
+<footer><div class="sp-footer"><p><strong>ScreenPath</strong>: free screen reader practice.</p><p>Built by Moises Betancourt for screen reader learners everywhere.</p><div class="sp-actions"><a href="progress.html#privacy">How your results are saved</a></div></div></footer>
 
+<script src="escape-room.js"></script>
 <script>
 
   // ── Shared: The Grocery Store (Dinner at Seven) ─────────────────
@@ -501,14 +420,6 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
   var TOTAL=180;
 
   function $(id){return document.getElementById(id);}
-  function toggleMenu(){
-    var d=$('nav-drawer'),b=$('menu-btn');
-    var open=d.classList.toggle('open');
-    b.setAttribute('aria-expanded',open?'true':'false');
-    b.setAttribute('aria-label',open?'Close navigation menu':'Open navigation menu');
-    b.textContent=open?'✕':'☰';
-  }
-  $('menu-btn').addEventListener('click',toggleMenu);
 
   // Announcer: assertive by default, polite when asked
   function announce(msg,polite){
@@ -518,16 +429,9 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
     document.body.appendChild(el);
     setTimeout(function(){el.textContent=msg;setTimeout(function(){el.remove();},4500);},100);
   }
-  function revealCompletion(boxId,headingId){
-    var box=$(boxId);
-    box.classList.add('visible');
-    setTimeout(function(){
-      box.scrollIntoView({behavior:'smooth',block:'center'});
-      var h=$(headingId);
-      if(h)h.focus({preventScroll:true});
-    },80);
-  }
-  function todayStr(){return new Date().toISOString().split('T')[0];}
+  // Show the way to the next room. Focus stays where the student is.
+  function revealCompletion(boxId){$(boxId).classList.add('visible');}
+  function todayStr(){return SPRoom.localDate();}
   function plural(n,one,many){return n+' '+(n===1?one:many);}
   function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
   function escapeHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
@@ -550,7 +454,7 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
       var s=ensureSess();
       var pct=Math.min(100,Math.round((elapsed/TOTAL)*100));
       s.rooms=s.rooms.filter(function(r){return r.roomKey!==ROOM_KEY;});
-      s.rooms.push({roomKey:ROOM_KEY,dateCompleted:todayStr(),attempts:attempts,timeUsed:elapsed,timeAllowed:TOTAL,pct:pct});
+      s.rooms.push({roomKey:ROOM_KEY,dateCompleted:todayStr(),attempts:attempts,timeUsed:elapsed,timeAllowed:TOTAL,pct:pct,hints:hintsUsed});
       saveSess(s);
     }catch(e){}
   }
@@ -699,7 +603,7 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
     if(started)return;
     started=true;
     unlockControls('prestart');
-    $('start-timer-btn').style.display='none';
+    SPRoom.markStarted('start-timer-btn',practiceMode);
     var tog=$('sound-toggle');tog.disabled=true;tog.setAttribute('aria-disabled','true');
     sfxStart();
     if(window.speechSynthesis&&narSpeaking)stopNar();
@@ -710,8 +614,6 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
       $('timer-instructions').textContent=ROOM.startedChallenge;
     }
     if(ROOM.onStart)ROOM.onStart();
-    var target=$(ROOM.focusOnStart);
-    if(target){if(!target.hasAttribute('tabindex'))target.setAttribute('tabindex','-1');target.focus();}
     announce(practiceMode?ROOM.startedPractice:ROOM.startedChallenge,true);
     interval=setInterval(tick,1000);
   }
@@ -730,26 +632,18 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
   function handleTimeExpired(){
     sfxFail();
     lockControls('timeout');
-    showFeedback('error','<p>'+ROOM.timeoutText+'</p>',false);
-    var sw=$('switch-practice');
-    sw.hidden=false;
-    sw.focus();
-    announce('Time is up. You can switch to practice mode to keep working with no deadline.');
+    SPRoom.timeUp({title:'Good Effort. The Clock Ran Out',message:ROOM.timeoutText,onPractice:switchToPractice});
   }
+  // Continue in Practice Mode: keep the student's work and turn off the clock
   function switchToPractice(){
-    try{localStorage.setItem('sp_grocery_mode','practice');}catch(e){}
     practiceMode=true;
     hideFeedback();
-    $('switch-practice').hidden=true;
     unlockControls('timeout');
     setPracticeDisplay();
     $('timer-instructions').textContent='Practice mode: no deadline. Take your time.';
     interval=setInterval(tick,1000);
-    var target=$(ROOM.focusOnStart);
-    if(target)target.focus();
-    announce('Deadline removed. Keep working, there is no rush.',true);
+    focusEl($('timer-instructions'));
   }
-  $('switch-practice').addEventListener('click',switchToPractice);
 
   function finishRoom(successText){
     if(complete)return;
@@ -757,7 +651,10 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
     clearInterval(interval);
     sfxWin();
     recordRoom();
+    // Lock the room, but the button the student just pressed keeps focus
+    var keep=document.activeElement;
     lockControls('complete');
+    if(keep&&keep.getAttribute('data-locked')==='complete'){keep.disabled=false;keep.removeAttribute('data-locked');keep.setAttribute('aria-disabled','true');}
     var fb=$('feedback-msg');
     fb.className='feedback-box success';
     fb.innerHTML='<p>'+successText+' Finished in '+fmtElapsed(elapsed)+' with '+plural(attempts,'attempt','attempts')+'.</p>';
@@ -768,14 +665,13 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
   }
 
   var QS=[{"id": "q1", "legend": "Which bag was packed unsafely and needs to be repacked?", "answer": "Bag 3", "hint": "Look for raw meat packed with food that will not be cooked."}, {"id": "q2", "legend": "If you round up to $52.00, how much goes to the food bank?", "answer": "$0.52", "hint": "Count up from $51.48 to $52.00."}, {"id": "q3", "legend": "Where should you meet your brother?", "answer": "North doors", "hint": "Check which message is the newest."}];
-  var ESCAPE_LINES=["You tap Pay, and the receipt prints. Priya moves the raw chicken into its own sealed bag, then slips cold liners into that bag and the bag with the milk, ice cream, and mozzarella. \"Raw meat always rides alone,\" she says.", "At 6:15, you push through the north doors just as your brother's car rolls up. The ice cream is still cold, all 12 items are packed safely, and nothing is missing.", "At 7:00, your grandparents walk into a kitchen that smells like chicken parmesan. Grandpa takes one look at the table and grins.", "You did this."];
 
   var ROOM={
     preStartChallenge:'Read the bags, your order, and the messages if you like. When you are ready, press Start to unlock the answers and start the three minute clock.',
     preStartPractice:'Read the bags, your order, and the messages if you like. When you are ready, press Start to unlock the answers. Practice mode: no clock.',
     startedChallenge:'Answers unlocked. Get all three checks right. Three minutes on the clock.',
     startedPractice:'Answers unlocked. Get all three checks right. Practice mode: no deadline.',
-    timeoutText:'Good effort. The three minutes ran out before you made it out the door, but you know how radio buttons work better now than when you started.',
+    timeoutText:'The three minutes ran out before you made it out the door, but you know how radio buttons work better now than when you started.',
     focusOnStart:'checks-heading'
   };
   function picked(q){var c=document.querySelector('input[name="'+q.id+'"]:checked');return c?c.value:null;}
@@ -795,43 +691,25 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
     attempts++;
     var wrong=QS.filter(function(q){
       var bad=picked(q)!==q.answer;
-      $('err-'+q.id).textContent=bad?'Not quite. '+q.hint:'';
+      $('err-'+q.id).textContent=bad?'Not quite. Check this question again.':'';
       return bad;
     });
     if(!wrong.length){
       finishRoom('All three checks are right.');
-      revealCompletion('completion-box','completion-heading');
-      announce('All three checks are right. The Grocery Store is complete.',true);
-      playEscapeScene();
+      saveCompletedSession();
+      revealCompletion('completion-box');
+      announce('All three checks are right. You are out the door. The Grocery Store is complete.',true);
+      sfxDoorOpen();
+      setTimeout(showGroceryResults,5000);
       return;
     }
     sfxError();
-    showFeedback('error','<p>'+plural(wrong.length,'answer needs','answers need')+' another look.</p><ul>'+
-      wrong.map(function(q){return '<li><a href="#'+q.id+'-0">'+escapeHtml(q.legend)+'</a> '+escapeHtml(q.hint)+'</li>';}).join('')+'</ul>',true);
+    showFeedback('error','<p>'+plural(wrong.length,'answer needs','answers need')+' another look.'+noteMiss()+'</p><ul>'+
+      wrong.map(function(q){return '<li><a href="#'+q.id+'-0">'+escapeHtml(q.legend)+'</a></li>';}).join('')+'</ul>',true);
   });
 
   // ── Finale ────────────────────────────────────────────────────
   function sfxDoorOpen(){tone(196.00,.25,'sine',.3,0);tone(246.94,.25,'sine',.32,.22);tone(329.63,.35,'sine',.35,.44);tone(392.00,.5,'sine',.4,.68);tone(523.25,.7,'sine',.42,.95);}
-  function speakLine(text){
-    if(!soundEnabled||!window.speechSynthesis)return;
-    var u=new SpeechSynthesisUtterance(text);
-    u.rate=0.78;u.pitch=0.88;u.volume=1.0;
-    var v=bestVoice();if(v)u.voice=v;
-    window.speechSynthesis.speak(u);
-  }
-  function playEscapeScene(){
-    if(window.speechSynthesis)window.speechSynthesis.cancel();
-    sfxDoorOpen();
-    var delays=[0,6000,11000,15000],base=150;
-    ESCAPE_LINES.forEach(function(text,i){
-      setTimeout(function(){
-        var p=$('escape-p'+(i+1));
-        if(p)p.classList.add('revealed');
-        speakLine(text);
-      },base+delays[i]);
-    });
-    setTimeout(function(){showSeriesComplete(saveCompletedSession());},base+15000+4000);
-  }
   function saveCompletedSession(){
     try{
       var today=todayStr();
@@ -844,49 +722,23 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
       return s;
     }catch(e){return null;}
   }
-  function renderStats(s){
-    var el=$('sc-stats');
-    if(!s||!s.rooms||!s.rooms.length){el.textContent='';return;}
-    var totalTime=s.rooms.reduce(function(a,r){return a+(r.timeUsed||0);},0);
-    var totalAttempts=s.rooms.reduce(function(a,r){return a+(r.attempts||0);},0);
-    var dateStr=s.seriesCompleteDate||todayStr();
-    try{dateStr=new Date(dateStr+'T00:00:00').toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});}catch(e){}
-    el.textContent='Completed '+dateStr+'. '+s.rooms.length+' of 4 rooms. '+fmtElapsed(totalTime)+' total time. '+plural(totalAttempts,'attempt','attempts')+' total.';
-  }
-  function scKeyHandler(e){
-    var modal=$('series-complete');
-    if(!modal.classList.contains('open')||e.key!=='Tab')return;
-    var f=modal.querySelectorAll('a[href]');
-    if(!f.length)return;
-    var first=f[0],last=f[f.length-1];
-    if(e.shiftKey&&(document.activeElement===first||document.activeElement===$('sc-heading'))){e.preventDefault();last.focus();}
-    else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
-  }
-  function createParticles(){
-    var c=$('sc-particles');c.innerHTML='';
-    if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-    var colors=['#f5a623','#ffcc00','#ffffff','#ffe0a3','#39d98a','#4da6ff'];
-    for(var i=0;i<80;i++){
-      var p=document.createElement('div');p.className='sc-particle';
-      var a=Math.random()*Math.PI*2,d=80+Math.random()*260;
-      p.style.setProperty('--dx',(Math.cos(a)*d)+'px');p.style.setProperty('--dy',(Math.sin(a)*d)+'px');
-      p.style.background=colors[Math.floor(Math.random()*colors.length)];
-      p.style.animationDelay=(Math.random()*.3)+'s';p.style.animationDuration=(1.1+Math.random()*.9)+'s';
-      c.appendChild(p);
-    }
-  }
-  function showSeriesComplete(s){
-    var modal=$('series-complete');
-    modal.classList.add('open');
-    modal.setAttribute('aria-hidden','false');
-    $('main-content').setAttribute('aria-hidden','true');
-    createParticles();
-    renderStats(s);
-    setTimeout(function(){$('sc-heading').focus({preventScroll:true});},400);
-    document.addEventListener('keydown',scKeyHandler);
+  function showSeriesComplete(){SPRoom.finale();}
+  // ── Results for the whole escape room, shown after the door sound ──
+  function showGroceryResults(){
+    var sess=null;
+    try{var list=JSON.parse(localStorage.getItem('sp_grocery_sessions')||'[]');sess=list[list.length-1]||null;}catch(e){}
+    SPRoom.results({heading:'The Grocery Store Complete',sub:'Your results for all four rooms',emailTitle:'The Grocery Store',
+      lines:SPRoom.resultLines(sess,[['1','The Entrance'],['2','The Aisles'],['3','The Express Checkout'],['4','Out the Door']],'sp_grocery_mode',fmtElapsed),
+      onClose:showSeriesComplete});
   }
   lockControls('prestart');
   initTimerArea();
+
+  // ── Room settings for the shared escape room script ──
+  SPRoom.init({modeKey:'sp_grocery_mode',hintWhere:'below the Ready to Roll button',hints:[
+    'Each question is a group of radio buttons. The answer is in the table, the order total, or the messages just before that question.',
+    'For the bags, look for raw meat packed with food that won\'t be cooked. For the food bank, count up from $51.48 to $52.00. For the pickup, use the newest message.'
+  ]});
 
 </script>
 </body>

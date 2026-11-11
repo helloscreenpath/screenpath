@@ -528,13 +528,17 @@
 
     var GROCERY_ROOM_META = [
       { key:'1', name:'The Entrance',         skill:'Matching Questions',     timeAllowed:360 },
-      { key:'2', name:'The Aisles',           skill:'Tables & Checkboxes',    timeAllowed:300 },
-      { key:'3', name:'The Express Checkout', skill:'Links & Verification',   timeAllowed:240 },
+      { key:'2', name:'The Aisles',           skill:'Tables and Checkboxes',  timeAllowed:300 },
+      { key:'3', name:'The Express Checkout', skill:'Links and Verification', timeAllowed:240 },
       { key:'4', name:'Out the Door',         skill:'Radio Buttons',          timeAllowed:180 },
     ];
 
     function loadGrocerySessions() {
-      return recall('sp_grocery_sessions', []);
+      // Finished sessions, plus the session in progress so finished rooms show right away
+      var list = recall('sp_grocery_sessions', []);
+      var cur = recall('sp_grocery_current_session', null);
+      if (cur && cur.rooms && cur.rooms.length) list = list.concat([cur]);
+      return list;
     }
 
     function renderGroceryHistory() {
@@ -620,6 +624,7 @@
           '<th scope="col">Skill</th>' +
           '<th scope="col">Date Completed</th>' +
           '<th scope="col">Attempts</th>' +
+          '<th scope="col">Hints</th>' +
           '<th scope="col">Time Used</th>' +
           '<th scope="col">Time Allowed</th>' +
           '<th scope="col">Used</th>' +
@@ -635,6 +640,7 @@
             '<td class="td-skill">' + rm.skill + '</td>' +
             '<td>' + (roomData ? fmtDate(roomData.dateCompleted) : 'Not yet') + '</td>' +
             '<td class="td-attempts">' + (roomData ? roomData.attempts : 'Not yet') + '</td>' +
+            '<td class="td-attempts">' + (roomData ? (roomData.hints != null ? roomData.hints : 'Not recorded') : 'Not yet') + '</td>' +
             '<td class="td-time">' + (roomData ? fmtTime(roomData.timeUsed) : 'Not yet') + '</td>' +
             '<td class="td-time">' + fmtTime(rm.timeAllowed) + '</td>' +
             '<td class="td-pct">' + (roomData ? roomData.pct + '%' : 'Not yet') + '</td>';
@@ -700,7 +706,7 @@
         var r = rooms.find(function(x){ return x.roomKey===rm.key; });
         if (r) {
           lines.push('Room ' + rm.key + ', ' + rm.name + ', ' + rm.skill);
-          lines.push('Completed: ' + fmtDate(r.dateCompleted) + ', Attempts: ' + r.attempts + ', Time: ' + fmtTime(r.timeUsed) + ' of ' + fmtTime(rm.timeAllowed) + ', ' + r.pct + '%');
+          lines.push('Completed: ' + fmtDate(r.dateCompleted) + ', Attempts: ' + r.attempts + (r.hints != null ? ', Hints: ' + r.hints : '') + ', Time: ' + fmtTime(r.timeUsed) + ' of ' + fmtTime(rm.timeAllowed) + ', ' + r.pct + '%');
           lines.push('');
         }
       });

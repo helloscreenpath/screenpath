@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Room 1: The Entrance | The Grocery Store | ScreenPath</title>
+<title>Room 1: The Entrance on ScreenPath</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 [hidden]{display:none !important;}
@@ -12,7 +12,7 @@
   --text:#f0f0f0; --text-muted:#8a8a8a;
   --green:#39d98a; --green-dim:#0d2e1c;
   --red:#ff4d4d; --red-dim:#2e0d0d;
-  --amber:#f5a623; --amber-dim:#2e1f00;
+  --amber:#39d98a; --amber-dim:#0d2e1c;
   --radius:12px;
   --font:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   --mono:'SF Mono','Fira Code','Consolas',monospace;
@@ -23,43 +23,17 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:18
 .skip-link{position:absolute;top:-100px;left:1rem;background:var(--amber);color:#000;padding:.75rem 1.5rem;border-radius:var(--radius);font-weight:600;font-size:1rem;text-decoration:none;z-index:9999;transition:top .2s;}
 .skip-link:focus{top:1rem;}
 
-/* Nav */
-nav[role="navigation"]{position:sticky;top:0;left:0;right:0;z-index:500;background:rgba(10,10,10,.95);backdrop-filter:blur(22px);border-bottom:1px solid var(--border);}
-.nav-inner{max-width:1100px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;}
-.nav-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0;}
-.nav-logo-mark{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:var(--amber);color:#000;font-family:var(--font);font-weight:800;font-size:.85rem;flex-shrink:0;}
-.nav-links{display:flex;align-items:center;gap:.15rem;list-style:none;}
-.nav-links a{color:var(--text-muted);text-decoration:none;font-size:.86rem;font-weight:500;padding:.45rem .8rem;border-radius:100px;transition:color .2s,background .2s;white-space:nowrap;}
-.nav-links a:hover{color:var(--text);background:var(--surface-2);}
-.nav-links a[aria-current="page"]{color:var(--amber);}
-.nav-links a:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:100px;}
-.menu-btn{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--border);border-radius:8px;padding:.42rem .55rem;cursor:pointer;color:var(--text-muted);font-size:1.15rem;line-height:1;}
-.menu-btn:hover{border-color:var(--amber);color:var(--text);}
-.menu-btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:8px;}
-.nav-drawer{display:none;flex-direction:column;background:rgba(10,10,10,.97);border-top:1px solid var(--border);padding:1rem 1.5rem 1.5rem;}
-.nav-drawer.open{display:flex;}
-.nav-drawer a{color:var(--text-muted);text-decoration:none;font-size:1rem;font-weight:500;padding:.65rem 0;border-bottom:1px solid var(--border);}
-.nav-drawer a:last-child{border-bottom:none;}
-@media(max-width:860px){.nav-links{display:none;} .menu-btn{display:flex;}}
-
 /* Main */
 main{max-width:860px;margin:0 auto;padding:3rem 2rem 6rem;}
-.back-link{display:inline-flex;align-items:center;gap:.5rem;color:var(--text-muted);text-decoration:none;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase;margin-bottom:2.5rem;}
-.back-link:hover,.back-link:focus{color:var(--amber);}
-.back-link:focus-visible{outline:2px solid var(--amber);outline-offset:4px;border-radius:3px;}
 
 .room-header{margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--border);}
 .room-meta{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:1rem;}
 .room-meta p{margin:0;}
-.room-badge{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);padding:.3rem .85rem;border-radius:100px;}
-.room-level{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);border:1px solid var(--border);padding:.3rem .85rem;border-radius:100px;}
+.room-badge{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);background:var(--amber-dim);border:1px solid rgba(57,217,138,.3);padding:.3rem .85rem;border-radius:100px;}
 .room-skill-badge{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);border:1px solid rgba(57,217,138,.3);padding:.3rem .85rem;border-radius:100px;background:var(--green-dim);}
 h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;letter-spacing:-.02em;line-height:1.15;color:var(--text);}
 h2{font-size:1.4rem;font-weight:600;letter-spacing:-.01em;margin-bottom:1.25rem;color:var(--text);}
 h3{font-size:1.1rem;font-weight:600;color:var(--amber);margin-bottom:1rem;}
-.room-image-wrap{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);margin:1.75rem 0 2.5rem;background:var(--surface-2);}
-.room-image-wrap img{width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:cover;}
-.image-caption{font-size:.82rem;color:var(--text-muted);padding:.75rem 1rem;background:var(--surface);border-top:1px solid var(--border);}
 .room-section{margin-bottom:3.5rem;padding-bottom:3rem;border-bottom:1px solid var(--border);}
 .room-section:last-of-type{border-bottom:none;}
 p{margin-bottom:1rem;}
@@ -92,10 +66,10 @@ p:last-child{margin-bottom:0;}
 .skill-focus p{font-size:.95rem;color:var(--text-muted);margin-bottom:0;line-height:1.75;}
 
 /* Profile card */
-.profile-card{background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);border-radius:var(--radius);padding:1.75rem;margin:1.75rem 0;}
+.profile-card{background:var(--amber-dim);border:1px solid rgba(57,217,138,.3);border-radius:var(--radius);padding:1.75rem;margin:1.75rem 0;}
 .profile-card-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.9rem;}
 .intake-dl{display:grid;grid-template-columns:1fr;gap:1.25rem;margin:0;padding:0;}
-.intake-group{border-bottom:1px solid rgba(245,166,35,.15);padding-bottom:.75rem;}
+.intake-group{border-bottom:1px solid rgba(57,217,138,.15);padding-bottom:.75rem;}
 .intake-group:last-child{border-bottom:none;padding-bottom:0;}
 .intake-dt{color:var(--amber);font-family:var(--mono);font-size:.9rem;font-weight:700;margin-bottom:.2rem;}
 .intake-dd{color:var(--text);font-family:var(--mono);font-size:1.05rem;font-weight:600;}
@@ -128,7 +102,7 @@ p:last-child{margin-bottom:0;}
 .btn{display:inline-block;font-family:var(--font);font-size:1rem;font-weight:600;padding:.9rem 2.5rem;border-radius:100px;border:none;cursor:pointer;letter-spacing:.02em;transition:transform .15s,box-shadow .15s,background .2s;text-decoration:none;text-align:center;}
 .btn:focus-visible{outline:3px solid var(--amber);outline-offset:4px;}
 .btn-primary{background:var(--amber);color:#000;}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,166,35,.3);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(57,217,138,.3);}
 .btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none;}
 .btn-secondary{background:var(--surface-2);color:var(--text);border:1px solid var(--border);}
 .btn-secondary:hover{background:var(--surface);transform:translateY(-1px);}
@@ -154,11 +128,6 @@ p:last-child{margin-bottom:0;}
 .feedback-box.success{background:var(--green-dim);border:1px solid rgba(57,217,138,.3);color:var(--green);display:block;}
 .feedback-box.error{background:var(--red-dim);border:1px solid rgba(255,77,77,.3);color:var(--red);display:block;}
 
-/* Bridge message */
-.bridge-msg{background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);border-radius:var(--radius);padding:1.5rem;margin-top:1.5rem;display:none;}
-.bridge-msg.visible{display:block;}
-.bridge-msg-label{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.5rem;}
-.bridge-msg p{font-size:.95rem;color:var(--text);line-height:1.7;margin-bottom:0;font-style:italic;}
 
 /* Debrief / next room */
 .answer-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin-top:1.5rem;display:none;}
@@ -170,9 +139,9 @@ p:last-child{margin-bottom:0;}
 .form-group:last-child{margin-bottom:0;}
 label{display:block;font-size:.92rem;font-weight:600;color:var(--text);margin-bottom:.5rem;}
 input[type="text"]{width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font);font-size:1rem;padding:.85rem 1rem;}
-input[type="text"]:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(245,166,35,.15);}
+input[type="text"]:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(57,217,138,.15);}
 textarea{width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font);font-size:1rem;padding:.85rem 1rem;resize:vertical;min-height:90px;line-height:1.6;}
-textarea:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(245,166,35,.15);}
+textarea:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(57,217,138,.15);}
 .radio-group{display:flex;flex-direction:column;gap:.6rem;margin-top:.25rem;}
 .radio-option{display:flex;align-items:center;gap:.75rem;cursor:pointer;font-size:.95rem;color:var(--text-muted);padding:.65rem 1rem;border:1px solid var(--border);border-radius:8px;transition:border-color .2s,color .2s;}
 .radio-option:hover{border-color:var(--amber);color:var(--text);}
@@ -185,10 +154,6 @@ textarea:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(
 .next-room-box h3{color:var(--amber);margin-bottom:.5rem;font-size:1.1rem;}
 .next-room-box p{font-size:.9rem;color:var(--text-muted);margin-bottom:1.5rem;}
 
-footer[role="contentinfo"]{border-top:1px solid var(--border);padding:2.5rem 2rem;color:var(--text-muted);font-size:.85rem;}
-.footer-inner{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:.5rem;}
-.footer-platform{font-weight:600;color:var(--text-muted);}
-.footer-a11y{font-size:.8rem;color:var(--text-muted);line-height:1.6;}
 
 @media(max-width:768px){
   main{padding:2rem 1.25rem 4rem;}
@@ -255,31 +220,13 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
 .question-fieldset .item-error{margin-top:.75rem;}
 
 </style>
+<link rel="stylesheet" href="escape-room.css">
 </head>
 <body>
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<nav role="navigation" aria-label="Main navigation">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo" aria-label="SP, ScreenPath home page">
-      <span class="nav-logo-mark" aria-hidden="true">SP</span>
-    </a>
-    <ul class="nav-links" role="list">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="progress.html">Progress</a></li>
-      <li><a href="feedback.html">Feedback</a></li>
-    </ul>
-    <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu">☰</button>
-  </div>
-  <div class="nav-drawer" id="nav-drawer" aria-label="Mobile navigation">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="progress.html">Progress</a>
-    <a href="feedback.html">Feedback</a>
-  </div>
-</nav>
+<nav role="navigation" aria-label="Main navigation"><div class="nav-inner"><a class="sp-wordmark" href="index.html" aria-label="ScreenPath home">Screen<span>Path</span></a><ul class="nav-links"><li><a href="index.html">Activities</a></li><li><a href="progress.html">My Progress</a></li><li><a href="teachers.html">For Teachers</a></li><li><a href="about.html">About</a></li><li><a href="feedback.html">Feedback</a></li></ul><button id="menu-btn" class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu">&#9776;</button></div><div class="nav-drawer" id="nav-drawer" hidden><a href="index.html">Activities</a><a href="progress.html">My Progress</a><a href="teachers.html">For Teachers</a><a href="about.html">About</a><a href="feedback.html">Feedback</a></div></nav>
 
 <main id="main-content" tabindex="-1">
   <a href="grocery-store.html" class="back-link">Back to The Grocery Store</a>
@@ -289,34 +236,8 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
     <h1>Dinner at Seven</h1>
     <p class="synopsis">Your grandparents arrive for dinner at 7:00, Mom is stuck at work, and your brother can only pick you up at 6:15. Sort the list, shop the aisles, beat the scanner, and get out the door. Four rooms, one Friday evening grocery run.</p>
 
-    <section class="room-section" aria-labelledby="practice-heading">
-      <h2 id="practice-heading">What you'll practice</h2>
-      <p class="skills-summary">Four rooms, four skills. Each room reveals its own task once you start.</p>
-      <ol class="room-list">
-        <li class="room-item">
-          <span class="room-number">Room 1</span>
-          <span class="room-name">The Entrance</span>
-          <span class="room-skill">Matching Questions</span>
-        </li>
-        <li class="room-item">
-          <span class="room-number">Room 2</span>
-          <span class="room-name">The Aisles</span>
-          <span class="room-skill">Tables &amp; Checkboxes</span>
-        </li>
-        <li class="room-item">
-          <span class="room-number">Room 3</span>
-          <span class="room-name">The Express Checkout</span>
-          <span class="room-skill">Links &amp; Verification</span>
-        </li>
-        <li class="room-item">
-          <span class="room-number">Room 4</span>
-          <span class="room-name">Out the Door</span>
-          <span class="room-skill">Radio Buttons</span>
-        </li>
-      </ol>
-    </section>
 
-    <section class="room-section" style="border-bottom:none;" aria-labelledby="gate-heading">
+    <div class="room-section" style="border-bottom:none;">
       <h2 id="gate-heading">Before you start</h2>
       <div class="gate">
         <div class="field">
@@ -346,21 +267,23 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
           <p class="gate-note" id="gate-note">Choose a screen reader and a mode above to continue. Both choices apply to all four rooms, so you will not be asked again.</p>
         </div>
       </div>
-    </section>
+    </div>
   </div>
 
   <div id="room-content" hidden>
   <div class="room-header">
     <div class="room-meta">
-      <p class="room-badge">Room 1 of 4: The Grocery Store</p>
-      <p class="room-level">Grocery Run</p>
+      <p class="room-badge">The Grocery Store, Room 1 of 4</p>
       <p class="room-skill-badge">Focus: Matching Questions</p>
     </div>
     <h1>Room 1: The Entrance</h1>
   </div>
-  <p class="story-time">Dinner at Seven, The Entrance, Friday, 5:57 PM</p>
+  <figure class="room-photo">
+    <img src="images/grocery-entrance.jpg" alt="The front entrance of a large supermarket at night. Through the glass sliding doors, the dark parking lot glows under tall lights. A row of red handled shopping carts lines the wall on the left, a row of self checkout kiosks stands on the right, and bins of colorful fruits and vegetables fill the store straight ahead." loading="lazy">
+    <figcaption>The Grocery Store, The Entrance, Friday, 5:57 PM</figcaption>
+  </figure>
 
-  <section class="room-section" aria-labelledby="situation-heading">
+  <div class="room-section">
     <h2 id="situation-heading">Where You Are</h2>
     <p id="scene-p1">It's 5:57 on a Friday evening, and your grandparents are driving in for dinner at 7:00. It's the first family dinner in months. Mom is making Grandpa's favorite, chicken parmesan. She gets home at 6:30 to start cooking, but only if the groceries are already there.</p>
     <p id="scene-p2">Mom got stuck at work, so she texted you the grocery list. She typed it in a hurry, and the store's app jumbled everything into one long, random mess.</p>
@@ -375,9 +298,9 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
       </button>
       <span class="narrate-status" id="narrate-status" role="status" aria-live="polite" aria-atomic="true"></span>
     </div>
-  </section>
+  </div>
 
-  <section class="room-section" aria-labelledby="mission-heading">
+  <div class="room-section">
     <h2 id="mission-heading" tabindex="-1">Match the List</h2>
 
     <div class="skill-focus">
@@ -414,30 +337,24 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
     </div>
 
     <div id="feedback-msg" class="feedback-box" tabindex="-1"></div>
-    <button type="button" id="switch-practice" class="btn btn-secondary" style="margin-top:1rem;" hidden>Switch to practice, remove deadline</button>
-
-    <div class="bridge-msg" id="bridge-msg" role="note">
-      <span class="bridge-msg-label" id="bridge-msg-label">// Store App, Route Ready</span>
-      <p id="bridge-msg-text"></p>
+    <div class="hint-area" id="hint-area" hidden>
+      <button type="button" class="btn btn-secondary" id="hint-btn">Get a Hint</button>
+      <div class="hint-text" id="hint-text" role="status" aria-live="polite"></div>
     </div>
 
-    <div class="next-room-box" id="next-room-box" aria-labelledby="next-room-heading">
+    <div class="next-room-box" id="next-room-box">
       <span class="next-room-label">// Room 1 Complete</span>
-      <h3 id="next-room-heading" tabindex="-1" style="outline:none;">Room 2 is Now Unlocked</h3>
-      <p>Your route is ready: four stops, with frozen foods last.</p>
+      <h3 id="next-room-heading">Room 2 is Now Unlocked</h3>
+      <p class="next-room-msg" id="bridge-msg-text"></p>
       <a href="mission-3b.html" class="btn btn-primary">Enter Room 2: The Aisles</a>
     </div>
-  </section>
+  </div>
   </div>
 </main>
 
-<footer role="contentinfo">
-  <div class="footer-inner">
-    <p class="footer-platform">ScreenPath: The Grocery Store, Dinner at Seven. A screen reader escape room.</p>
-    <p class="footer-a11y">ScreenPath is designed for screen reader users. Every page is fully navigable by keyboard and compatible with JAWS, NVDA, and VoiceOver. If you encounter any accessibility issue please contact your instructor.</p>
-  </div>
-</footer>
+<footer><div class="sp-footer"><p><strong>ScreenPath</strong>: free screen reader practice.</p><p>Built by Moises Betancourt for screen reader learners everywhere.</p><div class="sp-actions"><a href="progress.html#privacy">How your results are saved</a></div></div></footer>
 
+<script src="escape-room.js"></script>
 <script>
 
   // ── Shared: The Grocery Store (Dinner at Seven) ─────────────────
@@ -445,14 +362,6 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
   var TOTAL=360;
 
   function $(id){return document.getElementById(id);}
-  function toggleMenu(){
-    var d=$('nav-drawer'),b=$('menu-btn');
-    var open=d.classList.toggle('open');
-    b.setAttribute('aria-expanded',open?'true':'false');
-    b.setAttribute('aria-label',open?'Close navigation menu':'Open navigation menu');
-    b.textContent=open?'✕':'☰';
-  }
-  $('menu-btn').addEventListener('click',toggleMenu);
 
   // Announcer: assertive by default, polite when asked
   function announce(msg,polite){
@@ -462,16 +371,9 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
     document.body.appendChild(el);
     setTimeout(function(){el.textContent=msg;setTimeout(function(){el.remove();},4500);},100);
   }
-  function revealCompletion(boxId,headingId){
-    var box=$(boxId);
-    box.classList.add('visible');
-    setTimeout(function(){
-      box.scrollIntoView({behavior:'smooth',block:'center'});
-      var h=$(headingId);
-      if(h)h.focus({preventScroll:true});
-    },80);
-  }
-  function todayStr(){return new Date().toISOString().split('T')[0];}
+  // Show the way to the next room. Focus stays where the student is.
+  function revealCompletion(boxId){$(boxId).classList.add('visible');}
+  function todayStr(){return SPRoom.localDate();}
   function plural(n,one,many){return n+' '+(n===1?one:many);}
   function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
   function escapeHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
@@ -494,7 +396,7 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
       var s=ensureSess();
       var pct=Math.min(100,Math.round((elapsed/TOTAL)*100));
       s.rooms=s.rooms.filter(function(r){return r.roomKey!==ROOM_KEY;});
-      s.rooms.push({roomKey:ROOM_KEY,dateCompleted:todayStr(),attempts:attempts,timeUsed:elapsed,timeAllowed:TOTAL,pct:pct});
+      s.rooms.push({roomKey:ROOM_KEY,dateCompleted:todayStr(),attempts:attempts,timeUsed:elapsed,timeAllowed:TOTAL,pct:pct,hints:hintsUsed});
       saveSess(s);
     }catch(e){}
   }
@@ -643,7 +545,7 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
     if(started)return;
     started=true;
     unlockControls('prestart');
-    $('start-timer-btn').style.display='none';
+    SPRoom.markStarted('start-timer-btn',practiceMode);
     var tog=$('sound-toggle');tog.disabled=true;tog.setAttribute('aria-disabled','true');
     sfxStart();
     if(window.speechSynthesis&&narSpeaking)stopNar();
@@ -654,8 +556,6 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
       $('timer-instructions').textContent=ROOM.startedChallenge;
     }
     if(ROOM.onStart)ROOM.onStart();
-    var target=$(ROOM.focusOnStart);
-    if(target){if(!target.hasAttribute('tabindex'))target.setAttribute('tabindex','-1');target.focus();}
     announce(practiceMode?ROOM.startedPractice:ROOM.startedChallenge,true);
     interval=setInterval(tick,1000);
   }
@@ -674,26 +574,18 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
   function handleTimeExpired(){
     sfxFail();
     lockControls('timeout');
-    showFeedback('error','<p>'+ROOM.timeoutText+'</p>',false);
-    var sw=$('switch-practice');
-    sw.hidden=false;
-    sw.focus();
-    announce('Time is up. You can switch to practice mode to keep working with no deadline.');
+    SPRoom.timeUp({title:'Good Effort. The Clock Ran Out',message:ROOM.timeoutText,onPractice:switchToPractice});
   }
+  // Continue in Practice Mode: keep the student's work and turn off the clock
   function switchToPractice(){
-    try{localStorage.setItem('sp_grocery_mode','practice');}catch(e){}
     practiceMode=true;
     hideFeedback();
-    $('switch-practice').hidden=true;
     unlockControls('timeout');
     setPracticeDisplay();
     $('timer-instructions').textContent='Practice mode: no deadline. Take your time.';
     interval=setInterval(tick,1000);
-    var target=$(ROOM.focusOnStart);
-    if(target)target.focus();
-    announce('Deadline removed. Keep working, there is no rush.',true);
+    focusEl($('timer-instructions'));
   }
-  $('switch-practice').addEventListener('click',switchToPractice);
 
   function finishRoom(successText){
     if(complete)return;
@@ -701,14 +593,14 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
     clearInterval(interval);
     sfxWin();
     recordRoom();
+    // Lock the room, but the button the student just pressed keeps focus
+    var keep=document.activeElement;
     lockControls('complete');
+    if(keep&&keep.getAttribute('data-locked')==='complete'){keep.disabled=false;keep.removeAttribute('data-locked');keep.setAttribute('aria-disabled','true');}
     var fb=$('feedback-msg');
     fb.className='feedback-box success';
     fb.innerHTML='<p>'+successText+' Finished in '+fmtElapsed(elapsed)+' with '+plural(attempts,'attempt','attempts')+'.</p>';
-    if(ROOM.bridgeText){
-      $('bridge-msg-text').textContent=ROOM.bridgeText;
-      $('bridge-msg').classList.add('visible');
-    }
+    if(ROOM.bridgeText)$('bridge-msg-text').textContent=ROOM.bridgeText;
   }
 
 
@@ -759,9 +651,9 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
     preStartPractice:'Read the list below if you like. When you are ready, press Start to unlock the dropdowns. Practice mode: no clock.',
     startedChallenge:'Dropdowns unlocked. Match all 12 items to their departments. Six minutes on the clock.',
     startedPractice:'Dropdowns unlocked. Match all 12 items to their departments. Practice mode: no deadline.',
-    timeoutText:'Good effort. The six minutes ran out before the list was sorted, but you know how matching questions work better now than when you started.',
+    timeoutText:'The six minutes ran out before the list was sorted, but you know how matching questions work better now than when you started.',
     focusOnStart:'match-heading',
-    bridgeText:'Route ready. Four stops, frozen foods last. Priya calls after you: "Five minutes to shop. Go!"'
+    bridgeText:'The store app reads: "Route ready. Four stops, frozen foods last." Priya calls after you: "Five minutes to shop. Go!"'
   };
   var items=shuffle(ITEMS.slice());
   function full(it){return it.n+', '+it.s;}
@@ -798,14 +690,20 @@ td input[type="checkbox"]:focus-visible{outline:2px solid var(--amber);outline-o
     if(!wrong.length){
       finishRoom('List sorted. The app builds your route.');
       revealCompletion('next-room-box','next-room-heading');
-      announce('List sorted. Room 1 is complete. Room 2 is now unlocked.',true);
+      announce('List sorted. The app builds your route. Room 2, The Aisles, is open. The link to enter it is just below.',true);
       return;
     }
     sfxError();
-    showFeedback('error','<p>'+plural(wrong.length,'item is','items are')+' in the wrong department. Priya says, "So close. Fix the flagged ones and send it again."</p>'+linkList(wrong),true);
+    showFeedback('error','<p>'+plural(wrong.length,'item is','items are')+' in the wrong department. Priya says, "So close. Fix the flagged ones and send it again."'+noteMiss()+'</p>'+linkList(wrong),true);
   });
   lockControls('prestart');
   initTimerArea();
+
+  // ── Room settings for the shared escape room script ──
+  SPRoom.init({modeKey:'sp_grocery_mode',hintWhere:'below the Submit My List button',hints:[
+    'Move through Mom\'s list one item at a time. Each item has a combo box. Choose the department where you would find that item in a store.',
+    'Use the Review My Matches button to find out which matches need another look before you submit. A department can be used for more than one item, and some departments are not used at all.'
+  ]});
 
 </script>
 </body>
