@@ -501,10 +501,10 @@
           const b = Math.floor(Math.random() * 8) + 1;
           const op = Math.random() < 0.5 ? 'add' : 'subtract';
           if (op === 'add') {
-            return { grade, subject, controlType: "input", q: `What is ${a} + ${b}? Type your numerical answer.`, acceptedAnswers: [`${a + b}`], placeholder: "e.g., 9" };
+            return { grade, subject, controlType: "input", q: `What is ${a} plus ${b}? Type your numerical answer.`, acceptedAnswers: [`${a + b}`], placeholder: "e.g., 9" };
           } else {
             const hi = Math.max(a, b) + 3, lo = Math.min(a, b);
-            return { grade, subject, controlType: "input", q: `What is ${hi} - ${lo}? Type your numerical answer.`, acceptedAnswers: [`${hi - lo}`], placeholder: "e.g., 4" };
+            return { grade, subject, controlType: "input", q: `What is ${hi} minus ${lo}? Type your numerical answer.`, acceptedAnswers: [`${hi - lo}`], placeholder: "e.g., 4" };
           }
         } else if (grade === 2) {
           const quarters = Math.floor(Math.random() * 3) + 1;
@@ -513,7 +513,7 @@
           const total = (quarters * 25) + (dimes * 10) + (nickels * 5);
           return {
             grade, subject, controlType: "radio",
-            q: `How many total cents are in ${quarters} quarter(s), ${dimes} dime(s), and ${nickels} nickel(s)?`,
+            q: `How many total cents are in ${quarters} ${quarters === 1 ? 'quarter' : 'quarters'}, ${dimes} ${dimes === 1 ? 'dime' : 'dimes'}, and ${nickels} ${nickels === 1 ? 'nickel' : 'nickels'}?`,
             options: [`${total} cents`, `${total + 5} cents`, `${total - 10} cents`, `${total + 15} cents`].sort(() => 0.5 - Math.random()),
             acceptedAnswers: [`${total} cents`, `${total}`]
           };
@@ -533,16 +533,16 @@
           };
         } else if (grade === 5) {
           const pool = [
-            { f: "1/4", d: "0.25", opts: ["0.25", "0.50", "0.20", "0.75"] },
-            { f: "3/4", d: "0.75", opts: ["0.75", "0.50", "0.85", "0.65"] },
-            { f: "1/5", d: "0.20", opts: ["0.20", "0.50", "0.15", "0.25"] },
-            { f: "2/5", d: "0.40", opts: ["0.40", "0.25", "0.50", "0.45"] },
-            { f: "3/8", d: "0.375", opts: ["0.375", "0.380", "0.350", "0.425"] },
-            { f: "5/8", d: "0.625", opts: ["0.625", "0.650", "0.585", "0.675"] },
-            { f: "1/2", d: "0.50", opts: ["0.50", "0.25", "0.75", "0.05"] },
-            { f: "7/10", d: "0.70", opts: ["0.70", "0.17", "0.07", "0.75"] },
-            { f: "3/5", d: "0.60", opts: ["0.60", "0.35", "0.65", "0.53"] },
-            { f: "9/10", d: "0.90", opts: ["0.90", "0.19", "0.09", "0.95"] }
+            { f: "1 fourth", d: "0.25", opts: ["0.25", "0.50", "0.20", "0.75"] },
+            { f: "3 fourths", d: "0.75", opts: ["0.75", "0.50", "0.85", "0.65"] },
+            { f: "1 fifth", d: "0.20", opts: ["0.20", "0.50", "0.15", "0.25"] },
+            { f: "2 fifths", d: "0.40", opts: ["0.40", "0.25", "0.50", "0.45"] },
+            { f: "3 eighths", d: "0.375", opts: ["0.375", "0.380", "0.350", "0.425"] },
+            { f: "5 eighths", d: "0.625", opts: ["0.625", "0.650", "0.585", "0.675"] },
+            { f: "1 half", d: "0.50", opts: ["0.50", "0.25", "0.75", "0.05"] },
+            { f: "7 tenths", d: "0.70", opts: ["0.70", "0.17", "0.07", "0.75"] },
+            { f: "3 fifths", d: "0.60", opts: ["0.60", "0.35", "0.65", "0.53"] },
+            { f: "9 tenths", d: "0.90", opts: ["0.90", "0.19", "0.09", "0.95"] }
           ];
           const chosen = pool[Math.floor(Math.random() * pool.length)];
           return { grade, subject, controlType: "radio", q: `What is the fraction ${chosen.f} converted into a decimal?`, options: chosen.opts.sort(() => 0.5 - Math.random()), acceptedAnswers: [chosen.d] };
@@ -550,11 +550,11 @@
           const val = Math.floor(Math.random() * 50) + 15;
           const useAbs = Math.random() < 0.5;
           if (useAbs) {
-            return { grade, subject, controlType: "input", q: `What is the absolute value of -${val}? Type your answer.`, acceptedAnswers: [`${val}`], placeholder: "Type absolute value" };
+            return { grade, subject, controlType: "input", q: `What is the absolute value of negative ${val}? Type your answer.`, acceptedAnswers: [`${val}`], placeholder: "Type absolute value" };
           } else {
             const base = Math.floor(Math.random() * 10) + 2;
             const exp = Math.floor(Math.random() * 2) + 2;
-            return { grade, subject, controlType: "input", q: `What is ${base} to the power of ${exp} (${base}^${exp})? Type your numerical answer.`, acceptedAnswers: [`${Math.pow(base, exp)}`], placeholder: "Type answer" };
+            return { grade, subject, controlType: "input", q: `What is ${base} to the power of ${exp}? Type your numerical answer.`, acceptedAnswers: [`${Math.pow(base, exp)}`], placeholder: "Type answer" };
           }
         }
       }
@@ -583,20 +583,20 @@
           const inches = ft * 12;
           return {
             grade, subject, controlType: "radio",
-            q: `How many inches are in ${ft} feet? (1 foot = 12 inches)`,
+            q: `How many inches are in ${ft} feet? (1 foot equals 12 inches)`,
             options: [`${inches} inches`, `${ft * 10} inches`, `${inches + 6} inches`, `${inches - 4} inches`].sort(() => 0.5 - Math.random()),
             acceptedAnswers: [`${inches} inches`, `${inches}`]
           };
         } else if (grade === 3) {
           const hrs = Math.floor(Math.random() * 4) + 2;
           const mins = hrs * 60;
-          return { grade, subject, controlType: "input", q: `How many minutes are in ${hrs} hours? (60 minutes = 1 hour). Type the number.`, acceptedAnswers: [`${mins}`, `${mins} minutes`], placeholder: "e.g., 120" };
+          return { grade, subject, controlType: "input", q: `How many minutes are in ${hrs} hours? (60 minutes equals 1 hour). Type the number.`, acceptedAnswers: [`${mins}`, `${mins} minutes`], placeholder: "e.g., 120" };
         } else if (grade === 4) {
           const lbs = Math.floor(Math.random() * 4) + 2;
           const oz = lbs * 16;
           return {
             grade, subject, controlType: "radio",
-            q: `How many ounces are in ${lbs} standard pounds? (1 pound = 16 ounces)`,
+            q: `How many ounces are in ${lbs} standard pounds? (1 pound equals 16 ounces)`,
             options: [`${oz} ounces`, `${lbs * 12} ounces`, `${oz + 8} ounces`, `${lbs * 14} ounces`].sort(() => 0.5 - Math.random()),
             acceptedAnswers: [`${oz} ounces`, `${oz}`]
           };
@@ -627,8 +627,8 @@
             { q: "Which arrow key moves your reading position one character to the right?", a: "Right Arrow", dist: ["Left Arrow", "Up Arrow", "Tab"] },
             { q: "Which arrow key moves your reading position one character to the left?", a: "Left Arrow", dist: ["Right Arrow", "Down Arrow", "Space"] },
             { q: "What do we call moving around a webpage using only the keyboard instead of a mouse?", a: "Keyboard Navigation", dist: ["Mouse Clicking", "Scrolling", "Zooming"] },
-            { q: "Which key combination jumps to the very top of a webpage?", a: "Control + Home", dist: ["Control + End", "Shift + Home", "Tab"] },
-            { q: "Which key combination jumps to the very bottom of a webpage?", a: "Control + End", dist: ["Control + Home", "Shift + End", "Escape"] },
+            { q: "Which key combination jumps to the very top of a webpage?", a: "Control plus Home", dist: ["Control plus End", "Shift plus Home", "Tab"] },
+            { q: "Which key combination jumps to the very bottom of a webpage?", a: "Control plus End", dist: ["Control plus Home", "Shift plus End", "Escape"] },
             { q: "Which key erases the character right before your cursor?", a: "Backspace", dist: ["Delete", "Escape", "Tab"] },
             { q: "Which key erases the character right after your cursor?", a: "Delete", dist: ["Backspace", "Escape", "Enter"] },
             { q: "What is the row of keys with small bumps on the F and J keys called, where your fingers rest?", a: "Home Row", dist: ["Number Row", "Function Row", "Arrow Row"] },
@@ -643,23 +643,23 @@
         } else if (grade === 2) {
           const p = [
             { q: "Which key moves your screen reader focus forward to the next button or link?", a: "Tab", dist: ["Shift", "Caps Lock", "Delete"] },
-            { q: "Which keyboard key combination moves your focus backward to the previous button?", a: "Shift + Tab", dist: ["Control + Tab", "Alt + Tab", "Spacebar"] },
+            { q: "Which keyboard key combination moves your focus backward to the previous button?", a: "Shift plus Tab", dist: ["Control plus Tab", "Alt plus Tab", "Spacebar"] },
             { q: "What is the name for a clickable word or phrase that takes you to another page?", a: "Link", dist: ["Button", "Heading", "Label"] },
             { q: "What is the name for a box you click to confirm an action, like Submit or Cancel?", a: "Button", dist: ["Link", "Checkbox", "Heading"] },
             { q: "What is the small square you can check or uncheck called, often used on forms?", a: "Checkbox", dist: ["Radio Button", "Button", "Link"] },
             { q: "What is the round option button called where you can only pick one choice in a group?", a: "Radio Button", dist: ["Checkbox", "Button", "Toggle"] },
-            { q: "Which key combination opens a brand new tab in most web browsers?", a: "Control + T", dist: ["Control + N", "Alt + T", "Control + W"] },
-            { q: "Which key combination closes the current browser tab?", a: "Control + W", dist: ["Control + Q", "Alt + F4", "Control + X"] },
+            { q: "Which key combination opens a brand new tab in most web browsers?", a: "Control plus T", dist: ["Control plus N", "Alt plus T", "Control plus W"] },
+            { q: "Which key combination closes the current browser tab?", a: "Control plus W", dist: ["Control plus Q", "Alt plus F4", "Control plus X"] },
             { q: "What is the bar at the top of a browser called, where you type a website address?", a: "Address Bar", dist: ["Search Bar", "Menu Bar", "Status Bar"] },
             { q: "What is the word for the description attached to a picture so a screen reader can explain it?", a: "Alt Text", dist: ["Caption", "Title", "Footnote"] },
-            { q: "Which key combination takes you back to the previous webpage you visited?", a: "Alt + Left Arrow", dist: ["Alt + Right Arrow", "Control + Z", "Backspace only"] },
+            { q: "Which key combination takes you back to the previous webpage you visited?", a: "Alt plus Left Arrow", dist: ["Alt plus Right Arrow", "Control plus Z", "Backspace only"] },
             { q: "Which function key refreshes or reloads the current webpage?", a: "F5", dist: ["F2", "F11", "Escape"] },
             { q: "What do we call words arranged in a bulleted or numbered list on a webpage?", a: "A List", dist: ["A Table", "A Form", "A Heading"] },
             { q: "What is the term for a webpage box you type text into, like a search box?", a: "Edit Field", dist: ["Button", "Image", "Landmark"] },
             { q: "Which function key toggles full-screen mode in most web browsers?", a: "F11", dist: ["F5", "F1", "Escape"] },
             { q: "What is the biggest, most important title text on a webpage usually called?", a: "Heading", dist: ["Paragraph", "Caption", "Footer"] },
-            { q: "Which key combination selects every piece of text on a page at once?", a: "Control + A", dist: ["Control + S", "Control + C", "Control + Z"] },
-            { q: "Which key combination copies selected text to the clipboard?", a: "Control + C", dist: ["Control + V", "Control + X", "Control + A"] }
+            { q: "Which key combination selects every piece of text on a page at once?", a: "Control plus A", dist: ["Control plus S", "Control plus C", "Control plus Z"] },
+            { q: "Which key combination copies selected text to the clipboard?", a: "Control plus C", dist: ["Control plus V", "Control plus X", "Control plus A"] }
           ];
           const pick = p[Math.floor(Math.random() * p.length)];
           return { grade, subject, controlType: "radio", q: pick.q, options: [pick.a, ...pick.dist].sort(() => 0.5 - Math.random()), acceptedAnswers: [pick.a] };
@@ -710,13 +710,13 @@
             { q: "Which single key shortcut jumps directly to the next Data Table on a webpage in JAWS and NVDA?", a: "T", dist: ["D", "B", "1", "X"] },
             { q: "Which single key shortcut jumps directly to the next ARIA Landmark or Region, like Main or Navigation, in JAWS and NVDA?", a: "D", dist: ["T", "H", "L"] },
             { q: "Which single key shortcut jumps directly to the next Frame or embedded window in JAWS?", a: "M", dist: ["T", "D", "B"] },
-            { q: "What is the JAWS keyboard command that reads an entire page automatically from top to bottom, called Say All?", a: "Insert + Down Arrow", dist: ["Insert + Up Arrow", "Control + Down Arrow", "Insert + Home"] },
-            { q: "What is the NVDA keyboard command for Say All, reading continuously from your current position?", a: "NVDA + Down Arrow", dist: ["NVDA + Up Arrow", "Control + A", "NVDA + Home"] },
-            { q: "When reading a data table, which key combination moves you one cell to the right?", a: "Control + Alt + Right Arrow", dist: ["Control + Right Arrow", "Alt + Right Arrow", "Tab"] },
-            { q: "When reading a data table, which key combination moves you one cell down?", a: "Control + Alt + Down Arrow", dist: ["Control + Down Arrow", "Alt + Down Arrow", "Down Arrow"] },
-            { q: "Which JAWS shortcut opens a list of all headings on a page so you can pick one to jump to?", a: "Insert + F6", dist: ["Insert + F7", "Insert + F5", "Insert + F3"] },
-            { q: "Which JAWS shortcut opens a list of every link on the current page?", a: "Insert + F7", dist: ["Insert + F6", "Insert + F5", "Insert + F1"] },
-            { q: "Which NVDA shortcut opens the Elements List, showing headings, links, and landmarks together?", a: "NVDA + F7", dist: ["NVDA + F6", "NVDA + F5", "NVDA + Tab"] },
+            { q: "What is the JAWS keyboard command that reads an entire page automatically from top to bottom, called Say All?", a: "Insert plus Down Arrow", dist: ["Insert plus Up Arrow", "Control plus Down Arrow", "Insert plus Home"] },
+            { q: "What is the NVDA keyboard command for Say All, reading continuously from your current position?", a: "NVDA plus Down Arrow", dist: ["NVDA plus Up Arrow", "Control plus A", "NVDA plus Home"] },
+            { q: "When reading a data table, which key combination moves you one cell to the right?", a: "Control plus Alt plus Right Arrow", dist: ["Control plus Right Arrow", "Alt plus Right Arrow", "Tab"] },
+            { q: "When reading a data table, which key combination moves you one cell down?", a: "Control plus Alt plus Down Arrow", dist: ["Control plus Down Arrow", "Alt plus Down Arrow", "Down Arrow"] },
+            { q: "Which JAWS shortcut opens a list of all headings on a page so you can pick one to jump to?", a: "Insert plus F6", dist: ["Insert plus F7", "Insert plus F5", "Insert plus F3"] },
+            { q: "Which JAWS shortcut opens a list of every link on the current page?", a: "Insert plus F7", dist: ["Insert plus F6", "Insert plus F5", "Insert plus F1"] },
+            { q: "Which NVDA shortcut opens the Elements List, showing headings, links, and landmarks together?", a: "NVDA plus F7", dist: ["NVDA plus F6", "NVDA plus F5", "NVDA plus Tab"] },
             { q: "What is the term for a labeled region of a webpage, such as Navigation, Main, or Search, that helps screen reader users skip around quickly?", a: "Landmark", dist: ["Heading", "Caption", "Footer"] },
             { q: "What do we call a hidden link at the very top of a page that jumps straight to the main content, skipping repeated menus?", a: "Skip Link", dist: ["Anchor Link", "Quick Link", "Jump Tag"] },
             { q: "Which single number key jumps to the next Heading Level 3 specifically?", a: "3", dist: ["1", "2", "4"] },
@@ -728,11 +728,11 @@
           return { grade, subject, controlType: "radio", q: pick.q, options: [pick.a, ...pick.dist].sort(() => 0.5 - Math.random()), acceptedAnswers: [pick.a] };
         } else {
           const p = [
-            { q: "On macOS VoiceOver, which default keys make up the VO modifier combination?", a: "Control + Option", dist: ["Command + Shift", "Option + Tab", "Control + Command"] },
-            { q: "In VoiceOver, which command opens the Rotor, a menu for jumping between headings, links, and landmarks?", a: "VO + U", dist: ["VO + R", "VO + Tab", "VO + Space"] },
-            { q: "In VoiceOver, which command activates the item that is currently selected?", a: "VO + Space", dist: ["VO + Enter", "VO + Return", "Space alone"] },
+            { q: "On macOS VoiceOver, which default keys make up the VO modifier combination?", a: "Control plus Option", dist: ["Command plus Shift", "Option plus Tab", "Control plus Command"] },
+            { q: "In VoiceOver, which command opens the Rotor, a menu for jumping between headings, links, and landmarks?", a: "VO plus U", dist: ["VO plus R", "VO plus Tab", "VO plus Space"] },
+            { q: "In VoiceOver, which command activates the item that is currently selected?", a: "VO plus Space", dist: ["VO plus Enter", "VO plus Return", "Space alone"] },
             { q: "What is the default key used to turn on Windows Narrator, the built-in screen reader on Windows?", a: "Caps Lock", dist: ["Insert", "Control", "Tab"] },
-            { q: "What key combination toggles Windows Narrator completely on or off?", a: "Control + Windows + Enter", dist: ["Control + Alt + N", "Windows + Ctrl + N", "Alt + F4"] },
+            { q: "What key combination toggles Windows Narrator completely on or off?", a: "Control plus Windows plus Enter", dist: ["Control plus Alt plus N", "Windows plus Ctrl plus N", "Alt plus F4"] },
             { q: "Which mobile screen reader is built into Android devices?", a: "TalkBack", dist: ["VoiceOver", "Narrator", "JAWS"] },
             { q: "Which mobile screen reader is built into iPhones and iPads?", a: "VoiceOver", dist: ["TalkBack", "Narrator", "NVDA"] },
             { q: "Which screen reader is free and open-source, and commonly used on Windows computers?", a: "NVDA", dist: ["JAWS", "VoiceOver", "Narrator"] },
