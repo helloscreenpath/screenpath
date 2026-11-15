@@ -590,13 +590,13 @@
         } else if (grade === 3) {
           const hrs = Math.floor(Math.random() * 4) + 2;
           const mins = hrs * 60;
-          return { grade, subject, controlType: "input", q: `How many minutes are in ${hrs} hours? (60 minutes equals 1 hour). Type the number.`, acceptedAnswers: [`${mins}`, `${mins} minutes`], placeholder: "e.g., 120" };
+          return { grade, subject, controlType: "input", q: `How many minutes are in ${hrs} hours? Type the number.`, acceptedAnswers: [`${mins}`, `${mins} minutes`], placeholder: "e.g., 120" };
         } else if (grade === 4) {
           const lbs = Math.floor(Math.random() * 4) + 2;
           const oz = lbs * 16;
           return {
             grade, subject, controlType: "radio",
-            q: `How many ounces are in ${lbs} standard pounds? (1 pound equals 16 ounces)`,
+            q: `How many ounces are in ${lbs} standard pounds?`,
             options: [`${oz} ounces`, `${lbs * 12} ounces`, `${oz + 8} ounces`, `${lbs * 14} ounces`].sort(() => 0.5 - Math.random()),
             acceptedAnswers: [`${oz} ounces`, `${oz}`]
           };
