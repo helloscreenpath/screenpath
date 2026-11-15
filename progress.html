@@ -177,13 +177,13 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
 <h2>Arcade</h2>
 <p>Each attempt shows how far you got and what you used.</p>
 <div class="series-section">
-<h3>Are You Smarter Than a 5th Grader?</h3>
+<h3>Grade Climb</h3>
 <p class="status-line">Status: <span class="series-status status-notstarted" id="arcade-5th-grader-status-badge">Not Started</span></p>
 <div id="arcade-5th-grader-history"></div>
 <div class="global-btns" id="arcade-5th-grader-global-btns" style="display:none;">
-<button type="button" class="btn-global btn-global-email" id="arcade-5th-grader-share-all" aria-label="Email all sessions for Are You Smarter Than a 5th Grader">Share All Sessions</button>
-<button type="button" class="btn-global btn-global-copy" id="arcade-5th-grader-copy-all" aria-label="Copy all sessions for Are You Smarter Than a 5th Grader">Copy All Sessions</button>
-<button type="button" class="btn-global btn-reset" id="arcade-5th-grader-reset" aria-label="Reset all progress for Are You Smarter Than a 5th Grader. This cannot be undone.">Reset Progress</button>
+<button type="button" class="btn-global btn-global-email" id="arcade-5th-grader-share-all" aria-label="Email all sessions for Grade Climb">Share All Sessions</button>
+<button type="button" class="btn-global btn-global-copy" id="arcade-5th-grader-copy-all" aria-label="Copy all sessions for Grade Climb">Copy All Sessions</button>
+<button type="button" class="btn-global btn-reset" id="arcade-5th-grader-reset" aria-label="Reset all progress for Grade Climb. This cannot be undone.">Reset Progress</button>
 </div>
 </div>
 <div class="series-section">
@@ -1025,7 +1025,7 @@ function announce(msg){var el=document.getElementById('live');if(!el)return;el.t
       announce('Progress for The Grocery Store has been reset.');
     }
 
-    // ── ARCADE: ARE YOU SMARTER THAN A 5TH GRADER? ─────────────────
+    // ── ARCADE: GRADE CLIMB ─────────────────
     // sp_arcade_5th_grader_sessions = [ { date, result, highestGrade, highestGradeLabel,
     //   questionsCorrect, lifelinesUsed, subjectsPlayed[], durationSeconds } ]
 
@@ -1042,7 +1042,7 @@ function announce(msg){var el=document.getElementById('live');if(!el)return;el.t
       if (sessions.length === 0) {
         badge.textContent = 'Not Started';
         badge.className = 'series-status status-notstarted';
-        container.innerHTML = '<div class="no-data"><p>You have not played Are You Smarter Than a 5th Grader yet. <a href="are-you-smarter-than-a-5th-grader.html">Play it now</a></p></div>';
+        container.innerHTML = '<div class="no-data"><p>You have not played Grade Climb yet. <a href="grade-climb.html">Play it now</a></p></div>';
         globalBtns.style.display = 'none';
         return;
       }
@@ -1076,7 +1076,7 @@ function announce(msg){var el=document.getElementById('live');if(!el)return;el.t
         tableWrap.className = 'data-table-wrap';
 
         var table = document.createElement('table');
-        table.setAttribute('aria-label', 'Attempt ' + sNum + ' results for Are You Smarter Than a 5th Grader');
+        table.setAttribute('aria-label', 'Attempt ' + sNum + ' results for Grade Climb');
 
         table.innerHTML = '<thead><tr>' +
           '<th scope="col">Result</th>' +
@@ -1138,7 +1138,7 @@ function announce(msg){var el=document.getElementById('live');if(!el)return;el.t
       var resultLabel = session.result === 'victory' ? 'Grand Champion' : 'Game Over';
       var subjectsPlayed = (session.subjectsPlayed && session.subjectsPlayed.length) ? session.subjectsPlayed.join(', ') : 'None recorded';
       var lines = [];
-      lines.push('Arcade: Are You Smarter Than a 5th Grader?');
+      lines.push('Arcade: Grade Climb');
       lines.push('Attempt ' + sNum + ': ' + fmtDate(session.date));
       lines.push('Result: ' + resultLabel);
       lines.push('Highest grade reached: ' + (session.highestGradeLabel || 'n/a'));
@@ -1175,10 +1175,10 @@ function announce(msg){var el=document.getElementById('live');if(!el)return;el.t
     }
 
     function resetArcade5thGrader() {
-      if (!confirm('This will delete all progress and session history for Are You Smarter Than a 5th Grader. This cannot be undone. Are you sure?')) return;
+      if (!confirm('This will delete all progress and session history for Grade Climb. This cannot be undone. Are you sure?')) return;
       try { localStorage.removeItem('sp_arcade_5th_grader_sessions'); } catch(e){}
       renderArcade5thGraderHistory();
-      announce('Progress for Are You Smarter Than a 5th Grader has been reset.');
+      announce('Progress for Grade Climb has been reset.');
     }
 
     // ── ARCADE: WORD GUESS ──────────────────────────────────────────

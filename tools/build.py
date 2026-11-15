@@ -173,7 +173,7 @@ function getMostRecentActivity(){
   }catch(e){}});
   var gameConfigs=[
     {label:'Word Guess',sessionsKeys:['sp_word_guess_sessions'],href:'word-guess.html'},
-    {label:'Are You Smarter Than a 5th Grader?',sessionsKeys:['sp_arcade_5th_grader_sessions'],href:'are-you-smarter-than-a-5th-grader.html'},
+    {label:'Grade Climb',sessionsKeys:['sp_arcade_5th_grader_sessions'],href:'grade-climb.html'},
     {label:'Writing Lab',sessionsKeys:['sp_writing_lab_sessions','sp_writing_lab_dictation_sessions'],href:'writing-lab.html'},
     {label:'Form Lab',sessionsKeys:['sp_formskills_sessions'],href:'form-lab.html'}
   ];
@@ -240,7 +240,7 @@ var sessions=JSON.parse(localStorage.getItem(S.sessionsKey)||'[]');if(sessions.l
 arc_body = hero('Activities','Arcade',[]) + f"""<div class="main-wrap">
 <ul class="card-grid">
 {item('word-guess.html','Word Guess',['Guess a secret word letter by letter. Choose a grade level, then listen for spoken feedback after every guess.','Skills practiced: spelling and listening.'],'word-guess.svg')}
-{item('are-you-smarter-than-a-5th-grader.html','Are You Smarter Than a 5th Grader?',['Climb from 1st grade to 6th, answering questions on math, reading, science, and screen reader commands.','Skills practiced: recall and assistive technology commands.'],'quiz.svg')}
+{item('grade-climb.html','Grade Climb',['Climb from 1st grade to 6th, answering questions on math, reading, science, and screen reader commands.','Skills practiced: recall and assistive technology commands.'],'quiz.svg')}
 </ul>
 <a class="back-link" href="index.html">Back to all activities</a>
 </div>"""
@@ -501,7 +501,7 @@ pg_body = hero('My Progress','Your Learning Journey',
 <div class="pg-cat">
 <h2>Arcade</h2>
 <p>Each attempt shows how far you got and what you used.</p>
-{pg_series('arcade-5th-grader','Are You Smarter Than a 5th Grader?','Are You Smarter Than a 5th Grader')}
+{pg_series('arcade-5th-grader','Grade Climb','Grade Climb')}
 {pg_series('word-guess','Word Guess','Word Guess')}
 </div>
 <div class="pg-cat">

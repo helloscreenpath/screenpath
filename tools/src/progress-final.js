@@ -779,7 +779,7 @@
       announce('Progress for The Grocery Store has been reset.');
     }
 
-    // ── ARCADE: ARE YOU SMARTER THAN A 5TH GRADER? ─────────────────
+    // ── ARCADE: GRADE CLIMB ─────────────────
     // sp_arcade_5th_grader_sessions = [ { date, result, highestGrade, highestGradeLabel,
     //   questionsCorrect, lifelinesUsed, subjectsPlayed[], durationSeconds } ]
 
@@ -796,7 +796,7 @@
       if (sessions.length === 0) {
         badge.textContent = 'Not Started';
         badge.className = 'series-status status-notstarted';
-        container.innerHTML = '<div class="no-data"><p>You have not played Are You Smarter Than a 5th Grader yet. <a href="are-you-smarter-than-a-5th-grader.html">Play it now</a></p></div>';
+        container.innerHTML = '<div class="no-data"><p>You have not played Grade Climb yet. <a href="grade-climb.html">Play it now</a></p></div>';
         globalBtns.style.display = 'none';
         return;
       }
@@ -830,7 +830,7 @@
         tableWrap.className = 'data-table-wrap';
 
         var table = document.createElement('table');
-        table.setAttribute('aria-label', 'Attempt ' + sNum + ' results for Are You Smarter Than a 5th Grader');
+        table.setAttribute('aria-label', 'Attempt ' + sNum + ' results for Grade Climb');
 
         table.innerHTML = '<thead><tr>' +
           '<th scope="col">Result</th>' +
@@ -892,7 +892,7 @@
       var resultLabel = session.result === 'victory' ? 'Grand Champion' : 'Game Over';
       var subjectsPlayed = (session.subjectsPlayed && session.subjectsPlayed.length) ? session.subjectsPlayed.join(', ') : 'None recorded';
       var lines = [];
-      lines.push('Arcade: Are You Smarter Than a 5th Grader?');
+      lines.push('Arcade: Grade Climb');
       lines.push('Attempt ' + sNum + ': ' + fmtDate(session.date));
       lines.push('Result: ' + resultLabel);
       lines.push('Highest grade reached: ' + (session.highestGradeLabel || 'n/a'));
@@ -929,10 +929,10 @@
     }
 
     function resetArcade5thGrader() {
-      if (!confirm('This will delete all progress and session history for Are You Smarter Than a 5th Grader. This cannot be undone. Are you sure?')) return;
+      if (!confirm('This will delete all progress and session history for Grade Climb. This cannot be undone. Are you sure?')) return;
       try { localStorage.removeItem('sp_arcade_5th_grader_sessions'); } catch(e){}
       renderArcade5thGraderHistory();
-      announce('Progress for Are You Smarter Than a 5th Grader has been reset.');
+      announce('Progress for Grade Climb has been reset.');
     }
 
     // ── ARCADE: WORD GUESS ──────────────────────────────────────────
