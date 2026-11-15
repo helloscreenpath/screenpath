@@ -2,7 +2,7 @@
 <html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rental Property Application | Form Lab | ScreenPath</title>
+<title>Rental Property Application on ScreenPath</title>
 <style>
 :root{
   --bg:#0a0a0a; --surface:#111111; --surface-2:#1a1a1a; --border:#2a2a2a;
@@ -23,11 +23,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:17
 a{color:var(--green);}
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--green);outline-offset:2px;}
 
-.topbar{border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
-.topbar a.home-link{color:var(--text-muted);text-decoration:none;font-size:.9rem;font-weight:600;}
-.topbar a.home-link:hover{color:var(--text);}
-.topbar .title{font-weight:800;font-size:1rem;letter-spacing:-.01em;color:var(--text);text-decoration:none;}
-.topbar .title span{color:var(--green);}
 
 .wrap{max-width:760px;margin:0 auto;padding:2.5rem 1.5rem 5rem;}
 
@@ -117,6 +112,34 @@ legend{font-weight:700;padding:0 .5rem;font-size:1.05rem;}
 textarea.summary-box{width:100%;min-height:9rem;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--mono);font-size:.8rem;padding:.75rem;margin-bottom:1rem;}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;}}
+
+/* ── Site navigation bar and footer, the same as every other ScreenPath page ── */
+nav[role="navigation"]{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(8,8,8,0.94);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1400px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;}
+.sp-wordmark{display:flex;align-items:center;text-decoration:none;font-size:1.05rem;font-weight:700;color:var(--text);letter-spacing:-.01em;}
+.sp-wordmark span{color:var(--green);}
+.nav-links{display:flex;align-items:center;gap:.15rem;list-style:none;margin:0;padding:0;}
+.nav-links a{color:var(--text-muted);text-decoration:none;font-size:.86rem;font-weight:500;padding:.45rem .8rem;border-radius:100px;white-space:nowrap;}
+.nav-links a:hover{color:var(--text);background:var(--surface-2);}
+.menu-btn{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--border);border-radius:8px;padding:.42rem .55rem;cursor:pointer;color:var(--text-muted);font-size:1.15rem;line-height:1;}
+.nav-drawer{display:flex;flex-direction:column;background:rgba(8,8,8,0.94);border-top:1px solid var(--border);padding:1rem 1.5rem 1.5rem;}
+.nav-drawer[hidden]{display:none;}
+.nav-drawer a{color:var(--text-muted);text-decoration:none;font-size:1rem;font-weight:500;padding:.65rem 0;border-bottom:1px solid var(--border);}
+.nav-drawer a:last-child{border-bottom:none;}
+nav[role="navigation"] a:focus-visible,.menu-btn:focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:3px;}
+footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem 2rem 2rem;}
+.sp-footer{max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:.75rem;text-align:center;}
+.sp-footer p{color:var(--text-muted);font-size:.88rem;margin:0;}
+.sp-footer strong{color:var(--text);}
+.sp-footer .sp-actions{display:flex;gap:.9rem;flex-wrap:wrap;justify-content:center;margin:0;}
+.sp-footer .sp-actions a{color:var(--text-muted);text-decoration:none;font-size:.85rem;padding:.3rem .5rem;}
+.sp-footer .sp-actions a:hover{color:var(--green);}
+@media (max-width:1024px){.nav-links{display:none;}.menu-btn{display:flex;}}
+@media (max-width:768px){.nav-inner{padding:0 1rem;}}
+html{scroll-padding-top:84px;}
+body{padding-top:64px;}
+.back-link{display:inline-block;color:var(--text-muted);text-decoration:none;font-size:.9rem;font-weight:600;margin-bottom:1.25rem;}
+.back-link:hover{color:var(--text);}
 </style>
 </head>
 <body>
@@ -124,13 +147,11 @@ textarea.summary-box{width:100%;min-height:9rem;background:var(--surface-2);bord
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <div id="live" aria-live="assertive" aria-atomic="true"></div>
 
-<div class="topbar">
-  <a class="title" href="index.html" aria-label="ScreenPath home">Screen<span>Path</span></a>
-  <a class="home-link" href="form-lab.html">Back to Form Lab</a>
-</div>
+<nav role="navigation" aria-label="Main navigation"><div class="nav-inner"><a class="sp-wordmark" href="index.html" aria-label="ScreenPath home">Screen<span>Path</span></a><ul class="nav-links"><li><a href="index.html">Activities</a></li><li><a href="progress.html">My Progress</a></li><li><a href="teachers.html">For Teachers</a></li><li><a href="about.html">About</a></li><li><a href="feedback.html">Feedback</a></li></ul><button id="menu-btn" class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu">&#9776;</button></div><div class="nav-drawer" id="nav-drawer" hidden><a href="index.html">Activities</a><a href="progress.html">My Progress</a><a href="teachers.html">For Teachers</a><a href="about.html">About</a><a href="feedback.html">Feedback</a></div></nav>
 
 <main id="main-content" tabindex="-1">
 <div class="wrap">
+  <a class="back-link" href="form-lab.html">Back to Form Lab</a>
 
   <!-- ============ SETUP SCREEN ============ -->
   <div id="setup-section">
@@ -172,7 +193,7 @@ textarea.summary-box{width:100%;min-height:9rem;background:var(--surface-2);bord
 
       <div class="field" style="max-width:22rem;">
         <label for="setup-teacher-email">Teacher's email (optional)</label>
-        <input type="email" id="setup-teacher-email" placeholder="teacher@dsdmail.net">
+        <input type="email" id="setup-teacher-email" placeholder="teacher@school.org">
         <p class="hint">If you fill this in, it will be ready to go when you choose to email your results at the end.</p>
       </div>
 
@@ -434,6 +455,8 @@ textarea.summary-box{width:100%;min-height:9rem;background:var(--surface-2);bord
   </div>
 </div>
 </main>
+
+<footer><div class="sp-footer"><p><strong>ScreenPath</strong>: free screen reader practice.</p><p>Built by Moises Betancourt for screen reader learners everywhere.</p><div class="sp-actions"><a href="progress.html#privacy">How your results are saved</a></div></div></footer>
 
 <!-- ============ COMPLETION MODAL ============ -->
 <div class="modal-overlay" id="completion-overlay">
@@ -834,5 +857,11 @@ document.addEventListener('keydown', function(e){
   if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
   else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
 });
+</script>
+<script>
+// Site menu button, the same as every other ScreenPath page
+(function(){var b=document.getElementById('menu-btn'),d=document.getElementById('nav-drawer');if(!b||!d)return;
+b.addEventListener('click',function(){var open=d.hasAttribute('hidden');if(open){d.removeAttribute('hidden');}else{d.setAttribute('hidden','');}
+b.setAttribute('aria-expanded',open?'true':'false');b.setAttribute('aria-label',open?'Close navigation menu':'Open navigation menu');b.innerHTML=open?'&#10005;':'&#9776;';});})();
 </script>
 </body></html>
