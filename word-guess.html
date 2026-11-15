@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ScreenPath — Word Guess</title>
+  <title>Word Guess on ScreenPath</title>
   <style>
     :root {
       --bg: #0a0a0a;
@@ -16,8 +16,8 @@
       --green-dim: #0d2e1c;
       --red: #ff4d4d;
       --red-dim: #2e0d0d;
-      --amber: #f5a623;
-      --amber-dim: #2e1f00;
+      --amber: #39d98a;
+      --amber-dim: #0d2e1c;
       --blue: #4da6ff;
       --blue-dim: #0d2438;
       --gold: #ffd700;
@@ -47,7 +47,7 @@
 
     .skip-link {
       position: absolute;
-      top: -40px;
+      top: -100px;
       left: 10px;
       background: var(--green);
       color: #000;
@@ -59,26 +59,6 @@
     }
     .skip-link:focus { top: 10px; }
 
-    /* Header */
-    header[role="banner"] {
-      border-bottom: 1px solid var(--border);
-      padding: 1.25rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-      position: sticky;
-      top: 0;
-      background: rgba(10,10,10,.95);
-      backdrop-filter: blur(12px);
-      z-index: 100;
-    }
-    .nav-logo { display: flex; align-items: center; text-decoration: none; }
-    .site-series { font-size: .78rem; color: var(--text-muted); letter-spacing: .05em; text-transform: uppercase; margin-top: .2rem; }
-    nav[aria-label="Main navigation"] ul { list-style: none; display: flex; gap: 2rem; flex-wrap: wrap; }
-    nav[aria-label="Main navigation"] a { color: var(--text-muted); text-decoration: none; font-size: .9rem; letter-spacing: .04em; text-transform: uppercase; transition: color .2s; padding: .25rem 0; border-bottom: 2px solid transparent; }
-    nav[aria-label="Main navigation"] a:hover, nav[aria-label="Main navigation"] a:focus { color: var(--amber); border-bottom-color: var(--amber); outline: none; }
     a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; border-radius: 3px; }
 
     main {
@@ -272,7 +252,7 @@
     .catchphrase-win { background: var(--green-dim); color: var(--green); border: 2px solid var(--green); }
     .catchphrase-loss { background: var(--red-dim); color: var(--red); border: 2px solid var(--red); }
 
-    /* Landing gate — non-modal entry screen */
+    /* Landing gate: non-modal entry screen */
     .eyebrow { font-family: var(--mono); font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: var(--amber); display: block; margin-bottom: .75rem; }
     #landing-gate h1 { margin: .5rem 0 1.1rem; }
     .synopsis { font-size: 1.05rem; color: var(--text-muted); max-width: 620px; line-height: 1.75; margin-bottom: 2rem; }
@@ -290,58 +270,54 @@
     .gate-actions { margin-top: 1rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
     .gate-note { color: var(--text-muted); font-size: .85rem; margin-top: 1rem; }
 
-    /* Footer */
-    footer[role="contentinfo"] {
-      border-top: 1px solid var(--border);
-      padding: 2.5rem 2rem;
-      color: var(--text-muted);
-      font-size: .85rem;
-    }
-    .footer-inner { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: .5rem; }
-    .footer-platform { font-weight: 600; color: var(--text-muted); }
-    .footer-a11y { font-size: .8rem; color: var(--text-muted); line-height: 1.6; }
 
     @media (max-width: 768px) {
-      header[role="banner"] { padding: 1rem 1.25rem; flex-direction: column; align-items: flex-start; }
       main { padding: 1.25rem; }
       .guess-input { font-size: 1.25rem; letter-spacing: .25em; }
     }
+
+    /* ── Site navigation bar and footer, the same as every other ScreenPath page ── */
+    nav[role="navigation"]{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(8,8,8,0.94);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-bottom:1px solid var(--border);}
+    .nav-inner{max-width:1400px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;}
+    .sp-wordmark{display:flex;align-items:center;text-decoration:none;font-size:1.05rem;font-weight:700;color:var(--text);letter-spacing:-.01em;}
+    .sp-wordmark span{color:var(--green);}
+    .nav-links{display:flex;align-items:center;gap:.15rem;list-style:none;margin:0;padding:0;}
+    .nav-links a{color:var(--text-muted);text-decoration:none;font-size:.86rem;font-weight:500;padding:.45rem .8rem;border-radius:100px;white-space:nowrap;}
+    .nav-links a:hover{color:var(--text);background:var(--surface-2);}
+    .menu-btn{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--border);border-radius:8px;padding:.42rem .55rem;cursor:pointer;color:var(--text-muted);font-size:1.15rem;line-height:1;}
+    .nav-drawer{display:flex;flex-direction:column;background:rgba(8,8,8,0.94);border-top:1px solid var(--border);padding:1rem 1.5rem 1.5rem;}
+    .nav-drawer[hidden]{display:none;}
+    .nav-drawer a{color:var(--text-muted);text-decoration:none;font-size:1rem;font-weight:500;padding:.65rem 0;border-bottom:1px solid var(--border);}
+    .nav-drawer a:last-child{border-bottom:none;}
+    nav[role="navigation"] a:focus-visible,.menu-btn:focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:3px;}
+    footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem 2rem 2rem;}
+    .sp-footer{max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:.75rem;text-align:center;}
+    .sp-footer p{color:var(--text-muted);font-size:.88rem;margin:0;}
+    .sp-footer strong{color:var(--text);}
+    .sp-footer .sp-actions{display:flex;gap:.9rem;flex-wrap:wrap;justify-content:center;margin:0;}
+    .sp-footer .sp-actions a{color:var(--text-muted);text-decoration:none;font-size:.85rem;padding:.3rem .5rem;}
+    .sp-footer .sp-actions a:hover{color:var(--green);}
+    @media (max-width:1024px){.nav-links{display:none;}.menu-btn{display:flex;}}
+    @media (max-width:768px){.nav-inner{padding:0 1rem;}}
+    html{scroll-padding-top:84px;}
+    body{padding-top:64px;}
+    .focus-label { display:inline-block; font-family:var(--mono); font-size:.8rem; letter-spacing:.06em; text-transform:uppercase; color:var(--green); border:1px solid rgba(57,217,138,.4); border-radius:100px; padding:.3rem .8rem; margin:.25rem 0 1rem; }
   </style>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- Header -->
-  <header role="banner">
-    <div>
-      <a href="index.html" class="nav-logo" aria-label="SP, ScreenPath home page"><span style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:9px;background:var(--green,#39d98a);color:#000;font-family:var(--font,inherit);font-weight:800;font-size:.82rem;letter-spacing:-.02em;flex-shrink:0;">SP</span></a>
-      <p class="site-series">Arcade</p>
-    </div>
-    <nav aria-label="Main navigation">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="progress.html">Progress</a></li>
-        <li><a href="feedback.html">Feedback</a></li>
-      </ul>
-    </nav>
-  </header>
+  <nav role="navigation" aria-label="Main navigation"><div class="nav-inner"><a class="sp-wordmark" href="index.html" aria-label="ScreenPath home">Screen<span>Path</span></a><ul class="nav-links"><li><a href="index.html">Activities</a></li><li><a href="progress.html">My Progress</a></li><li><a href="teachers.html">For Teachers</a></li><li><a href="about.html">About</a></li><li><a href="feedback.html">Feedback</a></li></ul><button id="menu-btn" class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu">&#9776;</button></div><div class="nav-drawer" id="nav-drawer" hidden><a href="index.html">Activities</a><a href="progress.html">My Progress</a><a href="teachers.html">For Teachers</a><a href="about.html">About</a><a href="feedback.html">Feedback</a></div></nav>
 
   <main id="main-content" tabindex="-1">
     <div id="landing-gate">
-      <span class="eyebrow">Arcade — Word Guess</span>
+      <span class="eyebrow">Arcade</span>
       <h1>Word Guess</h1>
+      <p class="focus-label">Focus: Live Regions and Data Tables</p>
       <p class="synopsis">Guess a hidden word one letter at a time. Pick a grade level, then type your guesses and listen for feedback after each try.</p>
 
-      <section class="gate-section">
-        <h2 id="practice-heading">What you'll practice</h2>
-        <p class="skills-summary">One game, two core skills, both come up on every round.</p>
-        <ul class="skills-tags">
-          <li class="skill-tag">Live Regions &amp; Announcements</li>
-          <li class="skill-tag">Data Table Navigation</li>
-        </ul>
-      </section>
 
-      <section class="gate-section" style="border-bottom:none;">
+      <div class="gate-section" style="border-bottom:none;">
         <h2 id="gate-heading">Before you start</h2>
         <div class="gate">
           <div class="field">
@@ -362,58 +338,57 @@
             <p class="gate-note" id="gate-note">Choose a screen reader above to continue. You will not be asked again.</p>
           </div>
         </div>
-      </section>
+      </div>
     </div>
 
     <div id="game-content" hidden>
     <h1 class="game-title">Word Guess</h1>
 
     <!-- Game Settings -->
-    <section aria-labelledby="settings-header" class="game-card">
+    <div class="game-card">
       <h2 id="settings-header">Game Settings</h2>
       <div class="settings-row">
         <button id="sfx-toggle" class="btn btn-secondary toggle-btn" role="switch" aria-checked="true">Sound Effects: On</button>
-        <button id="music-toggle" class="btn btn-secondary toggle-btn" role="switch" aria-checked="true">Music: On</button>
+        <button id="music-toggle" class="btn btn-secondary toggle-btn" role="switch" aria-checked="false">Music: Off</button>
         <div class="volume-control">
           <label for="music-volume">Music volume</label>
           <input type="range" id="music-volume" min="0" max="100" value="45" aria-valuetext="45 percent">
         </div>
-        <button id="narration-toggle" class="btn btn-secondary toggle-btn" role="switch" aria-checked="true">Narration: On</button>
-        <button id="repeat-narration-btn" class="btn btn-secondary" aria-label="Repeat Feedback, replay the most recent guess feedback">Repeat Feedback</button>
+        <button id="repeat-narration-btn" class="btn btn-secondary" aria-label="Repeat Feedback, hear the most recent guess feedback again">Repeat Feedback</button>
       </div>
-    </section>
+    </div>
 
     <!-- Status Header -->
-    <section aria-labelledby="status-header">
+    <div>
       <h2 id="status-header">Current Status</h2>
       <div class="status-bar">
         <div class="status-group">
-          <div class="status-item">Grade: <span id="stat-grade" class="status-val">—</span></div>
-          <div class="status-item">Word Length: <span id="stat-length" class="status-val">—</span></div>
+          <div class="status-item">Grade: <span id="stat-grade" class="status-val">Not chosen yet</span></div>
+          <div class="status-item">Word Length: <span id="stat-length" class="status-val">Not chosen yet</span></div>
           <div class="status-item">Guesses: <span id="stat-guesses" class="status-val">0 / 0</span></div>
           <div class="status-item">Category: <span id="stat-category" class="status-val">Hidden</span></div>
         </div>
       </div>
-    </section>
+    </div>
 
     <!-- Lifelines Toolbar -->
-    <section aria-label="Game lifelines" id="lifeline-section" style="margin-bottom: 16px; display: none;">
+    <div id="lifeline-section" style="margin-bottom: 16px; display: none;">
       <div class="lifeline-bar">
         <button id="btn-reveal" class="btn btn-lifeline" aria-label="Lifeline: Reveal a Letter">Reveal a Letter</button>
         <button id="btn-category" class="btn btn-lifeline" aria-label="Lifeline: Hear the Category">Hear Category</button>
       </div>
-      <div id="lifeline-output" class="helper-box" role="region" aria-live="polite"></div>
-    </section>
+      <div id="lifeline-output" class="helper-box" aria-live="polite"></div>
+    </div>
 
     <!-- Step 1: Grade Selection -->
-    <section id="grade-section" class="game-card" aria-labelledby="grade-header">
+    <div id="grade-section" class="game-card">
       <h2 id="grade-header" tabindex="-1">Choose a Grade Level</h2>
       <p style="margin-bottom: 12px;">Pick the grade level for your next round. Longer words appear at higher grades.</p>
       <div id="grade-grid" class="grade-grid"></div>
-    </section>
+    </div>
 
     <!-- Step 2: Guessing Area -->
-    <section id="guess-section" class="game-card" style="display: none;">
+    <div id="guess-section" class="game-card" style="display: none;">
       <h2 id="guess-form-header">Enter Your Guess</h2>
       <p id="guess-instructions" class="guess-hint"></p>
 
@@ -426,34 +401,29 @@
 
       <div id="guess-history-wrap" class="guess-table-wrap" style="margin-top: 20px;">
         <table id="guess-history-table" class="guess-table">
-          <caption>Guess history — a full written record of every letter you have guessed this round.</caption>
+          <caption>Guess history: a full written record of every letter you have guessed this round.</caption>
           <thead id="guess-history-head"></thead>
           <tbody id="guess-history-body"></tbody>
         </table>
       </div>
-    </section>
+    </div>
 
     <!-- Game Over / Victory -->
-    <section id="end-card" class="game-card" style="display: none;">
+    <div id="end-card" class="game-card" style="display: none;">
       <h2 id="end-header" tabindex="-1">Round Result</h2>
       <div id="catchphrase-container"></div>
       <p id="end-text" style="margin-bottom: 20px; font-size: 1.1rem;"></p>
       <div style="display: flex; gap: 12px; flex-wrap: wrap;">
         <button id="play-again-btn" class="btn btn-amber">Play Again (Same Grade)</button>
         <button id="change-grade-btn" class="btn btn-secondary">Choose a Different Grade</button>
-        <a href="progress.html" class="btn btn-secondary">Return to ScreenPath</a>
+        <a href="progress.html" class="btn btn-secondary">View My Progress</a>
       </div>
-    </section>
+    </div>
 
     </div><!-- /#game-content -->
   </main>
 
-  <footer role="contentinfo">
-    <div class="footer-inner">
-      <p class="footer-platform">ScreenPath</p>
-      <p class="footer-a11y">ScreenPath is designed for screen reader users. Every page is fully navigable by keyboard and compatible with JAWS, NVDA, and VoiceOver. If you encounter any accessibility issue please contact your instructor.</p>
-    </div>
-  </footer>
+  <footer><div class="sp-footer"><p><strong>ScreenPath</strong>: free screen reader practice.</p><p>Built by Moises Betancourt for screen reader learners everywhere.</p><div class="sp-actions"><a href="progress.html#privacy">How your results are saved</a></div></div></footer>
 
   <script>
     const gradeLabels = {
@@ -478,7 +448,7 @@
     }
 
     /* ===================================================================
-       WORD BANK — organized by grade, each entry has a category used by
+       WORD BANK: organized by grade, each entry has a category used by
        the "Hear the Category" lifeline. Word length grows with grade
        level: 1st=3 letters up through 6th=8 letters.
        =================================================================== */
@@ -566,7 +536,7 @@
     const NUM_WORDS = ['zero','one','two','three','four','five','six','seven','eight','nine','ten'];
 
     /* ===================================================================
-       VALID GUESS WORDS — a recognized-word check per word length, drawn
+       VALID GUESS WORDS: a recognized-word check per word length, drawn
        from a filtered English word list (common words only, profanity
        removed) plus every word from the grade answer banks above, so a
        guess must be a real word rather than a random letter string. This
@@ -586,11 +556,10 @@ const VALID_WORDS = {
        Three independent, student-controlled settings persisted locally:
        - sfxEnabled   (game stingers: blip, lock-in, correct, strike...)
        - musicEnabled (looping background beat) + musicVolume (0-1)
-       - narrationEnabled (spoken feedback after each guess)
        =================================================================== */
     const SETTINGS_KEY = 'sp_word_guess_settings';
     function loadSettings() {
-      let s = { sfxEnabled: true, musicEnabled: true, musicVolume: 0.45, narrationEnabled: true };
+      let s = { sfxEnabled: true, musicEnabled: false, musicVolume: 0.45 };
       try {
         const raw = localStorage.getItem(SETTINGS_KEY);
         if (raw) {
@@ -603,7 +572,7 @@ const VALID_WORDS = {
     function saveSettings() {
       try {
         localStorage.setItem(SETTINGS_KEY, JSON.stringify({
-          sfxEnabled, musicEnabled, musicVolume, narrationEnabled
+          sfxEnabled, musicEnabled, musicVolume
         }));
       } catch (e) {}
     }
@@ -612,7 +581,6 @@ const VALID_WORDS = {
     let sfxEnabled = settingsState.sfxEnabled;
     let musicEnabled = settingsState.musicEnabled;
     let musicVolume = settingsState.musicVolume;
-    let narrationEnabled = settingsState.narrationEnabled;
 
     let audioCtx = null;
     let bgMusicTimer = null;
@@ -763,15 +731,12 @@ const VALID_WORDS = {
     const sfxToggle = document.getElementById('sfx-toggle');
     const musicToggle = document.getElementById('music-toggle');
     const musicVolumeSlider = document.getElementById('music-volume');
-    const narrationToggle = document.getElementById('narration-toggle');
 
     function refreshSettingsUI() {
       sfxToggle.setAttribute('aria-checked', sfxEnabled.toString());
       sfxToggle.textContent = 'Sound Effects: ' + (sfxEnabled ? 'On' : 'Off');
       musicToggle.setAttribute('aria-checked', musicEnabled.toString());
       musicToggle.textContent = 'Music: ' + (musicEnabled ? 'On' : 'Off');
-      narrationToggle.setAttribute('aria-checked', narrationEnabled.toString());
-      narrationToggle.textContent = 'Narration: ' + (narrationEnabled ? 'On' : 'Off');
       musicVolumeSlider.value = Math.round(musicVolume * 100);
       musicVolumeSlider.setAttribute('aria-valuetext', Math.round(musicVolume * 100) + ' percent');
     }
@@ -799,29 +764,7 @@ const VALID_WORDS = {
     musicVolumeSlider.addEventListener('change', () => {
       announce('Music volume set to ' + musicVolumeSlider.value + ' percent.');
     });
-    narrationToggle.addEventListener('click', () => {
-      narrationEnabled = !narrationEnabled;
-      refreshSettingsUI();
-      saveSettings();
-      announce('Narration ' + (narrationEnabled ? 'on' : 'off') + '.');
-      if (!narrationEnabled) { window.speechSynthesis && window.speechSynthesis.cancel(); }
-    });
-
-    function speakText(text) {
-      if (!narrationEnabled) return;
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const utt = new SpeechSynthesisUtterance(text);
-        utt.rate = 0.85;
-        utt.pitch = 0.9;
-        const voices = window.speechSynthesis.getVoices();
-        const sel = voices.find(v => v.lang.startsWith('en') && /natural|enhanced|premium/i.test(v.name))
-          || voices.find(v => v.lang.startsWith('en') && /daniel|samantha|google|microsoft/i.test(v.name))
-          || voices.find(v => v.lang === 'en-US') || voices.find(v => v.lang.startsWith('en')) || null;
-        if (sel) utt.voice = sel;
-        window.speechSynthesis.speak(utt);
-      }
-    }
+    // No computer voice: all feedback comes from the student's screen reader through live regions
 
     // State Variables
     let currentGrade = null;
@@ -870,7 +813,7 @@ const VALID_WORDS = {
     const changeGradeBtn = document.getElementById('change-grade-btn');
     const repeatNarrationBtn = document.getElementById('repeat-narration-btn');
 
-    // ── Landing gate — screen reader choice, once per student ──
+    // ── Landing gate: screen reader choice, once per student ──
     (function () {
       var gate = document.getElementById('landing-gate');
       var gameContent = document.getElementById('game-content');
@@ -919,7 +862,7 @@ const VALID_WORDS = {
     })();
 
     repeatNarrationBtn.addEventListener('click', () => {
-      if (lastFeedbackSentence) speakText(lastFeedbackSentence);
+      if (lastFeedbackSentence) announce(lastFeedbackSentence); else announce('No feedback yet. Make a guess first.');
     });
 
     function showGradePicker() {
@@ -928,8 +871,8 @@ const VALID_WORDS = {
       lifelineSection.style.display = 'none';
       gradeSection.style.display = 'block';
 
-      statGrade.textContent = '—';
-      statLength.textContent = '—';
+      statGrade.textContent = 'Not chosen yet';
+      statLength.textContent = 'Not chosen yet';
       statGuesses.textContent = '0 / 0';
       statCategory.textContent = 'Hidden';
 
@@ -1144,7 +1087,6 @@ const VALID_WORDS = {
         setTimeout(() => handleGameOver(), 700);
       } else {
         setTimeout(() => {
-          speakText(sentence);
           guessInput.focus();
         }, 900);
       }
@@ -1193,7 +1135,6 @@ const VALID_WORDS = {
       lifelineOutput.innerHTML = '<strong>Lifeline Used (Hear the Category):</strong> ' + msg;
       lifelineOutput.classList.add('active');
       announce('Lifeline used. Hear the Category. ' + msg);
-      speakText(msg);
     });
 
     function recordSession(result) {
@@ -1233,7 +1174,7 @@ const VALID_WORDS = {
 
       endHeader.textContent = 'Solved It!';
       endHeader.style.color = 'var(--gold)';
-      catchphraseContainer.innerHTML = '<div class="catchphrase catchphrase-win">"' + currentWordEntry.word + '" — SOLVED!</div>';
+      catchphraseContainer.innerHTML = '<div class="catchphrase catchphrase-win">"' + currentWordEntry.word + '" SOLVED!</div>';
       endText.textContent = 'You guessed "' + currentWordEntry.word + '" (' + currentWordEntry.category + ') in ' + guessesUsed + ' of ' + maxGuesses + ' tries, using ' + lifelinesUsedThisRound + ' lifeline' + (lifelinesUsedThisRound === 1 ? '' : 's') + '.';
 
       announce('You solved it! The word was ' + currentWordEntry.word + '. Solved in ' + guessesUsed + ' of ' + maxGuesses + ' tries.');
@@ -1266,5 +1207,11 @@ const VALID_WORDS = {
       showGradePicker();
     });
   </script>
+<script>
+// Site menu button, the same as every other ScreenPath page
+(function(){var b=document.getElementById('menu-btn'),d=document.getElementById('nav-drawer');if(!b||!d)return;
+b.addEventListener('click',function(){var open=d.hasAttribute('hidden');if(open){d.removeAttribute('hidden');}else{d.setAttribute('hidden','');}
+b.setAttribute('aria-expanded',open?'true':'false');b.setAttribute('aria-label',open?'Close navigation menu':'Open navigation menu');b.innerHTML=open?'&#10005;':'&#9776;';});})();
+</script>
 </body>
 </html>
