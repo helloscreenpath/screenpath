@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ScreenPath — Writing Lab</title>
+  <title>Writing Lab on ScreenPath</title>
   <style>
     :root {
       --bg: #0a0a0a;
@@ -16,8 +16,8 @@
       --green-dim: #0d2e1c;
       --red: #ff4d4d;
       --red-dim: #2e0d0d;
-      --amber: #f5a623;
-      --amber-dim: #2e1f00;
+      --amber: #39d98a;
+      --amber-dim: #0d2e1c;
       --blue: #4da6ff;
       --blue-dim: #0d2438;
       --gold: #ffd700;
@@ -32,20 +32,9 @@
 
     .sr-only { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
-    .skip-link { position: absolute; top: -40px; left: 10px; background: var(--green); color: #000; padding: 8px 16px; border-radius: var(--radius); text-decoration: none; font-weight: bold; z-index: 1100; }
+    .skip-link { position: absolute; top: -100px; left: 10px; background: var(--green); color: #000; padding: 8px 16px; border-radius: var(--radius); text-decoration: none; font-weight: bold; z-index: 1100; }
     .skip-link:focus { top: 10px; }
 
-    header[role="banner"] {
-      border-bottom: 1px solid var(--border);
-      padding: 1.25rem 2rem;
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
-      position: sticky; top: 0; background: rgba(10,10,10,.95); backdrop-filter: blur(12px); z-index: 100;
-    }
-    .nav-logo { display: flex; align-items: center; text-decoration: none; }
-    .site-series { font-size: .78rem; color: var(--text-muted); letter-spacing: .05em; text-transform: uppercase; margin-top: .2rem; }
-    nav[aria-label="Main navigation"] ul { list-style: none; display: flex; gap: 2rem; flex-wrap: wrap; }
-    nav[aria-label="Main navigation"] a { color: var(--text-muted); text-decoration: none; font-size: .9rem; letter-spacing: .04em; text-transform: uppercase; transition: color .2s; padding: .25rem 0; border-bottom: 2px solid transparent; }
-    nav[aria-label="Main navigation"] a:hover, nav[aria-label="Main navigation"] a:focus { color: var(--amber); border-bottom-color: var(--amber); outline: none; }
     a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; border-radius: 3px; }
 
     main { max-width: 900px; margin: 0 auto; padding: 24px; }
@@ -157,7 +146,7 @@
       padding: 10px 12px; color: var(--text); font-family: var(--font); font-size: .95rem;
     }
 
-    /* Landing gate — non-modal entry screen */
+    /* Landing gate: non-modal entry screen */
     .eyebrow { font-family: var(--mono); font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: var(--amber); display: block; margin-bottom: .75rem; }
     #landing-gate h1 { margin: .5rem 0 1.1rem; }
     .synopsis { font-size: 1.05rem; color: var(--text-muted); max-width: 620px; line-height: 1.75; margin-bottom: 2rem; }
@@ -175,55 +164,57 @@
     .gate-actions { margin-top: 1rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
     .gate-note { color: var(--text-muted); font-size: .85rem; margin-top: 1rem; }
 
-    footer[role="contentinfo"] { border-top: 1px solid var(--border); padding: 2.5rem 2rem; color: var(--text-muted); font-size: .85rem; }
-    .footer-inner { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: .5rem; }
-    .footer-platform { font-weight: 600; color: var(--text-muted); }
-    .footer-a11y { font-size: .8rem; color: var(--text-muted); line-height: 1.6; }
 
     @media (max-width: 768px) {
-      header[role="banner"] { padding: 1rem 1.25rem; flex-direction: column; align-items: flex-start; }
       main { padding: 1.25rem; }
     }
+
+    /* ── Site navigation bar and footer, the same as every other ScreenPath page ── */
+    nav[role="navigation"]{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(8,8,8,0.94);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-bottom:1px solid var(--border);}
+    .nav-inner{max-width:1400px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;}
+    .sp-wordmark{display:flex;align-items:center;text-decoration:none;font-size:1.05rem;font-weight:700;color:var(--text);letter-spacing:-.01em;}
+    .sp-wordmark span{color:var(--green);}
+    .nav-links{display:flex;align-items:center;gap:.15rem;list-style:none;margin:0;padding:0;}
+    .nav-links a{color:var(--text-muted);text-decoration:none;font-size:.86rem;font-weight:500;padding:.45rem .8rem;border-radius:100px;white-space:nowrap;}
+    .nav-links a:hover{color:var(--text);background:var(--surface-2);}
+    .menu-btn{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--border);border-radius:8px;padding:.42rem .55rem;cursor:pointer;color:var(--text-muted);font-size:1.15rem;line-height:1;}
+    .nav-drawer{display:flex;flex-direction:column;background:rgba(8,8,8,0.94);border-top:1px solid var(--border);padding:1rem 1.5rem 1.5rem;}
+    .nav-drawer[hidden]{display:none;}
+    .nav-drawer a{color:var(--text-muted);text-decoration:none;font-size:1rem;font-weight:500;padding:.65rem 0;border-bottom:1px solid var(--border);}
+    .nav-drawer a:last-child{border-bottom:none;}
+    nav[role="navigation"] a:focus-visible,.menu-btn:focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:3px;}
+    footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem 2rem 2rem;}
+    .sp-footer{max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:.75rem;text-align:center;}
+    .sp-footer p{color:var(--text-muted);font-size:.88rem;margin:0;}
+    .sp-footer strong{color:var(--text);}
+    .sp-footer .sp-actions{display:flex;gap:.9rem;flex-wrap:wrap;justify-content:center;margin:0;}
+    .sp-footer .sp-actions a{color:var(--text-muted);text-decoration:none;font-size:.85rem;padding:.3rem .5rem;}
+    .sp-footer .sp-actions a:hover{color:var(--green);}
+    @media (max-width:1024px){.nav-links{display:none;}.menu-btn{display:flex;}}
+    @media (max-width:768px){.nav-inner{padding:0 1rem;}}
+    html{scroll-padding-top:84px;}
+    body{padding-top:64px;}
+    .focus-label { display:inline-block; font-family:var(--mono); font-size:.8rem; letter-spacing:.06em; text-transform:uppercase; color:var(--green); border:1px solid rgba(57,217,138,.4); border-radius:100px; padding:.3rem .8rem; margin:.25rem 0 1rem; }
+    .pause-btn { margin-top:10px; }
   </style>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- Landing gate — non-modal entry screen -->
+  <!-- Landing gate: non-modal entry screen -->
   <!-- (see #landing-gate below, inside main) -->
 
-  <!-- Header -->
-  <header role="banner">
-    <div>
-      <a href="index.html" class="nav-logo" aria-label="SP, ScreenPath home page"><span style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:9px;background:var(--green,#39d98a);color:#000;font-family:var(--font,inherit);font-weight:800;font-size:.82rem;letter-spacing:-.02em;flex-shrink:0;">SP</span></a>
-      <p class="site-series">Skill Drills</p>
-    </div>
-    <nav aria-label="Main navigation">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="progress.html">Progress</a></li>
-        <li><a href="feedback.html">Feedback</a></li>
-      </ul>
-    </nav>
-  </header>
+  <nav role="navigation" aria-label="Main navigation"><div class="nav-inner"><a class="sp-wordmark" href="index.html" aria-label="ScreenPath home">Screen<span>Path</span></a><ul class="nav-links"><li><a href="index.html">Activities</a></li><li><a href="progress.html">My Progress</a></li><li><a href="teachers.html">For Teachers</a></li><li><a href="about.html">About</a></li><li><a href="feedback.html">Feedback</a></li></ul><button id="menu-btn" class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu">&#9776;</button></div><div class="nav-drawer" id="nav-drawer" hidden><a href="index.html">Activities</a><a href="progress.html">My Progress</a><a href="teachers.html">For Teachers</a><a href="about.html">About</a><a href="feedback.html">Feedback</a></div></nav>
 
   <main id="main-content" tabindex="-1">
     <div id="landing-gate">
-      <span class="eyebrow">Skill Drills — Writing Lab</span>
-      <div class="meta-tag">ScreenPath Skill Drills — Typing Practice</div>
+      <span class="eyebrow">Skill Drills</span>
       <h1>Writing Lab</h1>
+      <p class="focus-label">Focus: Typing and Dictation</p>
       <p class="synopsis">Build typing fluency and dictation accuracy. Choose Free Write to type freely about a topic of your choice, or Dictation Practice to listen to sentences read aloud and type them back exactly.</p>
 
-      <section class="gate-section">
-        <h2 id="practice-heading">What you'll practice</h2>
-        <p class="skills-summary">Two modes, two skills. Pick one to begin, you can switch modes anytime.</p>
-        <ul class="skills-tags">
-          <li class="skill-tag">Typing &amp; Text Input</li>
-          <li class="skill-tag">Audio Playback &amp; Dictation</li>
-        </ul>
-      </section>
 
-      <section class="gate-section" style="border-bottom:none;">
+      <div class="gate-section" style="border-bottom:none;">
         <h2 id="gate-heading">Before you start</h2>
         <div class="gate">
           <div class="field">
@@ -244,29 +235,28 @@
             <p class="gate-note" id="gate-note">Choose a screen reader above to continue. You will not be asked again.</p>
           </div>
         </div>
-      </section>
+      </div>
     </div>
 
     <div id="game-content" hidden>
     <h1 class="game-title">Writing Lab</h1>
 
     <!-- Settings -->
-    <section class="game-card" aria-labelledby="settings-header">
+    <div class="game-card">
       <h2 id="settings-header">Game Settings</h2>
       <div class="settings-row">
         <button id="sfx-toggle" class="btn btn-secondary toggle-btn" role="switch" aria-checked="true">Sound Effects: On</button>
-        <button id="music-toggle" class="btn btn-secondary toggle-btn" role="switch" aria-checked="true">Music: On</button>
+        <button id="music-toggle" class="btn btn-secondary toggle-btn" role="switch" aria-checked="false">Music: Off</button>
         <div class="volume-control">
           <label for="music-volume">Music volume</label>
           <input type="range" id="music-volume" min="0" max="100" value="45" aria-valuetext="45 percent">
         </div>
-        <button id="narration-toggle" class="btn btn-secondary toggle-btn" role="switch" aria-checked="true">Narration: On</button>
         <button id="punctuation-toggle" class="btn btn-secondary toggle-btn" role="switch" aria-checked="false">Track Punctuation: Off</button>
       </div>
-    </section>
+    </div>
 
     <!-- Mode Selection -->
-    <section id="mode-section" class="game-card" aria-labelledby="mode-header">
+    <div id="mode-section" class="game-card">
       <h2 id="mode-header" tabindex="-1">Choose a Mode</h2>
       <div class="mode-grid">
         <button type="button" class="mode-btn" id="mode-freewrite-btn">
@@ -278,10 +268,10 @@
           <span class="mode-desc">Listen to sentences read aloud and type them back exactly. Choose sentence by sentence, or one passage read once.</span>
         </button>
       </div>
-    </section>
+    </div>
 
     <!-- Setup -->
-    <section id="setup-section" class="game-card" aria-labelledby="setup-header" style="display:none;">
+    <div id="setup-section" class="game-card" style="display:none;">
       <h2 id="setup-header" tabindex="-1">Set Up Your Session</h2>
       <div class="setup-grid">
         <div class="setup-field">
@@ -315,40 +305,40 @@
         <button type="button" id="continue-setup-btn" class="btn btn-amber">Continue</button>
         <button type="button" id="setup-switch-mode-btn" class="btn btn-link">Switch Mode</button>
       </div>
-    </section>
+    </div>
 
     <!-- Get Ready -->
-    <section id="ready-section" class="game-card" aria-labelledby="ready-header" style="display:none;">
+    <div id="ready-section" class="game-card" style="display:none;">
       <h2 id="ready-header" tabindex="-1">Get Ready</h2>
       <p id="ready-info" class="ready-info"></p>
       <button type="button" id="start-round-btn" class="btn btn-amber">Start</button>
-    </section>
+    </div>
 
     <!-- Status Bar (shown during play) -->
-    <section aria-label="Current session status" id="status-section" style="display:none;">
+    <div id="status-section" style="display:none;">
       <div class="status-bar">
         <div class="status-group">
-          <div class="status-item">Level: <span id="stat-level" class="status-val">—</span></div>
+          <div class="status-item">Level: <span id="stat-level" class="status-val">Not chosen yet</span></div>
           <div class="status-item">Time Left: <span id="stat-time" class="status-val">60</span>s</div>
         </div>
         <div class="status-group">
           <div class="status-item" id="status-words-item">Words: <span id="stat-words" class="status-val">0</span></div>
         </div>
       </div>
-    </section>
+    </div>
 
     <div id="pause-banner" class="pause-banner" role="status">
       <div class="pause-title">Paused</div>
       <div id="pause-stats" class="pause-stats"></div>
       <div class="pause-actions">
-        <button id="resume-btn" type="button" class="btn btn-primary">Resume (Space)</button>
+        <button id="resume-btn" type="button" class="btn btn-primary">Resume</button>
         <button id="end-round-now-btn" type="button" class="btn btn-secondary">End Session Now</button>
-        <button id="quit-round-btn" type="button" class="btn btn-secondary">Quit to Setup (Escape)</button>
+        <button id="quit-round-btn" type="button" class="btn btn-secondary">Quit to Setup</button>
       </div>
     </div>
 
     <!-- Play Area -->
-    <section id="play-section" class="game-card" style="display: none;">
+    <div id="play-section" class="game-card" style="display: none;">
       <div class="topic-card">
         <div class="topic-label" id="topic-card-label">Your topic</div>
         <div id="topic-display" class="topic-text" tabindex="-1"></div>
@@ -358,6 +348,7 @@
       <div id="freetype-play" style="display:none;">
         <textarea id="writing-area" class="writing-area" aria-label="Writing area." spellcheck="false"></textarea>
         <p id="freetype-hint" class="writing-hint"></p>
+        <button type="button" id="pause-btn-write" class="btn btn-secondary pause-btn">Pause</button>
       </div>
 
       <!-- Dictation (Sentence by Sentence, or A Few Words at a Time) -->
@@ -369,12 +360,13 @@
         <input type="text" id="sentence-input" class="capture-input"
           autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
           aria-label="Type what you hear, then press Enter. Press Shift and Enter together to hear it again.">
-        <p id="sentence-input-hint" class="writing-hint">Type what you hear, then press Enter. Press Shift and Enter together, or select Hear It Again, to hear it once more. Press Escape any time to pause.</p>
+        <p id="sentence-input-hint" class="writing-hint">Type what you hear, then press Enter. Press Shift and Enter together, or select Hear It Again, to hear it once more. To pause or resume, press <span class="pause-keys">Alt</span> and P together.</p>
+        <button type="button" id="pause-btn-dictation" class="btn btn-secondary pause-btn">Pause</button>
       </div>
-    </section>
+    </div>
 
     <!-- End Card -->
-    <section id="end-card" class="game-card" style="display: none;">
+    <div id="end-card" class="game-card" style="display: none;">
       <h2 id="end-header" tabindex="-1">Session Complete!</h2>
       <div id="catchphrase-container"></div>
       <div id="stat-grid" class="stat-grid"></div>
@@ -398,24 +390,18 @@
         <button id="end-switch-mode-btn" class="btn btn-link">Switch Mode</button>
         <a href="index.html" class="btn btn-secondary">Return to ScreenPath</a>
       </div>
-    </section>
+    </div>
 
     </div><!-- /#game-content -->
   </main>
 
-  <!-- Footer -->
-  <footer role="contentinfo">
-    <div class="footer-inner">
-      <p class="footer-platform">ScreenPath</p>
-      <p class="footer-a11y">ScreenPath is designed for screen reader users. Every page is fully navigable by keyboard and compatible with JAWS, NVDA, and VoiceOver. If you encounter any accessibility issue please contact your instructor.</p>
-    </div>
-  </footer>
+  <footer><div class="sp-footer"><p><strong>ScreenPath</strong>: free screen reader practice.</p><p>Built by Moises Betancourt for screen reader learners everywhere.</p><div class="sp-actions"><a href="progress.html#privacy">How your results are saved</a></div></div></footer>
 
   <div id="live" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
   <script>
     /* ===================================================================
-       SPELLCHECK DICTIONARY — same technique used for Word Guess: Webster's
+       SPELLCHECK DICTIONARY: same technique used for Word Guess: Webster's
        Second dictionary intersected with the top 60,000 common English
        words by usage frequency, profanity filtered. Used only for the
        Free Write spelling check below (not used to validate dictation,
@@ -3240,7 +3226,7 @@
 ]);
 
     /* ===================================================================
-       LEVEL SYSTEM — ten levels spanning Kindergarten through 12th grade.
+       LEVEL SYSTEM: ten levels spanning Kindergarten through 12th grade.
        Levels 1-7 map to individual grades (K, 1st-6th); levels 8-10 band
        the upper years together (7th-8th, 9th-10th, 11th-12th), since
        topic and sentence complexity change less year-to-year there.
@@ -3281,7 +3267,7 @@
     }
 
     /* ===================================================================
-       TOPIC BANK — organized by level, school-friendly prompts that get
+       TOPIC BANK: organized by level, school-friendly prompts that get
        more open-ended and abstract as level increases.
        =================================================================== */
     const TOPICS_BY_LEVEL = {
@@ -3388,7 +3374,7 @@
     };
 
     /* ===================================================================
-       DICTATION PASSAGES — one short passage per level+topic pair above,
+       DICTATION PASSAGES: one short passage per level+topic pair above,
        written as an array of sentences so any dictation style (a few
        words at a time, sentence by sentence, or the whole passage read
        once) can share the same content.
@@ -3531,7 +3517,7 @@
        =================================================================== */
     const SETTINGS_KEY = 'sp_writing_lab_settings';
     function loadSettings() {
-      let s = { sfxEnabled: true, musicEnabled: true, musicVolume: 0.45, narrationEnabled: true, trackPunctuation: false, levelChoice: 1, timeChoiceMs: 60000 };
+      let s = { sfxEnabled: true, musicEnabled: false, musicVolume: 0.45, trackPunctuation: false, levelChoice: 1, timeChoiceMs: 60000 };
       try {
         const raw = localStorage.getItem(SETTINGS_KEY);
         if (raw) s = Object.assign(s, JSON.parse(raw));
@@ -3541,7 +3527,7 @@
     function saveSettings() {
       try {
         localStorage.setItem(SETTINGS_KEY, JSON.stringify({
-          sfxEnabled, musicEnabled, musicVolume, narrationEnabled, trackPunctuation, levelChoice, timeChoiceMs
+          sfxEnabled, musicEnabled, musicVolume, trackPunctuation, levelChoice, timeChoiceMs
         }));
       } catch (e) {}
     }
@@ -3550,7 +3536,6 @@
     let sfxEnabled = settingsState.sfxEnabled;
     let musicEnabled = settingsState.musicEnabled;
     let musicVolume = settingsState.musicVolume;
-    let narrationEnabled = settingsState.narrationEnabled;
     let trackPunctuation = settingsState.trackPunctuation;
     let levelChoice = settingsState.levelChoice;
     let timeChoiceMs = settingsState.timeChoiceMs;
@@ -3648,8 +3633,8 @@
       setTimeout(() => { if (sfxEnabled) triggerPercussion('applause', 0.3, 1.6); }, 280);
     }
 
+    // The browser's voice reads dictation sentences only. Everything else comes from the student's screen reader.
     function speakText(text) {
-      if (!narrationEnabled) return;
       if ('speechSynthesis' in window) {
         const utt = new SpeechSynthesisUtterance(text);
         utt.rate = 0.85;
@@ -3667,7 +3652,6 @@
     const sfxToggle = document.getElementById('sfx-toggle');
     const musicToggle = document.getElementById('music-toggle');
     const musicVolumeSlider = document.getElementById('music-volume');
-    const narrationToggle = document.getElementById('narration-toggle');
     const punctuationToggle = document.getElementById('punctuation-toggle');
 
     function refreshSettingsUI() {
@@ -3675,8 +3659,6 @@
       sfxToggle.textContent = 'Sound Effects: ' + (sfxEnabled ? 'On' : 'Off');
       musicToggle.setAttribute('aria-checked', musicEnabled.toString());
       musicToggle.textContent = 'Music: ' + (musicEnabled ? 'On' : 'Off');
-      narrationToggle.setAttribute('aria-checked', narrationEnabled.toString());
-      narrationToggle.textContent = 'Narration: ' + (narrationEnabled ? 'On' : 'Off');
       musicVolumeSlider.value = Math.round(musicVolume * 100);
       musicVolumeSlider.setAttribute('aria-valuetext', Math.round(musicVolume * 100) + ' percent');
       punctuationToggle.setAttribute('aria-checked', trackPunctuation.toString());
@@ -3698,11 +3680,6 @@
       musicVolume = Math.max(0, Math.min(1, musicVolumeSlider.value / 100));
       musicVolumeSlider.setAttribute('aria-valuetext', musicVolumeSlider.value + ' percent');
       saveSettings();
-    });
-    narrationToggle.addEventListener('click', () => {
-      narrationEnabled = !narrationEnabled; refreshSettingsUI(); saveSettings();
-      announce('Narration ' + (narrationEnabled ? 'on' : 'off') + '.');
-      if (!narrationEnabled) { window.speechSynthesis && window.speechSynthesis.cancel(); }
     });
     punctuationToggle.addEventListener('click', () => {
       trackPunctuation = !trackPunctuation; refreshSettingsUI(); saveSettings();
@@ -3822,7 +3799,7 @@
       populateTopics(currentLevel);
     });
 
-    // ── Landing gate — screen reader choice, once per student ──
+    // ── Landing gate: screen reader choice, once per student ──
     (function () {
       var gate = document.getElementById('landing-gate');
       var gameContent = document.getElementById('game-content');
@@ -3922,7 +3899,6 @@
       }
       readyInfo.textContent = info;
       announce(info);
-      speakText('Get ready.');
       setTimeout(() => startRoundBtn.focus(), 60);
     }
     startRoundBtn.addEventListener('click', () => {
@@ -4006,7 +3982,7 @@
       statusSection.style.display = 'block';
       freetypePlay.style.display = 'block';
       dictationSentencePlay.style.display = 'none';
-      freetypeHint.textContent = 'Press Escape any time to pause. There is no right or wrong answer, just keep typing.';
+      freetypeHint.textContent = 'There is no right or wrong answer, just keep typing. To pause or resume, press ' + PAUSE_KEYS + '.';
       writingArea.setAttribute('aria-label', 'Writing area. Type freely about your topic.');
       topicCardLabel.textContent = 'Your topic';
 
@@ -4018,7 +3994,6 @@
       topicDisplay.textContent = currentTopic;
 
       announce('Get ready. Topic: ' + currentTopic + '. Writing time starting now.');
-      speakText('Your topic is: ' + currentTopic + '.');
 
       setTimeout(() => {
         writingArea.focus();
@@ -4088,9 +4063,9 @@
       if (trackPunctuation) announceMsg += ' ' + punctuationCount + ' punctuation marks used.';
       announce(announceMsg);
 
-      lastEmailSubject = 'ScreenPath Writing Results — ' + recordLevelLabel(currentLevel);
+      lastEmailSubject = 'ScreenPath Writing Results: ' + recordLevelLabel(currentLevel);
       const lines = [];
-      lines.push('ScreenPath Skill Drills — Writing Lab (Free Write)');
+      lines.push('ScreenPath Skill Drills: Writing Lab (Free Write)');
       lines.push('');
       lines.push('Level: ' + recordLevelLabel(currentLevel));
       lines.push('Topic: ' + currentTopic);
@@ -4140,14 +4115,14 @@
         sentenceUnitLabelEl.textContent = dictationStyle === 'phrase' ? 'Phrase' : 'Sentence';
         const unitWord = dictationStyle === 'phrase' ? 'phrase' : 'sentence';
         sentenceInput.setAttribute('aria-label', 'Type the ' + unitWord + ' you hear, then press Enter. Press Shift and Enter together to hear it again.');
-        sentenceInputHint.textContent = 'Type the ' + unitWord + ' you hear, then press Enter. Press Shift and Enter together, or select Hear It Again, to hear it once more. Press Escape any time to pause.';
+        sentenceInputHint.textContent = 'Type the ' + unitWord + ' you hear, then press Enter. Press Shift and Enter together, or select Hear It Again, to hear it once more. To pause or resume, press ' + PAUSE_KEYS + '.';
         statusWordsItem.firstChild.textContent = 'Progress: ';
         statWords.textContent = '1 / ' + currentUnits.length;
         sentenceInput.value = '';
       } else {
         freetypePlay.style.display = 'block';
         dictationSentencePlay.style.display = 'none';
-        freetypeHint.textContent = 'The passage was read once. Type as much as you remember. Press Escape any time to pause.';
+        freetypeHint.textContent = 'The passage was read once. Type as much as you remember. To pause or resume, press ' + PAUSE_KEYS + '.';
         writingArea.setAttribute('aria-label', 'Type the passage you heard, as much as you remember.');
         writingArea.value = '';
         statusWordsItem.firstChild.textContent = 'Words: ';
@@ -4155,7 +4130,6 @@
       }
 
       announce('Get ready. Topic: ' + currentTopic + '. Dictation starting now.');
-      speakText('Get ready.');
 
       setTimeout(() => {
         roundEndTime = Date.now() + currentTimeMs;
@@ -4277,9 +4251,9 @@
 
       announce('Session complete. Accuracy ' + accuracy + ' percent. ' + correct + ' of ' + total + ' words correct.');
 
-      lastEmailSubject = 'ScreenPath Writing Results — ' + recordLevelLabel(currentLevel);
+      lastEmailSubject = 'ScreenPath Writing Results: ' + recordLevelLabel(currentLevel);
       const lines = [];
-      lines.push('ScreenPath Skill Drills — Writing Lab (Dictation Practice)');
+      lines.push('ScreenPath Skill Drills: Writing Lab (Dictation Practice)');
       lines.push('');
       lines.push('Level: ' + recordLevelLabel(currentLevel));
       lines.push('Topic: ' + currentTopic);
@@ -4308,13 +4282,13 @@
       el.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
           e.preventDefault();
-          if (paused) { quitRound(); } else { pauseRound(true); }
+          if (!paused) pauseRound(true);
         }
       });
       el.addEventListener('blur', (e) => {
         // Moving focus to the repeat button is an intentional in-flow
         // action, not the student walking away, so it should not pause.
-        if (e.relatedTarget === repeatSentenceBtn) return;
+        if (e.relatedTarget === repeatSentenceBtn || (e.relatedTarget && e.relatedTarget.classList.contains('pause-btn'))) return;
         if (roundActive && !paused) pauseRound(false);
       });
       el.addEventListener('focus', () => {
@@ -4336,13 +4310,16 @@
       }
     }
 
+    const PAUSE_KEYS = (/Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent) ? 'Option' : 'Alt') + ' and P together';
+    document.querySelectorAll('.pause-keys').forEach(el => { el.textContent = PAUSE_KEYS.split(' ')[0]; });
+
     function pauseRound(manual) {
       if (!roundActive || paused) return;
       paused = true;
       pausedManually = !!manual;
       renderPauseSnapshot();
       pauseBanner.classList.add('active');
-      announce('Paused. Press Space to resume, or Escape again to quit.');
+      announce('Paused. To resume, press ' + PAUSE_KEYS + ', or select Resume.');
       setTimeout(() => resumeBtn.focus(), 60);
     }
 
@@ -4384,13 +4361,20 @@
       if (gameMode === 'freewrite') endFreewriteRound(); else endDictationRound();
     });
 
-    // Global listener so Space/Escape work even while focus sits on a pause-banner button.
+    // ── Pause shortcut: Alt and P together (Option and P on a Mac) pauses, and pressing it again resumes.
+    //    Screen readers and browsers leave this combination alone, so it works from inside the text field.
     document.addEventListener('keydown', (e) => {
-      if (!roundActive || !paused) return;
-      if (document.activeElement === writingArea || document.activeElement === sentenceInput) return; // handled above
-      if (e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); resumeRound(); }
-      else if (e.key === 'Escape') { e.preventDefault(); quitRound(); }
+      if (!roundActive) return;
+      if (e.altKey && !e.ctrlKey && !e.metaKey && e.code === 'KeyP') {
+        e.preventDefault();
+        if (paused) resumeRound(); else pauseRound(true);
+      }
     });
+    document.querySelectorAll('.pause-btn').forEach(btn => btn.addEventListener('click', () => {
+      if (!roundActive) return;
+      if (paused) { pausedManually = true; setTimeout(() => resumeBtn.focus(), 60); }
+      else pauseRound(true);
+    }));
 
     function clearAllTimers() {
       clearInterval(roundTickTimer);
@@ -4448,5 +4432,11 @@
     playAgainBtn.addEventListener('click', showGetReady);
     changeSetupBtn.addEventListener('click', showSetup);
   </script>
+<script>
+// Site menu button, the same as every other ScreenPath page
+(function(){var b=document.getElementById('menu-btn'),d=document.getElementById('nav-drawer');if(!b||!d)return;
+b.addEventListener('click',function(){var open=d.hasAttribute('hidden');if(open){d.removeAttribute('hidden');}else{d.setAttribute('hidden','');}
+b.setAttribute('aria-expanded',open?'true':'false');b.setAttribute('aria-label',open?'Close navigation menu':'Open navigation menu');b.innerHTML=open?'&#10005;':'&#9776;';});})();
+</script>
 </body>
 </html>
