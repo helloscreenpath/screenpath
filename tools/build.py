@@ -274,14 +274,33 @@ def fl_group(title, intro, items, img):
     lst=f'<ul class="form-list">{lis}</ul>' if items else '<p>Forms for this section are on the way.</p>'
     return f'<div class="form-group">\n<div class="group-head"><div class="group-text"><h2>{title}</h2>\n<p>{intro}</p></div><img class="group-img" src="images/{img}" alt=""></div>\n{lst}\n</div>\n'
 # To add a form: add (file, name, description) to the right list below and rebuild.
-# Only the rental and MoyCheese forms have a Not Accessible version. Every new form is accessible only (decided October 2026).
+# The rental form, the MoyCheese order, and the Crew Member Application have a Not Accessible version.
+# The planted problems for a new form are planned with Moy before it is built (decided November 2026).
 FL_YOUNGER = [('form-moycheese.html','MoyCheese Online Order','Order burgers, sides, and drinks from a menu that tells you what you added and keeps a running total with tax, with a clean version and a version with real accessibility problems on purpose.')]
-FL_HIGH = [('form-skills-rental.html','Rental Property Application','Apply to rent a home, with a clean version and a version with real accessibility problems on purpose.')]
+FL_HIGH = [('form-moycheese-application.html','MoyCheese Crew Member Application','Apply for a first job at a restaurant as a storybook character, and earn an interview code. Comes with a clean version and a version with real accessibility problems on purpose.'),
+  ('form-skills-rental.html','Rental Property Application','Apply to rent a home, with a clean version and a version with real accessibility problems on purpose.')]
 fl_body = hero('Skill Drills','Form Lab',[]) + '<div class="main-wrap narrow">\n' + \
   fl_group('Middle School and Junior High','Everyday forms like ordering food, joining a club, or signing up for a team.',FL_YOUNGER,'form-lab-younger.svg') + \
   fl_group('High School','Forms for work and life after school, like jobs, side jobs, scholarships, college, and housing.',FL_HIGH,'form-lab-high.svg') + \
   '<a class="back-link" href="skill-drills.html">Back to Skill Drills</a>\n</div>'
 page('form-lab.html','Form Lab on ScreenPath','',fl_body,fl_css,'')
+
+# The MoyCheese Interview is the next activity to be built. Until then, the application's
+# "Continue to the Interview" link lands here instead of on a missing page.
+mi_body = hero('Form Lab','MoyCheese Interview',[]) + '''<div class="main-wrap narrow">
+<p>The MoyCheese Interview is coming soon. You will use your interview code from the Crew Member Application to open it.</p>
+<p>Your code is saved on <a href="progress.html">My Progress</a>, so you will not lose it.</p>
+<a class="back-link" href="form-lab.html">Back to Form Lab</a>
+</div>'''
+page('moycheese-interview.html','MoyCheese Interview on ScreenPath','',mi_body,fl_css,'')
+
+# The terms page that the Not Accessible Crew Member Application opens in a new window (planted problem 8).
+mt_body = hero('MoyCheese','Application Terms',[]) + '''<div class="main-wrap narrow">
+<p>This page opened in a new window. The application is still open in the window you came from.</p>
+<p>By checking the box on the application, you agree that everything in the application is true and complete, and that MoyCheese may contact your references.</p>
+<p>When you are done reading, close this window to go back to the application.</p>
+</div>'''
+page('moycheese-terms.html','MoyCheese Application Terms on ScreenPath','',mt_body,fl_css,'')
 
 # ---------------- FEEDBACK ----------------
 fb_css = """
@@ -393,6 +412,9 @@ FAQ = [
    "Two features make good lesson starters. <strong>Why they ask</strong> notes explain why a form asks for something, like income before taxes or a phone number. <strong>Talk it over</strong> questions at the end of an activity give you ready made discussion topics about money, budgeting, and privacy."]),
  ("What are the Not Accessible versions in Form Lab?",
   ["A few forms in Form Lab come in two versions. The Accessible version is built correctly. The Not Accessible version has real problems built in on purpose, like missing labels and fake headings, so students learn to work around the forms they will run into on real websites. Students can switch to a correctly built reference copy at any time to compare, and the Form Lab page notes which forms include this version."]),
+ ("What are the MoyCheese interview codes?",
+  ["When a student submits the MoyCheese Crew Member Application, the confirmation page gives an interview code. The code opens the MoyCheese Interview, the next activity in Form Lab, and it is saved on the student's My Progress page.",
+   "Each practice run uses one of five storybook applicants, and each applicant has a code: Tom Sawyer is CREW 47, Jo March is GRILL 82, Anne Shirley is FRIES 36, Huck Finn is MELT 59, and Alice Carroll is SHAKE 21. The interview accepts any of the five, so you can give a student a code if they lose theirs."]),
  ("What if a student is still learning the basics?",
   ["ScreenPath builds speed, confidence, and independence on top of skills a student already has, so it works best once the foundation is in place.",
    "A structured teaching packet is in development, with lessons, practice exercises, and instructional videos that take a student from no screen reader experience to ready for ScreenPath. To hear when it is available, email <a href=\"mailto:helloscreenpath@gmail.com\">helloscreenpath@gmail.com</a>."]),

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MoyCheese Crew Member Application on ScreenPath</title>
+<link rel="stylesheet" href="form-lab.css">
+<style>
+:root{
+  --bg:#0a0a0a; --surface:#111111; --surface-2:#1a1a1a; --border:#2a2a2a;
+  --text:#f0f0f0; --text-muted:#8f8f8f;
+  --green:#39d98a; --green-dim:#0d2e1c;
+  --red:#ff4d4d; --red-dim:#2e0d0d;
+  --amber:#f5a623; --amber-dim:#2e1f00;
+  --radius:12px;
+  --font:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'SF Mono','Fira Code','Consolas',monospace;
+}
+.field input[type=text],.field input[type=email],.field input[type=tel],.field input[type=date],.field select,.field textarea{
+  width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);
+  padding:.7rem .85rem;font-family:var(--font);font-size:1rem;
+}
+#live-polite{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+form h2,form .fake-h2{margin-top:2rem;}
+fieldset .hint.why{margin-top:.8rem;font-size:.85rem;}
+.grid-wrap{overflow-x:auto;margin-bottom:1.5rem;}
+table.avail{border-collapse:collapse;width:100%;min-width:560px;}
+table.avail caption{text-align:left;font-weight:700;margin-bottom:.5rem;}
+table.avail th,table.avail td{border:1px solid var(--border);padding:.55rem .4rem;text-align:center;font-size:.9rem;}
+table.avail th,table.avail td.lookhead{background:var(--surface-2);font-weight:700;}
+table.avail input[type=checkbox]{width:1.3rem;height:1.3rem;}
+.agree-row label{display:inline;}
+.code-line{font-size:1.25rem;}
+.code-line strong{font-family:var(--mono);color:var(--green);letter-spacing:.08em;}
+#confirm-section h2{margin-top:2rem;}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;}}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<div id="live" aria-live="assertive" aria-atomic="true"></div>
+<div id="live-polite" aria-live="polite" aria-atomic="true"></div>
+
+<nav role="navigation" aria-label="Main navigation"><div class="nav-inner"><a class="sp-wordmark" href="index.html" aria-label="ScreenPath home">Screen<span>Path</span></a><ul class="nav-links"><li><a href="index.html">Activities</a></li><li><a href="progress.html">My Progress</a></li><li><a href="teachers.html">For Teachers</a></li><li><a href="about.html">About</a></li><li><a href="feedback.html">Feedback</a></li></ul><button id="menu-btn" class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu">&#9776;</button></div><div class="nav-drawer" id="nav-drawer" hidden><a href="index.html">Activities</a><a href="progress.html">My Progress</a><a href="teachers.html">For Teachers</a><a href="about.html">About</a><a href="feedback.html">Feedback</a></div></nav>
+
+<main id="main-content" tabindex="-1">
+<div class="wrap">
+  <a class="back-link" href="form-lab.html">Back to Form Lab</a>
+
+  <!-- ============ SETUP SCREEN ============ -->
+  <div id="setup-section">
+    <p class="lead" style="margin-bottom:.25rem;font-family:var(--mono);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--green);">Form Lab</p>
+    <h1 id="setup-title">MoyCheese Crew Member Application</h1>
+    <p class="lead">Practice filling out a job application for a restaurant, the kind many people fill out for their first job. Choose a clean version to build speed and comfort, or a version with real accessibility problems built in on purpose, the same kind found on real job application sites.</p>
+
+    <div class="card">
+      <h2 style="border:none;padding:0;margin-bottom:1rem;">What to expect</h2>
+      <p>You will apply as a made up person, never as yourself. When you begin, you get a scenario with that person's details, and you can open it again at any time.</p>
+      <p>This form has ten sections: the position, about you, school, availability, experience, the Utah food handler permit, two making change questions, why you want the job, two references, and a final agreement you sign by typing a name.</p>
+      <p>Choose <strong>Accessible</strong> below to practice on a clean, correctly built copy of the form. Choose <strong>Not Accessible</strong> to practice on a copy with real problems in it on purpose. In that mode you still submit from the Not Accessible tab, and you can switch to the Accessible tab any time to check how something should have been built.</p>
+      <p>Some questions have a short "Why they ask" note that explains what the manager is looking for.</p>
+      <p class="lead" style="margin-bottom:0;">Nothing on this page is a dead end, and nothing you type is saved or sent anywhere on its own. When you submit, you get an interview code for the next activity, and you can choose to copy a practice summary or email it to your teacher.</p>
+    </div>
+
+    <div class="card">
+      <div class="field" style="max-width:22rem;margin-bottom:1.75rem;">
+        <label for="gate-screen-reader">Screen reader <span class="req-text">(required)</span></label>
+        <select id="gate-screen-reader" required aria-required="true" aria-describedby="sr-error">
+          <option value="">Choose one&hellip;</option>
+          <option value="JAWS">JAWS</option>
+          <option value="NVDA">NVDA</option>
+          <option value="VoiceOver">VoiceOver</option>
+          <option value="Narrator">Narrator</option>
+          <option value="ChromeVox">ChromeVox</option>
+          <option value="TalkBack">TalkBack</option>
+          <option value="Prefer not to say">Prefer not to say</option>
+        </select>
+        <p class="field-error" id="sr-error" hidden>Choose your screen reader before you begin.</p>
+      </div>
+
+      <div class="setup-group">
+        <span class="fake-label" id="mode-label">Which version would you like to practice?</span>
+        <div class="radio-row" role="radiogroup" aria-labelledby="mode-label" style="flex-direction:column;align-items:flex-start;gap:.9rem;">
+          <label><input type="radio" name="setup-mode" value="accessible" checked> Accessible: a clean, correctly built form. Good for building speed and comfort with the basics.</label>
+          <label><input type="radio" name="setup-mode" value="nonaccessible"> Not Accessible: the same form, but with real accessibility problems on purpose, plus a reference tab to check against.</label>
+        </div>
+      </div>
+
+      <div class="field" style="max-width:22rem;">
+        <label for="setup-teacher-email">Teacher's email (optional)</label>
+        <input type="email" id="setup-teacher-email" placeholder="teacher@school.org">
+        <p class="hint">If you fill this in, it will be ready to go when you choose to email your results at the end.</p>
+      </div>
+
+      <button type="button" class="btn primary" id="begin-btn" style="margin-top:.5rem;">Begin Practice</button>
+    </div>
+  </div>
+
+  <!-- ============ PRACTICE SCREEN ============ -->
+  <div id="practice-section" hidden>
+    <h1 id="practice-title">MoyCheese Crew Member Application</h1>
+
+    <div class="status-bar">
+      <span>Screen reader: <strong id="status-sr">Not set</strong></span>
+      <span>Version: <strong id="status-mode">Not set</strong></span>
+      <span>Time elapsed: <strong id="status-timer">0:00</strong></span>
+    </div>
+
+    <div class="skill-focus" id="skill-focus-box">
+      <span id="skill-focus-text"></span>
+    </div>
+
+    <div class="tablist" role="tablist" aria-label="Form version">
+      <button type="button" class="tab" id="tab-notaccessible" role="tab" aria-selected="true" aria-controls="panel-notaccessible" tabindex="0">Not Accessible (practice)</button>
+      <button type="button" class="tab ref-tab" id="tab-accessible" role="tab" aria-selected="false" aria-controls="panel-accessible" tabindex="-1">Accessible (reference)</button>
+    </div>
+
+    <!-- ACCESSIBLE PANEL: standalone practice in Accessible mode, reference only in Not Accessible mode -->
+    <div class="tabpanel" id="panel-accessible" role="tabpanel" aria-labelledby="tab-accessible" tabindex="0" hidden>
+      <div class="ref-banner" id="ref-banner-acc"><strong>Reference copy.</strong> This tab shows the same form built correctly. It is not submitted from here. Use it to check a field, then switch back to the Not Accessible tab to finish.</div>
+      <div id="errors-acc"></div>
+      <form id="form-accessible" novalidate>
+        <h2>Position</h2>
+        <fieldset><legend>Which role are you applying for?<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></legend><div class="radio-row"><label><input type="radio" name="acc-role" id="acc-role-0" value="Cashier" aria-required="true"> Cashier</label><label><input type="radio" name="acc-role" id="acc-role-1" value="Grill Cook"> Grill Cook</label><label><input type="radio" name="acc-role" id="acc-role-2" value="Prep Cook"> Prep Cook</label><label><input type="radio" name="acc-role" id="acc-role-3" value="Dining Room"> Dining Room</label></div></fieldset>
+        <div class="field"><label for="acc-start">Date you can start<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label><input type="date" id="acc-start" name="start" aria-required="true"></div>
+        <div class="field"><label for="acc-hours">Hours you want to work each week<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label><select id="acc-hours" name="hours" aria-required="true"><option value="">Select&hellip;</option><option>10 to 15 hours</option><option>15 to 20 hours</option><option>20 to 25 hours</option><option>25 to 30 hours</option></select></div>
+        <h2>About You</h2>
+        <div class="field"><label for="acc-name">Full name<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label><input type="text" id="acc-name" name="name" aria-required="true"></div>
+        <div class="field"><label for="acc-phone">Phone number<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label><input type="tel" id="acc-phone" name="phone" aria-required="true"></div>
+        <div class="field"><label for="acc-email">Email address<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label><input type="email" id="acc-email" name="email" aria-required="true"></div>
+        <fieldset aria-describedby="acc-age-why"><legend>Are you 16 or older?<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></legend><div class="radio-row"><label><input type="radio" name="acc-age16" id="acc-age16-0" value="Yes" aria-required="true"> Yes</label><label><input type="radio" name="acc-age16" id="acc-age16-1" value="No"> No</label></div><p class="hint why" id="acc-age-why">Why they ask: workers under 16 have limits on the hours they can work and the kitchen equipment they can use, so restaurants ask before they schedule you.</p></fieldset>
+        <h2>School</h2>
+        <div class="field"><label for="acc-grade">Current grade<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label><select id="acc-grade" name="grade" aria-required="true"><option value="">Select&hellip;</option><option>9th grade</option><option>10th grade</option><option>11th grade</option><option>12th grade</option></select></div>
+        <div class="field"><label for="acc-classend">What time do your classes end?<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label><select id="acc-classend" name="classend" aria-required="true"><option value="">Select&hellip;</option><option>2:15 PM</option><option>2:30 PM</option><option>2:45 PM</option><option>3:00 PM</option><option>3:15 PM</option></select></div>
+        <h2>Availability</h2>
+        <p id="acc-avail-note">Check every shift you can work. Choose at least one. Each row is a part of the day, and each column is a day of the week.</p><p class="hint why" id="acc-avail-why">Why they ask: managers build the weekly schedule from this. Only check shifts you can really work, since they will count on you to be there.</p>
+        <div class="grid-wrap"><table class="avail"><caption>Shifts you can work</caption><thead><tr><th scope="col">Shift</th><th scope="col">Monday</th><th scope="col">Tuesday</th><th scope="col">Wednesday</th><th scope="col">Thursday</th><th scope="col">Friday</th><th scope="col">Saturday</th><th scope="col">Sunday</th></tr></thead><tbody><tr><th scope="row">Morning</th><td><input type="checkbox" name="avail" id="acc-av-mon-morning" value="Monday morning" aria-label="Monday morning"></td><td><input type="checkbox" name="avail" id="acc-av-tue-morning" value="Tuesday morning" aria-label="Tuesday morning"></td><td><input type="checkbox" name="avail" id="acc-av-wed-morning" value="Wednesday morning" aria-label="Wednesday morning"></td><td><input type="checkbox" name="avail" id="acc-av-thu-morning" value="Thursday morning" aria-label="Thursday morning"></td><td><input type="checkbox" name="avail" id="acc-av-fri-morning" value="Friday morning" aria-label="Friday morning"></td><td><input type="checkbox" name="avail" id="acc-av-sat-morning" value="Saturday morning" aria-label="Saturday morning"></td><td><input type="checkbox" name="avail" id="acc-av-sun-morning" value="Sunday morning" aria-label="Sunday morning"></td></tr><tr><th scope="row">Afternoon</th><td><input type="checkbox" name="avail" id="acc-av-mon-afternoon" value="Monday afternoon" aria-label="Monday afternoon"></td><td><input type="checkbox" name="avail" id="acc-av-tue-afternoon" value="Tuesday afternoon" aria-label="Tuesday afternoon"></td><td><input type="checkbox" name="avail" id="acc-av-wed-afternoon" value="Wednesday afternoon" aria-label="Wednesday afternoon"></td><td><input type="checkbox" name="avail" id="acc-av-thu-afternoon" value="Thursday afternoon" aria-label="Thursday afternoon"></td><td><input type="checkbox" name="avail" id="acc-av-fri-afternoon" value="Friday afternoon" aria-label="Friday afternoon"></td><td><input type="checkbox" name="avail" id="acc-av-sat-afternoon" value="Saturday afternoon" aria-label="Saturday afternoon"></td><td><input type="checkbox" name="avail" id="acc-av-sun-afternoon" value="Sunday afternoon" aria-label="Sunday afternoon"></td></tr><tr><th scope="row">Evening</th><td><input type="checkbox" name="avail" id="acc-av-mon-evening" value="Monday evening" aria-label="Monday evening"></td><td><input type="checkbox" name="avail" id="acc-av-tue-evening" value="Tuesday evening" aria-label="Tuesday evening"></td><td><input type="checkbox" name="avail" id="acc-av-wed-evening" value="Wednesday evening" aria-label="Wednesday evening"></td><td><input type="checkbox" name="avail" id="acc-av-thu-evening" value="Thursday evening" aria-label="Thursday evening"></td><td><input type="checkbox" name="avail" id="acc-av-fri-evening" value="Friday evening" aria-label="Friday evening"></td><td><input type="checkbox" name="avail" id="acc-av-sat-evening" value="Saturday evening" aria-label="Saturday evening"></td><td><input type="checkbox" name="avail" id="acc-av-sun-evening" value="Sunday evening" aria-label="Sunday evening"></td></tr></tbody></table></div>
+        <h2>Experience</h2>
+        <div class="field"><label for="acc-exprole">Previous job or volunteer role<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label><input type="text" id="acc-exprole" name="exprole" aria-required="true"></div>
+        <fieldset><legend>Have you worked with customers before?<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></legend><div class="radio-row"><label><input type="radio" name="acc-customers" id="acc-customers-0" value="Yes" aria-required="true"> Yes</label><label><input type="radio" name="acc-customers" id="acc-customers-1" value="No"> No</label></div></fieldset>
+        <h2>Utah Food Handler Permit</h2>
+        <fieldset aria-describedby="acc-permit-why"><legend>Do you have a Utah food handler permit?<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></legend><div class="radio-row"><label><input type="radio" name="acc-permit" id="acc-permit-0" value="Yes" aria-required="true"> Yes</label><label><input type="radio" name="acc-permit" id="acc-permit-1" value="No"> No</label></div><p class="hint why" id="acc-permit-why">Why they ask: Utah requires people who work with food to have a food handler permit. Many restaurants will hire you first and give you time to get it.</p></fieldset>
+        <div id="acc-permit30-wrap" hidden><fieldset><legend>Can you get one within 30 days of starting?<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></legend><div class="radio-row"><label><input type="radio" name="acc-permit30" id="acc-permit30-0" value="Yes" aria-required="true"> Yes</label><label><input type="radio" name="acc-permit30" id="acc-permit30-1" value="No"> No</label></div></fieldset></div>
+        <h2>Making Change</h2><p>Crew members count change every day. Type each answer in numbers, like 3.50.</p>
+        <div class="field"><label for="acc-change1"><span class="change-q1"></span><span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label><input type="text" id="acc-change1" name="change1" inputmode="decimal" aria-required="true"></div>
+        <div class="field"><label for="acc-change2"><span class="change-q2"></span><span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label><input type="text" id="acc-change2" name="change2" inputmode="decimal" aria-required="true"></div>
+        <h2>Why MoyCheese</h2>
+        <div class="field"><label for="acc-why">Why do you want to work at MoyCheese?<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label><textarea id="acc-why" name="why" aria-required="true"></textarea></div>
+        <h2>References</h2><p class="hint why" id="acc-ref-why">Why they ask: a reference is an adult who can tell the manager what you are like to work with. Always ask the person first, and choose a teacher, coach, neighbor, or supervisor instead of a parent.</p>
+        <fieldset><legend>Reference 1</legend><div class="field"><label for="acc-r1name">Reference 1 name<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label><input type="text" id="acc-r1name" name="r1name" aria-required="true"></div><div class="field"><label for="acc-r1rel">Reference 1 relationship to you<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label><input type="text" id="acc-r1rel" name="r1rel" aria-required="true"></div><div class="field"><label for="acc-r1phone">Reference 1 phone number<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label><input type="tel" id="acc-r1phone" name="r1phone" aria-required="true"></div></fieldset>
+        <fieldset><legend>Reference 2</legend><div class="field"><label for="acc-r2name">Reference 2 name<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label><input type="text" id="acc-r2name" name="r2name" aria-required="true"></div><div class="field"><label for="acc-r2rel">Reference 2 relationship to you<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label><input type="text" id="acc-r2rel" name="r2rel" aria-required="true"></div><div class="field"><label for="acc-r2phone">Reference 2 phone number<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label><input type="tel" id="acc-r2phone" name="r2phone" aria-required="true"></div></fieldset>
+        <h2>Agreement and Signature</h2>
+        <p>By checking the box, you agree that everything in this application is true and complete, and that MoyCheese may contact your references.</p>
+        <div class="field"><label><input type="checkbox" id="acc-agree" name="agree" aria-required="true"> I agree that this application is true and complete, and that MoyCheese may contact my references.<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label></div>
+        <div class="field"><label for="acc-signature">Type your full name as your signature<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label><input type="text" id="acc-signature" name="signature" aria-required="true" aria-describedby="acc-signature-why"><p class="hint why" id="acc-signature-why">Why they ask: typing your name here counts as signing. You are promising everything above is true, so read it over before you sign.</p></div>
+        <div class="field"><label for="acc-date">Today's date<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label><input type="date" id="acc-date" name="date" aria-required="true"></div>
+        <p class="hint" id="acc-hint-note">This is the reference copy. There is no submit button here on purpose, since this tab is only for checking how a field should look and sound.</p>
+        <div id="submit-acc-wrap" style="margin-top:1.75rem;" hidden>
+          <button type="button" class="btn primary" id="submit-acc">Submit Application</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- NOT ACCESSIBLE PANEL: nine planted problems, each one copied from real job application sites.
+         Every one can be worked around with screen reader skills. None makes the form impossible to finish. -->
+    <div class="tabpanel" id="panel-notaccessible" role="tabpanel" aria-labelledby="tab-notaccessible" tabindex="0">
+      <!-- PROBLEM 9: errors show here in red text only. They are not linked to their fields and are not announced. -->
+      <div id="errors-na"></div>
+      <form id="form-na" novalidate>
+        <h2>Position</h2>
+        <!-- PROBLEM 1: the role choices have no fieldset or legend, so each radio button is announced without the question. -->
+        <p><strong>Which role are you applying for?</strong> <span class="req-mark" aria-hidden="true">*</span></p><div class="radio-row" style="margin-bottom:1.25rem;"><label><input type="radio" name="na-role" id="na-role-0" value="Cashier"> Cashier</label><label><input type="radio" name="na-role" id="na-role-1" value="Grill Cook"> Grill Cook</label><label><input type="radio" name="na-role" id="na-role-2" value="Prep Cook"> Prep Cook</label><label><input type="radio" name="na-role" id="na-role-3" value="Dining Room"> Dining Room</label></div>
+        <div class="field"><label for="na-start">Date you can start <span class="req-mark" aria-hidden="true">*</span></label><input type="date" id="na-start" name="start" required></div>
+        <div class="field"><label for="na-hours">Hours you want to work each week <span class="req-mark" aria-hidden="true">*</span></label><select id="na-hours" name="hours" required><option value="">Select&hellip;</option><option>10 to 15 hours</option><option>15 to 20 hours</option><option>20 to 25 hours</option><option>25 to 30 hours</option></select></div>
+        <h2>About You</h2>
+        <!-- PROBLEM 2: name, phone, and email have no label, only placeholder text that disappears once typing starts. -->
+        <div class="field"><input type="text" name="name" placeholder="Full name *"></div>
+        <div class="field"><input type="tel" name="phone" placeholder="Phone number *"></div>
+        <div class="field"><input type="email" name="email" placeholder="Email address *"></div>
+        <fieldset aria-describedby="na-age-why"><legend>Are you 16 or older? <span class="req-mark" aria-hidden="true">*</span></legend><div class="radio-row"><label><input type="radio" name="na-age16" id="na-age16-0" value="Yes"> Yes</label><label><input type="radio" name="na-age16" id="na-age16-1" value="No"> No</label></div><p class="hint why" id="na-age-why">Why they ask: workers under 16 have limits on the hours they can work and the kitchen equipment they can use, so restaurants ask before they schedule you.</p></fieldset>
+        <!-- PROBLEM 3: fake headings. School and Experience look like the other section headings, but they are paragraphs. -->
+        <p class="fake-h2">School</p>
+        <div class="field"><label for="na-grade">Current grade <span class="req-mark" aria-hidden="true">*</span></label><select id="na-grade" name="grade" required><option value="">Select&hellip;</option><option>9th grade</option><option>10th grade</option><option>11th grade</option><option>12th grade</option></select></div>
+        <div class="field"><label for="na-classend">What time do your classes end? <span class="req-mark" aria-hidden="true">*</span></label><select id="na-classend" name="classend" required><option value="">Select&hellip;</option><option>2:15 PM</option><option>2:30 PM</option><option>2:45 PM</option><option>3:00 PM</option><option>3:15 PM</option></select></div>
+        <h2>Availability</h2>
+        <p>Check every shift you can work.</p><p class="hint why" id="na-avail-why">Why they ask: managers build the weekly schedule from this. Only check shifts you can really work, since they will count on you to be there.</p>
+        <!-- PROBLEM 4: the grid is a table with no header cells, and the checkboxes have no labels. The day and shift come only from the position in the table. -->
+        <div class="grid-wrap"><table class="avail"><tbody><tr><td></td><td class="lookhead">Monday</td><td class="lookhead">Tuesday</td><td class="lookhead">Wednesday</td><td class="lookhead">Thursday</td><td class="lookhead">Friday</td><td class="lookhead">Saturday</td><td class="lookhead">Sunday</td></tr><tr><td class="lookhead">Morning</td><td><input type="checkbox" name="avail" value="Monday morning"></td><td><input type="checkbox" name="avail" value="Tuesday morning"></td><td><input type="checkbox" name="avail" value="Wednesday morning"></td><td><input type="checkbox" name="avail" value="Thursday morning"></td><td><input type="checkbox" name="avail" value="Friday morning"></td><td><input type="checkbox" name="avail" value="Saturday morning"></td><td><input type="checkbox" name="avail" value="Sunday morning"></td></tr><tr><td class="lookhead">Afternoon</td><td><input type="checkbox" name="avail" value="Monday afternoon"></td><td><input type="checkbox" name="avail" value="Tuesday afternoon"></td><td><input type="checkbox" name="avail" value="Wednesday afternoon"></td><td><input type="checkbox" name="avail" value="Thursday afternoon"></td><td><input type="checkbox" name="avail" value="Friday afternoon"></td><td><input type="checkbox" name="avail" value="Saturday afternoon"></td><td><input type="checkbox" name="avail" value="Sunday afternoon"></td></tr><tr><td class="lookhead">Evening</td><td><input type="checkbox" name="avail" value="Monday evening"></td><td><input type="checkbox" name="avail" value="Tuesday evening"></td><td><input type="checkbox" name="avail" value="Wednesday evening"></td><td><input type="checkbox" name="avail" value="Thursday evening"></td><td><input type="checkbox" name="avail" value="Friday evening"></td><td><input type="checkbox" name="avail" value="Saturday evening"></td><td><input type="checkbox" name="avail" value="Sunday evening"></td></tr></tbody></table></div>
+        <p class="fake-h2">Experience</p>
+        <div class="field"><label for="na-exprole">Previous job or volunteer role <span class="req-mark" aria-hidden="true">*</span></label><input type="text" id="na-exprole" name="exprole" required></div>
+        <fieldset><legend>Have you worked with customers before? <span class="req-mark" aria-hidden="true">*</span></legend><div class="radio-row"><label><input type="radio" name="na-customers" id="na-customers-0" value="Yes"> Yes</label><label><input type="radio" name="na-customers" id="na-customers-1" value="No"> No</label></div></fieldset>
+        <h2>Utah Food Handler Permit</h2>
+        <!-- PROBLEM 5: answering No reveals a new question ABOVE the one just answered, with no announcement. -->
+        <div id="na-permit30-wrap" hidden><fieldset><legend>Can you get one within 30 days of starting? <span class="req-mark" aria-hidden="true">*</span></legend><div class="radio-row"><label><input type="radio" name="na-permit30" id="na-permit30-0" value="Yes"> Yes</label><label><input type="radio" name="na-permit30" id="na-permit30-1" value="No"> No</label></div></fieldset></div>
+        <fieldset aria-describedby="na-permit-why"><legend>Do you have a Utah food handler permit? <span class="req-mark" aria-hidden="true">*</span></legend><div class="radio-row"><label><input type="radio" name="na-permit" id="na-permit-0" value="Yes"> Yes</label><label><input type="radio" name="na-permit" id="na-permit-1" value="No"> No</label></div><p class="hint why" id="na-permit-why">Why they ask: Utah requires people who work with food to have a food handler permit. Many restaurants will hire you first and give you time to get it.</p></fieldset>
+        <h2>Making Change</h2><p>Crew members count change every day. Type each answer in numbers, like 3.50.</p>
+        <!-- PROBLEM 6: these two required answers are marked only with a red star. Nothing says the word required. -->
+        <div class="field"><label for="na-change1"><span class="change-q1"></span> <span class="req-mark">*</span></label><input type="text" id="na-change1" name="change1" inputmode="decimal"></div>
+        <div class="field"><label for="na-change2"><span class="change-q2"></span> <span class="req-mark">*</span></label><input type="text" id="na-change2" name="change2" inputmode="decimal"></div>
+        <h2>Why MoyCheese</h2>
+        <div class="field"><label for="na-why">Why do you want to work at MoyCheese? <span class="req-mark" aria-hidden="true">*</span></label><textarea id="na-why" name="why" required></textarea></div>
+        <h2>References</h2><p class="hint why" id="na-ref-why">Why they ask: a reference is an adult who can tell the manager what you are like to work with. Always ask the person first, and choose a teacher, coach, neighbor, or supervisor instead of a parent.</p>
+        <!-- PROBLEM 7: both references use the same three labels, and nothing groups them, so the fields alone do not say which reference they belong to. -->
+        <p><strong>Reference 1</strong></p><div class="field"><label for="na-r1name">Name <span class="req-mark" aria-hidden="true">*</span></label><input type="text" id="na-r1name" name="r1name" required></div><div class="field"><label for="na-r1rel">Relationship <span class="req-mark" aria-hidden="true">*</span></label><input type="text" id="na-r1rel" name="r1rel" required></div><div class="field"><label for="na-r1phone">Phone <span class="req-mark" aria-hidden="true">*</span></label><input type="tel" id="na-r1phone" name="r1phone" required></div>
+        <p><strong>Reference 2</strong></p><div class="field"><label for="na-r2name">Name <span class="req-mark" aria-hidden="true">*</span></label><input type="text" id="na-r2name" name="r2name" required></div><div class="field"><label for="na-r2rel">Relationship <span class="req-mark" aria-hidden="true">*</span></label><input type="text" id="na-r2rel" name="r2rel" required></div><div class="field"><label for="na-r2phone">Phone <span class="req-mark" aria-hidden="true">*</span></label><input type="tel" id="na-r2phone" name="r2phone" required></div>
+        <h2>Agreement and Signature</h2>
+        <!-- PROBLEM 8: the checkbox says only "I agree", and the terms are in a link that opens a new window with no warning. -->
+        <div class="field agree-row"><label><input type="checkbox" name="agree" required> I agree</label> to the <a href="moycheese-terms.html" target="_blank">terms</a> <span class="req-mark" aria-hidden="true">*</span></div>
+        <div class="field"><label for="na-signature">Type your full name as your signature <span class="req-mark" aria-hidden="true">*</span></label><input type="text" id="na-signature" name="signature" required aria-describedby="na-signature-why"><p class="hint why" id="na-signature-why">Why they ask: typing your name here counts as signing. You are promising everything above is true, so read it over before you sign.</p></div>
+        <div class="field"><label for="na-date">Today's date <span class="req-mark" aria-hidden="true">*</span></label><input type="date" id="na-date" name="date" required></div>
+        <div style="margin-top:1.75rem;">
+          <button type="button" class="btn primary" id="submit-na">Submit Application</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ CONFIRMATION PAGE: a full page, not a pop-up ============ -->
+  <div id="confirm-section" hidden>
+    <p class="lead" style="margin-bottom:.25rem;font-family:var(--mono);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--green);">MoyCheese</p>
+    <h1 id="confirm-title" tabindex="-1">Application Submitted</h1>
+    <div class="card">
+      <p>Your application has been submitted. MoyCheese has reviewed it, and we'd like to interview you for the Crew Member position!</p>
+      <p class="code-line">Your interview code: <strong id="interview-code"></strong></p>
+      <p>Use this code to open the MoyCheese Interview, the next activity in Form Lab. Your code is also saved on My Progress if you come back later.</p>
+      <div class="modal-actions">
+        <a class="btn primary" href="moycheese-interview.html">Continue to the Interview</a>
+        <button type="button" class="btn" id="again-btn">Practice the Application Again</button>
+      </div>
+    </div>
+
+    <h2>Your Practice Results</h2>
+    <ul class="stat-list" id="stat-list"></ul>
+    <label for="summary-text" id="summary-label" style="font-weight:600;display:block;margin-bottom:.4rem;">Plain text summary</label>
+    <textarea id="summary-text" class="summary-box" readonly></textarea>
+    <div class="modal-actions">
+      <button type="button" class="btn primary" id="copy-btn">Copy to Clipboard</button>
+      <a href="#" class="btn" id="email-btn">Email My Teacher</a>
+      <a href="form-lab.html" class="btn">Back to Form Lab</a>
+    </div>
+  </div>
+</div>
+</main>
+
+<footer><div class="sp-footer"><p><strong>ScreenPath</strong>: free screen reader practice.</p><p>Built by Moises Betancourt for screen reader learners everywhere.</p><div class="sp-actions"><a href="progress.html#privacy">How your results are saved</a></div></div></footer>
+
+<script src="form-lab.js"></script>
+<script>
+// ── The five applicants. Storybook characters only, so no student ever types their own information.
+//    Each one has an interview code that opens the MoyCheese Interview. The code tells that activity who applied.
+var APPLICANTS = [
+  { name:'Tom Sawyer', code:'CREW 47', age:16, role:'Cashier', start:'2027-06-07', startSay:'June 7, 2027', hours:'15 to 20 hours',
+    phone:'801 555 0114', email:'tom.sawyer@example.com', grade:'10th grade', classend:'2:45 PM',
+    avail:['Monday evening','Wednesday evening','Friday evening','Saturday morning','Saturday afternoon'],
+    exprole:'Painting fences for neighbors', customers:'Yes', permit:'No', permit30:'Yes',
+    idea:'you like talking with people, and you want to save for a bicycle',
+    refs:[['Judge Thatcher','Neighbor','801 555 0121'],['Mr. Dobbins','Teacher','801 555 0135']],
+    math:[['seven dollars and twenty five cents','ten',2.75],['twelve dollars and forty cents','twenty',7.60]] },
+  { name:'Jo March', code:'GRILL 82', age:17, role:'Grill Cook', start:'2027-06-14', startSay:'June 14, 2027', hours:'20 to 25 hours',
+    phone:'801 555 0126', email:'jo.march@example.com', grade:'12th grade', classend:'2:30 PM',
+    avail:['Tuesday evening','Thursday evening','Saturday afternoon','Saturday evening','Sunday afternoon'],
+    exprole:'School newspaper editor', customers:'No', permit:'Yes',
+    idea:'you like cooking for your sisters, and you want to save for college',
+    refs:[['Mr. Laurence','Neighbor','801 555 0152'],['Mr. Bhaer','Teacher','801 555 0169']],
+    math:[['eight dollars and fifty cents','ten',1.50],['fifteen dollars and seventy five cents','twenty',4.25]] },
+  { name:'Anne Shirley', code:'FRIES 36', age:17, role:'Dining Room', start:'2027-06-01', startSay:'June 1, 2027', hours:'10 to 15 hours',
+    phone:'801 555 0138', email:'anne.shirley@example.com', grade:'11th grade', classend:'3:00 PM',
+    avail:['Monday evening','Tuesday evening','Saturday morning','Sunday morning'],
+    exprole:'Library volunteer', customers:'Yes', permit:'No', permit30:'Yes',
+    idea:'you love meeting new people, and you want to make every guest feel welcome',
+    refs:[['Miss Stacy','Teacher','801 555 0173'],['Mrs. Lynde','Neighbor','801 555 0184']],
+    math:[['six dollars and eighty cents','ten',3.20],['thirteen dollars and twenty five cents','twenty',6.75]] },
+  { name:'Huck Finn', code:'MELT 59', age:16, role:'Prep Cook', start:'2027-06-21', startSay:'June 21, 2027', hours:'25 to 30 hours',
+    phone:'801 555 0147', email:'huck.finn@example.com', grade:'10th grade', classend:'2:15 PM',
+    avail:['Wednesday evening','Friday evening','Saturday morning','Saturday afternoon','Sunday afternoon','Sunday evening'],
+    exprole:'River tour helper', customers:'Yes', permit:'Yes',
+    idea:'you like working with your hands, and you want to learn how a kitchen runs',
+    refs:[['Widow Douglas','Guardian','801 555 0191'],['Mary Jane Wilks','Family friend','801 555 0106']],
+    math:[['nine dollars and ten cents','ten',0.90],['eleven dollars and thirty five cents','twenty',8.65]] },
+  { name:'Alice Carroll', code:'SHAKE 21', age:16, role:'Cashier', start:'2027-06-28', startSay:'June 28, 2027', hours:'15 to 20 hours',
+    phone:'801 555 0159', email:'alice.carroll@example.com', grade:'11th grade', classend:'3:15 PM',
+    avail:['Thursday evening','Friday evening','Sunday morning','Sunday afternoon'],
+    exprole:'Tea shop helper', customers:'Yes', permit:'No', permit30:'Yes',
+    idea:'you are curious about how a restaurant works, and you stay calm when things get busy',
+    refs:[['Mr. Hatter','Former supervisor','801 555 0118'],['Ms. Hart','Teacher','801 555 0129']],
+    math:[['five dollars and forty five cents','ten',4.55],['sixteen dollars and twenty cents','twenty',3.80]] }
+];
+var APP = null;
+
+// A different applicant each time. Practice Again remembers the last one so the next is new.
+function pickApplicant() {
+  var forced = /[?&]applicant=(\d)/.exec(location.search);
+  if (forced && APPLICANTS[+forced[1] - 1]) return APPLICANTS[+forced[1] - 1];
+  var last = -1;
+  try { last = parseInt(sessionStorage.getItem('sp_crew_last'), 10); } catch (e) {}
+  var pool = APPLICANTS.map(function (a, i) { return i; }).filter(function (i) { return i !== last; });
+  var idx = pool[Math.floor(Math.random() * pool.length)];
+  try { sessionStorage.setItem('sp_crew_last', String(idx)); } catch (e) {}
+  return APPLICANTS[idx];
+}
+function money(n) { return '$' + n.toFixed(2); }
+function mathQuestion(m) {
+  return 'A customer\'s order costs ' + m[0] + '. They pay with a ' + m[1] + ' dollar bill. How much change do you give back?';
+}
+function buildScenario(a) {
+  var items = [['Role', a.role], ['Date you can start', a.startSay], ['Hours each week', a.hours],
+    ['Full name', a.name], ['Phone number', a.phone], ['Email address', a.email], ['16 or older', 'Yes'],
+    ['Current grade', a.grade], ['Classes end at', a.classend], ['Shifts you can work', a.avail.join(', ')],
+    ['Previous job or volunteer role', a.exprole], ['Worked with customers before', a.customers],
+    ['Utah food handler permit', a.permit === 'Yes' ? 'Yes' : 'No, but you can get one within 30 days of starting'],
+    ['Making change questions', 'Work out both answers yourself'],
+    ['Why you want to work at MoyCheese', 'Use your own words. One idea: ' + a.idea]];
+  a.refs.forEach(function (r, i) {
+    items.push(['Reference ' + (i + 1) + ' name', r[0]], ['Reference ' + (i + 1) + ' relationship', r[1]], ['Reference ' + (i + 1) + ' phone', r[2]]);
+  });
+  items.push(['Signature', 'Type your full name'], ['Date', 'Today\'s date']);
+  return { intro: 'You are ' + a.name + '. You are ' + a.age + ' and applying for your first job, as a Crew Member at MoyCheese. Use these details to fill in the application.',
+    buttonsBefore: ['submit-acc', 'submit-na'], items: items };
+}
+
+function buildSkillFocusHTML(mode) {
+  if (mode === 'accessible') {
+    return '<strong>Skill focus.</strong> You are on the clean, fully built version of this form. Move through each section by heading, fill in every required field, and choose Submit Application when you are done. If something is missing, the error summary tells you exactly what and takes you straight to it.';
+  }
+  return '<strong>Skill focus.</strong> You are on the Not Accessible tab. This version has real accessibility problems built in on purpose, the kind found on real job application sites: fields with no label, choices with no question, a grid with no headers, and a question that appears without being announced. You still submit from this tab. Switch to the Accessible tab any time to check how something should have been built. If a field does not announce a label, read the text just before and after it. If a checkbox in the grid does not say its day or shift, use your screen reader\'s table commands to read the top of its column and the start of its row. After you answer a question, check whether anything new appeared nearby.' + FL.fakeHeadingTip();
+}
+
+var config = {
+  skillFocus: buildSkillFocusHTML,
+  startAccessible: 'Practice started on the accessible version of the form.',
+  beforeShow: function () {
+    APP = pickApplicant();
+    config.scenario = buildScenario(APP);
+    [1, 2].forEach(function (n) {
+      document.querySelectorAll('.change-q' + n).forEach(function (el) { el.textContent = 'Question ' + n + ': ' + mathQuestion(APP.math[n - 1]); });
+    });
+  },
+  afterLayout: function (mode) {
+    var acc = mode === 'accessible';
+    document.getElementById('tab-accessible').hidden = acc;
+    document.getElementById('tab-notaccessible').hidden = acc;
+    document.getElementById('ref-banner-acc').hidden = acc;
+    document.getElementById('acc-hint-note').hidden = acc;
+    document.getElementById('submit-acc-wrap').hidden = !acc;
+  }
+};
+FL.setup(config);
+
+// ── The permit follow-up question. Accessible: it appears right after the question and is announced.
+//    Not Accessible: it appears above the question with no announcement (planted problem 5).
+['acc', 'na'].forEach(function (pre) {
+  document.querySelectorAll('input[name="' + pre + '-permit"]').forEach(function (r) {
+    r.addEventListener('change', function () {
+      var wrap = document.getElementById(pre + '-permit30-wrap'), show = r.value === 'No' && r.checked;
+      if (wrap.hidden === !show) return;
+      wrap.hidden = !show;
+      if (!show) wrap.querySelectorAll('input').forEach(function (i) { i.checked = false; });
+      if (pre === 'acc' && show) FL.announcePolite('A new question appeared after this one: Can you get one within 30 days of starting?');
+    });
+  });
+});
+
+// ── Required answers, the same list for both versions ──
+var REQUIRED = [
+  { k:'role', t:'radio', label:'Which role are you applying for?' }, { k:'start', label:'Date you can start' },
+  { k:'hours', label:'Hours you want to work each week' }, { k:'name', label:'Full name' }, { k:'phone', label:'Phone number' },
+  { k:'email', label:'Email address' }, { k:'age16', t:'radio', label:'Are you 16 or older?' }, { k:'grade', label:'Current grade' },
+  { k:'classend', label:'What time do your classes end?' }, { k:'avail', t:'grid', label:'Shifts you can work, at least one' },
+  { k:'exprole', label:'Previous job or volunteer role' }, { k:'customers', t:'radio', label:'Have you worked with customers before?' },
+  { k:'permit', t:'radio', label:'Do you have a Utah food handler permit?' },
+  { k:'permit30', t:'radio', label:'Can you get one within 30 days of starting?', when:function (pre) { var r = document.querySelector('input[name="' + pre + '-permit"]:checked'); return r && r.value === 'No'; } },
+  { k:'change1', label:'Making change question 1' }, { k:'change2', label:'Making change question 2' },
+  { k:'why', label:'Why do you want to work at MoyCheese?' },
+  { k:'r1name', label:'Reference 1 name' }, { k:'r1rel', label:'Reference 1 relationship to you' }, { k:'r1phone', label:'Reference 1 phone number' },
+  { k:'r2name', label:'Reference 2 name' }, { k:'r2rel', label:'Reference 2 relationship to you' }, { k:'r2phone', label:'Reference 2 phone number' },
+  { k:'agree', t:'check', label:'The agreement checkbox' }, { k:'signature', label:'Type your full name as your signature' }, { k:'date', label:'Today\'s date' }
+];
+function findInvalid(pre) {
+  var panel = document.getElementById(pre === 'acc' ? 'panel-accessible' : 'panel-notaccessible'), bad = [];
+  REQUIRED.forEach(function (f) {
+    if (f.when && !f.when(pre)) return;
+    var el, ok;
+    if (f.t === 'radio') { el = panel.querySelector('input[name="' + pre + '-' + f.k + '"]'); ok = !!panel.querySelector('input[name="' + pre + '-' + f.k + '"]:checked'); }
+    else if (f.t === 'grid') { el = panel.querySelector('input[name="avail"]'); ok = !!panel.querySelector('input[name="avail"]:checked'); }
+    else if (f.t === 'check') { el = panel.querySelector('input[name="' + f.k + '"]'); ok = el.checked; }
+    else { el = panel.querySelector('[name="' + f.k + '"]'); ok = el.value.trim() !== ''; }
+    if (!ok) bad.push({ el: el, label: f.label });
+  });
+  return bad;
+}
+
+// Not Accessible submit: red text only, no focus move, no announcement (planted problem 9)
+document.getElementById('submit-na').addEventListener('click', function () { attemptSubmit('na', 'errors-na', false); });
+// Accessible submit: focus moves to a linked error list and the count is announced
+document.getElementById('submit-acc').addEventListener('click', function () { attemptSubmit('acc', 'errors-acc', true); });
+
+function attemptSubmit(pre, boxId, good) {
+  FL.state.attempts++;
+  var bad = findInvalid(pre), box = document.getElementById(boxId);
+  box.innerHTML = '';
+  if (!bad.length) { finish(pre); return; }
+  var div = document.createElement('div'); div.className = 'error-summary' + (good ? '' : ' quiet');
+  var h = document.createElement('h3'); h.tabIndex = -1;
+  h.textContent = 'Please complete ' + bad.length + ' more answer' + (bad.length === 1 ? '' : 's') + ' before submitting.';
+  div.appendChild(h);
+  if (good) {
+    var ul = document.createElement('ul');
+    bad.forEach(function (item) {
+      var li = document.createElement('li'), a = document.createElement('a');
+      a.href = '#' + item.el.id; a.textContent = item.label;
+      a.addEventListener('click', function (ev) { ev.preventDefault(); item.el.focus(); if (item.el.scrollIntoView) item.el.scrollIntoView({ block: 'center' }); });
+      li.appendChild(a); ul.appendChild(li);
+    });
+    div.appendChild(ul);
+  }
+  box.appendChild(div);
+  if (good) {
+    setTimeout(function () { h.focus(); }, 30);
+    FL.announce(bad.length + ' answer' + (bad.length === 1 ? ' needs' : 's need') + ' attention before you can submit.');
+  }
+}
+
+// ── The answers this applicant's scenario calls for ──
+function todayISO() {
+  var d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+function checksFor(a, pre) {
+  var panel = document.getElementById(pre === 'acc' ? 'panel-accessible' : 'panel-notaccessible');
+  var c = [
+    { label:'Role', field:'role', expect:a.role, type:'radio' },
+    { label:'Date you can start', field:'start', expect:a.start, type:'date' },
+    { label:'Hours each week', field:'hours', expect:a.hours },
+    { label:'Full name', field:'name', expect:a.name },
+    { label:'Phone number', field:'phone', expect:a.phone, type:'digits' },
+    { label:'Email address', field:'email', expect:a.email },
+    { label:'16 or older', field:'age16', expect:'Yes', type:'radio' },
+    { label:'Current grade', field:'grade', expect:a.grade },
+    { label:'Classes end at', field:'classend', expect:a.classend },
+    { label:'Shifts you can work', type:'custom', say:a.avail.join(', '), test:function () {
+        var got = Array.prototype.map.call(panel.querySelectorAll('input[name="avail"]:checked'), function (i) { return i.value; });
+        var ok = got.length === a.avail.length && a.avail.every(function (v) { return got.indexOf(v) !== -1; });
+        var order = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'], part = ['morning','afternoon','evening'];
+        got.sort(function (x, y) { x = x.split(' '); y = y.split(' '); return (order.indexOf(x[0]) - order.indexOf(y[0])) || (part.indexOf(x[1]) - part.indexOf(y[1])); });
+        return { ok: ok, shown: got.join(', ') };
+      } },
+    { label:'Previous job or volunteer role', field:'exprole', expect:a.exprole },
+    { label:'Worked with customers before', field:'customers', expect:a.customers, type:'radio' },
+    { label:'Utah food handler permit', field:'permit', expect:a.permit, type:'radio' }
+  ];
+  if (a.permit === 'No') c.push({ label:'Permit within 30 days', field:'permit30', expect:a.permit30, type:'radio' });
+  a.math.forEach(function (m, i) {
+    c.push({ label:'Making change question ' + (i + 1), field:'change' + (i + 1), expect:String(m[2]), say:money(m[2]), type:'money', answer:true });
+  });
+  a.refs.forEach(function (r, i) {
+    var n = i + 1;
+    c.push({ label:'Reference ' + n + ' name', field:'r' + n + 'name', expect:r[0] },
+           { label:'Reference ' + n + ' relationship', field:'r' + n + 'rel', expect:r[1] },
+           { label:'Reference ' + n + ' phone', field:'r' + n + 'phone', expect:r[2], type:'digits' });
+  });
+  c.push({ label:'Signature', field:'signature', expect:a.name },
+    { label:'Date', type:'custom', say:'today\'s date', test:function () {
+        var v = panel.querySelector('[name="date"]').value;
+        return { ok: v === todayISO(), shown: v };
+      } });
+  return c;
+}
+
+// ── Submitted: the confirmation page with the interview code, then the practice results ──
+function finish(pre) {
+  var seconds = FL.stopTimer(), t = FL.time(seconds), hintSeconds = FL.hintSeconds();
+  var acc = FL.state.mode === 'accessible', modeLabel = FL.modeLabel();
+  var match = FL.checkScenario(pre, checksFor(APP, pre));
+  var dateStr = new Date().toLocaleDateString('en-US', { month:'long', day:'numeric', year:'numeric' });
+  var checked = FL.state.hintViews + ' time' + (FL.state.hintViews === 1 ? '' : 's');
+
+  var lines = ['ScreenPath Form Lab Practice', 'Form: MoyCheese Crew Member Application', 'Scenario: ' + APP.name + ', ' + APP.role,
+    'Screen reader used: ' + FL.state.sr, 'Version practiced: ' + modeLabel];
+  if (!acc) lines.push('Accessible tab checked: ' + checked + (FL.state.hintViews > 0 ? ' (' + hintSeconds + ' sec total)' : ''));
+  lines.push('Submit attempts: ' + FL.state.attempts, 'Time to complete: ' + t.long);
+  lines = lines.concat(FL.matchLines(match));
+  lines.push('Interview code: ' + APP.code, 'Date: ' + dateStr);
+  document.getElementById('summary-text').value = lines.join('\n');
+
+  var compact = ['ScreenPath Form Lab: MoyCheese Crew Member Application (' + APP.name + ')',
+    'SR: ' + FL.state.sr + ' | Mode: ' + modeLabel + ' | Time: ' + t.short + ' | Attempts: ' + FL.state.attempts + (acc ? '' : ' | Hint tab: ' + FL.state.hintViews + 'x (' + hintSeconds + 's)'),
+    'Match: ' + match.matched + '/' + match.total + (match.mismatches.length ? ' (check: ' + match.mismatches.map(function (m) { return m.label; }).join(', ') + ')' : ''),
+    'Interview code: ' + APP.code, 'Date: ' + new Date().toLocaleDateString('en-US')];
+  FL.setEmail('ScreenPath Practice Summary: MoyCheese Crew Member Application', compact.join('\n'));
+
+  var stats = [['Scenario', APP.name + ', ' + APP.role], ['Version practiced', modeLabel], ['Time to complete', t.long], ['Submit attempts', String(FL.state.attempts)]];
+  if (!acc) stats.push(['Accessible tab checked', checked]);
+  var list = document.getElementById('stat-list'); list.innerHTML = '';
+  stats.forEach(function (p) {
+    var li = document.createElement('li'), s = document.createElement('span'), b = document.createElement('strong');
+    s.textContent = p[0]; b.textContent = p[1]; li.appendChild(s); li.appendChild(b); list.appendChild(li);
+  });
+  FL.showMatch(match, document.getElementById('summary-label'));
+  document.getElementById('interview-code').textContent = APP.code;
+
+  // My Progress: the score, the names of answers to check, and the interview code. Never what was typed.
+  FL.saveSession({ category:'MoyCheese Crew Member Application', elapsedSeconds:seconds, matched:match.matched, matchTotal:match.total,
+    mismatchFields:match.mismatches.map(function (m) { return m.label; }), interviewCode:APP.code });
+  try { localStorage.setItem('sp_moycheese_interview_code', JSON.stringify({ code:APP.code, date:new Date().toISOString() })); } catch (e) {}
+
+  // The page itself changes here, so focus moves to the new page's heading
+  document.getElementById('practice-section').hidden = true;
+  document.getElementById('confirm-section').hidden = false;
+  document.title = 'Application Submitted: MoyCheese Crew Member Application on ScreenPath';
+  window.scrollTo(0, 0);
+  document.getElementById('confirm-title').focus();
+}
+
+// Practice Again: back to the setup screen with a different applicant
+document.getElementById('again-btn').addEventListener('click', function () { location.href = location.pathname; });
+</script>
+</body></html>

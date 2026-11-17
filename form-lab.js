@@ -7,6 +7,8 @@
    3. The Not Accessible and Accessible tabs, including how often and how long the Accessible tab was checked.
    4. The elapsed time clock in the status bar.
    5. The completion pop-up: focus, Tab trap, Escape to close, Copy, and the email link.
+      A form that ends on a full page instead (the Crew Member Application) keeps the Copy and email
+      controls on that page and leaves the pop-up out.
    6. Saving the session to My Progress (sp_formskills_sessions). Only counts are saved, never what the student typed.
    7. The site menu button.
    8. The scenario card: the fictional person's details above the form, one "Label: value" line each,
@@ -195,27 +197,30 @@
         else ok = norm(got) === norm(c.expect);
       }
       if (ok) res.matched++;
-      else res.mismatches.push({ label: c.label, shown: String(shown).trim() || 'nothing', want: c.type === 'date' ? niceDate(c.expect) : (c.say || c.expect) });
+      else res.mismatches.push({ label: c.label, shown: String(shown).trim() || 'nothing', want: c.type === 'date' ? niceDate(c.expect) : (c.say || c.expect),
+        // A check with answer:true is something the student works out, like a math question, not a scenario detail
+        says: c.answer ? 'The correct answer is' : 'The scenario says' });
     });
     return res;
   };
   FL.matchLines = function (res) {
     var l = ['Matches the scenario: ' + res.matched + ' of ' + res.total + ' answers'];
-    res.mismatches.forEach(function (m) { l.push('  ' + m.label + ': entered ' + m.shown + ', scenario says ' + m.want); });
+    res.mismatches.forEach(function (m) { l.push('  ' + m.label + ': entered ' + m.shown + ', ' + (m.says === 'The correct answer is' ? 'correct answer is ' : 'scenario says ') + m.want); });
     return l;
   };
-  FL.showMatch = function (res) {
+  // Shown before the Talk it over box in the completion pop-up, or before the element a form passes in
+  FL.showMatch = function (res, before) {
     var old = document.getElementById('match-results'); if (old) old.remove();
     var box = document.createElement('div'); box.className = 'match-results'; box.id = 'match-results';
     var esc = function (t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;'); };
     var h = '<h3>How your answers match the scenario</h3><p>Matches the scenario: ' + res.matched + ' of ' + res.total + ' answers.</p>';
     if (res.mismatches.length) {
       h += '<ul>' + res.mismatches.map(function (m) {
-        return '<li>' + esc(m.label) + ': you entered ' + esc(m.shown) + '. The scenario says ' + esc(m.want) + '.</li>';
+        return '<li>' + esc(m.label) + ': you entered ' + esc(m.shown) + '. ' + (m.says || 'The scenario says') + ' ' + esc(m.want) + '.</li>';
       }).join('') + '</ul>';
     } else h += '<p>Every answer matches. Great attention to detail.</p>';
     box.innerHTML = h;
-    var talk = document.querySelector('#completion-overlay .talk');
+    var talk = before || document.querySelector('#completion-overlay .talk');
     talk.parentNode.insertBefore(box, talk);
   };
 
@@ -238,11 +243,11 @@
       try { navigator.clipboard.writeText(text).then(function () { FL.announce('Copied to clipboard.'); }); }
       catch (e) { $('summary-text').select(); FL.announce('Could not copy automatically. The summary is selected for you to copy.'); }
     });
-    $('skip-btn').addEventListener('click', FL.closeCompletion);
+    if ($('skip-btn')) $('skip-btn').addEventListener('click', FL.closeCompletion);
     $('email-btn').addEventListener('click', function () { FL.announce('Opening your email application.'); });
     document.addEventListener('keydown', function (e) {
       var ov = $('completion-overlay');
-      if (!ov.classList.contains('open')) return;
+      if (!ov || !ov.classList.contains('open')) return;
       if (e.key === 'Escape') { FL.closeCompletion(); return; }
       if (e.key !== 'Tab') return;
       var f = ov.querySelectorAll('button,a[href],textarea'), first = f[0], last = f[f.length - 1];

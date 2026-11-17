@@ -1413,6 +1413,7 @@
     function formLabBasic(s){
       if (s.orderTotal != null) return s.itemCount + ' item' + (s.itemCount===1?'':'s') + ', total $' + Number(s.orderTotal).toFixed(2);
       if (s.totalFields != null) return s.totalFilled + ' of ' + s.totalFields + ' fields';
+      if (s.interviewCode) return 'Interview code ' + s.interviewCode;
       return 'Completed';
     }
     function formLabText(s, n){
@@ -1446,7 +1447,15 @@
         tb.appendChild(tr);
       });
       table.appendChild(tb); wrap.appendChild(table);
-      container.innerHTML = ''; container.appendChild(wrap);
+      container.innerHTML = '';
+      // The newest MoyCheese interview code, so a student who comes back later can still open the interview
+      var saved = recall('sp_moycheese_interview_code', null);
+      if (saved && saved.code){
+        var codeP = document.createElement('p'); codeP.className = 'interview-code-line';
+        codeP.textContent = 'Your MoyCheese interview code: ' + saved.code;
+        container.appendChild(codeP);
+      }
+      container.appendChild(wrap);
       globalBtns.style.display = 'flex';
       document.getElementById('form-lab-share-all').onclick = function(){
         var all = loadFormLabSessions().map(function(s,i){ return formLabText(s,i+1); }).join('\n\n---\n\n');
@@ -1458,7 +1467,7 @@
       };
       document.getElementById('form-lab-reset').onclick = function(){
         if (!confirm('This will delete all Form Lab history. This cannot be undone. Are you sure?')) return;
-        try { localStorage.removeItem('sp_formskills_sessions'); } catch(e){}
+        try { localStorage.removeItem('sp_formskills_sessions'); localStorage.removeItem('sp_moycheese_interview_code'); } catch(e){}
         renderFormLabHistory(); announce('Progress for Form Lab has been reset.');
       };
     }
