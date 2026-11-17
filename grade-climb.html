@@ -1424,7 +1424,6 @@
       setTimeout(() => sfxNote(90, 'sawtooth', 0.6, 0.4), 360);
     }
 
-    // Synthesized fallback for level-up; a real audio file (once provided) is preferred; see playLevelUpSound().
     function sfxLevelUp() {
       sfxNote(440, 'triangle', 0.08, 0.35);
       setTimeout(() => sfxNote(554.37, 'triangle', 0.08, 0.35), 80);
@@ -1438,36 +1437,9 @@
       setTimeout(() => sfxNote(900, 'sine', 0.15, 0.3), 80);
     }
 
-    /* Level-Up Sound Hook
-       Drop a file named "level-up.mp3" alongside this page to have it play automatically
-       when a student passes a grade. Until that file exists, the synthesized sfxLevelUp()
-       fanfare above plays instead so nothing is ever silent. To move this cue to a different
-       moment (every correct answer, or only at the final 6th Grade victory) just move this
-       function call to a different spot in the game logic below; the function itself does
-       not need to change. */
-    let levelUpAudioEl = null;
-    let levelUpAudioChecked = false;
-    let levelUpAudioAvailable = false;
-    function primeLevelUpAudio() {
-      if (levelUpAudioChecked) return;
-      levelUpAudioChecked = true;
-      const audio = new Audio('level-up.mp3');
-      audio.oncanplaythrough = () => { levelUpAudioAvailable = true; };
-      audio.onerror = () => { levelUpAudioAvailable = false; };
-      levelUpAudioEl = audio;
-    }
-    function playLevelUpSound() {
-      if (!sfxEnabled) return;
-      if (levelUpAudioAvailable && levelUpAudioEl) {
-        try {
-          levelUpAudioEl.volume = 0.9;
-          levelUpAudioEl.currentTime = 0;
-          levelUpAudioEl.play().catch(() => sfxLevelUp());
-          return;
-        } catch (e) {}
-      }
-      sfxLevelUp();
-    }
+    // The level-up fanfare is built from tones, so no sound file is needed
+    function primeLevelUpAudio() {}
+    function playLevelUpSound() { if (sfxEnabled) sfxLevelUp(); }
 
     // Settings UI wiring
     const sfxToggle = document.getElementById('sfx-toggle');

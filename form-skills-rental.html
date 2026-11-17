@@ -63,7 +63,7 @@
     <div class="card">
       <h2 style="border:none;padding:0;margin-bottom:1rem;">What to expect</h2>
       <p>This form has seven sections: your information, your current residence, your employment, your household, an emergency contact, move-in details and documents, and a final agreement you sign by typing your name.</p>
-      <p>Choose <strong>Accessible</strong> below to practice on a clean, correctly built copy of the form. Choose <strong>Not Accessible</strong> to practice on a copy with real problems in it on purpose: some fields missing labels, some groups not announced as groups, and at least one heading that only looks like a heading. In that mode you'll still submit from the Not Accessible tab, but the Accessible tab is one keystroke away any time you want to check how a field should have been built.</p>
+      <p>Choose <strong>Accessible</strong> below to practice on a clean, correctly built copy of the form. Choose <strong>Not Accessible</strong> to practice on a copy with real problems in it on purpose: some fields missing labels, some groups not announced as groups, and at least one heading that only looks like a heading. In that mode you'll still submit from the Not Accessible tab, and you can switch to the Accessible tab any time you want to check how a field should have been built.</p>
       <p>Some fields have a short "Why they ask" note under them that explains what the landlord is looking for. Your screen reader reads it when you reach the field.</p>
       <p class="lead" style="margin-bottom:0;">Nothing on this page is a dead end, and nothing you type is saved or sent anywhere on its own. At the end, you can choose to copy a practice summary or email it to your teacher.</p>
     </div>
@@ -130,7 +130,7 @@
         <h2>Your Information</h2>
         <div class="field">
           <label for="acc-name">Full legal name<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
-          <input type="text" id="acc-name" name="name" autocomplete="name" aria-required="true">
+          <input type="text" id="acc-name" name="name" autocomplete="off" aria-required="true">
         </div>
         <div class="field">
           <label for="acc-dob">Date of birth<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
@@ -138,17 +138,17 @@
         </div>
         <div class="field">
           <label for="acc-phone">Phone number<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
-          <input type="tel" id="acc-phone" name="phone" autocomplete="tel" aria-required="true">
+          <input type="tel" id="acc-phone" name="phone" autocomplete="off" aria-required="true">
         </div>
         <div class="field">
           <label for="acc-email">Email address<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
-          <input type="email" id="acc-email" name="email" autocomplete="email" aria-required="true">
+          <input type="email" id="acc-email" name="email" autocomplete="off" aria-required="true">
         </div>
 
         <h2>Current Residence</h2>
         <div class="field">
           <label for="acc-address">Current street address<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
-          <input type="text" id="acc-address" name="address" autocomplete="street-address" aria-required="true">
+          <input type="text" id="acc-address" name="address" autocomplete="off" aria-required="true">
         </div>
         <div class="field">
           <label for="acc-city">City<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
@@ -160,7 +160,7 @@
         </div>
         <div class="field">
           <label for="acc-zip">ZIP code<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
-          <input type="text" id="acc-zip" name="zip" autocomplete="postal-code" aria-required="true">
+          <input type="text" id="acc-zip" name="zip" autocomplete="off" aria-required="true">
         </div>
         <div class="field">
           <label for="acc-duration">How long have you lived at your current address?<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label>
@@ -405,7 +405,7 @@ function buildSkillFocusHTML(mode, sr){
   if(mode==='accessible'){
     return '<strong>Skill focus.</strong> You are on the clean, fully built version of this form. Move through each section by heading, fill in every required field, and choose Submit Application when you are done. If something is missing, the error summary will tell you exactly what and move your focus straight to it.';
   }
-  var txt='<strong>Skill focus.</strong> You are on the Not Accessible tab. This version has real accessibility problems built in on purpose: some fields are missing labels, some groups are not announced as groups, and at least one section heading is not really a heading. You still have to submit from this tab, but the Accessible tab is one keystroke away any time you want to check how a field should have been built. If a field or dropdown does not announce a label, use your arrow keys to read the text just before it. That is usually the label your screen reader could not find.';
+  var txt='<strong>Skill focus.</strong> You are on the Not Accessible tab. This version has real accessibility problems built in on purpose: some fields are missing labels, some groups are not announced as groups, and at least one section heading is not really a heading. You still have to submit from this tab, and you can switch to the Accessible tab any time you want to check how a field should have been built. If a field or dropdown does not announce a label, read the text just before it, line by line. That is usually the label your screen reader could not find.';
   txt+=FL.fakeHeadingTip();
   return txt;
 }

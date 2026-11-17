@@ -269,7 +269,7 @@ function buildForm(p, na){
   h+='<fieldset><legend>How do you want to get your order?<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></legend><div class="radio-row">';
   h+='<label><input type="radio" name="'+p+'-get" value="Pickup" required> Pickup</label><label><input type="radio" name="'+p+'-get" value="Delivery" aria-describedby="'+p+'-delivery-why"> Delivery ($2.99 fee)</label></div>';
   h+='<p class="hint why" id="'+p+'-delivery-why">'+NOTES.delivery+'</p></fieldset>';
-  h+='<div class="field" id="'+p+'-address-wrap" hidden><label for="'+p+'-address">Delivery address<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required for delivery)</span></label><input type="text" id="'+p+'-address" name="address" autocomplete="street-address"></div>';
+  h+='<div class="field" id="'+p+'-address-wrap" hidden><label for="'+p+'-address">Delivery address<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required for delivery)</span></label><input type="text" id="'+p+'-address" name="address" autocomplete="off"></div>';
   h+='<div class="field"><label for="'+p+'-when">When do you want it?</label><select id="'+p+'-when" name="when"><option>As soon as possible</option><option>In 30 minutes</option><option>In 45 minutes</option><option>In 1 hour</option></select></div>';
 
   h+='<h2>Tip</h2>';
@@ -282,14 +282,14 @@ function buildForm(p, na){
   }
 
   h+='<h2>Your Information</h2>';
-  h+='<div class="field"><label for="'+p+'-name">Your name<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label><input type="text" id="'+p+'-name" name="name" autocomplete="name" required></div>';
+  h+='<div class="field"><label for="'+p+'-name">Your name<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label><input type="text" id="'+p+'-name" name="name" autocomplete="off" required></div>';
   if(na){
     // BUG (na): phone has a placeholder instead of a label.
     h+='<div class="field"><span class="fake-label">Phone number <span class="req-mark" aria-hidden="true">*</span></span><input type="tel" id="'+p+'-phone" name="phone" placeholder="Phone number" required aria-describedby="'+p+'-phone-why"><p class="hint why" id="'+p+'-phone-why">'+NOTES.phone+'</p></div>';
   } else {
-    h+='<div class="field"><label for="'+p+'-phone">Phone number<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label><input type="tel" id="'+p+'-phone" name="phone" autocomplete="tel" required aria-describedby="'+p+'-phone-why"><p class="hint why" id="'+p+'-phone-why">'+NOTES.phone+'</p></div>';
+    h+='<div class="field"><label for="'+p+'-phone">Phone number<span class="req-mark" aria-hidden="true">*</span><span class="req-text">(required)</span></label><input type="tel" id="'+p+'-phone" name="phone" autocomplete="off" required aria-describedby="'+p+'-phone-why"><p class="hint why" id="'+p+'-phone-why">'+NOTES.phone+'</p></div>';
   }
-  h+='<div class="field"><label for="'+p+'-email">Email for your receipt (optional)</label><input type="email" id="'+p+'-email" name="email" autocomplete="email" aria-describedby="'+p+'-email-why"><p class="hint why" id="'+p+'-email-why">'+NOTES.email+'</p></div>';
+  h+='<div class="field"><label for="'+p+'-email">Email for your receipt (optional)</label><input type="email" id="'+p+'-email" name="email" autocomplete="off" aria-describedby="'+p+'-email-why"><p class="hint why" id="'+p+'-email-why">'+NOTES.email+'</p></div>';
   h+='<div class="field"><label for="'+p+'-notes">Special instructions (optional)</label><textarea id="'+p+'-notes" name="notes" placeholder="For example: no onions, or extra napkins"></textarea></div>';
   h+='<div id="'+p+'-submit-wrap" style="margin-top:1.75rem;"><button type="button" class="btn primary" id="'+p+'-submit">Place Order</button></div>';
   h+='</form>';

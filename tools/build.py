@@ -194,7 +194,7 @@ esc_body = hero('Activities','Escape Rooms',[]) + f"""<div class="main-wrap">
 <p><strong>Before you start:</strong> each escape room lists the skills it uses, so check them before you open it.</p></div>
 <ul class="card-grid">
 {item('the-school.html','The School',['The doors have locked after school. Find the codes, follow the clues, and use the computer lab to unlock the exit.','Skills practiced: headings, links, tables, and forms.'],'the-school.svg')}
-{item('doctors-visit.html',"The Doctor's Visit",['Check in, get seen, and check out during a visit to the school health office.','Skills practiced: forms, listening, and tables.'],'doctors-visit.svg')}
+{item('doctors-visit.html',"The Doctor's Visit",['Check in, get seen, and check out during a visit to the doctor.','Skills practiced: forms, listening, and tables.'],'doctors-visit.svg')}
 {item('grocery-store.html','The Grocery Store',['Dinner at Seven. Your grandparents arrive at 7:00 and your ride leaves at 6:15. Sort the list, shop the aisles, beat the scanner, and get out the door.','Skills practiced: dropdowns, tables, checkboxes, links, and radio buttons.'],'grocery-store.svg')}
 </ul>
 <a class="back-link" href="index.html">Back to all activities</a>
@@ -207,7 +207,7 @@ STORIES = {
    rooms=[('The School Office','headings','mission-1a.html'),('The Library','links and tables','mission-1b.html'),('The Computer Lab','form navigation and text entry','mission-1c.html')]),
  'grocery-store.html': dict(label='The Grocery Store', img='grocery-store.svg', desc='', time='Challenge mode gives you 6, 5, 4, and 3 minutes for the four rooms, and Mr. Moy Mode gives you half that.', currentKey='sp_grocery_current_session', sessionsKey='sp_grocery_sessions',
    rooms=[('The Entrance','matching questions and dropdowns','mission-3a.html'),('The Aisles','tables and checkboxes','mission-3b.html'),('The Express Checkout','links and verification','mission-3c.html'),('Out the Door','radio buttons','mission-3d.html')]),
- 'doctors-visit.html': dict(label="The Doctor's Visit", img='doctors-visit.svg', desc='Check in, get seen, and check out during a visit to the school health office.', time='Challenge mode gives you 5, 3, 5, and 5 minutes for the four rooms, and Mr. Moy Mode gives you half that.', currentKey='sp_doctor_current_session', sessionsKey='sp_doctor_sessions',
+ 'doctors-visit.html': dict(label="The Doctor's Visit", img='doctors-visit.svg', desc='Check in, get seen, and check out during a visit to the doctor.', time='Challenge mode gives you 5, 3, 5, and 5 minutes for the four rooms, and Mr. Moy Mode gives you half that.', currentKey='sp_doctor_current_session', sessionsKey='sp_doctor_sessions',
    rooms=[('The Check-In Desk','edit fields and combo boxes','mission-2a.html'),('The Exam Room','listening and auditory attention','mission-2b.html'),('Growth and Vitals History','table navigation','mission-2c.html'),('The Front Desk','interactive tables and booking','mission-2d.html')]),
 }
 story_css = """
@@ -239,7 +239,7 @@ var sessions=JSON.parse(localStorage.getItem(S.sessionsKey)||'[]');if(sessions.l
 # ---------------- ARCADE ----------------
 arc_body = hero('Activities','Arcade',[]) + f"""<div class="main-wrap">
 <ul class="card-grid">
-{item('word-guess.html','Word Guess',['Guess a secret word letter by letter. Choose a grade level, then listen for spoken feedback after every guess.','Skills practiced: spelling and listening.'],'word-guess.svg')}
+{item('word-guess.html','Word Guess',['Guess a secret word letter by letter. Choose a grade level, then listen for your screen reader to announce feedback after every guess.','Skills practiced: spelling and listening.'],'word-guess.svg')}
 {item('grade-climb.html','Grade Climb',['Climb from 1st grade to 6th, answering questions on math, reading, science, and screen reader commands.','Skills practiced: recall and assistive technology commands.'],'quiz.svg')}
 </ul>
 <a class="back-link" href="index.html">Back to all activities</a>
@@ -250,7 +250,7 @@ page('arcade.html','Arcade on ScreenPath','',arc_body)
 sd_body = hero('Activities','Skill Drills',[]) + f"""<div class="main-wrap">
 <ul class="card-grid">
 {item('writing-lab.html','Writing Lab',['Free Write for open ended typing practice, or Dictation Practice to type back exactly what you hear.','Skills practiced: typing accuracy and listening.'],'writing-lab.svg')}
-{item('form-lab.html','Form Lab',['Practice the forms you will meet in real life, from ordering at a restaurant to applying for college and scholarships.','Skills practiced: edit fields, combo boxes, checkboxes, radio buttons, and submitting forms.'],'form-lab.svg')}
+{item('form-lab.html','Form Lab',['Practice the forms you will meet in real life, from ordering at a restaurant to applying for a job or a place to live.','Skills practiced: edit fields, combo boxes, checkboxes, radio buttons, and submitting forms.'],'form-lab.svg')}
 </ul>
 <a class="back-link" href="index.html">Back to all activities</a>
 </div>"""
@@ -401,7 +401,7 @@ tw_css = """
 FAQ = [
  ("Which screen readers and devices work with it?",
   ["ScreenPath runs in any current web browser, so it works with screen readers on computers, tablets, and phones, and nothing needs to be installed. It has been tested with JAWS and NVDA on Windows and VoiceOver on Mac and iPhone.",
-   "Some activities can also read text aloud with the browser's built in voice. That works best in Chrome and Edge, is always optional, and every activity works fully without it."]),
+   "A few activities can read text aloud with the browser's built in voice, and only when the student starts it. Escape room scenes have an optional Play Scene button, and Dictation Practice in Writing Lab needs the voice to read each sentence. It works best in Chrome and Edge."]),
  ("How is student progress saved, and why might it disappear?",
   ["Each finished room, game, or practice session saves a record in the student's own browser, and students can see it anytime on the <a href=\"progress.html\">My Progress page</a>. The bottom of that page explains in student friendly words what is saved and what is not.",
    "Because progress lives only in that browser, it does not follow the student to another computer or browser, and clearing browsing data or using a private window erases it. Review it with the student on their own device."]),
