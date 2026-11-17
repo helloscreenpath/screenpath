@@ -131,3 +131,15 @@ html{scroll-padding-top:84px;}
 body{padding-top:64px;}
 .back-link{display:inline-block;color:var(--text-muted);text-decoration:none;font-size:.9rem;font-weight:600;margin-bottom:1.25rem;}
 .back-link:hover{color:var(--text);}
+
+/* Scenario card and its pop-up */
+.scenario-card{background:var(--surface);border:1px solid rgba(57,217,138,.35);border-radius:12px;padding:1.25rem 1.4rem;margin:0 0 1.5rem;}
+.scenario-card h2,.scenario-dialog h2{font-size:1.15rem;margin:0 0 .5rem;}
+.scenario-list{list-style:none;margin:.75rem 0 0;padding:0;}
+.scenario-list li{padding:.3rem 0;border-bottom:1px solid var(--border);}
+.scenario-list li:last-child{border-bottom:none;}
+.scenario-label{font-weight:700;color:var(--green);}
+.scenario-btn{margin-right:.75rem;margin-bottom:.75rem;}
+.scenario-dialog{background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:14px;padding:1.5rem;max-width:560px;width:calc(100% - 2rem);margin:auto;}
+.scenario-dialog::backdrop{background:rgba(0,0,0,.7);}
+.scenario-dialog .btn{margin-top:1rem;}

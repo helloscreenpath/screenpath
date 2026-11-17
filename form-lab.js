@@ -9,6 +9,8 @@
    5. The completion pop-up: focus, Tab trap, Escape to close, Copy, and the email link.
    6. Saving the session to My Progress (sp_formskills_sessions). Only counts are saved, never what the student typed.
    7. The site menu button.
+   8. The scenario card: the fictional person's details above the form, one "Label: value" line each,
+      and a Show My Scenario button beside each Submit button that opens the same details in a pop-up.
 
    House rules this file follows: no em dashes, no regions, screen reader terms instead of key names in
    anything a student reads, and focus moves only when the page itself changes (setup to practice, the pop-up). */
@@ -110,6 +112,7 @@
     var tablist = document.querySelector('.tablist'), panelAcc = $('panel-accessible'), panelNA = $('panel-notaccessible');
     // The form's own layout first (its banners, buttons, and tabs), then the tabs are switched on
     if (cfg.afterLayout) cfg.afterLayout(FL.state.mode);
+    renderScenario(cfg.scenario);
     if (acc) {
       tablist.hidden = true; panelNA.hidden = true; panelAcc.hidden = false;
       panelAcc.removeAttribute('role'); panelAcc.removeAttribute('aria-labelledby'); panelAcc.removeAttribute('tabindex');
@@ -122,6 +125,34 @@
     FL.startTimer();
     FL.announce(acc ? cfg.startAccessible : 'Practice started. You are on the Not Accessible tab. Switch to the Accessible tab anytime to check something.');
     var h = $('practice-title'); h.setAttribute('tabindex', '-1'); h.focus();
+  }
+
+  // ── Scenario card: fictional details only, so students never type their own information ──
+  function scenarioList(items) {
+    return '<ul class="scenario-list">' + items.map(function (it) {
+      return '<li><span class="scenario-label">' + it[0] + ':</span> ' + it[1] + '</li>';
+    }).join('') + '</ul>';
+  }
+  function renderScenario(sc) {
+    if (!sc || document.getElementById('scenario-card')) return;
+    var card = document.createElement('div');
+    card.className = 'scenario-card'; card.id = 'scenario-card';
+    card.innerHTML = '<h2 id="scenario-heading">Your Scenario</h2><p>' + sc.intro + '</p>' + scenarioList(sc.items);
+    var tablist = document.querySelector('.tablist');
+    tablist.parentNode.insertBefore(card, tablist);
+    var dlg = document.createElement('dialog');
+    dlg.className = 'scenario-dialog'; dlg.id = 'scenario-dialog'; dlg.setAttribute('aria-labelledby', 'scenario-dialog-heading');
+    dlg.innerHTML = '<h2 id="scenario-dialog-heading">Your Scenario</h2><p>' + sc.intro + '</p>' + scenarioList(sc.items) +
+      '<button type="button" class="btn primary" id="scenario-close">Close</button>';
+    document.body.appendChild(dlg);
+    document.getElementById('scenario-close').addEventListener('click', function () { dlg.close(); });
+    (sc.buttonsBefore || []).forEach(function (id) {
+      var target = document.getElementById(id); if (!target) return;
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'btn scenario-btn'; b.textContent = 'Show My Scenario';
+      b.addEventListener('click', function () { dlg.showModal(); var h = document.getElementById('scenario-dialog-heading'); h.setAttribute('tabindex', '-1'); h.focus(); });
+      target.parentNode.insertBefore(b, target);
+    });
   }
 
   // ── Completion pop-up ──

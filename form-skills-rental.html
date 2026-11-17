@@ -412,6 +412,16 @@ function buildSkillFocusHTML(mode, sr){
 
 // ---- setup screen, tabs, and timer live in form-lab.js ----
 FL.setup({
+  scenario: {
+    intro: 'You are Dorothy Gale. You are 19 and applying for your first apartment. Use these details to fill in the application.',
+    buttonsBefore: ['submit-acc','submit-na'],
+    items: [['Full legal name','Dorothy Gale'],['Date of birth','March 14, 2007'],['Phone number','801 555 0187'],['Email address','dorothy.gale@example.com'],
+      ['Current street address','1275 North Willow Creek Drive'],['City','Layton'],['State','Utah'],['ZIP code','84041'],
+      ['Time at current address','More than 5 years'],['Employer name','MoyCheese'],['Job title','Crew Member'],
+      ['Monthly income before taxes','$1,850'],['Time at this job','1 to 3 years'],['Pets','No'],['Smoking','No'],
+      ['Emergency contact name','Em Gale'],['Emergency contact phone','801 555 0163'],['Relationship to you','Aunt'],
+      ['Desired move in date','January 1, 2027'],['Lease term','12 months'],['Signature','Type your full legal name']]
+  },
   skillFocus: buildSkillFocusHTML,
   startAccessible: 'Practice started on the accessible version of the form.',
   afterLayout: function(mode){

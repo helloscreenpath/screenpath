@@ -406,6 +406,13 @@ function skillFocus(mode, sr){
   return t;
 }
 FL.setup({
+  scenario: {
+    intro: 'You are Robin Hood, ordering dinner for yourself and your friend Little John. Use these details to fill in the order.',
+    buttonsBefore: ['acc-submit','na-submit'],
+    items: [['Name','Robin Hood'],['Phone','801 555 0142'],['Food','2 Cheeseburgers, 1 French Fries, 1 Onion Rings'],['Drinks','2 Fresh Lemonades'],
+      ['Pickup or delivery','Delivery'],['Delivery address','482 Maple Grove Lane'],['When','In 45 minutes'],['Tip','15 percent'],
+      ['Special instructions','No onions on one cheeseburger']]
+  },
   skillFocus: skillFocus,
   startAccessible: 'Practice started on the accessible order page.',
   beforeShow: function(mode){
