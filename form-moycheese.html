@@ -430,9 +430,36 @@ FL.setup({
   }
 });
 
+// ---- the answers Robin Hood's scenario calls for ----
+function scenarioChecks(o){
+  var want={'Cheeseburger':2,'French Fries':1,'Onion Rings':1,'Fresh Lemonade':2};
+  function items(names){
+    var got=o.items.filter(function(i){ return names.indexOf(i.name)!==-1 || !(i.name in want); });
+    var ok=names.every(function(n){ return o.items.some(function(i){ return i.name===n && i.qty===want[n]; }); });
+    return { ok: ok, shown: got.length ? got.map(function(i){ return i.qty+' '+i.name; }).join(', ') : 'nothing' };
+  }
+  return [
+    {label:'Name',field:'name',expect:'Robin Hood'},
+    {label:'Phone',field:'phone',expect:'801 555 0142',type:'digits'},
+    {label:'Food',type:'custom',say:'2 Cheeseburgers, 1 French Fries, 1 Onion Rings',test:function(){
+      var r=items(['Cheeseburger','French Fries','Onion Rings']);
+      var extra=o.items.filter(function(i){ return !(i.name in want); });
+      return { ok: r.ok && extra.length===0, shown: r.shown }; }},
+    {label:'Drinks',type:'custom',say:'2 Fresh Lemonades',test:function(){
+      var l=o.items.filter(function(i){ return i.name==='Fresh Lemonade'; });
+      return { ok: l.length===1 && l[0].qty===2, shown: l.length ? l[0].qty+' Fresh Lemonade' : 'nothing' }; }},
+    {label:'Pickup or delivery',field:'get',expect:'Delivery',type:'radio'},
+    {label:'Delivery address',field:'address',expect:'482 Maple Grove Lane'},
+    {label:'When',field:'when',expect:'In 45 minutes'},
+    {label:'Tip',type:'custom',say:'15 percent',test:function(){ return { ok: Math.round(o.tipRate*100)===15, shown: Math.round(o.tipRate*100)+' percent' }; }},
+    {label:'Special instructions',field:'notes',expect:['onion'],say:'No onions on one cheeseburger',type:'contains'}
+  ];
+}
+
 // ---- finish ----
 function finish(p){
   var o=getOrder(p);
+  var match=FL.checkScenario(p, scenarioChecks(o));
   var seconds=FL.stopTimer();
   var hintSeconds=FL.hintSeconds();
   var timeStr=Math.floor(seconds/60)+' min '+(seconds%60<10?'0':'')+(seconds%60)+' sec';
@@ -459,12 +486,14 @@ function finish(p){
   var lines=['ScreenPath Form Lab Practice','Form: MoyCheese Online Order','Screen reader used: '+FL.state.sr,'Version practiced: '+modeLabel];
   if(FL.state.mode!=='accessible') lines.push('Accessible tab checked: '+FL.state.hintViews+' time'+(FL.state.hintViews===1?'':'s')+(FL.state.hintViews?' ('+hintSeconds+' sec total)':''));
   lines.push('Order attempts: '+FL.state.attempts,'Time to complete: '+timeStr,'Order: '+o.items.map(function(i){ return i.qty+' '+i.name; }).join(', '),'Pickup or delivery: '+o.get,'Tip: '+Math.round(o.tipRate*100)+' percent','Total: '+money(o.total)+' (subtotal '+money(o.sub)+', tax '+money(o.tax)+(o.tip?', tip '+money(o.tip):'')+(o.fee?', delivery '+money(o.fee):'')+')','Date: '+new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}));
+  lines=lines.concat(FL.matchLines(match));
   document.getElementById('summary-text').value=lines.join('\n');
+  FL.showMatch(match);
 
-  var compact=['ScreenPath Form Lab: MoyCheese Online Order','SR: '+FL.state.sr+' | Mode: '+modeLabel+' | Time: '+Math.floor(seconds/60)+':'+(seconds%60<10?'0':'')+(seconds%60)+' | Attempts: '+FL.state.attempts+(FL.state.mode!=='accessible'?' | Hint tab: '+FL.state.hintViews+'x':''),'Items: '+o.count+' | '+o.get+' | Tip '+Math.round(o.tipRate*100)+'% | Total '+money(o.total),'Date: '+new Date().toLocaleDateString('en-US'),'','Talk it over answers:'].join('\n');
+  var compact=['ScreenPath Form Lab: MoyCheese Online Order','SR: '+FL.state.sr+' | Mode: '+modeLabel+' | Time: '+Math.floor(seconds/60)+':'+(seconds%60<10?'0':'')+(seconds%60)+' | Attempts: '+FL.state.attempts+(FL.state.mode!=='accessible'?' | Hint tab: '+FL.state.hintViews+'x':''),'Items: '+o.count+' | '+o.get+' | Tip '+Math.round(o.tipRate*100)+'% | Total '+money(o.total),'Date: '+new Date().toLocaleDateString('en-US'),'Match: '+match.matched+'/'+match.total+(match.mismatches.length?' (check: '+match.mismatches.map(function(m){ return m.label; }).join(', ')+')':''),'','Talk it over answers:'].join('\n');
   FL.setEmail('ScreenPath Practice Summary: MoyCheese Online Order', compact);
 
-  FL.saveSession({category:'MoyCheese Online Order',elapsedSeconds:seconds,itemCount:o.count,orderTotal:Math.round(o.total*100)/100,fulfillment:o.get,tipPercent:Math.round(o.tipRate*100)});
+  FL.saveSession({category:'MoyCheese Online Order',elapsedSeconds:seconds,itemCount:o.count,orderTotal:Math.round(o.total*100)/100,fulfillment:o.get,tipPercent:Math.round(o.tipRate*100),matched:match.matched,matchTotal:match.total,mismatchFields:match.mismatches.map(function(m){ return m.label; })});
   FL.openCompletion('Order placed. Your receipt and summary are ready.');
 }
 </script>

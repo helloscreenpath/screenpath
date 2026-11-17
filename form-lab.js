@@ -155,6 +155,70 @@
     });
   }
 
+  // ── Checking answers against the scenario, after Submit ──
+  //    Each check: { label, field, expect, type } where type is text, digits, money, date, choice, radio, contains, or custom.
+  //    Spaces, dashes, punctuation, and capital letters never count as mistakes.
+  function norm(t) { return String(t || '').toLowerCase().replace(/[^a-z0-9]/g, ''); }
+  function isoDate(t) {
+    t = String(t || '').trim(); if (!t) return '';
+    if (/^\d{4}-\d{2}-\d{2}$/.test(t)) return t;
+    var d = new Date(t); if (isNaN(d)) return t;
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+  function niceDate(iso) {
+    var p = String(iso).split('-'); if (p.length !== 3) return iso;
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    return months[+p[1] - 1] + ' ' + (+p[2]) + ', ' + p[0];
+  }
+  function findField(panel, prefix, field) {
+    return panel.querySelector('[name="' + field + '"]') || document.getElementById(prefix + '-' + field);
+  }
+  FL.checkScenario = function (prefix, checks) {
+    var panel = document.getElementById(prefix === 'acc' ? 'panel-accessible' : 'panel-notaccessible');
+    var res = { matched: 0, total: checks.length, mismatches: [] };
+    checks.forEach(function (c) {
+      var got = '', shown = '', ok = false;
+      if (c.type === 'radio') {
+        var r = panel.querySelector('input[type="radio"][name="' + prefix + '-' + c.field + '"]:checked') || panel.querySelector('input[type="radio"][name="' + c.field + '"]:checked');
+        got = r ? r.value : ''; shown = got; ok = norm(got) === norm(c.expect);
+      } else if (c.type === 'custom') {
+        var out = c.test(); ok = out.ok; shown = out.shown;
+      } else {
+        var el = findField(panel, prefix, c.field);
+        if (el && el.tagName === 'SELECT') { got = el.selectedIndex > 0 ? el.options[el.selectedIndex].text : ''; }
+        else got = el ? el.value : '';
+        shown = got;
+        if (c.type === 'digits') ok = got.replace(/\D/g, '') === String(c.expect).replace(/\D/g, '');
+        else if (c.type === 'money') ok = parseFloat(String(got).replace(/[^0-9.]/g, '')) === parseFloat(String(c.expect).replace(/[^0-9.]/g, ''));
+        else if (c.type === 'date') { ok = isoDate(got) === c.expect; if (/^\d{4}-\d{2}-\d{2}$/.test(got)) shown = niceDate(got); }
+        else if (c.type === 'contains') ok = c.expect.every(function (w) { return norm(got).indexOf(norm(w)) !== -1; });
+        else ok = norm(got) === norm(c.expect);
+      }
+      if (ok) res.matched++;
+      else res.mismatches.push({ label: c.label, shown: String(shown).trim() || 'nothing', want: c.type === 'date' ? niceDate(c.expect) : (c.say || c.expect) });
+    });
+    return res;
+  };
+  FL.matchLines = function (res) {
+    var l = ['Matches the scenario: ' + res.matched + ' of ' + res.total + ' answers'];
+    res.mismatches.forEach(function (m) { l.push('  ' + m.label + ': entered ' + m.shown + ', scenario says ' + m.want); });
+    return l;
+  };
+  FL.showMatch = function (res) {
+    var old = document.getElementById('match-results'); if (old) old.remove();
+    var box = document.createElement('div'); box.className = 'match-results'; box.id = 'match-results';
+    var esc = function (t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;'); };
+    var h = '<h3>How your answers match the scenario</h3><p>Matches the scenario: ' + res.matched + ' of ' + res.total + ' answers.</p>';
+    if (res.mismatches.length) {
+      h += '<ul>' + res.mismatches.map(function (m) {
+        return '<li>' + esc(m.label) + ': you entered ' + esc(m.shown) + '. The scenario says ' + esc(m.want) + '.</li>';
+      }).join('') + '</ul>';
+    } else h += '<p>Every answer matches. Great attention to detail.</p>';
+    box.innerHTML = h;
+    var talk = document.querySelector('#completion-overlay .talk');
+    talk.parentNode.insertBefore(box, talk);
+  };
+
   // ── Completion pop-up ──
   FL.setEmail = function (subject, body) {
     $('email-btn').href = 'mailto:' + encodeURIComponent(FL.state.teacherEmail) + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);

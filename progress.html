@@ -1653,6 +1653,10 @@ function announce(msg){var el=document.getElementById('live');if(!el)return;el.t
     //   totalFilled, totalFields (rental) | itemCount, orderTotal, fulfillment (MoyCheese) } ]
     function loadFormLabSessions(){ return recall('sp_formskills_sessions', []) || []; }
     function formLabResult(s){
+      var m = s.matchTotal != null ? 'Matched the scenario: ' + s.matched + ' of ' + s.matchTotal + (s.mismatchFields && s.mismatchFields.length ? ' (check ' + s.mismatchFields.join(', ') + ')' : '') + '. ' : '';
+      return m + formLabBasic(s);
+    }
+    function formLabBasic(s){
       if (s.orderTotal != null) return s.itemCount + ' item' + (s.itemCount===1?'':'s') + ', total $' + Number(s.orderTotal).toFixed(2);
       if (s.totalFields != null) return s.totalFilled + ' of ' + s.totalFields + ' fields';
       return 'Completed';

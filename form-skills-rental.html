@@ -546,6 +546,31 @@ function attemptSubmit(panelId, errorsBoxId, mode){
   finishPractice(panel);
 }
 
+// ---- the answers Dorothy Gale's scenario calls for ----
+var SCENARIO_CHECKS=[
+  {label:'Full legal name',field:'name',expect:'Dorothy Gale'},
+  {label:'Date of birth',field:'dob',expect:'2007-03-14',type:'date'},
+  {label:'Phone number',field:'phone',expect:'801 555 0187',type:'digits'},
+  {label:'Email address',field:'email',expect:'dorothy.gale@example.com'},
+  {label:'Current street address',field:'address',expect:'1275 North Willow Creek Drive'},
+  {label:'City',field:'city',expect:'Layton'},
+  {label:'State',field:'state',expect:'Utah'},
+  {label:'ZIP code',field:'zip',expect:'84041',type:'digits'},
+  {label:'Time at current address',field:'duration',expect:'More than 5 years'},
+  {label:'Employer name',field:'employer',expect:'MoyCheese'},
+  {label:'Job title',field:'title',expect:'Crew Member'},
+  {label:'Monthly income before taxes',field:'income',expect:'1850',say:'$1,850',type:'money'},
+  {label:'Time at this job',field:'emplength',expect:'1 to 3 years'},
+  {label:'Pets',field:'pets',expect:'No',type:'radio'},
+  {label:'Smoking',field:'smoke',expect:'No',type:'radio'},
+  {label:'Emergency contact name',field:'ecname',expect:'Em Gale'},
+  {label:'Emergency contact phone',field:'ecphone',expect:'801 555 0163',type:'digits'},
+  {label:'Relationship to you',field:'ecrel',expect:'Aunt'},
+  {label:'Desired move in date',field:'movein',expect:'2027-01-01',type:'date'},
+  {label:'Lease term',field:'lease',expect:'12 months'},
+  {label:'Signature',field:'signature',expect:'Dorothy Gale'}
+];
+
 // ---- summaries ----
 var TYPE_LABELS={text:'Text edit fields',email:'Email edit fields',tel:'Telephone edit fields',date:'Date edit fields',select:'Dropdowns and combo boxes',radioGroup:'Radio button groups',checkbox:'Checkboxes',textarea:'Multi line text areas',file:'File upload fields'};
 var TYPE_ABBR={text:'Txt',email:'Email',tel:'Tel',date:'Date',select:'Combo',radioGroup:'Radio',checkbox:'Chk',textarea:'TxtArea',file:'File'};
@@ -602,8 +627,11 @@ function finishPractice(workingPanel){
   var dateStr = new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
   var dateShort = new Date().toLocaleDateString('en-US');
 
-  var summaryText = buildFullSummary(modeLabel, timeStr, hintSeconds, stats, totalFilled, totalFields, dateStr);
-  var compactText = buildCompactSummary(modeLabel, timeShort, hintSeconds, stats, totalFilled, totalFields, dateShort);
+  // How the answers match Dorothy Gale's scenario
+  var match = FL.checkScenario(FL.state.mode==='accessible' ? 'acc' : 'na', SCENARIO_CHECKS);
+  var summaryText = buildFullSummary(modeLabel, timeStr, hintSeconds, stats, totalFilled, totalFields, dateStr) + '\n' + FL.matchLines(match).join('\n');
+  var compactText = buildCompactSummary(modeLabel, timeShort, hintSeconds, stats, totalFilled, totalFields, dateShort) +
+    '\nMatch: ' + match.matched + '/' + match.total + (match.mismatches.length ? ' (check: ' + match.mismatches.map(function(m){ return m.label; }).join(', ') + ')' : '');
 
   var statList=document.getElementById('stat-list');
   statList.innerHTML='';
@@ -622,13 +650,15 @@ function finishPractice(workingPanel){
     statList.appendChild(li);
   });
   document.getElementById('summary-text').value=summaryText;
+  FL.showMatch(match);
 
   // email link uses the compact summary to stay under mailto length limits
   FL.setEmail('ScreenPath Practice Summary: Rental Property Application', compactText);
 
   // save to localStorage (metadata only, never the text students typed into fields)
   FL.saveSession({ category:'Rental Property Application', elapsedSeconds:seconds, totalFields:totalFields, totalFilled:totalFilled,
-    fieldCounts:stats.counts, fieldFilled:stats.filled });
+    fieldCounts:stats.counts, fieldFilled:stats.filled, matched:match.matched, matchTotal:match.total,
+    mismatchFields:match.mismatches.map(function(m){ return m.label; }) });
   FL.openCompletion('Practice complete. Your summary is ready. Choose copy to clipboard, email your teacher, go back to Form Lab, or close.');
 }
 </script>
